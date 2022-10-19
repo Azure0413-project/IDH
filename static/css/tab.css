@@ -1,0 +1,45 @@
+.tab_css {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tab_css input {
+    display: none
+}
+
+.tab_css label {
+    margin: 0 5px 5px 0;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    background: #999;
+    color: #fff;
+    opacity: 0.5;
+}
+
+.tab_content {
+    order: 1;
+    display: none;
+    width: 100%;
+    border-bottom: 3px solid #ddd;
+    line-height: 1.6;
+    font-size: .9em;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.tab_css input:checked+label,
+.tab_css label:hover {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.tab_css input:checked+label+.tab_content {
+    display: initial;
+}
+
+.icon {
+    background-color: transparent;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDH Monitor System</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tab.css' %}">
+</head>
+<body>
+    <header>
+        <h1>成大醫院</h1>
+        <div id="currentTime"></div>
+        <nav class="navbar">
+            <img src="{%static 'img/dropdown.svg' %}" alt="v">
+            <ul class="nav_link">
+                <li>劉醫師，你好</li>
+            </ul>
+            <img src="{%static 'img/user.svg' %}" alt="user">
+        </nav>
+    </header>
+    <main>
+    {% block content %}
+    {% endblock %}
+    </main>
+    <script src="{%static 'js/index.js' %}"></script>
+</body>
+</html>
