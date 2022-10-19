@@ -1,7 +1,10 @@
 .tab_css {
     display: flex;
+    height: 75%;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: space-around;
 }
 
 .tab_css input {
@@ -9,25 +12,27 @@
 }
 
 .tab_css label {
-    margin: 0 5px 5px 0;
-    padding: 10px 16px;
+    width: 2.3em;
+    height: 5em;
+    margin: 0 0 0.3em 8em;
+    padding: 0.5em;
     cursor: pointer;
-    border-radius: 5px;
-    background: #999;
-    color: #fff;
+    border-radius: 15px 0px 0px 15px;
+    background: #274C77;
+    color: #E7ECEF;
     opacity: 0.5;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    text-align: center;
 }
 
 .tab_content {
+    z-index: 111;
     order: 1;
     display: none;
-    width: 100%;
-    border-bottom: 3px solid #ddd;
     line-height: 1.6;
     font-size: .9em;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
 }
 
 .tab_css input:checked+label,
@@ -36,10 +41,20 @@
     font-weight: bold;
 }
 
-.tab_css input:checked+label+.tab_content {
+.tab_css input:checked + label + .tab_content {
+    z-index: 111;
     display: initial;
 }
 
-.icon {
-    background-color: transparent;
+.container {
+    width: 85%;
+    height: 80%;
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 12%;
+    bottom: 5%;
+    background-color: #F8F8FB;
+    border-radius: 0px 10px 10px 0px;
+    box-shadow: 0px 12px 20px -8px rgba(0, 0, 0, 0.06);
 }
