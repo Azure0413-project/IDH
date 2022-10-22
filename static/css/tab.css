@@ -1,60 +1,64 @@
-.tab_css {
-    display: flex;
-    height: 75%;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-around;
+* {
+    box-sizing: border-box
 }
 
-.tab_css input {
-    display: none
+.container {
+    max-width: 95%;
+    display: block;
+    margin: 0 auto;
 }
 
-.tab_css label {
-    width: 2.3em;
-    height: 5em;
-    margin: 0 0 0.3em 8em;
-    padding: 0.5em;
-    cursor: pointer;
-    border-radius: 15px 0px 0px 15px;
-    background: #274C77;
+.tab {
+    float: left;
+    width: 3%;
+    height: 90%;
+    max-height: 80vh;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    margin-bottom: 0.5em;
+    display: block;
+    background-color: #274C77;
     color: #E7ECEF;
     opacity: 0.5;
+    padding: 1.2em 0.5em;
+    width: 100%;
+    border: none;
+    border-radius: 15px 0px 0px 15px;
+    outline: none;
     writing-mode: vertical-lr;
     text-orientation: upright;
     text-align: center;
+    cursor: pointer;
+    filter: drop-shadow(0px 6px 12px rgba(39, 76, 119, 0.3));
+    transition: 0.3s;
 }
 
-.tab_content {
-    z-index: 111;
-    order: 1;
-    display: none;
-    line-height: 1.6;
-    font-size: .9em;
-    padding: 15px;
+.tab button img {
+    margin: 0 auto;
 }
 
-.tab_css input:checked+label,
-.tab_css label:hover {
+/* Change background color of buttons on hover */
+.tab button:hover {
+    opacity: 0.8;
+    font-weight: bold;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
     opacity: 1;
     font-weight: bold;
 }
 
-.tab_css input:checked + label + .tab_content {
-    z-index: 111;
-    display: initial;
-}
-
-.container {
-    width: 85%;
-    height: 80%;
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 12%;
-    bottom: 5%;
+/* Style the tab content */
+.tabcontent {
+    float: left;
     background-color: #F8F8FB;
     border-radius: 0px 10px 10px 0px;
     box-shadow: 0px 12px 20px -8px rgba(0, 0, 0, 0.06);
+    width: 97%;
+    height: 85vh;
+    border-left: none;
+    display: none;
 }

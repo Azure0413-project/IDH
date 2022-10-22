@@ -1,104 +1,784 @@
-{% extends 'base.html' %}
-{% block content %}
-{% load static %}
-<div class="tab_css">
-	<!-- Dashboard start -->
-	<input id="tab1" type="radio" name="tab" checked="checked"/>
-	<label for="tab1" class="icon"><img src="{%static 'img/dashboard.svg' %}">首頁</label>
-	<div class="container">
-        <div class="tab_content">
-            第 1 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-        </div>
-    </div>
-	<!-- Dashboard end -->
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="container">
+  <div class="tab">
+    <button
+      class="tablinks"
+      onclick="openCity(event, 'dashboard')"
+      id="defaultOpen"
+    >
+      <img src="{%static 'img/dashboard.svg'%}" />首<br />頁
+    </button>
+    <button class="tablinks" onclick="openCity(event, 'tabA')">
+      A<br />區
+    </button>
+    <button class="tablinks" onclick="openCity(event, 'tabB')">
+      B<br />區
+    </button>
+    <button class="tablinks" onclick="openCity(event, 'tabC')">
+      C<br />區
+    </button>
+    <button class="tablinks" onclick="openCity(event, 'tabD')">
+      D<br />區
+    </button>
+    <button class="tablinks" onclick="openCity(event, 'tabE')">
+      E<br />區
+    </button>
+    <button class="tablinks" onclick="openCity(event, 'tabI')">
+      I<br />區
+    </button>
+  </div>
 
-	<!-- TAB A start -->
-	<input id="tab2" type="radio" name="tab"/>
-	<label for="tab2">A 區</label>
-	<div class="container">
-        <div class="tab_content">
-            第 2 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 2 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-        </div>
+  <div id="dashboard" class="tabcontent">
+    <div class="map">
+      <section class="area">
+        <h1>B</h1>
+        <ul class="up">
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>C</h1>
+        <ul class="up">
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>D</h1>
+        <ul class="up">
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <section class="area">
+        <h1>A</h1>
+        <ul class="down">
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li></li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li></li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>E</h1>
+        <ul class="down">
+          <li></li>
+          <li></li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>I</h1>
+        <ul class="down">
+          <li></li>
+          <li></li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li></li>
+          <li class="bed">
+            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+          </li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </section>
     </div>
-	<!-- TAB A end -->
+  </div>
 
-	<!-- TAB B start -->
-	<input id="tab3" type="radio" name="tab"/>
-	<label for="tab3">B 區</label>
-	<div class="container">
-        <div class="tab_content">
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-        </div>
-    </div>
-	<!-- TAB B end -->
+  <div id="tabA" class="tabcontent">
+    <h3>Paris</h3>
+    <p>Paris is the capital of France.</p>
+  </div>
 
-    <!-- TAB C start -->
-	<input id="tab4" type="radio" name="tab"/>
-	<label for="tab4">C 區</label>
-	<div class="container">
-        <div class="tab_content">
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-        </div>
-    </div>
-	<!-- TAB C end -->
-    
-    <!-- TAB D start -->
-	<input id="tab5" type="radio" name="tab"/>
-	<label for="tab5">D 區</label>
-	<div class="container">
-        <div class="tab_content">
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-        </div>
-    </div>
-	<!-- TAB D end -->
-    
-    <!-- TAB E start -->
-	<input id="tab6" type="radio" name="tab"/>
-	<label for="tab6">E 區</label>
-	<div class="container">
-        <div class="tab_content">
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-        </div>
-    </div>
-	<!-- TAB E end -->
+  <div id="tabB" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
 
-    <!-- TAB I start -->
-	<input id="tab7" type="radio" name="tab"/>
-	<label for="tab7">I 區</label>
-	<div class="container">
-        <div class="tab_content">
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-            第 3 個頁籤內容區塊<br/>
-            WFU BLOG | Blogger 調校資料庫<br/>
-        </div>
-    </div>
-	<!-- TAB I end -->
+  <div id="tabC" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+
+  <div id="tabD" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+
+  <div id="tabE" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+
+  <div id="tabI" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
 </div>
 {% endblock %}
