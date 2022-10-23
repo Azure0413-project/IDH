@@ -6,18 +6,20 @@
 
 .area {
     display: flex;
-    padding: 0.6rem 0.8rem 0.6rem 0.2rem;
+    padding: 0.6rem 0.5rem 0.6rem 0.1rem;
     column-gap: 0.8rem;
     row-gap: 1.3rem;
+    width: 35rem;
 }
 
 .area h1 {
-    padding-left: 0.5rem;
+    padding-left: 0.1em;
     color: rgba(135, 156, 179, 0.4);
     font-size: 72px;
     font-weight: bold;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     width: 3.3rem;
+    text-align: center;
 }
 
 .area ul {
@@ -38,7 +40,7 @@
 }
 
 .divider {
-    width: 0.8rem;
+    width: 0.85em;
     height: 95%;
     align-self: flex-end;
     background: rgba(135, 156, 179, 0.4);
@@ -84,4 +86,50 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 24px;
+}
+
+.legend {
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 2;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.16);
+    border: 3px solid #CBD3DE;
+    border-radius: 0.5rem;
+    width: 25em;
+}
+
+.legend-top {
+    background-color: #CBD3DE;
+    height: 1.6em;
+    border: 3px solid #CBD3DE;
+    border-radius: 0.3rem 0.3rem 0 0;
+    text-align: center;
+    color: #4D4D4D;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 0.2em;
+}
+
+.legend-bottom {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    padding: 0.5em;
+    row-gap: 0.5em;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+
+.legend-item img {
+    width: 1.5em;
+    margin: 0.1em 0.3em;
+}
+
+.legend-text {
+    font-size: 14px;
+    color: #4D4D4D;
 }
