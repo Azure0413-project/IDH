@@ -30,7 +30,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(4, minmax(0, 1fr));
     column-gap: 1.2rem;
-    row-gap: 1rem;
+    row-gap: 0.9rem;
     list-style: none;
     justify-content: space-between;
 }
@@ -69,7 +69,7 @@
     background-color: #f8f8f8;
     border-radius: 0 0 0.5rem 0.5rem;
     height: 23rem;
-    padding: 0.6rem 0.7rem 0.2rem 0.9rem;
+    padding: 0.6rem 0.7rem 0.1rem 0.9rem;
     display: flex;
     flex: 1 1 0%;
     align-items: center;
@@ -112,7 +112,7 @@
     text-align: center;
     color: #4D4D4D;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 0.2em;
 }
 
@@ -135,7 +135,7 @@
 }
 
 .legend-text {
-    font-size: 14px;
+    font-size: 16px;
     color: #4D4D4D;
 }
 
