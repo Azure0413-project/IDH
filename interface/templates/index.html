@@ -1,31 +1,15 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="container">
   <div class="tab">
-    <button
-      class="tablinks"
-      onclick="openCity(event, 'dashboard')"
-      id="defaultOpen"
-    >
+    <button class="tablinks" onclick="openTab(event, 'dashboard')" id="defaultOpen">
       <img src="{%static 'img/dashboard.svg'%}" />首<br />頁
     </button>
-    <button class="tablinks" onclick="openCity(event, 'tabA')">
-      A<br />區
-    </button>
-    <button class="tablinks" onclick="openCity(event, 'tabB')">
-      B<br />區
-    </button>
-    <button class="tablinks" onclick="openCity(event, 'tabC')">
-      C<br />區
-    </button>
-    <button class="tablinks" onclick="openCity(event, 'tabD')">
-      D<br />區
-    </button>
-    <button class="tablinks" onclick="openCity(event, 'tabE')">
-      E<br />區
-    </button>
-    <button class="tablinks" onclick="openCity(event, 'tabI')">
-      I<br />區
-    </button>
+    <button class="tablinks" onclick="openTab(event, 'tabA')"> A<br />區 </button>
+    <button class="tablinks" onclick="openTab(event, 'tabB')"> B<br />區 </button>
+    <button class="tablinks" onclick="openTab(event, 'tabC')"> C<br />區 </button>
+    <button class="tablinks" onclick="openTab(event, 'tabD')"> D<br />區 </button>
+    <button class="tablinks" onclick="openTab(event, 'tabE')"> E<br />區 </button>
+    <button class="tablinks" onclick="openTab(event, 'tabI')"> I<br />區 </button>
   </div>
 
   <div id="dashboard" class="tabcontent">
@@ -762,33 +746,1078 @@
   </div>
 
   <div id="tabA" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p>
+    <section class="tab-area">
+      <h1>A</h1>
+      <ul class="down tab-bed">
+        <li class="bed" id="bed-a9">
+          <div class="bed-top">A9 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li></li>
+        <li class="bed" id="bed-a5">
+          <div class="bed-top">A5 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li></li>
+        <li class="bed" id="bed-a3">
+            <div class="bed-top">A3 陳O鳳</div>
+            <div class="bed-bottom">
+              <div class="pressure">
+                <div class="img-text">145/88</div>
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                <div class="img-text">75</div>
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              <div class="dehydration">
+                <div class="img-text">1.8</div>
+                <img src="{% static 'img/water_active.svg' %} " />
+              </div>
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+            </div>
+        </li>
+        <li class="bed" id="bed-a8">
+          <div class="bed-top">A8 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-a2">
+          <div class="bed-top">A2 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-a7">
+          <div class="bed-top">A7 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-a1">
+          <div class="bed-top">A1 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-a6">
+          <div class="bed-top">A6 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="tab-legend">
+        <div class="legend-top">圖例</div>
+        <div class="tab-legend-bottom">
+          <div class="legend-item">
+            <img src="{%static 'img/legend/notification.svg' %}" />
+            <div class="legend-text">IDH 狀態待確認</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/danger.svg' %}" />
+            <div class="legend-text">IDH 緊急狀態</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/warning.svg' %}" />
+            <div class="legend-text">IDH 狀態預警</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/pressure.svg' %}" />
+            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/heartbeat.svg' %}" />
+            <div class="legend-text">心跳 (bpm)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/water.svg' %}" />
+            <div class="legend-text">目標脫水量 (L)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/idh.svg' %}" />
+            <div class="legend-text">IDH 預測機率 (低/中/高)</div>
+          </div>                
+        </div>
+      </div>
+    </section>
   </div>
 
   <div id="tabB" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <section class="tab-area">
+      <h1>B</h1>
+      <ul class="tab-bed">
+        <li class="bed" id="bed-b5">
+          <div class="bed-top">B5 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b9">
+          <div class="bed-top">B9 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b3">
+          <div class="bed-top">B3 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b8">
+          <div class="bed-top">B8 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b2">
+          <div class="bed-top">B2 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b7">
+          <div class="bed-top">B7 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b1">
+          <div class="bed-top">B1 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b6">
+          <div class="bed-top">B6 陳O鳳</div>            
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="tab-legend">
+        <div class="legend-top">圖例</div>
+        <div class="tab-legend-bottom">
+          <div class="legend-item">
+            <img src="{%static 'img/legend/notification.svg' %}" />
+            <div class="legend-text">IDH 狀態待確認</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/danger.svg' %}" />
+            <div class="legend-text">IDH 緊急狀態</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/warning.svg' %}" />
+            <div class="legend-text">IDH 狀態預警</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/pressure.svg' %}" />
+            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/heartbeat.svg' %}" />
+            <div class="legend-text">心跳 (bpm)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/water.svg' %}" />
+            <div class="legend-text">目標脫水量 (L)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/idh.svg' %}" />
+            <div class="legend-text">IDH 預測機率 (低/中/高)</div>
+          </div>                
+        </div>
+      </div>
+    </section>
   </div>
 
   <div id="tabC" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <section class="tab-area">
+      <h1>C</h1>
+      <ul class="tab-bed">
+        <li class="bed" id="bed-c5">
+          <div class="bed-top">C5 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c9">
+          <div class="bed-top">C9 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c3">
+          <div class="bed-top">C3 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c8">
+          <div class="bed-top">C8 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c2">
+          <div class="bed-top">C2 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c7">
+          <div class="bed-top">C7 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c1">
+          <div class="bed-top">C1 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c6">
+          <div class="bed-top">C6 陳O鳳</div>            
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="tab-legend">
+        <div class="legend-top">圖例</div>
+        <div class="tab-legend-bottom">
+          <div class="legend-item">
+            <img src="{%static 'img/legend/notification.svg' %}" />
+            <div class="legend-text">IDH 狀態待確認</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/danger.svg' %}" />
+            <div class="legend-text">IDH 緊急狀態</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/warning.svg' %}" />
+            <div class="legend-text">IDH 狀態預警</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/pressure.svg' %}" />
+            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/heartbeat.svg' %}" />
+            <div class="legend-text">心跳 (bpm)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/water.svg' %}" />
+            <div class="legend-text">目標脫水量 (L)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/idh.svg' %}" />
+            <div class="legend-text">IDH 預測機率 (低/中/高)</div>
+          </div>                
+        </div>
+      </div>
+    </section>
   </div>
 
   <div id="tabD" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <section class="tab-area">
+      <h1>D</h1>
+      <ul class="tab-bed">
+        <li class="bed" id="bed-d5">
+          <div class="bed-top">D5 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d9">
+          <div class="bed-top">D9 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d3">
+          <div class="bed-top">D3 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d8">
+          <div class="bed-top">D8 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d2">
+          <div class="bed-top">D2 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d7">
+          <div class="bed-top">D7 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d1">
+          <div class="bed-top">D1 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d6">
+          <div class="bed-top">D6 陳O鳳</div>            
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="tab-legend">
+        <div class="legend-top">圖例</div>
+        <div class="tab-legend-bottom">
+          <div class="legend-item">
+            <img src="{%static 'img/legend/notification.svg' %}" />
+            <div class="legend-text">IDH 狀態待確認</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/danger.svg' %}" />
+            <div class="legend-text">IDH 緊急狀態</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/warning.svg' %}" />
+            <div class="legend-text">IDH 狀態預警</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/pressure.svg' %}" />
+            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/heartbeat.svg' %}" />
+            <div class="legend-text">心跳 (bpm)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/water.svg' %}" />
+            <div class="legend-text">目標脫水量 (L)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/idh.svg' %}" />
+            <div class="legend-text">IDH 預測機率 (低/中/高)</div>
+          </div>                
+        </div>
+      </div>
+    </section>
   </div>
 
   <div id="tabE" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <section class="tab-area">
+      <h1>E</h1>
+      <ul class="tab-bed">
+        <li class="bed" id="bed-e5">
+          <div class="bed-top">E5 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-e9">
+          <div class="bed-top">E9 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-e3">
+          <div class="bed-top">E3 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-e8">
+          <div class="bed-top">E8 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-e2">
+          <div class="bed-top">E2 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-e7">
+          <div class="bed-top">E7 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-e1">
+          <div class="bed-top">E1 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li></li>
+      </ul>
+      <div class="tab-legend">
+        <div class="legend-top">圖例</div>
+        <div class="tab-legend-bottom">
+          <div class="legend-item">
+            <img src="{%static 'img/legend/notification.svg' %}" />
+            <div class="legend-text">IDH 狀態待確認</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/danger.svg' %}" />
+            <div class="legend-text">IDH 緊急狀態</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/warning.svg' %}" />
+            <div class="legend-text">IDH 狀態預警</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/pressure.svg' %}" />
+            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/heartbeat.svg' %}" />
+            <div class="legend-text">心跳 (bpm)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/water.svg' %}" />
+            <div class="legend-text">目標脫水量 (L)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/idh.svg' %}" />
+            <div class="legend-text">IDH 預測機率 (低/中/高)</div>
+          </div>                
+        </div>
+      </div>
+    </section>
   </div>
 
   <div id="tabI" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <section class="tab-area">
+      <h1>I</h1>
+      <ul class="tab-bed">
+        <li class="bed" id="bed-i2">
+          <div class="bed-top">I2 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li></li>
+        <li class="bed" id="bed-i1">
+          <div class="bed-top">I1 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <div class="tab-legend">
+        <div class="legend-top">圖例</div>
+        <div class="tab-legend-bottom">
+          <div class="legend-item">
+            <img src="{%static 'img/legend/notification.svg' %}" />
+            <div class="legend-text">IDH 狀態待確認</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/danger.svg' %}" />
+            <div class="legend-text">IDH 緊急狀態</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/warning.svg' %}" />
+            <div class="legend-text">IDH 狀態預警</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/pressure.svg' %}" />
+            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/heartbeat.svg' %}" />
+            <div class="legend-text">心跳 (bpm)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/water.svg' %}" />
+            <div class="legend-text">目標脫水量 (L)</div>
+          </div>
+          <div class="legend-item">
+            <img src="{%static 'img/legend/idh.svg' %}" />
+            <div class="legend-text">IDH 預測機率 (低/中/高)</div>
+          </div>                
+        </div>
+      </div>
+    </section>
   </div>
 </div>
 {% endblock %}

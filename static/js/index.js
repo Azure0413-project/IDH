@@ -31,7 +31,7 @@ setInterval(runTime, 1000);
 
 // Left panel
 document.getElementById("defaultOpen").click();
-function openCity(evt, cityName) {
+function openTab(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
 
