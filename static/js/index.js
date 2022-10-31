@@ -33,7 +33,7 @@ setInterval(runTime, 1000);
 document.getElementById("defaultOpen").click();
 function openTab(evt, cityName) {
     // Declare all variables
-    var i, tabcontent, tablinks;
+    let i, tabcontent, tablinks;
 
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -50,4 +50,20 @@ function openTab(evt, cityName) {
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
+}
+
+const bed = ['a1', 'a2', 'a3', 'a5', 'a6', 'a7', 'a8', 'a9', 
+             'b1', 'b2', 'b3', 'b5', 'b6', 'b7', 'b8', 'b9', 
+             'c1', 'c2', 'c3', 'c5', 'c6', 'c7', 'c8', 'c9', 
+             'd1', 'd2', 'd3', 'd5', 'd6', 'd7', 'd8', 'd9', 
+             'e1', 'e2', 'e3', 'e5', 'e6', 'e7', 'e8', 
+             'i1', 'i2']
+for(let i = 0; i < bed.length; i++) {
+    let bedElement = document.getElementById('bed-' + bed[i]);
+    bedElement.addEventListener("click", selectBed(bed[i]));
+}
+
+function selectBed(bed_id) {
+    let bedElement = document.getElementById('bed-' + bed_id);
+    
 }
