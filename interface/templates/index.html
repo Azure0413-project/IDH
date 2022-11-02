@@ -1,15 +1,19 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="container">
   <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'dashboard')" id="defaultOpen">
+    <button
+      class="tablinks"
+      onclick="openTab(event, 'dashboard')"
+      id="defaultOpen"
+    >
       <img src="{%static 'img/dashboard.svg'%}" />首<br />頁
     </button>
-    <button class="tablinks" onclick="openTab(event, 'tabA')"> A<br />區 </button>
-    <button class="tablinks" onclick="openTab(event, 'tabB')"> B<br />區 </button>
-    <button class="tablinks" onclick="openTab(event, 'tabC')"> C<br />區 </button>
-    <button class="tablinks" onclick="openTab(event, 'tabD')"> D<br />區 </button>
-    <button class="tablinks" onclick="openTab(event, 'tabE')"> E<br />區 </button>
-    <button class="tablinks" onclick="openTab(event, 'tabI')"> I<br />區 </button>
+    <button class="tablinks" onclick="openTab(event, 'tabA')">A<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabB')">B<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabC')">C<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabD')">D<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabE')">E<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabI')">I<br />區</button>
   </div>
 
   <div id="dashboard" class="tabcontent">
@@ -18,7 +22,7 @@
         <h1>B</h1>
         <ul class="up">
           <li class="bed" id="bed-B5" onclick="openModal('B5');">
-            <div class="bed-top">B5 陳O鳳</div>
+            <div class="bed-top">B5 陳Ｏ鳳</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
@@ -33,32 +37,32 @@
               </div>
             </div>
           </li>
-          <li class="bed" id="bed-B9" onclick="openModal('B9');">
-            <div class="bed-top">B9 陳O鳳</div>
+          <li class="bed bed-warning" id="bed-B9" onclick="openModal('B9');">
+            <div class="bed-top bed-top-warning">B9 吳Ｏ為</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">178/94</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">120</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
             </div>
             <img src="{% static 'img/warning.svg' %} " />
           </li>
           <li class="bed" id="bed-B3" onclick="openModal('B3');">
-            <div class="bed-top">B3 陳O鳳</div>
+            <div class="bed-top">B3 趙Ｏ怡</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">127/77</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">98</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -66,32 +70,32 @@
               </div>
             </div>
           </li>
-          <li class="bed" id="bed-B8" onclick="openModal('B8');">
-            <div class="bed-top">B8 陳O鳳</div>
+          <li class="bed bed-danger" id="bed-B8" onclick="openModal('B8');">
+            <div class="bed-top bed-top-danger">B8 吳Ｏ雲</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">92/55</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">55</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_danger.svg' %} " />
               </div>
             </div>
             <img src="{% static 'img/warning.svg' %} " />
           </li>
           <li class="bed" id="bed-B2" onclick="openModal('B2');">
-            <div class="bed-top">B2 陳O鳳</div>
+            <div class="bed-top">B2 郭Ｏ枋</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">120</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -100,14 +104,14 @@
             </div>
           </li>
           <li class="bed" id="bed-B7" onclick="openModal('B7');">
-            <div class="bed-top">B7 陳O鳳</div>
+            <div class="bed-top">B7 林ＯＯ香</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">104</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -116,14 +120,14 @@
             </div>
           </li>
           <li class="bed" id="bed-B1" onclick="openModal('B1');">
-            <div class="bed-top">B1 陳O鳳</div>
+            <div class="bed-top">B1 洪ＯＯ惠</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">97/69</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">168</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -132,18 +136,18 @@
             </div>
           </li>
           <li class="bed" id="bed-B6" onclick="openModal('B6');">
-            <div class="bed-top">B6 陳O鳳</div>
+            <div class="bed-top bed-inactive">B6 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
@@ -154,14 +158,14 @@
         <h1>C</h1>
         <ul class="up">
           <li class="bed" id="bed-C5" onclick="openModal('C5');">
-            <div class="bed-top">C5 陳O鳳</div>
+            <div class="bed-top">C5 林Ｏ信</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">95</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -170,30 +174,30 @@
             </div>
           </li>
           <li class="bed" id="bed-C9" onclick="openModal('C9');">
-            <div class="bed-top">C9 陳O鳳</div>
+            <div class="bed-top">C9 吳Ｏ純</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">66</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
             </div>
           </li>
           <li class="bed" id="bed-C3" onclick="openModal('C3');">
-            <div class="bed-top">C3 陳O鳳</div>
+            <div class="bed-top">C3 林Ｏ慧</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">74</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -202,10 +206,10 @@
             </div>
           </li>
           <li class="bed" id="bed-C8" onclick="openModal('C8');">
-            <div class="bed-top">C8 陳O鳳</div>
+            <div class="bed-top">C8 陳Ｏ珍</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">120/68</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
@@ -217,15 +221,15 @@
               </div>
             </div>
           </li>
-          <li class="bed" id="bed-C2" onclick="openModal('C2');">
-            <div class="bed-top">C2 陳O鳳</div>
+          <li class="bed bed-warning" id="bed-C2" onclick="openModal('C2');">
+            <div class="bed-top bed-top-warning">C2 蔡Ｏ香</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">98/68</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">59</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -234,7 +238,7 @@
             </div>
           </li>
           <li class="bed" id="bed-C7" onclick="openModal('C7');">
-            <div class="bed-top">C7 陳O鳳</div>
+            <div class="bed-top">C7 許ＯＯ蓮</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
@@ -250,30 +254,30 @@
             </div>
           </li>
           <li class="bed" id="bed-C1" onclick="openModal('C1');">
-            <div class="bed-top">C1 陳O鳳</div>
+            <div class="bed-top bed-inactive">C1 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
           <li class="bed" id="bed-C6" onclick="openModal('C6');">
-            <div class="bed-top">C6 陳O鳳</div>
+            <div class="bed-top">C6 沈Ｏ隆</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">135/98</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">97</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -288,14 +292,14 @@
         <h1>D</h1>
         <ul class="up">
           <li class="bed" id="bed-D5" onclick="openModal('D5');">
-            <div class="bed-top">D5 陳O鳳</div>
+            <div class="bed-top">D5 許Ｏ合</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">141/98</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">72</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -304,30 +308,30 @@
             </div>
           </li>
           <li class="bed" id="bed-D9" onclick="openModal('D9');">
-            <div class="bed-top">D9 陳O鳳</div>
+            <div class="bed-top bed-inactive">D9 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
           <li class="bed" id="bed-D3" onclick="openModal('D3');">
-            <div class="bed-top">D3 陳O鳳</div>
+            <div class="bed-top">D3 陳Ｏ明</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">120</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -336,62 +340,63 @@
             </div>
           </li>
           <li class="bed" id="bed-D8" onclick="openModal('D8');">
-            <div class="bed-top">D8 陳O鳳</div>
+            <div class="bed-top bed-inactive">D8 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
-          <li class="bed" id="bed-D2" onclick="openModal('D2');">
-            <div class="bed-top">D2 陳O鳳</div>
+          <li class="bed bed-danger" id="bed-D2" onclick="openModal('D2');">
+            <div class="bed-top bed-top-danger">D2 陳Ｏ安</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">72/38</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">48</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_danger.svg' %} " />
               </div>
             </div>
+            <img src="{% static 'img/warning.svg' %} " />
           </li>
           <li class="bed" id="bed-D7" onclick="openModal('D7');">
-            <div class="bed-top">D7 陳O鳳</div>
+            <div class="bed-top bed-inactive">D7 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
           <li class="bed" id="bed-D1" onclick="openModal('D1');">
-            <div class="bed-top">D1 陳O鳳</div>
+            <div class="bed-top">D1 卓Ｏ潭</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">145/78</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">73</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -400,18 +405,18 @@
             </div>
           </li>
           <li class="bed" id="bed-D6" onclick="openModal('D6');">
-            <div class="bed-top">D6 陳O鳳</div>
+            <div class="bed-top bed-inactive">D6 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
@@ -420,32 +425,32 @@
       <section class="area">
         <h1>A</h1>
         <ul class="down">
-          <li class="bed" id="bed-A9" onclick="openModal('A9');">
-            <div class="bed-top">A9 陳O鳳</div>
+          <li class="bed bed-warning" id="bed-A9" onclick="openModal('A9');">
+            <div class="bed-top bed-top-warning">A9 陳Ｏ新</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">95/68</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">66</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
             </div>
           </li>
           <li></li>
           <li class="bed" id="bed-A5" onclick="openModal('A5');">
-            <div class="bed-top">A5 陳O鳳</div>
+            <div class="bed-top">A5 蔡Ｏ元</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">135/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">79</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -455,46 +460,47 @@
           </li>
           <li></li>
           <li class="bed" id="bed-A3" onclick="openModal('A3');">
-            <div class="bed-top">A3 陳O鳳</div>
+            <div class="bed-top">A3 蔡Ｏ吟</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">108</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
                 <img src="{% static 'img/idh_safe.svg' %} " />
               </div>
             </div>
+            <img src="{% static 'img/warning.svg' %} " />
           </li>
           <li class="bed" id="bed-A8" onclick="openModal('A8');">
-            <div class="bed-top">A8 陳O鳳</div>
+            <div class="bed-top">A8 楊Ｏ慶</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">125/78</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">79</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
             </div>
           </li>
           <li class="bed" id="bed-A2" onclick="openModal('A2');">
-            <div class="bed-top">A2 陳O鳳</div>
+            <div class="bed-top">A2 黃Ｏ惠</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">109</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -503,14 +509,14 @@
             </div>
           </li>
           <li class="bed" id="bed-A7" onclick="openModal('A7');">
-            <div class="bed-top">A7 陳O鳳</div>
+            <div class="bed-top">A7 李Ｏ發</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">142/98</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">72</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -519,14 +525,14 @@
             </div>
           </li>
           <li class="bed" id="bed-A1" onclick="openModal('A1');">
-            <div class="bed-top">A1 陳O鳳</div>
+            <div class="bed-top">A1 李Ｏ鳳</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">100</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -535,14 +541,14 @@
             </div>
           </li>
           <li class="bed" id="bed-A6" onclick="openModal('A6');">
-            <div class="bed-top">A6 陳O鳳</div>
+            <div class="bed-top">A6 李Ｏ源</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">145/98</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">95</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -559,46 +565,47 @@
           <li></li>
           <li></li>
           <li class="bed" id="bed-E5" onclick="openModal('E5');">
-            <div class="bed-top">E5 陳O鳳</div>
+            <div class="bed-top bed-inactive">E5 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
-          <li class="bed" id="bed-E8" onclick="openModal('E8');">
-            <div class="bed-top">E8 陳O鳳</div>
+          <li class="bed bed-danger" id="bed-E8" onclick="openModal('E8');">
+            <div class="bed-top bed-top-danger">E8 侯ＯＯ虹</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">98/68</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">55</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_danger.svg' %} " />
               </div>
             </div>
+            <img src="{% static 'img/warning.svg' %} " />
           </li>
           <li class="bed" id="bed-E3" onclick="openModal('E3');">
-            <div class="bed-top">E3 陳O鳳</div>
+            <div class="bed-top">E3 劉Ｏ佳</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">125/92</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">79</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -607,14 +614,14 @@
             </div>
           </li>
           <li class="bed" id="bed-E7" onclick="openModal('E7');">
-            <div class="bed-top">E7 陳O鳳</div>
+            <div class="bed-top">E7 戴Ｏ瑜</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">122/78</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">65</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -623,14 +630,14 @@
             </div>
           </li>
           <li class="bed" id="bed-E2" onclick="openModal('E2');">
-            <div class="bed-top">E2 陳O鳳</div>
+            <div class="bed-top">E2 李Ｏ奮</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">135/77</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">95</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -639,7 +646,7 @@
             </div>
           </li>
           <li class="bed" id="bed-E6" onclick="openModal('E6');">
-            <div class="bed-top">E6 陳O鳳</div>
+            <div class="bed-top">E6 林Ｏ真</div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text">145/88</div>
@@ -655,18 +662,18 @@
             </div>
           </li>
           <li class="bed" id="bed-E1" onclick="openModal('E1');">
-            <div class="bed-top">E1 陳O鳳</div>
+            <div class="bed-top bed-inactive">E1 ---</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/pressure_inactive.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+                <div class="img-text"></div>
+                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
               </div>
               <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
+                <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
           </li>
@@ -680,14 +687,14 @@
           <li></li>
           <li></li>
           <li class="bed" id="bed-I2" onclick="openModal('I2');">
-            <div class="bed-top">I2 陳O鳳</div>
+            <div class="bed-top">I2 黃Ｏ宗</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">125/91</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">75</div>
+                <div class="img-text">66</div>
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
               <div class="idhrate">
@@ -697,10 +704,10 @@
           </li>
           <li></li>
           <li class="bed" id="bed-I1" onclick="openModal('I1');">
-            <div class="bed-top">I1 陳O鳳</div>
+            <div class="bed-top">I1 田Ｏ甫</div>
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                <div class="img-text">125/88</div>
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
@@ -716,30 +723,30 @@
           <li class="legend">
             <div class="legend-top">圖例</div>
             <div class="legend-bottom">
-                <div class="legend-item">
-                    <img src="{%static 'img/legend/notification.svg' %}" />
-                    <div class="legend-text">IDH 狀態待確認</div>
-                </div>
-                <div class="legend-item">
-                    <img src="{%static 'img/legend/pressure.svg' %}" />
-                    <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
-                </div>
-                <div class="legend-item">
-                    <img src="{%static 'img/legend/danger.svg' %}" />
-                    <div class="legend-text">IDH 緊急狀態</div>
-                </div>
-                <div class="legend-item">
-                    <img src="{%static 'img/legend/heartbeat.svg' %}" />
-                    <div class="legend-text">心跳 (bpm)</div>
-                </div>
-                <div class="legend-item">
-                    <img src="{%static 'img/legend/warning.svg' %}" />
-                    <div class="legend-text">IDH 狀態預警</div>
-                </div>
-                <div class="legend-item">
-                    <img src="{%static 'img/legend/idh.svg' %}" />
-                    <div class="legend-text">IDH 預測機率 (低/中/高)</div>
-                </div>                
+              <div class="legend-item">
+                <img src="{%static 'img/legend/notification.svg' %}" />
+                <div class="legend-text">IDH 狀態待確認</div>
+              </div>
+              <div class="legend-item">
+                <img src="{%static 'img/legend/pressure.svg' %}" />
+                <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+              </div>
+              <div class="legend-item">
+                <img src="{%static 'img/legend/danger.svg' %}" />
+                <div class="legend-text">IDH 緊急狀態</div>
+              </div>
+              <div class="legend-item">
+                <img src="{%static 'img/legend/heartbeat.svg' %}" />
+                <div class="legend-text">心跳 (bpm)</div>
+              </div>
+              <div class="legend-item">
+                <img src="{%static 'img/legend/warning.svg' %}" />
+                <div class="legend-text">IDH 狀態預警</div>
+              </div>
+              <div class="legend-item">
+                <img src="{%static 'img/legend/idh.svg' %}" />
+                <div class="legend-text">IDH 預測機率 (低/中/高)</div>
+              </div>
             </div>
           </li>
         </ul>
@@ -751,7 +758,7 @@
     <section class="tab-area">
       <h1>A</h1>
       <ul class="down tab-bed">
-        <li class="bed" id="bed-a9">
+        <li class="bed" id="bed-a9" onclick="openModal('');">
           <div class="bed-top">A9 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -772,7 +779,7 @@
           </div>
         </li>
         <li></li>
-        <li class="bed" id="bed-a5">
+        <li class="bed" id="bed-a5" onclick="openModal('');">
           <div class="bed-top">A5 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -793,27 +800,27 @@
           </div>
         </li>
         <li></li>
-        <li class="bed" id="bed-a3">
-            <div class="bed-top">A3 陳O鳳</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="dehydration">
-                <div class="img-text">1.8</div>
-                <img src="{% static 'img/water_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
+        <li class="bed" id="bed-a3" onclick="openModal('');">
+          <div class="bed-top">A3 陳O鳳</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
             </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
         </li>
-        <li class="bed" id="bed-a8">
+        <li class="bed" id="bed-a8" onclick="openModal('');">
           <div class="bed-top">A8 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -833,7 +840,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-a2">
+        <li class="bed" id="bed-a2" onclick="openModal('');">
           <div class="bed-top">A2 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -853,7 +860,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-a7">
+        <li class="bed" id="bed-a7" onclick="openModal('');">
           <div class="bed-top">A7 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -873,7 +880,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-a1">
+        <li class="bed" id="bed-a1" onclick="openModal('');">
           <div class="bed-top">A1 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -893,7 +900,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-a6">
+        <li class="bed" id="bed-a6" onclick="openModal('');">
           <div class="bed-top">A6 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -944,7 +951,7 @@
           <div class="legend-item">
             <img src="{%static 'img/legend/idh.svg' %}" />
             <div class="legend-text">IDH 預測機率 (低/中/高)</div>
-          </div>                
+          </div>
         </div>
       </div>
     </section>
@@ -954,7 +961,7 @@
     <section class="tab-area">
       <h1>B</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-b5">
+        <li class="bed" id="bed-b5" onclick="openModal('');">
           <div class="bed-top">B5 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -974,7 +981,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b9">
+        <li class="bed" id="bed-b9" onclick="openModal('');">
           <div class="bed-top">B9 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -995,7 +1002,7 @@
           </div>
           <img src="{% static 'img/warning.svg' %} " />
         </li>
-        <li class="bed" id="bed-b3">
+        <li class="bed" id="bed-b3" onclick="openModal('');">
           <div class="bed-top">B3 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1015,7 +1022,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b8">
+        <li class="bed" id="bed-b8" onclick="openModal('');">
           <div class="bed-top">B8 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1036,7 +1043,7 @@
           </div>
           <img src="{% static 'img/warning.svg' %} " />
         </li>
-        <li class="bed" id="bed-b2">
+        <li class="bed" id="bed-b2" onclick="openModal('');">
           <div class="bed-top">B2 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1056,7 +1063,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b7">
+        <li class="bed" id="bed-b7" onclick="openModal('');">
           <div class="bed-top">B7 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1076,7 +1083,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b1">
+        <li class="bed" id="bed-b1" onclick="openModal('');">
           <div class="bed-top">B1 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1096,8 +1103,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b6">
-          <div class="bed-top">B6 陳O鳳</div>            
+        <li class="bed" id="bed-b6" onclick="openModal('');">
+          <div class="bed-top">B6 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1147,7 +1154,7 @@
           <div class="legend-item">
             <img src="{%static 'img/legend/idh.svg' %}" />
             <div class="legend-text">IDH 預測機率 (低/中/高)</div>
-          </div>                
+          </div>
         </div>
       </div>
     </section>
@@ -1157,7 +1164,7 @@
     <section class="tab-area">
       <h1>C</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-c5">
+        <li class="bed" id="bed-c5" onclick="openModal('');">
           <div class="bed-top">C5 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1177,7 +1184,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c9">
+        <li class="bed" id="bed-c9" onclick="openModal('');">
           <div class="bed-top">C9 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1197,7 +1204,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c3">
+        <li class="bed" id="bed-c3" onclick="openModal('');">
           <div class="bed-top">C3 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1217,7 +1224,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c8">
+        <li class="bed" id="bed-c8" onclick="openModal('');">
           <div class="bed-top">C8 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1237,7 +1244,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c2">
+        <li class="bed" id="bed-c2" onclick="openModal('');">
           <div class="bed-top">C2 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1257,7 +1264,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c7">
+        <li class="bed" id="bed-c7" onclick="openModal('');">
           <div class="bed-top">C7 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1277,7 +1284,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c1">
+        <li class="bed" id="bed-c1" onclick="openModal('');">
           <div class="bed-top">C1 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1297,8 +1304,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c6">
-          <div class="bed-top">C6 陳O鳳</div>            
+        <li class="bed" id="bed-c6" onclick="openModal('');">
+          <div class="bed-top">C6 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1348,7 +1355,7 @@
           <div class="legend-item">
             <img src="{%static 'img/legend/idh.svg' %}" />
             <div class="legend-text">IDH 預測機率 (低/中/高)</div>
-          </div>                
+          </div>
         </div>
       </div>
     </section>
@@ -1358,7 +1365,7 @@
     <section class="tab-area">
       <h1>D</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-d5">
+        <li class="bed" id="bed-d5" onclick="openModal('');">
           <div class="bed-top">D5 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1378,7 +1385,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d9">
+        <li class="bed" id="bed-d9" onclick="openModal('');">
           <div class="bed-top">D9 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1398,7 +1405,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d3">
+        <li class="bed" id="bed-d3" onclick="openModal('');">
           <div class="bed-top">D3 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1418,7 +1425,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d8">
+        <li class="bed" id="bed-d8" onclick="openModal('');">
           <div class="bed-top">D8 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1438,7 +1445,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d2">
+        <li class="bed" id="bed-d2" onclick="openModal('');">
           <div class="bed-top">D2 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1458,7 +1465,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d7">
+        <li class="bed" id="bed-d7" onclick="openModal('');">
           <div class="bed-top">D7 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1478,7 +1485,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d1">
+        <li class="bed" id="bed-d1" onclick="openModal('');">
           <div class="bed-top">D1 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1498,8 +1505,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d6">
-          <div class="bed-top">D6 陳O鳳</div>            
+        <li class="bed" id="bed-d6" onclick="openModal('');">
+          <div class="bed-top">D6 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1549,7 +1556,7 @@
           <div class="legend-item">
             <img src="{%static 'img/legend/idh.svg' %}" />
             <div class="legend-text">IDH 預測機率 (低/中/高)</div>
-          </div>                
+          </div>
         </div>
       </div>
     </section>
@@ -1559,7 +1566,7 @@
     <section class="tab-area">
       <h1>E</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-e5">
+        <li class="bed" id="bed-e5" onclick="openModal('');">
           <div class="bed-top">E5 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1579,7 +1586,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e9">
+        <li class="bed" id="bed-e9" onclick="openModal('');">
           <div class="bed-top">E9 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1599,7 +1606,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e3">
+        <li class="bed" id="bed-e3" onclick="openModal('');">
           <div class="bed-top">E3 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1619,7 +1626,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e8">
+        <li class="bed" id="bed-e8" onclick="openModal('');">
           <div class="bed-top">E8 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1639,7 +1646,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e2">
+        <li class="bed" id="bed-e2" onclick="openModal('');">
           <div class="bed-top">E2 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1659,7 +1666,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e7">
+        <li class="bed" id="bed-e7" onclick="openModal('');">
           <div class="bed-top">E7 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1679,7 +1686,7 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e1">
+        <li class="bed" id="bed-e1" onclick="openModal('');">
           <div class="bed-top">E1 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1731,7 +1738,7 @@
           <div class="legend-item">
             <img src="{%static 'img/legend/idh.svg' %}" />
             <div class="legend-text">IDH 預測機率 (低/中/高)</div>
-          </div>                
+          </div>
         </div>
       </div>
     </section>
@@ -1741,7 +1748,7 @@
     <section class="tab-area">
       <h1>I</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-i2">
+        <li class="bed" id="bed-i2" onclick="openModal('');">
           <div class="bed-top">I2 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1762,7 +1769,7 @@
           </div>
         </li>
         <li></li>
-        <li class="bed" id="bed-i1">
+        <li class="bed" id="bed-i1" onclick="openModal('');">
           <div class="bed-top">I1 陳O鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
@@ -1818,7 +1825,7 @@
           <div class="legend-item">
             <img src="{%static 'img/legend/idh.svg' %}" />
             <div class="legend-text">IDH 預測機率 (低/中/高)</div>
-          </div>                
+          </div>
         </div>
       </div>
     </section>
@@ -1838,16 +1845,23 @@
             <div id="idhrate"></div>
             <div id="updatetime">最後更新時間：2022/11/2 14:55:46</div>
           </div>
-          <img src="{%static 'img/human.svg' %}"/>
+          <img src="{%static 'img/human.svg' %}" />
         </div>
-        <div class="weights">標準體重：56(+3) kg</div>
+        <div class="weights">
+          <div class="weight-num">
+            標準體重：56 <span class="diff">(+3)</span> kg
+          </div>
+          <div class="weight-bar">
+            <img src="{%static 'img/weight.svg' %}" />
+          </div>
+        </div>
       </div>
       <div class="modal-right">
         <ul class="main-info">
-          <li>舒張壓/收縮壓：145/88 mmHg</li>
+          <li>舒張壓 / 收縮壓：145 / 88 mmHg</li>
           <li>體溫：36.6 ℃</li>
           <li>脈搏：78 bpm</li>
-          <li>飲食/預計沖水量：1 kg / 1 L</li>
+          <li>飲食 / 預計沖水量：1 kg / 1 L</li>
         </ul>
         <div class="sub-info">
           <ul class="left-info">
@@ -1857,7 +1871,7 @@
             <li>13.9</li>
             <li>透析液 溫度</li>
             <li>36.8 ℃</li>
-          </ul>  
+          </ul>
           <div class="right-info">
             <div class="info-group">
               <div class="info-title">血液流速</div>
@@ -1886,7 +1900,9 @@
             </div>
           </div>
         </div>
-        <div class="figure"></div>
+        <div class="figure">
+          <img src="{% static 'img/plot.png' %}" />
+        </div>
         <ul class="dialysis-info">
           <li class="dialysis-item">Heparin</li>
           <li class="dialysis-content">500/500</li>
@@ -1898,15 +1914,1312 @@
           <li class="dialysis-content">465</li>
         </ul>
       </div>
+      <div class="modal-table hidden">
+        <div id="patient2"></div>
+        <table>
+          <thead>
+            <tr>
+              <th title="Field #7">透析開始時間</th>
+              <th title="Field #8">透析結束時間</th>
+              <th title="Field #9">紀錄時間</th>
+              <th title="Field #10">透析機編號</th>
+              <th title="Field #12">體溫</th>
+              <th title="Field #13">開始體溫</th>
+              <th title="Field #14">透析前體重(kg)</th>
+              <th title="Field #15">理想體重(kg)</th>
+              <th title="Field #16">目標脫水量(L)</th>
+              <th title="Field #17">輸液量(L)</th>
+              <th title="Field #18">食物重量(kg)</th>
+              <th title="Field #19">預估脫水量(L)</th>
+              <th title="Field #20">設定脫水量(L)</th>
+              <th title="Field #21">結束體重(kg)</th>
+              <th title="Field #22">實際脫水量(L)</th>
+              <th title="Field #23">Start_SBP</th>
+              <th title="Field #24">Start_DBP</th>
+              <th title="Field #25">End_SBP</th>
+              <th title="Field #26">End_DBP</th>
+              <th title="Field #27">透析模式</th>
+              <th title="Field #28">透析器</th>
+              <th title="Field #29">開始透析液流速</th>
+              <th title="Field #30">開始血液流速</th>
+              <th title="Field #31">透析液Ca：3.0</th>
+              <th title="Field #32">傳導度：13.9</th>
+              <th title="Field #33">血管通路</th>
+              <th title="Field #34">Heparin</th>
+              <th title="Field #35">ESA</th>
+              <th title="Field #36">透析器凝血情況</th>
+              <th title="Field #37">血壓(收縮)</th>
+              <th title="Field #38">血壓(舒張)</th>
+              <th title="Field #39">脈搏</th>
+              <th title="Field #40">呼吸</th>
+              <th title="Field #41">血流速(ml/min)</th>
+              <th title="Field #42">透析液流速(ml/min)</th>
+              <th title="Field #43">靜脈壓(mmHg)</th>
+              <th title="Field #44">透析液壓(mmHg)</th>
+              <th title="Field #45">膜上壓(mmHg)</th>
+              <th title="Field #46">脫水速率</th>
+              <th title="Field #47">累積量</th>
+              <th title="Field #48">透析液溫度(℃)</th>
+              <th title="Field #49">肝素注射量(ml/hr)</th>
+              <th title="Field #50">沖水量(L)</th>
+              <th title="Field #51">確認血管通路</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2021-11-01 13:45</td>
+              <td>2021-11-01 17:45</td>
+              <td>2021-11-01 13:45</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>68.0</td>
+              <td>3.3</td>
+              <td>147.0</td>
+              <td>65.0</td>
+              <td>142.0</td>
+              <td>81.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>150.0</td>
+              <td>80.0</td>
+              <td>81.0</td>
+              <td>18.0</td>
+              <td>250.0</td>
+              <td>100.0</td>
+              <td>178.0</td>
+              <td>235.0</td>
+              <td>0.0</td>
+              <td>0.9</td>
+              <td>0.0</td>
+              <td>36.5</td>
+              <td>0.0</td>
+              <td></td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-01 13:45</td>
+              <td>2021-11-01 17:45</td>
+              <td>2021-11-01 14:12</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>68.0</td>
+              <td>3.3</td>
+              <td>147.0</td>
+              <td>65.0</td>
+              <td>142.0</td>
+              <td>81.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>122.0</td>
+              <td>70.0</td>
+              <td>74.0</td>
+              <td>18.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>177.0</td>
+              <td>181.0</td>
+              <td>16.0</td>
+              <td>0.9</td>
+              <td>0.36</td>
+              <td>36.0</td>
+              <td>0.6</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-01 13:45</td>
+              <td>2021-11-01 17:45</td>
+              <td>2021-11-01 15:10</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>68.0</td>
+              <td>3.3</td>
+              <td>147.0</td>
+              <td>65.0</td>
+              <td>142.0</td>
+              <td>81.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>144.0</td>
+              <td>86.0</td>
+              <td>72.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>196.0</td>
+              <td>195.0</td>
+              <td>20.0</td>
+              <td>0.9</td>
+              <td>1.17</td>
+              <td>36.0</td>
+              <td>2.6</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-01 13:45</td>
+              <td>2021-11-01 17:45</td>
+              <td>2021-11-01 16:25</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>68.0</td>
+              <td>3.3</td>
+              <td>147.0</td>
+              <td>65.0</td>
+              <td>142.0</td>
+              <td>81.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>155.0</td>
+              <td>83.0</td>
+              <td>66.0</td>
+              <td>15.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>185.0</td>
+              <td>185.0</td>
+              <td>24.0</td>
+              <td>1.24</td>
+              <td>2.37</td>
+              <td>36.0</td>
+              <td>5.1</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-01 13:45</td>
+              <td>2021-11-01 17:45</td>
+              <td>2021-11-01 17:45</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>68.0</td>
+              <td>3.3</td>
+              <td>147.0</td>
+              <td>65.0</td>
+              <td>142.0</td>
+              <td>81.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>142.0</td>
+              <td>81.0</td>
+              <td>78.0</td>
+              <td>15.0</td>
+              <td>150.0</td>
+              <td>500.0</td>
+              <td>147.0</td>
+              <td>-242.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>3.6</td>
+              <td>35.9</td>
+              <td>6.0</td>
+              <td>200</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-03 13:25</td>
+              <td>2021-11-03 17:28</td>
+              <td>2021-11-03 13:25</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.0</td>
+              <td>67.5</td>
+              <td>3.5</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.9</td>
+              <td>3.6</td>
+              <td>-0.5</td>
+              <td>71.5</td>
+              <td>133.0</td>
+              <td>66.0</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>143.0</td>
+              <td>71.0</td>
+              <td>84.0</td>
+              <td>18.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>181.0</td>
+              <td>-4.0</td>
+              <td>0.0</td>
+              <td>0.9</td>
+              <td>0.0</td>
+              <td>32.2</td>
+              <td>0.0</td>
+              <td></td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-03 13:25</td>
+              <td>2021-11-03 17:28</td>
+              <td>2021-11-03 14:21</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.0</td>
+              <td>67.5</td>
+              <td>3.5</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.9</td>
+              <td>3.6</td>
+              <td>-0.5</td>
+              <td>71.5</td>
+              <td>133.0</td>
+              <td>66.0</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>112.0</td>
+              <td>67.0</td>
+              <td>75.0</td>
+              <td>18.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>189.0</td>
+              <td>17.0</td>
+              <td>0.0</td>
+              <td>0.93</td>
+              <td>0.64</td>
+              <td>35.5</td>
+              <td>1.5</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-03 13:25</td>
+              <td>2021-11-03 17:28</td>
+              <td>2021-11-03 15:30</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.0</td>
+              <td>67.5</td>
+              <td>3.5</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.9</td>
+              <td>3.6</td>
+              <td>-0.5</td>
+              <td>71.5</td>
+              <td>133.0</td>
+              <td>66.0</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>109.0</td>
+              <td>68.0</td>
+              <td>75.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>193.0</td>
+              <td>193.0</td>
+              <td>3.0</td>
+              <td>0.93</td>
+              <td>1.68</td>
+              <td>36.0</td>
+              <td>3.8</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-03 13:25</td>
+              <td>2021-11-03 17:28</td>
+              <td>2021-11-03 16:26</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.0</td>
+              <td>67.5</td>
+              <td>3.5</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.9</td>
+              <td>3.6</td>
+              <td>-0.5</td>
+              <td>71.5</td>
+              <td>133.0</td>
+              <td>66.0</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>132.0</td>
+              <td>75.0</td>
+              <td>68.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>219.0</td>
+              <td>242.0</td>
+              <td>2.0</td>
+              <td>0.93</td>
+              <td>2.56</td>
+              <td>36.0</td>
+              <td>5.7</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-03 13:25</td>
+              <td>2021-11-03 17:28</td>
+              <td>2021-11-03 17:24</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.0</td>
+              <td>67.5</td>
+              <td>3.5</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.9</td>
+              <td>3.6</td>
+              <td>-0.5</td>
+              <td>71.5</td>
+              <td>133.0</td>
+              <td>66.0</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>122.0</td>
+              <td>78.0</td>
+              <td>76.0</td>
+              <td>0.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>216.0</td>
+              <td>209.0</td>
+              <td>11.0</td>
+              <td>1.05</td>
+              <td>3.57</td>
+              <td>36.0</td>
+              <td>6.6</td>
+              <td></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2021-11-03 13:25</td>
+              <td>2021-11-03 17:28</td>
+              <td>2021-11-03 17:27</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.0</td>
+              <td>67.5</td>
+              <td>3.5</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.9</td>
+              <td>3.6</td>
+              <td>-0.5</td>
+              <td>71.5</td>
+              <td>133.0</td>
+              <td>66.0</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>150.0</td>
+              <td>500.0</td>
+              <td>117.0</td>
+              <td>-29.0</td>
+              <td>0.0</td>
+              <td>1.05</td>
+              <td>3.59</td>
+              <td>35.1</td>
+              <td>6.6</td>
+              <td></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2021-11-03 13:25</td>
+              <td>2021-11-03 17:28</td>
+              <td>2021-11-03 17:28</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.0</td>
+              <td>67.5</td>
+              <td>3.5</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.9</td>
+              <td>3.6</td>
+              <td>-0.5</td>
+              <td>71.5</td>
+              <td>133.0</td>
+              <td>66.0</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>136.0</td>
+              <td>80.0</td>
+              <td>67.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>2021-11-05 13:27</td>
+              <td>2021-11-05 17:27</td>
+              <td>2021-11-05 13:27</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>70.4</td>
+              <td>67.5</td>
+              <td>2.9</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.3</td>
+              <td>3.3</td>
+              <td>67.4</td>
+              <td>3.0</td>
+              <td>120.0</td>
+              <td>74.0</td>
+              <td>124.0</td>
+              <td>76.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>121.0</td>
+              <td>68.0</td>
+              <td>88.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>170.0</td>
+              <td>89.0</td>
+              <td>0.0</td>
+              <td>0.82</td>
+              <td>0.0</td>
+              <td>36.5</td>
+              <td>0.0</td>
+              <td></td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-05 13:27</td>
+              <td>2021-11-05 17:27</td>
+              <td>2021-11-05 14:30</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>70.4</td>
+              <td>67.5</td>
+              <td>2.9</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.3</td>
+              <td>3.3</td>
+              <td>67.4</td>
+              <td>3.0</td>
+              <td>120.0</td>
+              <td>74.0</td>
+              <td>124.0</td>
+              <td>76.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>112.0</td>
+              <td>70.0</td>
+              <td>74.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>152.0</td>
+              <td>173.0</td>
+              <td>12.0</td>
+              <td>0.82</td>
+              <td>0.85</td>
+              <td>36.0</td>
+              <td>2.1</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-05 13:27</td>
+              <td>2021-11-05 17:27</td>
+              <td>2021-11-05 15:31</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>70.4</td>
+              <td>67.5</td>
+              <td>2.9</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.3</td>
+              <td>3.3</td>
+              <td>67.4</td>
+              <td>3.0</td>
+              <td>120.0</td>
+              <td>74.0</td>
+              <td>124.0</td>
+              <td>76.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>124.0</td>
+              <td>80.0</td>
+              <td>77.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>194.0</td>
+              <td>204.0</td>
+              <td>6.0</td>
+              <td>0.85</td>
+              <td>1.64</td>
+              <td>36.0</td>
+              <td>4.1</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-05 13:27</td>
+              <td>2021-11-05 17:27</td>
+              <td>2021-11-05 16:28</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>70.4</td>
+              <td>67.5</td>
+              <td>2.9</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.3</td>
+              <td>3.3</td>
+              <td>67.4</td>
+              <td>3.0</td>
+              <td>120.0</td>
+              <td>74.0</td>
+              <td>124.0</td>
+              <td>76.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>125.0</td>
+              <td>82.0</td>
+              <td>77.0</td>
+              <td>15.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>186.0</td>
+              <td>186.0</td>
+              <td>8.0</td>
+              <td>0.85</td>
+              <td>2.45</td>
+              <td>36.0</td>
+              <td>6.0</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-05 13:27</td>
+              <td>2021-11-05 17:27</td>
+              <td>2021-11-05 17:27</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>70.4</td>
+              <td>67.5</td>
+              <td>2.9</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.3</td>
+              <td>3.3</td>
+              <td>67.4</td>
+              <td>3.0</td>
+              <td>120.0</td>
+              <td>74.0</td>
+              <td>124.0</td>
+              <td>76.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>115.0</td>
+              <td>74.0</td>
+              <td>77.0</td>
+              <td>15.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>215.0</td>
+              <td>200.0</td>
+              <td>15.0</td>
+              <td>0.89</td>
+              <td>3.3</td>
+              <td>36.0</td>
+              <td>7.0</td>
+              <td>200</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-08 13:20</td>
+              <td>2021-11-08 17:20</td>
+              <td>2021-11-08 13:20</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>67.9</td>
+              <td>3.4</td>
+              <td>124.0</td>
+              <td>72.0</td>
+              <td>125.0</td>
+              <td>85.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>119.0</td>
+              <td>71.0</td>
+              <td>80.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>170.0</td>
+              <td>-16.0</td>
+              <td>0.0</td>
+              <td>0.9</td>
+              <td>0.0</td>
+              <td>36.5</td>
+              <td>0.0</td>
+              <td></td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-08 13:20</td>
+              <td>2021-11-08 17:20</td>
+              <td>2021-11-08 14:14</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>67.9</td>
+              <td>3.4</td>
+              <td>124.0</td>
+              <td>72.0</td>
+              <td>125.0</td>
+              <td>85.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>114.0</td>
+              <td>71.0</td>
+              <td>71.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>171.0</td>
+              <td>177.0</td>
+              <td>9.0</td>
+              <td>0.9</td>
+              <td>0.77</td>
+              <td>36.1</td>
+              <td>1.7</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-08 13:20</td>
+              <td>2021-11-08 17:20</td>
+              <td>2021-11-08 15:16</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>67.9</td>
+              <td>3.4</td>
+              <td>124.0</td>
+              <td>72.0</td>
+              <td>125.0</td>
+              <td>85.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>123.0</td>
+              <td>56.0</td>
+              <td>73.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>190.0</td>
+              <td>212.0</td>
+              <td>12.0</td>
+              <td>0.92</td>
+              <td>1.65</td>
+              <td>36.0</td>
+              <td>3.8</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-08 13:20</td>
+              <td>2021-11-08 17:20</td>
+              <td>2021-11-08 16:24</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>67.9</td>
+              <td>3.4</td>
+              <td>124.0</td>
+              <td>72.0</td>
+              <td>125.0</td>
+              <td>85.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>133.0</td>
+              <td>77.0</td>
+              <td>72.0</td>
+              <td>15.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>191.0</td>
+              <td>193.0</td>
+              <td>19.0</td>
+              <td>0.92</td>
+              <td>2.7</td>
+              <td>36.0</td>
+              <td>6.1</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-08 13:20</td>
+              <td>2021-11-08 17:20</td>
+              <td>2021-11-08 17:20</td>
+              <td>23</td>
+              <td>36.0</td>
+              <td>36.0</td>
+              <td>71.3</td>
+              <td>67.5</td>
+              <td>3.8</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>4.2</td>
+              <td>3.6</td>
+              <td>67.9</td>
+              <td>3.4</td>
+              <td>124.0</td>
+              <td>72.0</td>
+              <td>125.0</td>
+              <td>85.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td>NESP inj 20mcg/0.5mL/syrg (Darbepoetin α)</td>
+              <td>clear</td>
+              <td>126.0</td>
+              <td>84.0</td>
+              <td>73.0</td>
+              <td>15.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>201.0</td>
+              <td>201.0</td>
+              <td>22.0</td>
+              <td>0.93</td>
+              <td>3.6</td>
+              <td>36.0</td>
+              <td>7.0</td>
+              <td>200</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-10 13:26</td>
+              <td>2021-11-10 17:26</td>
+              <td>2021-11-10 13:26</td>
+              <td>23</td>
+              <td>4.0</td>
+              <td>4.0</td>
+              <td>70.8</td>
+              <td>67.5</td>
+              <td>3.3</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.7</td>
+              <td>3.7</td>
+              <td>67.4</td>
+              <td>3.4</td>
+              <td>134.0</td>
+              <td>74.0</td>
+              <td>134.0</td>
+              <td>82.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>134.0</td>
+              <td>79.0</td>
+              <td>88.0</td>
+              <td>18.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>149.0</td>
+              <td>157.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>36.4</td>
+              <td>0.0</td>
+              <td></td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-10 13:26</td>
+              <td>2021-11-10 17:26</td>
+              <td>2021-11-10 14:16</td>
+              <td>23</td>
+              <td>4.0</td>
+              <td>4.0</td>
+              <td>70.8</td>
+              <td>67.5</td>
+              <td>3.3</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.7</td>
+              <td>3.7</td>
+              <td>67.4</td>
+              <td>3.4</td>
+              <td>134.0</td>
+              <td>74.0</td>
+              <td>134.0</td>
+              <td>82.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>118.0</td>
+              <td>68.0</td>
+              <td>73.0</td>
+              <td>18.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>180.0</td>
+              <td>202.0</td>
+              <td>7.0</td>
+              <td>0.94</td>
+              <td>0.71</td>
+              <td>36.0</td>
+              <td>1.5</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-10 13:26</td>
+              <td>2021-11-10 17:26</td>
+              <td>2021-11-10 15:09</td>
+              <td>23</td>
+              <td>4.0</td>
+              <td>4.0</td>
+              <td>70.8</td>
+              <td>67.5</td>
+              <td>3.3</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.7</td>
+              <td>3.7</td>
+              <td>67.4</td>
+              <td>3.4</td>
+              <td>134.0</td>
+              <td>74.0</td>
+              <td>134.0</td>
+              <td>82.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>107.0</td>
+              <td>66.0</td>
+              <td>70.0</td>
+              <td>16.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>200.0</td>
+              <td>16.0</td>
+              <td>0.0</td>
+              <td>0.94</td>
+              <td>1.54</td>
+              <td>35.8</td>
+              <td>3.3</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-10 13:26</td>
+              <td>2021-11-10 17:26</td>
+              <td>2021-11-10 16:31</td>
+              <td>23</td>
+              <td>4.0</td>
+              <td>4.0</td>
+              <td>70.8</td>
+              <td>67.5</td>
+              <td>3.3</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.7</td>
+              <td>3.7</td>
+              <td>67.4</td>
+              <td>3.4</td>
+              <td>134.0</td>
+              <td>74.0</td>
+              <td>134.0</td>
+              <td>82.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>120.0</td>
+              <td>83.0</td>
+              <td>76.0</td>
+              <td>15.0</td>
+              <td>250.0</td>
+              <td>500.0</td>
+              <td>226.0</td>
+              <td>214.0</td>
+              <td>25.0</td>
+              <td>0.94</td>
+              <td>2.78</td>
+              <td>36.0</td>
+              <td>6.0</td>
+              <td>100</td>
+              <td>有</td>
+            </tr>
+            <tr>
+              <td>2021-11-10 13:26</td>
+              <td>2021-11-10 17:26</td>
+              <td>2021-11-10 17:26</td>
+              <td>23</td>
+              <td>4.0</td>
+              <td>4.0</td>
+              <td>70.8</td>
+              <td>67.5</td>
+              <td>3.3</td>
+              <td>0.4</td>
+              <td>0.0</td>
+              <td>3.7</td>
+              <td>3.7</td>
+              <td>67.4</td>
+              <td>3.4</td>
+              <td>134.0</td>
+              <td>74.0</td>
+              <td>134.0</td>
+              <td>82.0</td>
+              <td>HD</td>
+              <td>EL-15H</td>
+              <td>500.0</td>
+              <td>250.0</td>
+              <td>3.0</td>
+              <td></td>
+              <td>AVF/左, Needle A:16#, V:16#</td>
+              <td>System / 250 / 250</td>
+              <td></td>
+              <td>clear</td>
+              <td>134.0</td>
+              <td>82.0</td>
+              <td>72.0</td>
+              <td>15.0</td>
+              <td>150.0</td>
+              <td>500.0</td>
+              <td>151.0</td>
+              <td>-63.0</td>
+              <td>0.0</td>
+              <td>0.0</td>
+              <td>3.7</td>
+              <td>35.6</td>
+              <td>6.8</td>
+              <td>200</td>
+              <td>有</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="close-btn" onclick="closeModal()">
         <img src="{%static 'img/close.svg'%}" />
       </div>
       <div class="page">
-        <div class="page-btn" onclick="">
-          <img src="{%static 'img/left_inactive.svg'%}" />
+        <div class="page-btn" onclick="prev();">
+          <img id="left" src="{%static 'img/left_inactive.svg'%}" />
         </div>
-        <div class="page-btn" onclick="">
-          <img src="{%static 'img/right_active.svg'%}" />
+        <div class="page-btn" onclick="next();">
+          <img id="right" src="{%static 'img/right_active.svg'%}" />
         </div>
       </div>
     </div>

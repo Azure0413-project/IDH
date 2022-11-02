@@ -7,7 +7,4 @@ import json
 def index(request):
     with open('interface/data/data.json', encoding="utf-8") as file:
         data = json.loads(file.read())
-        print(data)
-    return render(request, 'index.html', {
-        'data': data,
-    })
+    return render(request, 'index.html')
