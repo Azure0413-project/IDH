@@ -1,7 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import json
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    with open('interface/data/data.json', encoding="utf-8") as file:
+        data = json.loads(file.read())
+        print(data)
+    return render(request, 'index.html', {
+        'data': data,
+    })

@@ -74,3 +74,6 @@ function openModal(bed_id) {
 function closeModal() {
     modal.classList.add('hidden');
 }
+
+let jsonData = JSON.parse('{{ data }}');
+console.log(jsonData);
