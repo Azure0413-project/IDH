@@ -62,18 +62,57 @@ const modal = document.getElementById("modal");
 
 window.onclick = function (event) {
     if (event.target == modal) {
+        clear();
         modal.classList.add("hidden");
     }
 };
 
 function openModal(bed_id) {
-    modal.classList.remove('hidden');
-    document.getElementById("patient").innerText = bed_id + "  陳O鳳";
-    document.getElementById("idhrate").innerText = "45%";
+    let patientDiv = document.getElementById("bed-" + bed_id);
+    let name = patientDiv.children[0].innerText;
+    let nullBed = bed_id + ' ---';
+    if(name != nullBed) {
+        modal.classList.remove('hidden');
+        document.getElementById("patient").innerText = name;
+        document.getElementById("idhrate").innerText = "45%";
+    }
 }
 function closeModal() {
+    clear();
     modal.classList.add('hidden');
 }
+let flag = true;
+function next() {
+    if(flag) {
+        flag = false;
+        document.getElementById("patient2").innerText = document.getElementById("patient").innerText;
+        document.getElementsByClassName("modal-left")[0].style.display = "none";
+        document.getElementsByClassName("modal-right")[0].style.display = "none";
+        document.getElementsByClassName("modal-table")[0].classList.remove("hidden");
+        document.getElementById("left").src = "/static/img/left_active.svg";
+        document.getElementById("right").src = "/static/img/right_inactive.svg";
+    }
+}
 
-let jsonData = JSON.parse('{{ data }}');
-console.log(jsonData);
+function prev() {
+    if(!flag){
+        flag = true;
+        document.getElementsByClassName("modal-left")[0].style.display = "flex";
+        document.getElementsByClassName("modal-right")[0].style.display = "flex";
+        document.getElementsByClassName("modal-table")[0].classList.add("hidden");
+        document.getElementById("left").src = "/static/img/left_inactive.svg";
+        document.getElementById("right").src = "/static/img/right_active.svg";
+    }
+}
+
+function clear() {
+    flag = true;
+    document.getElementsByClassName("modal-left")[0].style.display = "flex";
+    document.getElementsByClassName("modal-right")[0].style.display = "flex";
+    document.getElementsByClassName("modal-table")[0].classList.add("hidden");
+    document.getElementById("left").src = "/static/img/left_inactive.svg";
+    document.getElementById("right").src = "/static/img/right_active.svg";
+}
+
+// let jsonData = JSON.parse('{{ data }}');
+// console.log(jsonData);
