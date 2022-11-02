@@ -52,18 +52,25 @@ function openTab(evt, cityName) {
     evt.currentTarget.className += " active";
 }
 
+const modal = document.getElementById("myModal");
+const span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+    modal.classList.add('hidden');
+}
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.classList.add("hidden");
+    }
+};
+
 const bed = ['a1', 'a2', 'a3', 'a5', 'a6', 'a7', 'a8', 'a9', 
              'b1', 'b2', 'b3', 'b5', 'b6', 'b7', 'b8', 'b9', 
              'c1', 'c2', 'c3', 'c5', 'c6', 'c7', 'c8', 'c9', 
              'd1', 'd2', 'd3', 'd5', 'd6', 'd7', 'd8', 'd9', 
              'e1', 'e2', 'e3', 'e5', 'e6', 'e7', 'e8', 
              'i1', 'i2']
-for(let i = 0; i < bed.length; i++) {
-    let bedElement = document.getElementById('bed-' + bed[i]);
-    bedElement.addEventListener("click", selectBed(bed[i]));
-}
 
-function selectBed(bed_id) {
-    let bedElement = document.getElementById('bed-' + bed_id);
-    
+function openModal(bed_id) {
+    modal.classList.remove('hidden');
 }
