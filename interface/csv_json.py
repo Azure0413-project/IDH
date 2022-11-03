@@ -13,8 +13,8 @@ with open(csvFile, 'r', encoding='utf-8') as csvFile:
         #     data[row[column_names[0]]].append(row)
         # else:
         #     data[row[column_names[0]]] = [row]
-        if row[column_names[0]] not in data:
-            data[row[column_names[0]]] = [row]
+        if row['床位'] not in data:
+            data[row['床位']] = row
         
 
 with open(jsonFile, 'w', encoding='utf-8') as jsonFile:
