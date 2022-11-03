@@ -758,8 +758,8 @@
     <section class="tab-area">
       <h1>A</h1>
       <ul class="down tab-bed">
-        <li class="bed" id="bed-a9" onclick="openModal('');">
-          <div class="bed-top">A9 陳O鳳</div>
+        <li class="bed bed-warning" id="bed-a9" onclick="openModal('A9');">
+          <div class="bed-top bed-top-warning">A9 陳Ｏ新</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -779,8 +779,8 @@
           </div>
         </li>
         <li></li>
-        <li class="bed" id="bed-a5" onclick="openModal('');">
-          <div class="bed-top">A5 陳O鳳</div>
+        <li class="bed" id="bed-a5" onclick="openModal('A5');">
+          <div class="bed-top">A5 蔡Ｏ元</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -800,8 +800,49 @@
           </div>
         </li>
         <li></li>
-        <li class="bed" id="bed-a3" onclick="openModal('');">
-          <div class="bed-top">A3 陳O鳳</div>
+        <li class="bed" id="bed-a3" onclick="openModal('A3');">
+          <div class="bed-top">A3 蔡Ｏ吟</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+          <img src="{% static 'img/warning.svg' %} " />
+        </li>
+        <li class="bed" id="bed-a8" onclick="openModal('A8');">
+          <div class="bed-top">A8 楊Ｏ慶</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_warning.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-a2" onclick="openModal('A2');">
+          <div class="bed-top">A2 黃Ｏ惠</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -820,8 +861,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-a8" onclick="openModal('');">
-          <div class="bed-top">A8 陳O鳳</div>
+        <li class="bed" id="bed-a7" onclick="openModal('A7');">
+          <div class="bed-top">A7 李Ｏ發</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -840,8 +881,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-a2" onclick="openModal('');">
-          <div class="bed-top">A2 陳O鳳</div>
+        <li class="bed" id="bed-a1" onclick="openModal('A1');">
+          <div class="bed-top">A1 李Ｏ鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -860,48 +901,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-a7" onclick="openModal('');">
-          <div class="bed-top">A7 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-a1" onclick="openModal('');">
-          <div class="bed-top">A1 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-a6" onclick="openModal('');">
-          <div class="bed-top">A6 陳O鳳</div>
+        <li class="bed" id="bed-a6" onclick="openModal('A6');">
+          <div class="bed-top">A6 李Ｏ源</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -961,8 +962,8 @@
     <section class="tab-area">
       <h1>B</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-b5" onclick="openModal('');">
-          <div class="bed-top">B5 陳O鳳</div>
+        <li class="bed" id="bed-b5" onclick="openModal('B5');">
+          <div class="bed-top">B5 陳Ｏ鳳</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -981,49 +982,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b9" onclick="openModal('');">
-          <div class="bed-top">B9 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-          <img src="{% static 'img/warning.svg' %} " />
-        </li>
-        <li class="bed" id="bed-b3" onclick="openModal('');">
-          <div class="bed-top">B3 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-b8" onclick="openModal('');">
-          <div class="bed-top">B8 陳O鳳</div>
+        <li class="bed bed-warning" id="bed-b9" onclick="openModal('B9');">
+          <div class="bed-top bed-top-warning">B9 吳Ｏ為</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1043,8 +1003,8 @@
           </div>
           <img src="{% static 'img/warning.svg' %} " />
         </li>
-        <li class="bed" id="bed-b2" onclick="openModal('');">
-          <div class="bed-top">B2 陳O鳳</div>
+        <li class="bed" id="bed-b3" onclick="openModal('B3');">
+          <div class="bed-top">B3 趙Ｏ怡</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1063,8 +1023,29 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b7" onclick="openModal('');">
-          <div class="bed-top">B7 陳O鳳</div>
+        <li class="bed bed-danger" id="bed-b8" onclick="openModal('B8');">
+          <div class="bed-top bed-top-danger">B8 吳Ｏ雲</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+          <img src="{% static 'img/warning.svg' %} " />
+        </li>
+        <li class="bed" id="bed-b2" onclick="openModal('B2');">
+          <div class="bed-top">B2 郭Ｏ枋</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1083,8 +1064,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b1" onclick="openModal('');">
-          <div class="bed-top">B1 陳O鳳</div>
+        <li class="bed" id="bed-b7" onclick="openModal('B7');">
+          <div class="bed-top">B7 林ＯＯ香</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1103,8 +1084,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-b6" onclick="openModal('');">
-          <div class="bed-top">B6 陳O鳳</div>
+        <li class="bed" id="bed-b1" onclick="openModal('B1');">
+          <div class="bed-top">B1 洪ＯＯ惠</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1120,6 +1101,26 @@
             </div>
             <div class="idhrate">
               <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-b6" onclick="openModal('B6');">
+          <div class="bed-top bed-inactive">B6 ---</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_inactive.svg' %} " />
             </div>
           </div>
         </li>
@@ -1164,8 +1165,8 @@
     <section class="tab-area">
       <h1>C</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-c5" onclick="openModal('');">
-          <div class="bed-top">C5 陳O鳳</div>
+        <li class="bed" id="bed-c5" onclick="openModal('C5');">
+          <div class="bed-top">C5 林Ｏ信</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1184,8 +1185,28 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c9" onclick="openModal('');">
-          <div class="bed-top">C9 陳O鳳</div>
+        <li class="bed" id="bed-c9" onclick="openModal('C9');">
+          <div class="bed-top">C9 吳Ｏ純</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_warning.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-c3" onclick="openModal('C3');">
+          <div class="bed-top">C3 林Ｏ慧</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1204,8 +1225,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c3" onclick="openModal('');">
-          <div class="bed-top">C3 陳O鳳</div>
+        <li class="bed" id="bed-c8" onclick="openModal('C8');">
+          <div class="bed-top">C8 陳Ｏ珍</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1224,8 +1245,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c8" onclick="openModal('');">
-          <div class="bed-top">C8 陳O鳳</div>
+        <li class="bed bed-warning" id="bed-c2" onclick="openModal('C2');">
+          <div class="bed-top bed-top-warning">C2 蔡Ｏ香</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1244,8 +1265,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c2" onclick="openModal('');">
-          <div class="bed-top">C2 陳O鳳</div>
+        <li class="bed" id="bed-c7" onclick="openModal('C7');">
+          <div class="bed-top">C7 許ＯＯ蓮</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1264,48 +1285,28 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c7" onclick="openModal('');">
-          <div class="bed-top">C7 陳O鳳</div>
+        <li class="bed" id="bed-c1" onclick="openModal('C1');">
+          <div class="bed-top bed-inactive">C1 ---</div>
           <div class="bed-bottom">
             <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
             </div>
             <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
             </div>
             <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
             </div>
             <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
+              <img src="{% static 'img/idh_inactive.svg' %} " />
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-c1" onclick="openModal('');">
-          <div class="bed-top">C1 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-c6" onclick="openModal('');">
-          <div class="bed-top">C6 陳O鳳</div>
+        <li class="bed" id="bed-c6" onclick="openModal('C6');">
+          <div class="bed-top">C6 沈Ｏ隆</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1365,8 +1366,8 @@
     <section class="tab-area">
       <h1>D</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-d5" onclick="openModal('');">
-          <div class="bed-top">D5 陳O鳳</div>
+        <li class="bed" id="bed-d5" onclick="openModal('D5');">
+          <div class="bed-top">D5 許Ｏ合</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1385,8 +1386,28 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d9" onclick="openModal('');">
-          <div class="bed-top">D9 陳O鳳</div>
+        <li class="bed" id="bed-d9" onclick="openModal('D9');">
+          <div class="bed-top bed-inactive">D9 ---</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_inactive.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d3" onclick="openModal('D3');">
+          <div class="bed-top">D3 陳Ｏ明</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1405,8 +1426,28 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d3" onclick="openModal('');">
-          <div class="bed-top">D3 陳O鳳</div>
+        <li class="bed" id="bed-d8" onclick="openModal('D8');">
+          <div class="bed-top bed-inactive">D8 ---</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_inactive.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d2" onclick="openModal('D2');">
+          <div class="bed-top">D2 陳Ｏ安</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1425,8 +1466,28 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d8" onclick="openModal('');">
-          <div class="bed-top">D8 陳O鳳</div>
+        <li class="bed" id="bed-d7" onclick="openModal('D7');">
+          <div class="bed-top bed-inactive">D7 ---</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_inactive.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed" id="bed-d1" onclick="openModal('D1');">
+          <div class="bed-top">D1 卓Ｏ潭</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1445,83 +1506,23 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-d2" onclick="openModal('');">
-          <div class="bed-top">D2 陳O鳳</div>
+        <li class="bed" id="bed-d6" onclick="openModal('D6');">
+          <div class="bed-top bed-inactive">D6 ---</div>
           <div class="bed-bottom">
             <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
             </div>
             <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
             </div>
             <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
             </div>
             <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-d7" onclick="openModal('');">
-          <div class="bed-top">D7 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-d1" onclick="openModal('');">
-          <div class="bed-top">D1 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-d6" onclick="openModal('');">
-          <div class="bed-top">D6 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
+              <img src="{% static 'img/idh_inactive.svg' %} " />
             </div>
           </div>
         </li>
@@ -1566,8 +1567,49 @@
     <section class="tab-area">
       <h1>E</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-e5" onclick="openModal('');">
-          <div class="bed-top">E5 陳O鳳</div>
+        <li class="bed" id="bed-e5" onclick="openModal('E5');">
+          <div class="bed-top bed-inactive">E5 ---</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_inactive.svg' %} " />
+            </div>
+          </div>
+        </li>
+        <li class="bed bed-danger" id="bed-e8" onclick="openModal('E8');">
+          <div class="bed-top bed-top-danger">E8 侯ＯＯ虹</div>
+          <div class="bed-bottom">
+            <div class="pressure">
+              <div class="img-text">145/88</div>
+              <img src="{% static 'img/pressure_active.svg' %} " />
+            </div>
+            <div class="heartbeat">
+              <div class="img-text">75</div>
+              <img src="{% static 'img/heartbeat_active.svg' %} " />
+            </div>
+            <div class="dehydration">
+              <div class="img-text">1.8</div>
+              <img src="{% static 'img/water_active.svg' %} " />
+            </div>
+            <div class="idhrate">
+              <img src="{% static 'img/idh_safe.svg' %} " />
+            </div>
+          </div>
+          <img src="{% static 'img/warning.svg' %} " />
+        </li>
+        <li class="bed" id="bed-e3" onclick="openModal('E3');">
+          <div class="bed-top">E3 劉Ｏ佳</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1586,8 +1628,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e9" onclick="openModal('');">
-          <div class="bed-top">E9 陳O鳳</div>
+        <li class="bed" id="bed-e8" onclick="openModal('E7');">
+          <div class="bed-top">E7 戴Ｏ瑜</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1606,8 +1648,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e3" onclick="openModal('');">
-          <div class="bed-top">E3 陳O鳳</div>
+        <li class="bed" id="bed-e2" onclick="openModal('E2');">
+          <div class="bed-top">E2 李Ｏ奮</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1626,8 +1668,8 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e8" onclick="openModal('');">
-          <div class="bed-top">E8 陳O鳳</div>
+        <li class="bed" id="bed-e7" onclick="openModal('E6');">
+          <div class="bed-top">E6 林Ｏ真</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1646,63 +1688,23 @@
             </div>
           </div>
         </li>
-        <li class="bed" id="bed-e2" onclick="openModal('');">
-          <div class="bed-top">E2 陳O鳳</div>
+        <li class="bed" id="bed-e1" onclick="openModal('E1');">
+          <div class="bed-top bed-inactive">E1 ---</div>
           <div class="bed-bottom">
             <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/pressure_inactive.svg' %} " />
             </div>
             <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/heartbeat_inactive.svg' %} " />
             </div>
             <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
+              <div class="img-text"></div>
+              <img src="{% static 'img/water_inactive.svg' %} " />
             </div>
             <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-e7" onclick="openModal('');">
-          <div class="bed-top">E7 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
-            </div>
-          </div>
-        </li>
-        <li class="bed" id="bed-e1" onclick="openModal('');">
-          <div class="bed-top">E1 陳O鳳</div>
-          <div class="bed-bottom">
-            <div class="pressure">
-              <div class="img-text">145/88</div>
-              <img src="{% static 'img/pressure_active.svg' %} " />
-            </div>
-            <div class="heartbeat">
-              <div class="img-text">75</div>
-              <img src="{% static 'img/heartbeat_active.svg' %} " />
-            </div>
-            <div class="dehydration">
-              <div class="img-text">1.8</div>
-              <img src="{% static 'img/water_active.svg' %} " />
-            </div>
-            <div class="idhrate">
-              <img src="{% static 'img/idh_safe.svg' %} " />
+              <img src="{% static 'img/idh_inactive.svg' %} " />
             </div>
           </div>
         </li>
@@ -1748,8 +1750,8 @@
     <section class="tab-area">
       <h1>I</h1>
       <ul class="tab-bed">
-        <li class="bed" id="bed-i2" onclick="openModal('');">
-          <div class="bed-top">I2 陳O鳳</div>
+        <li class="bed" id="bed-i2" onclick="openModal('I2');">
+          <div class="bed-top">I2 黃Ｏ宗</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
@@ -1769,8 +1771,8 @@
           </div>
         </li>
         <li></li>
-        <li class="bed" id="bed-i1" onclick="openModal('');">
-          <div class="bed-top">I1 陳O鳳</div>
+        <li class="bed" id="bed-i1" onclick="openModal('I1');">
+          <div class="bed-top">I1 田Ｏ甫</div>
           <div class="bed-bottom">
             <div class="pressure">
               <div class="img-text">145/88</div>
