@@ -37,6 +37,7 @@ class Record(models.Model):
     start_flow_speed = models.IntegerField()
     start_blood_speed = models.IntegerField()
     Ca = models.IntegerField()
+    conductivity = models.DecimalField(decimal_places=2, max_digits=4)
     channel = models.CharField(max_length=50)
     heparin = models.CharField(max_length=50)
     ESA = models.CharField(max_length=50, blank=True)
