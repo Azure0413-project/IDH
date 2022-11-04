@@ -7,6 +7,7 @@ class Patient(models.Model):
 
 class Record(models.Model):
     r_id = models.AutoField(primary_key=True)
+    p_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     name = models.CharField(max_length=10)
     gender = models.CharField(max_length=2)
     birth = models.DateField()
@@ -37,7 +38,7 @@ class Record(models.Model):
     start_flow_speed = models.IntegerField()
     start_blood_speed = models.IntegerField()
     Ca = models.IntegerField()
-    conductivity = models.DecimalField(decimal_places=2, max_digits=4)
+    conductivity = models.DecimalField(decimal_places=2, max_digits=4, blank=True)
     channel = models.CharField(max_length=50)
     heparin = models.CharField(max_length=50)
     ESA = models.CharField(max_length=50, blank=True)
@@ -53,7 +54,7 @@ class Record(models.Model):
     TMP = models.IntegerField()
     dehydrate_speed = models.DecimalField(decimal_places=2, max_digits=4)
     accumulation = models.DecimalField(decimal_places=2, max_digits=4)
-    dialysate_temperature = models.DecimalField(decimal_places=2, max_digits=4)
-    heparin_volumn = models.DecimalField(decimal_places=2, max_digits=4)
+    dialyse_temperature = models.DecimalField(decimal_places=2, max_digits=4)
+    heparin_volume = models.DecimalField(decimal_places=2, max_digits=4)
     flush = models.IntegerField(blank=True)
     channel_confirmed = models.BooleanField()
