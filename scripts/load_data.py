@@ -7,18 +7,30 @@ def run():
     start_time = timezone.now()
     file_path = 'interface/data/洗腎病人名單.csv'
     record_path = 'interface/data/202111-202207.csv'
-    with open(file_path, "r", encoding='utf-8') as csv_file:
-        data = list(csv.reader(csv_file, delimiter=","))
-        for row in data[1:]:
-            Patient.objects.create(
-                p_id=row[0],
-                p_name=row[1],
-            )
-    with open(file_path, "r", encoding='utf-8') as csv_file:
-        data = list(csv.reader(csv_file, delimiter=","))
-        for row in data[1:]:
-            Record.objects.create(
-                p_id = row[0],
+    # with open(file_path, "r", encoding='utf-8') as csv_file:
+    #     data = csv.reader(csv_file, delimiter=",")
+    #     next(data)                                            # 跳過第一列
+    #     patients = []
+    #     for row in data:
+    #         patient = Patient(
+    #             p_id=row[0],
+    #             p_name=row[1],
+    #         )
+    #         patients.append(patient)
+    #         if len(patients) > 100:
+    #             Patient.objects.bulk_create(patients)         # 減少儲存次數
+    #             patients = []
+    #     if patients:
+    #         Patient.objects.bulk_create(patients)
+    with open(record_path, "r", encoding='utf-8') as csv_file:
+        data = csv.reader(csv_file, delimiter=",")
+        next(data)
+        records = []
+        for row in data:
+            pid = int(row[0])
+            print(pid)
+            record = Record(
+                p_id = Patient.objects.get(p_id = pid),
                 name = row[1],
                 gender = row[2],
                 birth = row[3],
@@ -70,9 +82,11 @@ def run():
                 flush = row[49],
                 channel_confirmed = row[50],
             )
+        records.append(record)
+        if len(records) > 5000:
+            Record.objects.bulk_create(records)    
+            records = []
+        if records:
+            Record.objects.bulk_create(records)
     end_time = timezone.now()
-    self.stdout.write(
-        self.style.SUCCESS(
-            f"Loading CSV took: {(end_time-start_time).total_seconds()} seconds."
-        )
-    )
+    print("Loading CSV took: " + (end_time-start_time).total_seconds() + " seconds.")
