@@ -4,18 +4,16 @@ from django.db import models
 class Patient(models.Model):
     p_id = models.IntegerField(primary_key=True)
     p_name = models.CharField(max_length=10)
-
-class Record(models.Model):
-    r_id = models.AutoField(primary_key=True)
-    p_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    name = models.CharField(max_length=10)
     gender = models.CharField(max_length=2)
     birth = models.DateField()
+
+class Dialysis(models.Model):
+    d_id = models.AutoField(primary_key=True)
+    p_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
     age = models.IntegerField()
     times = models.IntegerField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    record_time = models.DateTimeField()
     machine_id = models.CharField(max_length=10)
     bed = models.CharField(max_length=10)
     temperature = models.DecimalField(decimal_places=2, max_digits=4, blank=True)
@@ -43,6 +41,10 @@ class Record(models.Model):
     heparin = models.CharField(max_length=50)
     ESA = models.CharField(max_length=50, blank=True)
     coagulation = models.CharField(max_length=20)
+class Record(models.Model):
+    r_id = models.AutoField(primary_key=True)
+    d_id = models.ForeignKey(Dialysis, on_delete=models.CASCADE)
+    record_time = models.DateTimeField()
     SBP = models.IntegerField()
     DBP = models.IntegerField()
     pulse = models.IntegerField()
