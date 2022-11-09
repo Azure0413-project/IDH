@@ -17,6 +17,7 @@ class CSV:
         df = pd.read_csv(self.file, usecols=usecols)
         df['透析開始時間'] = df['透析開始時間'].apply(lambda x: pd.to_datetime(x))
         df['透析結束時間'] = df['透析結束時間'].apply(lambda x: pd.to_datetime(x))
+        df['床位'] = df['床位'].apply(lambda x: x if x[0].isdigit() == False else x[::-1])   # reverse bed_id
         df = df.fillna(-1)
         df = df.drop_duplicates()                     # drop duplicates
         # print(df.info())
@@ -37,8 +38,7 @@ class CSV:
 
 def run():
     data = CSV('interface/data/202111-202207.csv')
-    data.read_to_patient()
+    # data.read_to_patient()
     data.read_to_dialysis()
-    data.read_to_record()
-
+    # data.read_to_record()
 
