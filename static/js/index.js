@@ -73,8 +73,18 @@ function openModal(bed_id) {
     modal.classList.remove('hidden');
     document.getElementById("patient").innerText = name;
     document.getElementById("idhrate").innerText = "45%";
-    let patient = JSON.parse('{{ js_patient }}');
-    let setting = JSON.parse("{{ js_setting }}");
+    // let patient = JSON.parse('{{ js_patient }}');
+    // let setting = JSON.parse("{{ js_setting }}");
+    if(bed_id == 'A3'){
+        document.getElementById("plot").src = "/static/img/plot_a3.png";
+    } else if(bed_id == 'C3'){
+        document.getElementById("plot").src = "/static/img/plot_c3.png";
+    } else if(bed_id == 'E5'){
+        document.getElementById("plot").src = "/static/img/plot_e5.png";
+    } else {
+        document.getElementById("plot").src = "/static/img/plot.png";
+        
+    }
     console.log(patient);
     console.log(setting);
     console.log(record);

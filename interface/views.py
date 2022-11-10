@@ -6,7 +6,7 @@ from interface.models import Patient, Dialysis, Record
 
 # Create your views here.
 
-time = datetime(2022, 7, 5, 8, 30, 12)
+time = datetime(2022, 7, 5, 9, 30, 12)
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
