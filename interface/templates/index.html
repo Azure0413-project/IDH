@@ -38,7 +38,8 @@
               </div>
             </div>
           {% else %}
-          {% comment %} {{ patient.setting|json_script:"json_patient" }} {% endcomment %}
+          {% comment %} {{ patient.id|json_script:"js_patient" }} {% endcomment %}
+          {% comment %} {{ patient.setting|json_script:"js_setting" }} {% endcomment %}
           {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
           <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>

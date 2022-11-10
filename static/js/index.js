@@ -73,7 +73,8 @@ function openModal(bed_id) {
     modal.classList.remove('hidden');
     document.getElementById("patient").innerText = name;
     document.getElementById("idhrate").innerText = "45%";
-    // let patient = JSON.parse("{{ json_patient }}");
+    let patient = JSON.parse('{{ js_patient }}');
+    let setting = JSON.parse("{{ js_setting }}");
     console.log(patient);
     console.log(setting);
     console.log(record);
