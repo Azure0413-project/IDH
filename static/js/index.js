@@ -52,12 +52,12 @@ function openTab(evt, cityName) {
     evt.currentTarget.className += " active";
 }
 
-const bed = ['a1', 'a2', 'a3', 'a5', 'a6', 'a7', 'a8', 'a9', 
-             'b1', 'b2', 'b3', 'b5', 'b6', 'b7', 'b8', 'b9', 
-             'c1', 'c2', 'c3', 'c5', 'c6', 'c7', 'c8', 'c9', 
-             'd1', 'd2', 'd3', 'd5', 'd6', 'd7', 'd8', 'd9', 
-             'e1', 'e2', 'e3', 'e5', 'e6', 'e7', 'e8', 
-             'i1', 'i2']
+const bed = ['A1', 'A2', 'A3', 'A5', 'A6', 'A7', 'A8', 'A9', 
+             'B1', 'B2', 'B3', 'B5', 'B6', 'B7', 'B8', 'B9', 
+             'C1', 'C2', 'C3', 'C5', 'C6', 'C7', 'C8', 'C9', 
+             'D1', 'D2', 'D3', 'D5', 'D6', 'D7', 'D8', 'D9', 
+             'E1', 'E2', 'E3', 'E5', 'E6', 'E7', 'E8', 
+             'I1', 'I2']
 const modal = document.getElementById("modal");
 
 window.onclick = function (event) {
