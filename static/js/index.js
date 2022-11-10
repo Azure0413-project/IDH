@@ -70,12 +70,13 @@ window.onclick = function (event) {
 function openModal(bed_id) {
     let patientDiv = document.getElementById("bed-" + bed_id);
     let name = patientDiv.children[0].innerText;
-    let nullBed = bed_id + ' ---';
-    if(name != nullBed) {
-        modal.classList.remove('hidden');
-        document.getElementById("patient").innerText = name;
-        document.getElementById("idhrate").innerText = "45%";
-    }
+    modal.classList.remove('hidden');
+    document.getElementById("patient").innerText = name;
+    document.getElementById("idhrate").innerText = "45%";
+    // let patient = JSON.parse("{{ json_patient }}");
+    console.log(patient);
+    console.log(setting);
+    console.log(record);
 }
 function closeModal() {
     clear();
