@@ -55,6 +55,7 @@ def get_patients():
             if bed == d.bed:
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                # patient['id'] = list(Patient.objects.filter(p_id=d.p_id.p_id).values())
                 patient['setting'] = d
                 patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)[0]
                 continue
