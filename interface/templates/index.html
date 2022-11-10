@@ -15,128 +15,15 @@
     <button class="tablinks" onclick="openTab(event, 'tabE')">E<br />區</button>
     <button class="tablinks" onclick="openTab(event, 'tabI')">I<br />區</button>
   </div>
-  {{ patients }}
   <div id="dashboard" class="tabcontent">
     <div class="map">
       <section class="area">
         <h1>B</h1>
         <ul class="up">
-          <li class="bed" id="bed-B5" onclick="openModal('B5');">
-            <div class="bed-top">B5 陳Ｏ鳳</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed bed-warning" id="bed-B9" onclick="openModal('B9');">
-            <div class="bed-top bed-top-warning">B9 吳Ｏ為</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">178/94</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">120</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_warning.svg' %} " />
-              </div>
-            </div>
-            <img src="{% static 'img/warning.svg' %} " />
-          </li>
-          <li class="bed" id="bed-B3" onclick="openModal('B3');">
-            <div class="bed-top">B3 趙Ｏ怡</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">127/77</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">98</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed bed-danger" id="bed-B8" onclick="openModal('B8');">
-            <div class="bed-top bed-top-danger">B8 吳Ｏ雲</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">92/55</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">55</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_danger.svg' %} " />
-              </div>
-            </div>
-            <img src="{% static 'img/warning.svg' %} " />
-          </li>
-          <li class="bed" id="bed-B2" onclick="openModal('B2');">
-            <div class="bed-top">B2 郭Ｏ枋</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">120</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-B7" onclick="openModal('B7');">
-            <div class="bed-top">B7 林ＯＯ香</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">104</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-B1" onclick="openModal('B1');">
-            <div class="bed-top">B1 洪ＯＯ惠</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">97/69</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">168</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-B6" onclick="openModal('B6');">
-            <div class="bed-top bed-inactive">B6 ---</div>
+        {% for patient in b_patients %}
+          {% if patient.id == '---' %}
+          <li class="bed" id="bed-{{ patient.bed }}">
+            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text"></div>
@@ -150,111 +37,65 @@
                 <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
+          {% else %}
+          {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% else %}
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% endif %}
+            <div class="bed-bottom">
+              <div class="pressure">
+                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% else %}
+                <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% endif %}
+                <img src="{% static 'img/pressure_active.svg' %} " />
+              </div>
+              <div class="heartbeat">
+                {% if patient.record.pulse < 60 or pulse > 140  %}
+                <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                {% elif patient.record.pulse > 120 %}
+                <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                {% else %}
+                <div class="img-text"> {{ patient.record.pulse }} </div>
+                {% endif %}
+                <img src="{% static 'img/heartbeat_active.svg' %} " />
+              </div>
+              {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+              <div class="idhrate">
+                <img src="{% static 'img/idh_danger.svg' %} " />
+              </div>
+              {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+              <div class="idhrate">
+                <img src="{% static 'img/idh_warning.svg' %} " />
+              </div>
+              {% else %}
+              <div class="idhrate">
+                <img src="{% static 'img/idh_safe.svg' %} " />
+              </div>
+              {% endif %}
+            </div>
+          {% endif %}
           </li>
+        {% endfor %}
         </ul>
         <div class="divider"></div>
       </section>
       <section class="area">
         <h1>C</h1>
         <ul class="up">
-          <li class="bed" id="bed-C5" onclick="openModal('C5');">
-            <div class="bed-top">C5 林Ｏ信</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">95</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-C9" onclick="openModal('C9');">
-            <div class="bed-top">C9 吳Ｏ純</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">66</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_warning.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-C3" onclick="openModal('C3');">
-            <div class="bed-top">C3 林Ｏ慧</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">74</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-C8" onclick="openModal('C8');">
-            <div class="bed-top">C8 陳Ｏ珍</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">120/68</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed bed-warning" id="bed-C2" onclick="openModal('C2');">
-            <div class="bed-top bed-top-warning">C2 蔡Ｏ香</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">98/68</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">59</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-C7" onclick="openModal('C7');">
-            <div class="bed-top">C7 許ＯＯ蓮</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-C1" onclick="openModal('C1');">
-            <div class="bed-top bed-inactive">C1 ---</div>
+        {% for patient in c_patients %}
+          {% if patient.id == '---' %}
+          <li class="bed" id="bed-{{ patient.bed }}">
+            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text"></div>
@@ -268,47 +109,65 @@
                 <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
-          </li>
-          <li class="bed" id="bed-C6" onclick="openModal('C6');">
-            <div class="bed-top">C6 沈Ｏ隆</div>
+          {% else %}
+          {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% else %}
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% endif %}
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">135/98</div>
+                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% else %}
+                <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% endif %}
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">97</div>
+                {% if patient.record.pulse < 60 or pulse > 140  %}
+                <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                {% elif patient.record.pulse > 120 %}
+                <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                {% else %}
+                <div class="img-text"> {{ patient.record.pulse }} </div>
+                {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
+              {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+              <div class="idhrate">
+                <img src="{% static 'img/idh_danger.svg' %} " />
+              </div>
+              {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+              <div class="idhrate">
+                <img src="{% static 'img/idh_warning.svg' %} " />
+              </div>
+              {% else %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_safe.svg' %} " />
               </div>
+              {% endif %}
             </div>
+          {% endif %}
           </li>
+        {% endfor %}
         </ul>
         <div class="divider"></div>
       </section>
       <section class="area">
         <h1>D</h1>
         <ul class="up">
-          <li class="bed" id="bed-D5" onclick="openModal('D5');">
-            <div class="bed-top">D5 許Ｏ合</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">141/98</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">72</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-D9" onclick="openModal('D9');">
-            <div class="bed-top bed-inactive">D9 ---</div>
+        {% for patient in d_patients %}
+          {% if patient.id == '---' %}
+          <li class="bed" id="bed-{{ patient.bed }}">
+            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
             <div class="bed-bottom">
               <div class="pressure">
                 <div class="img-text"></div>
@@ -322,404 +181,281 @@
                 <img src="{% static 'img/idh_inactive.svg' %} " />
               </div>
             </div>
-          </li>
-          <li class="bed" id="bed-D3" onclick="openModal('D3');">
-            <div class="bed-top">D3 陳Ｏ明</div>
+          {% else %}
+          {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% else %}
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% endif %}
             <div class="bed-bottom">
               <div class="pressure">
-                <div class="img-text">145/88</div>
+                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% else %}
+                <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% endif %}
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                <div class="img-text">120</div>
+                {% if patient.record.pulse < 60 or pulse > 140  %}
+                <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                {% elif patient.record.pulse > 120 %}
+                <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                {% else %}
+                <div class="img-text"> {{ patient.record.pulse }} </div>
+                {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-D8" onclick="openModal('D8');">
-            <div class="bed-top bed-inactive">D8 ---</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text"></div>
-                <img src="{% static 'img/pressure_inactive.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text"></div>
-                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_inactive.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed bed-danger" id="bed-D2" onclick="openModal('D2');">
-            <div class="bed-top bed-top-danger">D2 陳Ｏ安</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">72/38</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">48</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
+              {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_danger.svg' %} " />
               </div>
-            </div>
-            <img src="{% static 'img/warning.svg' %} " />
-          </li>
-          <li class="bed" id="bed-D7" onclick="openModal('D7');">
-            <div class="bed-top bed-inactive">D7 ---</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text"></div>
-                <img src="{% static 'img/pressure_inactive.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text"></div>
-                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
-              </div>
+              {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
               <div class="idhrate">
-                <img src="{% static 'img/idh_inactive.svg' %} " />
+                <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-D1" onclick="openModal('D1');">
-            <div class="bed-top">D1 卓Ｏ潭</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/78</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">73</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
+              {% else %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_safe.svg' %} " />
               </div>
+              {% endif %}
             </div>
+          {% endif %}
           </li>
-          <li class="bed" id="bed-D6" onclick="openModal('D6');">
-            <div class="bed-top bed-inactive">D6 ---</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text"></div>
-                <img src="{% static 'img/pressure_inactive.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text"></div>
-                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_inactive.svg' %} " />
-              </div>
-            </div>
-          </li>
+        {% endfor %}
         </ul>
       </section>
       <section class="area">
         <h1>A</h1>
         <ul class="down">
-          <li class="bed bed-warning" id="bed-A9" onclick="openModal('A9');">
-            <div class="bed-top bed-top-warning">A9 陳Ｏ新</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">95/68</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">66</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_warning.svg' %} " />
-              </div>
-            </div>
-          </li>
+        {% for patient in a_patients %}
+          {% if patient.bed == '' %}
           <li></li>
-          <li class="bed" id="bed-A5" onclick="openModal('A5');">
-            <div class="bed-top">A5 蔡Ｏ元</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">135/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="bed-bottom">
+                <div class="pressure">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/pressure_inactive.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+                </div>
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_inactive.svg' %} " />
+                </div>
               </div>
-              <div class="heartbeat">
-                <div class="img-text">79</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+            {% else %}
+            {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% endif %}
+              <div class="bed-bottom">
+                <div class="pressure">
+                  {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                  <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                  <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/pressure_active.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  {% if patient.record.pulse < 60 or pulse > 140  %}
+                  <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                  {% elif patient.record.pulse > 120 %}
+                  <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/heartbeat_active.svg' %} " />
+                </div>
+                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_danger.svg' %} " />
+                </div>
+                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_warning.svg' %} " />
+                </div>
+                {% else %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_safe.svg' %} " />
+                </div>
+                {% endif %}
               </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li></li>
-          <li class="bed" id="bed-A3" onclick="openModal('A3');">
-            <div class="bed-top">A3 蔡Ｏ吟</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">108</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-            <img src="{% static 'img/warning.svg' %} " />
-          </li>
-          <li class="bed" id="bed-A8" onclick="openModal('A8');">
-            <div class="bed-top">A8 楊Ｏ慶</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">125/78</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">79</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_warning.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-A2" onclick="openModal('A2');">
-            <div class="bed-top">A2 黃Ｏ惠</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">109</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-A7" onclick="openModal('A7');">
-            <div class="bed-top">A7 李Ｏ發</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">142/98</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">72</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-A1" onclick="openModal('A1');">
-            <div class="bed-top">A1 李Ｏ鳳</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">100</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-A6" onclick="openModal('A6');">
-            <div class="bed-top">A6 李Ｏ源</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/98</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">95</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
+            {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
         </ul>
         <div class="divider"></div>
       </section>
       <section class="area">
         <h1>E</h1>
         <ul class="down">
+          {% for patient in e_patients %}
+          {% if patient.bed == '' %}
           <li></li>
-          <li></li>
-          <li class="bed" id="bed-E5" onclick="openModal('E5');">
-            <div class="bed-top bed-inactive">E5 ---</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text"></div>
-                <img src="{% static 'img/pressure_inactive.svg' %} " />
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="bed-bottom">
+                <div class="pressure">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/pressure_inactive.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+                </div>
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_inactive.svg' %} " />
+                </div>
               </div>
-              <div class="heartbeat">
-                <div class="img-text"></div>
-                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+            {% else %}
+            {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% endif %}
+              <div class="bed-bottom">
+                <div class="pressure">
+                  {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                  <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                  <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/pressure_active.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  {% if patient.record.pulse < 60 or pulse > 140  %}
+                  <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                  {% elif patient.record.pulse > 120 %}
+                  <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/heartbeat_active.svg' %} " />
+                </div>
+                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_danger.svg' %} " />
+                </div>
+                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_warning.svg' %} " />
+                </div>
+                {% else %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_safe.svg' %} " />
+                </div>
+                {% endif %}
               </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_inactive.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed bed-danger" id="bed-E8" onclick="openModal('E8');">
-            <div class="bed-top bed-top-danger">E8 侯ＯＯ虹</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">98/68</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">55</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_danger.svg' %} " />
-              </div>
-            </div>
-            <img src="{% static 'img/warning.svg' %} " />
-          </li>
-          <li class="bed" id="bed-E3" onclick="openModal('E3');">
-            <div class="bed-top">E3 劉Ｏ佳</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">125/92</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">79</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-E7" onclick="openModal('E7');">
-            <div class="bed-top">E7 戴Ｏ瑜</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">122/78</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">65</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-E2" onclick="openModal('E2');">
-            <div class="bed-top">E2 李Ｏ奮</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">135/77</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">95</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-E6" onclick="openModal('E6');">
-            <div class="bed-top">E6 林Ｏ真</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">145/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li class="bed" id="bed-E1" onclick="openModal('E1');">
-            <div class="bed-top bed-inactive">E1 ---</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text"></div>
-                <img src="{% static 'img/pressure_inactive.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text"></div>
-                <img src="{% static 'img/heartbeat_inactive.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_inactive.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li></li>
-        </ul>
+            {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
         <div class="divider"></div>
       </section>
       <section class="area">
         <h1>I</h1>
         <ul class="down">
+        {% for patient in i_patients %}
+          {% if patient.bed == '' %}
           <li></li>
-          <li></li>
-          <li class="bed" id="bed-I2" onclick="openModal('I2');">
-            <div class="bed-top">I2 黃Ｏ宗</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">125/91</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="bed-bottom">
+                <div class="pressure">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/pressure_inactive.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+                </div>
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_inactive.svg' %} " />
+                </div>
               </div>
-              <div class="heartbeat">
-                <div class="img-text">66</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
+            {% else %}
+            {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% endif %}
+              <div class="bed-bottom">
+                <div class="pressure">
+                  {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                  <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                  <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/pressure_active.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  {% if patient.record.pulse < 60 or pulse > 140  %}
+                  <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                  {% elif patient.record.pulse > 120 %}
+                  <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/heartbeat_active.svg' %} " />
+                </div>
+                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_danger.svg' %} " />
+                </div>
+                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_warning.svg' %} " />
+                </div>
+                {% else %}
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_safe.svg' %} " />
+                </div>
+                {% endif %}
               </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li></li>
-          <li class="bed" id="bed-I1" onclick="openModal('I1');">
-            <div class="bed-top">I1 田Ｏ甫</div>
-            <div class="bed-bottom">
-              <div class="pressure">
-                <div class="img-text">125/88</div>
-                <img src="{% static 'img/pressure_active.svg' %} " />
-              </div>
-              <div class="heartbeat">
-                <div class="img-text">75</div>
-                <img src="{% static 'img/heartbeat_active.svg' %} " />
-              </div>
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-            </div>
-          </li>
-          <li></li>
+            {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
           <li class="legend">
             <div class="legend-top">圖例</div>
             <div class="legend-bottom">
@@ -729,7 +465,7 @@
               </div>
               <div class="legend-item">
                 <img src="{%static 'img/legend/pressure.svg' %}" />
-                <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+                <div class="legend-text">收縮壓/舒張壓 (mmHg)</div>
               </div>
               <div class="legend-item">
                 <img src="{%static 'img/legend/danger.svg' %}" />
@@ -939,7 +675,7 @@
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/pressure.svg' %}" />
-            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+            <div class="legend-text">收縮壓/舒張壓 (mmHg)</div>
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/heartbeat.svg' %}" />
@@ -1142,7 +878,7 @@
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/pressure.svg' %}" />
-            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+            <div class="legend-text">收縮壓/舒張壓 (mmHg)</div>
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/heartbeat.svg' %}" />
@@ -1343,7 +1079,7 @@
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/pressure.svg' %}" />
-            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+            <div class="legend-text">收縮壓/舒張壓 (mmHg)</div>
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/heartbeat.svg' %}" />
@@ -1544,7 +1280,7 @@
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/pressure.svg' %}" />
-            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+            <div class="legend-text">收縮壓/舒張壓 (mmHg)</div>
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/heartbeat.svg' %}" />
@@ -1727,7 +1463,7 @@
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/pressure.svg' %}" />
-            <div class="legend-text">舒張壓/收縮壓 (mmHg)</div>
+            <div class="legend-text">收縮壓/舒張壓 (mmHg)</div>
           </div>
           <div class="legend-item">
             <img src="{%static 'img/legend/heartbeat.svg' %}" />
@@ -1860,7 +1596,7 @@
       </div>
       <div class="modal-right">
         <ul class="main-info">
-          <li>舒張壓 / 收縮壓：145 / 88 mmHg</li>
+          <li>收縮壓 / 舒張壓：145 / 88 mmHg</li>
           <li>體溫：36.6 ℃</li>
           <li>脈搏：78 bpm</li>
           <li>飲食 / 預計沖水量：1 kg / 1 L</li>
