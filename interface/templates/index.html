@@ -38,10 +38,10 @@
               </div>
             </div>
           {% else %}
-          {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
           <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
           <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
@@ -50,30 +50,30 @@
           {% endif %}
             <div class="bed-bottom">
               <div class="pressure">
-                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                 <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
-                <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                 {% else %}
                 <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                 {% endif %}
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                {% if patient.record.pulse < 60 or pulse > 140  %}
+                {% if patient.record.pulse < 60 or patient.record.pulse > 140  %}
                 <div class="img-text danger"> {{ patient.record.pulse }} </div>
                 {% elif patient.record.pulse > 120 %}
-                <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                <div class="img-text"> {{ patient.record.pulse }} </div>
                 {% else %}
                 <div class="img-text"> {{ patient.record.pulse }} </div>
                 {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
-              {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+              {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_danger.svg' %} " />
               </div>
-              {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+              {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
@@ -110,10 +110,10 @@
               </div>
             </div>
           {% else %}
-          {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
           <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
           <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
@@ -122,30 +122,30 @@
           {% endif %}
             <div class="bed-bottom">
               <div class="pressure">
-                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                 <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
-                <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                 {% else %}
                 <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                 {% endif %}
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                {% if patient.record.pulse < 60 or pulse > 140  %}
+                {% if patient.record.pulse < 60 or patient.record.pulse > 140  %}
                 <div class="img-text danger"> {{ patient.record.pulse }} </div>
                 {% elif patient.record.pulse > 120 %}
-                <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                <div class="img-text"> {{ patient.record.pulse }} </div>
                 {% else %}
                 <div class="img-text"> {{ patient.record.pulse }} </div>
                 {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
-              {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+              {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_danger.svg' %} " />
               </div>
-              {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+              {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
@@ -182,10 +182,10 @@
               </div>
             </div>
           {% else %}
-          {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
           <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
           <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
@@ -194,30 +194,30 @@
           {% endif %}
             <div class="bed-bottom">
               <div class="pressure">
-                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                 <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
-                <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                 {% else %}
                 <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                 {% endif %}
                 <img src="{% static 'img/pressure_active.svg' %} " />
               </div>
               <div class="heartbeat">
-                {% if patient.record.pulse < 60 or pulse > 140  %}
+                {% if patient.record.pulse < 60 or patient.record.pulse > 140  %}
                 <div class="img-text danger"> {{ patient.record.pulse }} </div>
                 {% elif patient.record.pulse > 120 %}
-                <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                <div class="img-text"> {{ patient.record.pulse }} </div>
                 {% else %}
                 <div class="img-text"> {{ patient.record.pulse }} </div>
                 {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
-              {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+              {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_danger.svg' %} " />
               </div>
-              {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+              {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
               <div class="idhrate">
                 <img src="{% static 'img/idh_warning.svg' %} " />
               </div>
@@ -256,10 +256,10 @@
                 </div>
               </div>
             {% else %}
-            {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
             <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-            {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
@@ -268,30 +268,30 @@
             {% endif %}
               <div class="bed-bottom">
                 <div class="pressure">
-                  {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                  {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                   <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                  {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
-                  <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                   {% else %}
                   <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                   {% endif %}
                   <img src="{% static 'img/pressure_active.svg' %} " />
                 </div>
                 <div class="heartbeat">
-                  {% if patient.record.pulse < 60 or pulse > 140  %}
+                  {% if patient.record.pulse < 60 or patient.record.pulse > 140  %}
                   <div class="img-text danger"> {{ patient.record.pulse }} </div>
                   {% elif patient.record.pulse > 120 %}
-                  <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
                   {% else %}
                   <div class="img-text"> {{ patient.record.pulse }} </div>
                   {% endif %}
                   <img src="{% static 'img/heartbeat_active.svg' %} " />
                 </div>
-                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                 <div class="idhrate">
                   <img src="{% static 'img/idh_danger.svg' %} " />
                 </div>
-                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
                 <div class="idhrate">
                   <img src="{% static 'img/idh_warning.svg' %} " />
                 </div>
@@ -332,10 +332,10 @@
                 </div>
               </div>
             {% else %}
-            {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
             <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-            {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
@@ -344,30 +344,30 @@
             {% endif %}
               <div class="bed-bottom">
                 <div class="pressure">
-                  {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                  {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                   <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                  {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
-                  <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                   {% else %}
                   <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                   {% endif %}
                   <img src="{% static 'img/pressure_active.svg' %} " />
                 </div>
                 <div class="heartbeat">
-                  {% if patient.record.pulse < 60 or pulse > 140  %}
+                  {% if patient.record.pulse < 60 or patient.record.pulse > 140  %}
                   <div class="img-text danger"> {{ patient.record.pulse }} </div>
                   {% elif patient.record.pulse > 120 %}
-                  <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
                   {% else %}
                   <div class="img-text"> {{ patient.record.pulse }} </div>
                   {% endif %}
                   <img src="{% static 'img/heartbeat_active.svg' %} " />
                 </div>
-                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                 <div class="idhrate">
                   <img src="{% static 'img/idh_danger.svg' %} " />
                 </div>
-                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
                 <div class="idhrate">
                   <img src="{% static 'img/idh_warning.svg' %} " />
                 </div>
@@ -407,10 +407,10 @@
                 </div>
               </div>
             {% else %}
-            {% if patient.record.SBP < 100 or patient.record.SBP > 180 or pulse < 60 or pulse > 140 %}
+            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
             <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-            {% elif patient.record.SBP < 90 or patient.record.SBP > 165 or pulse > 120 %}
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
@@ -419,30 +419,30 @@
             {% endif %}
               <div class="bed-bottom">
                 <div class="pressure">
-                  {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                  {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                   <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                  {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
-                  <div class="img-text warning"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                   {% else %}
                   <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
                   {% endif %}
                   <img src="{% static 'img/pressure_active.svg' %} " />
                 </div>
                 <div class="heartbeat">
-                  {% if patient.record.pulse < 60 or pulse > 140  %}
+                  {% if patient.record.pulse < 60 or patient.record.pulse > 140  %}
                   <div class="img-text danger"> {{ patient.record.pulse }} </div>
                   {% elif patient.record.pulse > 120 %}
-                  <div class="img-text warning"> {{ patient.record.pulse }} </div>
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
                   {% else %}
                   <div class="img-text"> {{ patient.record.pulse }} </div>
                   {% endif %}
                   <img src="{% static 'img/heartbeat_active.svg' %} " />
                 </div>
-                {% if patient.record.SBP < 100 or patient.record.SBP > 180 %}
+                {% if patient.record.SBP < 90 or patient.record.SBP > 180 %}
                 <div class="idhrate">
                   <img src="{% static 'img/idh_danger.svg' %} " />
                 </div>
-                {% elif patient.record.SBP < 90 or patient.record.SBP > 165 %}
+                {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
                 <div class="idhrate">
                   <img src="{% static 'img/idh_warning.svg' %} " />
                 </div>
