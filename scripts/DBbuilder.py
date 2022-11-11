@@ -17,12 +17,10 @@ class CSV:
         df = pd.read_csv(self.file, usecols=usecols)
         df['透析開始時間'] = df['透析開始時間'].apply(lambda x: pd.to_datetime(x))
         df['透析結束時間'] = df['透析結束時間'].apply(lambda x: pd.to_datetime(x))
-        df['床位'] = df['床位'].apply(lambda x: x if x[0].isdigit() == False else x[::-1])   # reverse bed_id
+        # df['床位'] = df['床位'].apply(lambda x: x if x[0].isdigit() == False else x[::-1])   # reverse bed_id
         df = df.fillna(-1)
         df = df.drop_duplicates()                     # drop duplicates
         # print(df.info())
-        # df.rename(columns={'p_id', 'age', 'times', 'start_time', 'end_time', 'machine_id', 'bed', 'temperature', 'start_temperature', 'before_weight', 'ideal_weight', 'expect_dehydration', 'transfusion', 'food', 'estimate_dehydration', 'set_dehydration', 'after_weight', 'real_dehydration', 'start_SBP', 'start_DBP', 'end_SBP', 'end_DBP', 'mode', 'machine', 'start_flow_speed', 'start_flood_speed', 'Ca', 'conductivity', 'channel', 'heparin', 'ESA', 'coagulation'})
-        # cursor.execute('CREATE TABLE Dialysis(p_id, age, times, start_time, end_time, machine_id, bed, temperature, start_temperature, end_temperature, befor_weight, ideal_weight, expect_dehydration, transfusion, food, estimate_dehydration, set_dehydration, after_weight, real_dehydration, start_SBP, start_DBP, end_SBP, end_DBP, mode, machine, start_flow_speed, start_flood_speed, Ca, conductivity, channel, heparin, ESA, coagulation)')
         df.to_csv('interface/data/dialysis.csv', encoding='utf_8_sig') 
 
     def read_to_record(self):
