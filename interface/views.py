@@ -6,7 +6,7 @@ from interface.models import Patient, Dialysis, Record
 
 # Create your views here.
 
-time = datetime(2022, 7, 5, 9, 30, 12)
+time = datetime(2022, 7, 5, 11, 0, 12)
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
@@ -29,13 +29,13 @@ def index(request):
 
 def get_patients():
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
-    patients = {}
     a_patients = []
     b_patients = []
     c_patients = []
     d_patients = []
     e_patients = []
     i_patients = []
+    r_list = []
     for bed in a_area:
         patient = {}
         patient = {'bed': bed}
@@ -44,7 +44,9 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)[0]
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['record'] = r[len(r) - 1]
+                r_list.append(patient['record'].r_id)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -58,7 +60,9 @@ def get_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 # patient['id'] = list(Patient.objects.filter(p_id=d.p_id.p_id).values())
                 patient['setting'] = d
-                patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)[0]
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['record'] = r[len(r) - 1]
+                r_list.append(patient['record'].r_id)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -71,7 +75,9 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)[0]
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['record'] = r[len(r) - 1]
+                r_list.append(patient['record'].r_id)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -83,8 +89,9 @@ def get_patients():
             if bed == d.bed:
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)[0]
+                patient['setting'] = d                
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['record'] = r[len(r) - 1]
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -97,7 +104,9 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)[0]
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['record'] = r[len(r) - 1]
+                r_list.append(patient['record'].r_id)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -106,15 +115,18 @@ def get_patients():
         patient = {}
         patient = {'bed': bed}
         for d in now_dialysis:
-            if bed == d.bed:
+            if d.bed == bed:
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)[0]
+                patient['setting'] = d    
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['record'] = r[len(r) - 1]
+                r_list.append(patient['record'].r_id)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
         i_patients.append(patient)
+    # print(r_list)
     return {
         'a_patients': a_patients, 
         'b_patients': b_patients, 
@@ -127,10 +139,20 @@ def get_patients():
 def get_detail(request, bed):
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
+    start_time = d.start_time
     patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
     patient['setting'] = d
-    patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__lte=time)[0]
-    print(patient['record'])
+    r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+    patient['record'] = r[len(r) - 1]
+    all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-1)
+    print(all_dialysis)
+    temp = []
+    for dialysis in all_dialysis:
+        record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time)
+        for record in record_list:
+            temp.append(record) 
+    patient['all_record'] = temp
+    print(patient['all_record'])
     patients = get_patients()
     return render(request, 'index.html', {
         "home": False,
@@ -143,4 +165,5 @@ def get_detail(request, bed):
         "id": patient['id'],
         "setting": patient['setting'],
         "record": patient['record'],
+        "all_record": patient['all_record'],
     })

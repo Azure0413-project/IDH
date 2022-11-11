@@ -10,6 +10,7 @@ h1, div, li, a, button {
     font-size: 18px;
     color: #274C77;
     text-decoration: none;
+    cursor: default;
 }
 
 header {
