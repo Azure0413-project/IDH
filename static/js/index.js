@@ -70,7 +70,6 @@ window.onclick = function (event) {
 function openModal(bed_id) {
     let patientDiv = document.getElementById("bed-" + bed_id);
     let name = patientDiv.children[0].innerText;
-    modal.classList.remove('hidden');
     document.getElementById("patient").innerText = name;
     document.getElementById("idhrate").innerText = "45%";
     // let patient = JSON.parse('{{ js_patient }}');
@@ -91,7 +90,6 @@ function openModal(bed_id) {
 }
 function closeModal() {
     clear();
-    modal.classList.add('hidden');
 }
 let flag = true;
 function next() {
@@ -119,7 +117,7 @@ function prev() {
 
 function clear() {
     flag = true;
-    document.location.href="https://140.116.247.175:80/index/";
+    document.location.href="http://140.116.247.175:80/index/";
     document.getElementsByClassName("modal-left")[0].style.display = "flex";
     document.getElementsByClassName("modal-right")[0].style.display = "flex";
     document.getElementsByClassName("modal-table")[0].classList.add("hidden");
