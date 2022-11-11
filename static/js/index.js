@@ -85,9 +85,9 @@ function openModal(bed_id) {
         document.getElementById("plot").src = "/static/img/plot.png";
         
     }
-    console.log(patient);
-    console.log(setting);
-    console.log(record);
+    // console.log(patient);
+    // console.log(setting);
+    // console.log(record);
 }
 function closeModal() {
     clear();
@@ -119,6 +119,7 @@ function prev() {
 
 function clear() {
     flag = true;
+    document.location.href="https://140.116.247.175:80/index/";
     document.getElementsByClassName("modal-left")[0].style.display = "flex";
     document.getElementsByClassName("modal-right")[0].style.display = "flex";
     document.getElementsByClassName("modal-table")[0].classList.add("hidden");

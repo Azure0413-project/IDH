@@ -18,6 +18,7 @@ i_area = ['', '', 'I2', '', 'I1', '']
 def index(request):
     patients = get_patients()
     return render(request, 'index.html', {
+        "home": True,
         "a_patients": patients["a_patients"],
         "b_patients": patients["b_patients"],
         "c_patients": patients["c_patients"],
@@ -122,3 +123,24 @@ def get_patients():
         'e_patients': e_patients,
         'i_patients': i_patients,
     }
+
+def get_detail(request, bed):
+    patient = {}
+    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
+    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+    patient['setting'] = d
+    patient['record'] = Record.objects.filter(d_id=d.d_id, record_time__lte=time)[0]
+    print(patient['record'])
+    patients = get_patients()
+    return render(request, 'index.html', {
+        "home": False,
+        "a_patients": patients["a_patients"],
+        "b_patients": patients["b_patients"],
+        "c_patients": patients["c_patients"],
+        "d_patients": patients["d_patients"],
+        "e_patients": patients["e_patients"],
+        "i_patients": patients["i_patients"],
+        "id": patient['id'],
+        "setting": patient['setting'],
+        "record": patient['record'],
+    })

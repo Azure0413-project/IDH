@@ -41,13 +41,13 @@
           {% comment %} {{ patient.id|json_script:"js_patient" }} {% endcomment %}
           {% comment %} {{ patient.setting|json_script:"js_setting" }} {% endcomment %}
           {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}'">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}'">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="bed-bottom">
@@ -85,7 +85,7 @@
               </div>
               {% endif %}
             </div>
-          {% endif %}
+          {% endif %}</a>
           </li>
         {% endfor %}
         </ul>
@@ -119,7 +119,7 @@
           <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="bed-bottom">
@@ -191,7 +191,7 @@
           <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="bed-bottom">
@@ -265,7 +265,7 @@
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -341,7 +341,7 @@
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -416,7 +416,7 @@
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -528,7 +528,7 @@
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -647,7 +647,7 @@
             <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -760,13 +760,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -879,13 +879,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -998,13 +998,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -1117,13 +1117,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed}}');">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="openModal('{{ patient.bed }}');">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -1206,25 +1206,27 @@
     </section>
   </div>
 </div>
-
 <!-- Modal -->
+{% if home %}
 <div id="modal" class="modal hidden">
+{% else %}
+<div id="modal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-main">
       <div class="modal-left">
-        <div id="patient"></div>
+        <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
         <div class="idhcontainer">
           <div class="idhboard">
             <div>透析低血壓預測機率</div>
-            <div id="idhrate"></div>
-            <div id="updatetime">最後更新時間：2022/11/2 14:55:46</div>
+            <div id="idhrate">50%</div>
+            <div id="updatetime">最後更新時間：{{ record.record_time }}</div>
           </div>
           <img src="{%static 'img/human.svg' %}" />
         </div>
         <div class="weights">
           <div class="weight-num">
-            標準體重：56 <span class="diff">(+3)</span> kg
+            標準體重：{{ setting.ideal_weight|floatformat:0 }} <span class="diff">(+3)</span> kg
           </div>
           <div class="weight-bar">
             <img src="{%static 'img/weight.svg' %}" />
@@ -1233,26 +1235,26 @@
       </div>
       <div class="modal-right">
         <ul class="main-info">
-          <li>收縮壓 / 舒張壓：145 / 88 mmHg</li>
-          <li>體溫：36.6 ℃</li>
-          <li>脈搏：78 bpm</li>
-          <li>飲食 / 預計沖水量：1 kg / 1 L</li>
+          <li>收縮壓 / 舒張壓：{{ record.SBP|floatformat:0 }} / {{ record.DBP }} mmHg</li>
+          <li>體溫：{{ setting.temperature|floatformat:1 }} ℃</li>
+          <li>脈搏：{{ record.pulse }} bpm</li>
+          <li>飲食 / 預計沖水量：{{ setting.food|floatformat:1 }} kg / {{ setting.expect_dehydration }} L</li>
         </ul>
         <div class="sub-info">
           <ul class="left-info">
             <li>透析液 Ca</li>
-            <li>2.5</li>
+            <li>{{ setting.Ca|floatformat:1 }}</li>
             <li>傳導度</li>
-            <li>13.9</li>
+            <li>{{ setting.conductivity|floatformat:1 }}</li>
             <li>透析液 溫度</li>
-            <li>36.8 ℃</li>
+            <li>{{ record.dialyse_temperature|floatformat:1 }} ℃</li>
           </ul>
           <div class="right-info">
             <div class="info-group">
               <div class="info-title">血液流速</div>
               <div class="info-unit">(ml/min)</div>
               <div class="info-figure">
-                <div class="img-text">350</div>
+                <div class="img-text">{{ record.blood_speed|floatformat:0 }}</div>
                 <img src="{%static 'img/speed_medium.svg' %}" />
               </div>
             </div>
@@ -1260,7 +1262,7 @@
               <div class="info-title">透析液流速</div>
               <div class="info-unit">(ml/min)</div>
               <div class="info-figure">
-                <div class="img-text">800</div>
+                <div class="img-text">{{ record.flow_speed }}</div>
                 <img src="{%static 'img/speed.svg' %}" />
               </div>
               <div class="info-unit">上次流速：810 ml/min</div>
@@ -1269,7 +1271,7 @@
               <div class="info-title">目標脫水量</div>
               <div class="info-unit">(L)</div>
               <div class="info-figure">
-                <div class="img-text">2</div>
+                <div class="img-text">{{ setting.set_dehydration|floatformat:1 }}</div>
                 <img src="{%static 'img/speed.svg' %}" />
               </div>
             </div>
@@ -1280,13 +1282,13 @@
         </div>
         <ul class="dialysis-info">
           <li class="dialysis-item">Heparin</li>
-          <li class="dialysis-content">500/500</li>
+          <li class="dialysis-content">{{ setting.heparin }}</li>
           <li class="dialysis-item">透析器</li>
-          <li class="dialysis-content">SF-210UH</li>
+          <li class="dialysis-content">{{ setting.mode }}</li>
           <li class="dialysis-item">血管通路</li>
-          <li class="dialysis-content">AVF</li>
+          <li class="dialysis-content">{{ setting.channel }}</li>
           <li class="dialysis-item">本次住院透析次數</li>
-          <li class="dialysis-content">465</li>
+          <li class="dialysis-content">{{ setting.times }}</li>
         </ul>
       </div>
       <div class="modal-table hidden">
@@ -2600,4 +2602,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock %}
