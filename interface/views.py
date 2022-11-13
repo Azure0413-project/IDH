@@ -6,7 +6,7 @@ from interface.models import Patient, Dialysis, Record
 
 # Create your views here.
 
-time = datetime(2022, 7, 5, 11, 0, 12)
+time = datetime(2022, 7, 5, 10, 50, 12)
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
@@ -14,6 +14,13 @@ d_area = ['D5', 'D9', 'D3', 'D8', 'D2', 'D7', 'D1', 'D6']
 a_area = ['A9', '', 'A5', '', 'A3', 'A8', 'A2', 'A7', 'A1', 'A6']
 e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
+
+a_idh = [0.8030, 0.0000, 0.8489, 0.0000, 0.7675, 0.0158, 0.2934, 0.9592, 0.0489, 0.0581]
+b_idh = [0.3267, 0.0176, 0.0318, 0.0698, 0.0581, 0.0367, 0.0075, 0.7248]
+c_idh = [0.0098, 0.0928, 0.1114, 0.9328, 0.7162, 0.0194, 0.1287, 0.2848]
+d_idh = [0.0098, 0.0000, 0.0245, 0.0000, 0.0191, 0.0000, 0.9229, 0.0000]
+e_idh = [0.0000, 0.0000, 0.9863, 0.0073, 0.0242, 0.0125, 0.0000, 0.2468, 0.3468, 0.0000]
+i_idh = [0.0000, 0.0000, 0.3927, 0.0000, 0.8806, 0.0000]
 
 def index(request):
     patients = get_patients()
@@ -35,8 +42,7 @@ def get_patients():
     d_patients = []
     e_patients = []
     i_patients = []
-    r_list = []
-    for bed in a_area:
+    for index, bed in enumerate(a_area):
         patient = {}
         patient = {'bed': bed}
         for d in now_dialysis:
@@ -46,12 +52,12 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                r_list.append(patient['record'].r_id)
+                patient['idh'] = round(a_idh[index] * 100)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
-        a_patients.append(patient)
-    for bed in b_area:
+        a_patients.append(patient)    
+    for index, bed in enumerate(b_area):
         patient = {}
         patient = {'bed': bed}
         for d in now_dialysis:
@@ -62,12 +68,12 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                r_list.append(patient['record'].r_id)
+                patient['idh'] = round(b_idh[index] * 100)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
         b_patients.append(patient)
-    for bed in c_area:
+    for index, bed in enumerate(c_area):
         patient = {}
         patient = {'bed': bed}
         for d in now_dialysis:
@@ -77,12 +83,12 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                r_list.append(patient['record'].r_id)
+                patient['idh'] = round(c_idh[index] * 100)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
-        c_patients.append(patient)
-    for bed in d_area:
+        c_patients.append(patient)    
+    for index, bed in enumerate(d_area):
         patient = {}
         patient = {'bed': bed}
         for d in now_dialysis:
@@ -92,11 +98,12 @@ def get_patients():
                 patient['setting'] = d                
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
+                patient['idh'] = round(d_idh[index] * 100)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
         d_patients.append(patient)
-    for bed in e_area:
+    for index, bed in enumerate(e_area):
         patient = {}
         patient = {'bed': bed}
         for d in now_dialysis:
@@ -106,12 +113,12 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                r_list.append(patient['record'].r_id)
+                patient['idh'] = round(e_idh[index] * 100)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
         e_patients.append(patient)
-    for bed in i_area:
+    for index, bed in enumerate(i_area):
         patient = {}
         patient = {'bed': bed}
         for d in now_dialysis:
@@ -121,7 +128,7 @@ def get_patients():
                 patient['setting'] = d    
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                r_list.append(patient['record'].r_id)
+                patient['idh'] = round(i_idh[index] * 100)
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -136,7 +143,7 @@ def get_patients():
         'i_patients': i_patients,
     }
 
-def get_detail(request, bed):
+def get_detail(request, bed, idh):
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
     start_time = d.start_time
@@ -145,14 +152,12 @@ def get_detail(request, bed):
     r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
     patient['record'] = r[len(r) - 1]
     all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-1)
-    print(all_dialysis)
     temp = []
     for dialysis in all_dialysis:
         record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time)
         for record in record_list:
             temp.append(record) 
     patient['all_record'] = temp
-    print(patient['all_record'])
     patients = get_patients()
     return render(request, 'index.html', {
         "home": False,
@@ -165,5 +170,6 @@ def get_detail(request, bed):
         "id": patient['id'],
         "setting": patient['setting'],
         "record": patient['record'],
+        "idh": idh,
         "all_record": patient['all_record'],
     })
