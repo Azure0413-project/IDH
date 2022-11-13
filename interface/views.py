@@ -147,18 +147,49 @@ def get_detail(request, bed, idh):
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
     start_time = d.start_time
+    # patient data
     patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+    # latest dialysis information
     patient['setting'] = d
+    # latest dialysis record
     r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
     patient['record'] = r[len(r) - 1]
+
+    # all record
     all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-1)
     temp = []
     for dialysis in all_dialysis:
-        record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time)
+        record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time).select_related()
         for record in record_list:
-            temp.append(record) 
+            if record.d_id.temperature <= 0: record.d_id.temperature = '-'
+            if record.d_id.start_temperature <= 0: record.d_id.start_temperature = '-'
+            if record.d_id.ESA == str(-1): record.d_id.ESA = '-'
+            if record.flush == -1: record.flush = '-'
+            temp.append(record)
+
     patient['all_record'] = temp
+    
+    # weight
+    diff_weight = round(d.before_weight - d.ideal_weight, 1)
+    diff = {}
+    if diff_weight > 0:
+        diff['value'] = '+' + str(diff_weight)
+        diff['class'] = 'diff-pos'
+    else:
+        diff['value'] = '-' + str(diff_weight)
+        diff['class'] = 'diff-neg'
     patients = get_patients()
+    
+    # plot
+    if bed == 'A3':
+        figure = "/static/img/plot_a3.png"    
+    elif bed == 'C3':
+        figure = "/static/img/plot_c3.png"   
+    elif bed == 'E5':
+        figure = "/static/img/plot_e5.png"   
+    else:
+        figure = "/static/img/plot.png"    
+
     return render(request, 'index.html', {
         "home": False,
         "a_patients": patients["a_patients"],
@@ -171,5 +202,7 @@ def get_detail(request, bed, idh):
         "setting": patient['setting'],
         "record": patient['record'],
         "idh": idh,
+        "diff": diff,
         "all_record": patient['all_record'],
+        "plot": figure,
     })
