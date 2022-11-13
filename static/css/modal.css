@@ -73,6 +73,10 @@
     justify-content: space-between;
 }
 
+.idh-danger {
+    background-color: #FD6262;
+}
+
 .idhboard div {
     color: #ffffff;
     font-size: 24px;
