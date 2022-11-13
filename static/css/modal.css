@@ -100,8 +100,12 @@
     margin-bottom: 1em;
 }
 
-.diff {
+.diff-pos {
     color: #fe7878;
+}
+
+.diff-neg {
+    color: #88FF94;
 }
 
 .weight-bar img {
