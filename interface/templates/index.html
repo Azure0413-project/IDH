@@ -1151,7 +1151,7 @@
                   <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
                   <img src="{% static 'img/water_active.svg' %} " />
                 </div>
-                {% if patient.idh > 0.8 %}
+                {% if patient.idh > 85 %}
                 <div class="idhrate">
                   <img src="{% static 'img/idh_danger.svg' %} " />
                 </div>
@@ -1217,7 +1217,11 @@
       <div class="modal-left">
         <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
         <div class="idhcontainer">
+          {% if idh > 70 %}
+          <div class="idhboard idh-danger">
+          {% else %}
           <div class="idhboard">
+          {% endif %}
             <div>透析低血壓預測機率</div>
             <div id="idhrate">{{ idh }} %</div>
             <div id="updatetime">最後更新時間：{{ record.record_time }}</div>
@@ -1266,7 +1270,13 @@
               <div class="info-unit">(ml/min)</div>
               <div class="info-figure">
                 <div class="img-text">{{ record.blood_speed|floatformat:0 }}</div>
+                {% if record.blood_speed <= 150 %}
+                <img src="{%static 'img/speed_low.svg' %}" />
+                {% elif record.blood_speed <= 250 %}
                 <img src="{%static 'img/speed_medium.svg' %}" />
+                {% else %}
+                <img src="{%static 'img/speed_high.svg' %}" />
+                {% endif %}
               </div>
             </div>
             <div class="info-group">
