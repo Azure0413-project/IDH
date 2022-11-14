@@ -187,8 +187,12 @@ def get_detail(request, bed, idh):
         figure = "/static/img/plot_c3.png"   
     elif bed == 'E5':
         figure = "/static/img/plot_e5.png"   
+    elif bed == 'B5':
+        figure = "/static/img/plot_b5.png"   
+    elif bed == 'C5':
+        figure = "/static/img/plot_c5.png"   
     else:
-        figure = "/static/img/plot.png"    
+        figure = "/static/img/plot_b5.png"    
 
     return render(request, 'index.html', {
         "home": False,
