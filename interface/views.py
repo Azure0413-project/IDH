@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import json
 from datetime import datetime
 from interface.models import Patient, Dialysis, Record
+import decimal
 
 # Create your views here.
 
@@ -64,7 +65,6 @@ def get_patients():
             if bed == d.bed:
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                # patient['id'] = list(Patient.objects.filter(p_id=d.p_id.p_id).values())
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
@@ -152,8 +152,8 @@ def get_detail(request, bed, idh):
     # latest dialysis information
     patient['setting'] = d
     # latest dialysis record
-    r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-    patient['record'] = r[len(r) - 1]
+    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+    patient['record'] = r_today[len(r_today) - 1]
 
     # all record
     all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-1)
@@ -192,7 +192,20 @@ def get_detail(request, bed, idh):
     elif bed == 'C5':
         figure = "/static/img/plot_c5.png"   
     else:
-        figure = "/static/img/plot_b5.png"    
+        figure = "/static/img/plot_b5.png"
+    
+    plot_data = []
+    for r in r_today:
+        timestamp = str(r.record_time)
+        sbp = float(r.SBP)
+        pulse = r.pulse
+        cvp = r.CVP
+        plot_data.append({
+            "timestamp": timestamp,
+            "SBP": sbp,
+            "pulse": pulse,
+            "CVP": cvp, 
+        })
 
     return render(request, 'index.html', {
         "home": False,
@@ -209,4 +222,5 @@ def get_detail(request, bed, idh):
         "diff": diff,
         "all_record": patient['all_record'],
         "plot": figure,
+        "chart": json.dumps(plot_data),
     })

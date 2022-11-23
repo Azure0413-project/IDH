@@ -1,29 +1,62 @@
 function runTime() {
-    let now = new Date();
-    let timeDiv = document.getElementById("currentTime");
-    let nowY = now.getFullYear();
-    let nowM = now.getMonth() + 1;
-    let nowD = now.getDate();
-    let nowW = now.getDay();
-    let nowH = now.getHours();
-    let nowI = now.getMinutes();
-    let nowS = now.getSeconds();
+  let now = new Date();
+  let timeDiv = document.getElementById("currentTime");
+  let nowY = now.getFullYear();
+  let nowM = now.getMonth() + 1;
+  let nowD = now.getDate();
+  let nowW = now.getDay();
+  let nowH = now.getHours();
+  let nowI = now.getMinutes();
+  let nowS = now.getSeconds();
 
-    if(nowH < 10) { nowH = '0' + nowH; }
-    if(nowI < 10) { nowI = '0' + nowI; }
-    if(nowS < 10) { nowS = '0' + nowS; }
-    switch(nowW) {
-        case 0: nowW = '日'; break;
-        case 1: nowW = '一'; break;
-        case 2: nowW = '二'; break;
-        case 3: nowW = '三'; break;
-        case 4: nowW = '四'; break;
-        case 5: nowW = '五'; break;
-        case 6: nowW = '六'; break;
-    }
+  if (nowH < 10) {
+    nowH = "0" + nowH;
+  }
+  if (nowI < 10) {
+    nowI = "0" + nowI;
+  }
+  if (nowS < 10) {
+    nowS = "0" + nowS;
+  }
+  switch (nowW) {
+    case 0:
+      nowW = "日";
+      break;
+    case 1:
+      nowW = "一";
+      break;
+    case 2:
+      nowW = "二";
+      break;
+    case 3:
+      nowW = "三";
+      break;
+    case 4:
+      nowW = "四";
+      break;
+    case 5:
+      nowW = "五";
+      break;
+    case 6:
+      nowW = "六";
+      break;
+  }
 
-    let nowStr = nowY + ' 年 ' + nowM + ' 月 ' + nowD + ' 日 星期' + nowW + '  ' + nowH + ':' + nowI + ':' + nowS;
-    timeDiv.innerText = nowStr;
+  let nowStr =
+    nowY +
+    " 年 " +
+    nowM +
+    " 月 " +
+    nowD +
+    " 日 星期" +
+    nowW +
+    "  " +
+    nowH +
+    ":" +
+    nowI +
+    ":" +
+    nowS;
+  timeDiv.innerText = nowStr;
 }
 
 runTime();
@@ -32,98 +65,114 @@ setInterval(runTime, 1000);
 // Left panel
 document.getElementById("defaultOpen").click();
 function openTab(evt, cityName) {
-    // Declare all variables
-    let i, tabcontent, tablinks;
+  // Declare all variables
+  let i, tabcontent, tablinks;
 
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
 
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
 
-    // Show the current tab, and add an "active" class to the link that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
+  // Show the current tab, and add an "active" class to the link that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
 }
 
-const bed = ['A1', 'A2', 'A3', 'A5', 'A6', 'A7', 'A8', 'A9', 
-             'B1', 'B2', 'B3', 'B5', 'B6', 'B7', 'B8', 'B9', 
-             'C1', 'C2', 'C3', 'C5', 'C6', 'C7', 'C8', 'C9', 
-             'D1', 'D2', 'D3', 'D5', 'D6', 'D7', 'D8', 'D9', 
-             'E1', 'E2', 'E3', 'E5', 'E6', 'E7', 'E8', 
-             'I1', 'I2']
+const bed = [
+  "A1",
+  "A2",
+  "A3",
+  "A5",
+  "A6",
+  "A7",
+  "A8",
+  "A9",
+  "B1",
+  "B2",
+  "B3",
+  "B5",
+  "B6",
+  "B7",
+  "B8",
+  "B9",
+  "C1",
+  "C2",
+  "C3",
+  "C5",
+  "C6",
+  "C7",
+  "C8",
+  "C9",
+  "D1",
+  "D2",
+  "D3",
+  "D5",
+  "D6",
+  "D7",
+  "D8",
+  "D9",
+  "E1",
+  "E2",
+  "E3",
+  "E5",
+  "E6",
+  "E7",
+  "E8",
+  "I1",
+  "I2",
+];
 const modal = document.getElementById("modal");
 
 window.onclick = function (event) {
-    if (event.target == modal) {
-        clear();
-        modal.classList.add("hidden");
-    }
+  if (event.target == modal) {
+    clear();
+    modal.classList.add("hidden");
+  }
 };
 
-function openModal(bed_id) {
-    let patientDiv = document.getElementById("bed-" + bed_id);
-    let name = patientDiv.children[0].innerText;
-    document.getElementById("patient").innerText = name;
-    document.getElementById("idhrate").innerText = "45%";
-    // let patient = JSON.parse('{{ js_patient }}');
-    // let setting = JSON.parse("{{ js_setting }}");
-    if(bed_id == 'A3'){
-        document.getElementById("plot").src = "/static/img/plot_a3.png";
-    } else if(bed_id == 'C3'){
-        document.getElementById("plot").src = "/static/img/plot_c3.png";
-    } else if(bed_id == 'E5'){
-        document.getElementById("plot").src = "/static/img/plot_e5.png";
-    } else {
-        document.getElementById("plot").src = "/static/img/plot.png";
-        
-    }
-    // console.log(patient);
-    // console.log(setting);
-    // console.log(record);
-}
 function closeModal() {
-    clear();
+  clear();
 }
 let flag = true;
 function next() {
-    if(flag) {
-        flag = false;
-        document.getElementById("patient2").innerText = document.getElementById("patient").innerText;
-        document.getElementsByClassName("modal-left")[0].style.display = "none";
-        document.getElementsByClassName("modal-right")[0].style.display = "none";
-        document.getElementsByClassName("modal-table")[0].classList.remove("hidden");
-        document.getElementById("left").src = "/static/img/left_active.svg";
-        document.getElementById("right").src = "/static/img/right_inactive.svg";
-    }
+  if (flag) {
+    flag = false;
+    document.getElementById("patient2").innerText =
+      document.getElementById("patient").innerText;
+    document.getElementsByClassName("modal-left")[0].style.display = "none";
+    document.getElementsByClassName("modal-right")[0].style.display = "none";
+    document
+      .getElementsByClassName("modal-table")[0]
+      .classList.remove("hidden");
+    document.getElementById("left").src = "/static/img/left_active.svg";
+    document.getElementById("right").src = "/static/img/right_inactive.svg";
+  }
 }
 
 function prev() {
-    if(!flag){
-        flag = true;
-        document.getElementsByClassName("modal-left")[0].style.display = "flex";
-        document.getElementsByClassName("modal-right")[0].style.display = "flex";
-        document.getElementsByClassName("modal-table")[0].classList.add("hidden");
-        document.getElementById("left").src = "/static/img/left_inactive.svg";
-        document.getElementById("right").src = "/static/img/right_active.svg";
-    }
-}
-
-function clear() {
+  if (!flag) {
     flag = true;
-    document.location.href="http://140.116.247.175:80/index/";
     document.getElementsByClassName("modal-left")[0].style.display = "flex";
     document.getElementsByClassName("modal-right")[0].style.display = "flex";
     document.getElementsByClassName("modal-table")[0].classList.add("hidden");
     document.getElementById("left").src = "/static/img/left_inactive.svg";
     document.getElementById("right").src = "/static/img/right_active.svg";
+  }
 }
 
-// let jsonData = JSON.parse('{{ data }}');
-// console.log(jsonData);
+function clear() {
+  flag = true;
+  document.location.href = "http://140.116.247.175:80/index/";
+  document.getElementsByClassName("modal-left")[0].style.display = "flex";
+  document.getElementsByClassName("modal-right")[0].style.display = "flex";
+  document.getElementsByClassName("modal-table")[0].classList.add("hidden");
+  document.getElementById("left").src = "/static/img/left_inactive.svg";
+  document.getElementById("right").src = "/static/img/right_active.svg";
+}

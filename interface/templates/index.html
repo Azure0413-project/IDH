@@ -38,8 +38,6 @@
               </div>
             </div>
           {% else %}
-          {% comment %} {{ patient.id|json_script:"js_patient" }} {% endcomment %}
-          {% comment %} {{ patient.setting|json_script:"js_setting" }} {% endcomment %}
           {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
           <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
@@ -1298,9 +1296,101 @@
             </div>
           </div>
         </div>
-        <div class="figure">
-          <img id="plot" src={{ plot }} />
-        </div>
+        <div id="linechart"></div>
+        <script>
+          let chart = {{ chart|safe }};
+          const xAxis = chart.map(data => data["timestamp"])
+          const SBP = chart.map(data => data["SBP"]);
+          const pulse = chart.map(data => data["pulse"]);
+          const CVP = chart.map(data => data["CVP"]);
+          let linechart = Highcharts.chart("linechart", {
+            chart: { 
+              type: "line",
+              height: 260 + "em",
+              backgroundColor: "#f4f7fb",
+              spacing: [30, 0, 0, 10],
+            },
+            title: { 
+              style: {
+                "display": "none",
+              }
+            },
+            credits: {
+              enabled: false,
+            },
+            legend: {
+              align: "right",
+              verticalAlign: "middle",
+              layout: "vertical",
+              itemMarginTop: 10,
+              itemStyle: {
+                color: "#4A5563",
+                fontSize: "18px",
+              },
+              symbolWidth: 24,
+              symbolHeight: 24,
+              symbolPadding: 10,
+            },
+            xAxis: { 
+              categories: xAxis,
+            },
+            yAxis: [
+            {
+              title: { 
+                text: "壓力",
+                rotation: 0,
+                align: "high",
+                style: {
+                  fontSize: "18px",
+                  color: "#4A5563",
+                },
+                y: -15,
+                offset: 25,
+              },
+              labels: { 
+                format: "{value} mmHg",
+                style: {
+                  fontSize: 12,
+                }
+              },
+              minorTicks: true,
+            },
+            {
+              opposite: true,
+              title: { 
+                text: "脈搏",
+                rotation: 0,
+                align: "high",
+                style: {
+                  fontSize: "18px",
+                  color: "#4A5563",
+                },
+                y: -15,
+                offset: 15,
+              },
+              labels: { 
+                format: "{value} bpm",
+                style: {
+                  fontSize: 12,
+                }
+              },
+            }],
+            series: [
+            {
+              name: "收縮壓",
+              data: SBP
+            },
+            {
+              name: "脈搏",
+              data: pulse,
+              yAxis: 1,
+            },
+            {
+              name: "靜脈壓",
+              data: CVP
+            }]
+          });
+        </script>
         <ul class="dialysis-info">
           <li class="dialysis-item">Heparin</li>
           <li class="dialysis-content">{{ setting.heparin }}</li>
@@ -1403,7 +1493,8 @@
               <td class="warning">{{ record.temperature|floatformat:1 }}</td>
               {% else %}
               <td>{{ record.temperature|floatformat:0 }}</td>
-              {% endif %}              <td>{{ record.d_id.start_flow_speed|floatformat:0 }}</td>
+              {% endif %}              
+              <td>{{ record.d_id.start_flow_speed|floatformat:0 }}</td>
               <td>{{ record.d_id.start_blood_speed|floatformat:0 }}</td>
               {% if record.blood_speed < 150 %}
               <td class="warning">{{ record.blood_speed|floatformat:0 }}</td>
