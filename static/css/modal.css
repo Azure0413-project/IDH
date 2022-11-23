@@ -181,10 +181,6 @@
     height: 4em;
 }
 
-.figure img{
-    width: 55em;
-}
-
 .dialysis-info {
     width: 50em;
     list-style: none;
@@ -192,8 +188,8 @@
     grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr) minmax(0, 0.8fr) minmax(0, 0.8fr);
     grid-template-rows: repeat(2, minmax(0, 1fr));
     text-align: center;
-    row-gap: 0.6em;
-    line-height: 20px;
+    row-gap: 0.2em;
+    line-height: 18px;
 }
 
 .dialysis-item::after {

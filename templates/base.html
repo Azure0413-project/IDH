@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'css/tab.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
     <header>
@@ -27,6 +29,6 @@
     {% block content %}
     {% endblock %}
     </main>
-    <script src="{%static 'js/index.js' %}"></script>
+    <script src="{%static 'js/index.js' %}" crossorigin="anonymous"></script>
 </body>
 </html>
