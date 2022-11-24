@@ -183,7 +183,6 @@ def get_detail(request, bed, idh):
             diff['value'] = str(diff_weight)
             diff['percentage'] = str(diff_percentage) + "%"
             diff['per_width'] = (-1) * diff_percentage * 10
-            print(diff_percentage)
             diff['class'] = 'diff-neg'
     patients = get_patients()
     
