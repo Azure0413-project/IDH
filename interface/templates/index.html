@@ -1307,6 +1307,7 @@
             chart: { 
               type: "line",
               height: 260 + "em",
+              width: 1100,
               backgroundColor: "#f4f7fb",
               spacing: [30, 0, 0, 10],
             },
@@ -1331,6 +1332,9 @@
               symbolHeight: 24,
               symbolPadding: 10,
             },
+            tooltip: {
+              borderRadius: 8,
+            },
             xAxis: { 
               categories: xAxis,
             },
@@ -1348,6 +1352,7 @@
                 offset: 25,
               },
               labels: { 
+                algin: "center",
                 format: "{value} mmHg",
                 style: {
                   fontSize: 12,
@@ -1369,6 +1374,7 @@
                 offset: 15,
               },
               labels: { 
+                algin: "center",
                 format: "{value} bpm",
                 style: {
                   fontSize: 12,
@@ -1378,18 +1384,24 @@
             series: [
             {
               name: "收縮壓",
-              data: SBP
+              data: SBP,
+              lineWidth: 3,
             },
             {
               name: "脈搏",
               data: pulse,
               yAxis: 1,
+              lineWidth: 3,
+              color: "#fe7878",
             },
             {
               name: "靜脈壓",
-              data: CVP
+              data: CVP,
+              lineWidth: 3,
+              color: "#999999"
             }]
           });
+          console.log(chart)
         </script>
         <ul class="dialysis-info">
           <li class="dialysis-item">Heparin</li>

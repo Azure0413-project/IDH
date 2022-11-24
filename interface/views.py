@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
-from datetime import datetime
+import datetime
+from datetime import datetime, timedelta
 from interface.models import Patient, Dialysis, Record
 import decimal
 
@@ -176,7 +177,7 @@ def get_detail(request, bed, idh):
         diff['value'] = '+' + str(diff_weight)
         diff['class'] = 'diff-pos'
     else:
-        diff['value'] = '-' + str(diff_weight)
+        diff['value'] = str(diff_weight)
         diff['class'] = 'diff-neg'
     patients = get_patients()
     
@@ -195,8 +196,9 @@ def get_detail(request, bed, idh):
         figure = "/static/img/plot_b5.png"
     
     plot_data = []
+    # end_time = d.end_time
     for r in r_today:
-        timestamp = str(r.record_time)
+        timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
         sbp = float(r.SBP)
         pulse = r.pulse
         cvp = r.CVP
@@ -206,6 +208,24 @@ def get_detail(request, bed, idh):
             "pulse": pulse,
             "CVP": cvp, 
         })
+    # duration = end_time - datetime.strptime(timestamp, "%Y-%m-%d %H:%M")
+    # if (duration) > timedelta(minutes=60):
+    #     print(duration)
+    #     r_times = len(r_today)
+    timestring = timestamp
+    for i in range(8):
+        timestamp = datetime.strptime(timestring, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+        timestring = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+        if timestamp < d.end_time:
+            if len(plot_data) < 8:
+                plot_data.append({
+                    "timestamp": timestring,
+                    "SBP": None,
+                    "pulse": None,
+                    "CVP": None,
+                })
+        else:
+            break
 
     return render(request, 'index.html', {
         "home": False,
