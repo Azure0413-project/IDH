@@ -1237,7 +1237,27 @@
             <span class={{ diff.class }}>( {{ diff.value }} )</span> kg
           </div>
           <div class="weight-bar">
-            <img src="{%static 'img/weight.svg' %}" />
+            <div class="bar-top">
+              <div class="bar-text">輕</div>
+              <div class="bar-notation">- 0 +</div>
+              <div class="bar-text">重</div>
+            </div>
+            <div class="bar">
+              {% if diff.class == "diff-pos" %}
+              <div class="bar-white left"></div>
+              <div class="bar-divider"></div>
+              <div class="bar-white right">
+                <div class="bar-pos" style="width: {{ diff.per_width|default:0 }}%;"></div>
+              </div>
+              {% else %}
+              <div class="bar-white left">
+                <div class="bar-neg" style="width: {{ diff.per_width|default:0 }}%;"></div>
+              </div>
+              <div class="bar-divider"></div>
+              <div class="bar-white right"></div>
+              {% endif %}
+            </div>
+            <span class={{ diff.class }}>{{ diff.percentage }}</span>
           </div>
           {% endif %}
         </div>
