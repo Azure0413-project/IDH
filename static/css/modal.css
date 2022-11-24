@@ -101,7 +101,7 @@
 
 .weight-num {
     font-size: 24px;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
 }
 
 .diff-pos {
@@ -109,11 +109,66 @@
 }
 
 .diff-neg {
-    color: #88FF94;
+    color: #7AF386;
 }
 
-.weight-bar img {
-    width: 12em;
+.weight-bar {
+    display: flex;
+    flex-direction: column;
+}
+
+.weight-bar .bar-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3px 5px 8px;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 3px 3px 10px 3px;
+}
+
+.bar-white {
+    background-color: #ffffff;
+    height: 1.2em;
+    width: 100%;
+    border: 0.15em solid #4A5563;
+    position: relative;
+}
+
+.left {
+    border-radius: 2em 0 0 2em;
+}
+
+.right {
+    border-radius: 0 2em 2em 0;
+}
+
+.bar-divider {
+    position: absolute;
+    left: 49%;
+    height: 1.7em;
+    width: 0.4em;
+    z-index: 9999;
+    background-color: #4A5563;
+}
+
+.bar-pos {
+    background-color: #fe7878;
+    border-right: 0.15em solid #4A5563;
+    position: absolute;
+    left: 0;
+    height: 0.9em;
+}
+
+.bar-neg {
+    background-color: #7AF386;
+    border-left: 0.15em solid #4A5563;
+    position: absolute;
+    right: 0;
+    height: 0.9em;
 }
 
 .modal-right {

@@ -169,16 +169,22 @@ def get_detail(request, bed, idh):
             temp.append(record)
 
     patient['all_record'] = temp
-    
-    # weight
-    diff_weight = round(d.before_weight - d.ideal_weight, 1)
     diff = {}
-    if diff_weight > 0:
-        diff['value'] = '+' + str(diff_weight)
-        diff['class'] = 'diff-pos'
-    else:
-        diff['value'] = str(diff_weight)
-        diff['class'] = 'diff-neg'
+    # weight
+    if d.ideal_weight > 0:
+        diff_weight = round(d.before_weight - d.ideal_weight, 1)
+        diff_percentage = round(diff_weight / d.ideal_weight * 100, 1)
+        if diff_weight > 0:
+            diff['value'] = '+' + str(diff_weight)
+            diff['percentage'] = '+' + str(diff_percentage) + "%"
+            diff['per_width'] = diff_percentage * 10
+            diff['class'] = 'diff-pos'
+        else:
+            diff['value'] = str(diff_weight)
+            diff['percentage'] = str(diff_percentage) + "%"
+            diff['per_width'] = (-1) * diff_percentage * 10
+            print(diff_percentage)
+            diff['class'] = 'diff-neg'
     patients = get_patients()
     
     # plot
@@ -196,7 +202,6 @@ def get_detail(request, bed, idh):
         figure = "/static/img/plot_b5.png"
     
     plot_data = []
-    # end_time = d.end_time
     for r in r_today:
         timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
         sbp = float(r.SBP)
@@ -208,18 +213,14 @@ def get_detail(request, bed, idh):
             "pulse": pulse,
             "CVP": cvp, 
         })
-    # duration = end_time - datetime.strptime(timestamp, "%Y-%m-%d %H:%M")
-    # if (duration) > timedelta(minutes=60):
-    #     print(duration)
-    #     r_times = len(r_today)
-    timestring = timestamp
+    time_string = timestamp
     for i in range(8):
-        timestamp = datetime.strptime(timestring, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-        timestring = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+        timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+        time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
         if timestamp < d.end_time:
             if len(plot_data) < 8:
                 plot_data.append({
-                    "timestamp": timestring,
+                    "timestamp": time_string,
                     "SBP": None,
                     "pulse": None,
                     "CVP": None,
