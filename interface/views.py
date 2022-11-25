@@ -186,20 +186,6 @@ def get_detail(request, bed, idh):
             diff['class'] = 'diff-neg'
     patients = get_patients()
     
-    # plot
-    if bed == 'A3':
-        figure = "/static/img/plot_a3.png"    
-    elif bed == 'C3':
-        figure = "/static/img/plot_c3.png"   
-    elif bed == 'E5':
-        figure = "/static/img/plot_e5.png"   
-    elif bed == 'B5':
-        figure = "/static/img/plot_b5.png"   
-    elif bed == 'C5':
-        figure = "/static/img/plot_c5.png"   
-    else:
-        figure = "/static/img/plot_b5.png"
-    
     plot_data = []
     for r in r_today:
         timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
@@ -241,6 +227,5 @@ def get_detail(request, bed, idh):
         "idh": idh,
         "diff": diff,
         "all_record": patient['all_record'],
-        "plot": figure,
         "chart": json.dumps(plot_data),
     })

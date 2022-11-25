@@ -1436,142 +1436,154 @@
       </div>
       <div class="modal-table hidden">
         <div id="patient2"></div>
-        <table>
-          <thead>
-            <tr>
-              <th title="Field #1">ID</th>
-              <th title="Field #2">姓名</th>
-              <th title="Field #3">性別</th>
-              <th title="Field #4">年齡</th>
-              <th title="Field #5">出生年月日</th>
-              <th title="Field #6">床位</th>
-              <th title="Field #7">透析次數(本院)</th>
-              <th title="Field #8">透析開始時間</th>
-              <th title="Field #9">透析結束時間</th>
-              <th title="Field #10">紀錄時間</th>
-              <th title="Field #11">血壓(收縮)</th>
-              <th title="Field #12">血壓(舒張)</th>
-              <th title="Field #13">脈搏</th>
-              <th title="Field #14">呼吸</th>
-              <th title="Field #15">開始體溫</th>
-              <th title="Field #16">體溫</th>
-              <th title="Field #17">開始透析液流速</th>
-              <th title="Field #18">開始血液流速</th>
-              <th title="Field #19">血流速(ml/min)</th>
-              <th title="Field #20">透析液流速(ml/min)</th>
-              <th title="Field #21">透析液溫度(℃)</th>
-              <th title="Field #22">透析前體重(kg)</th>
-              <th title="Field #23">理想體重(kg)</th>
-              <th title="Field #24">目標脫水量(L)</th>
-              <th title="Field #25">輸液量(L)</th>
-              <th title="Field #26">食物重量(kg)</th>
-              <th title="Field #27">預估脫水量(L)</th>
-              <th title="Field #28">設定脫水量(L)</th>
-              <th title="Field #29">結束體重(kg)</th>
-              <th title="Field #30">實際脫水量(L)</th>
-              <th title="Field #31">靜脈壓(mmHg)</th>
-              <th title="Field #32">透析液壓(mmHg)</th>
-              <th title="Field #33">膜上壓(mmHg)</th>
-              <th title="Field #34">脫水速率</th>
-              <th title="Field #35">累積量</th>
-              <th title="Field #36">透析液Ca</th>
-              <th title="Field #37">透析機編號</th>
-              <th title="Field #38">Start_SBP</th>
-              <th title="Field #39">Start_DBP</th>
-              <th title="Field #40">End_SBP</th>
-              <th title="Field #41">End_DBP</th>
-              <th title="Field #42">透析模式</th>
-              <th title="Field #43">透析器</th>
-              <th title="Field #44">血管通路</th>
-              <th title="Field #45">Heparin</th>
-              <th title="Field #46">ESA</th>
-              <th title="Field #47">透析器凝血情況</th>
-              <th title="Field #48">肝素注射量(ml/hr)</th>
-              <th title="Field #49">沖水量(L)</th>
-              <th title="Field #50">確認血管通路</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for record in all_record reversed %}
-            <tr>
-              <td>{{ id.p_id }}</td>
-              <td>{{ id.p_name }}</td>
-              <td>{{ id.gender }}</td>
-              <td>{{ record.d_id.age }}</td>
-              <td>{{ id.birth }}</td>
-              <td>{{ record.d_id.bed }}</td>
-              <td>{{ record.d_id.times }}</td>
-              <td>{{ record.d_id.start_time }}</td>
-              <td>{{ record.d_id.end_time }}</td>
-              <td>{{ record.record_time }}</td>
-              {% if record.SBP > 180 or record.SBP < 90 %}
-              <td class="danger">{{ record.SBP|floatformat:0 }}</td>
-              {% elif record.SBP > 165 or record.SBP < 100 %}
-              <td class="warning">{{ record.SBP|floatformat:0 }}</td>
-              {% else %}
-              <td>{{ record.SBP|floatformat:0 }}</td>
-              {% endif %}
-              <td>{{ record.DBP }}</td>
-              {% if record.pulse > 140 or record.pulse < 60 %}
-              <td class="danger">{{ record.pulse|floatformat:0 }}</td>
-              {% elif record.pulse > 120 %}
-              <td class="warning">{{ record.pulse|floatformat:0 }}</td>
-              {% else %}
-              <td>{{ record.pulse|floatformat:0 }}</td>
-              {% endif %}
-              <td>{{ record.breath|floatformat:0 }}</td>
-              <td>{{ record.d_id.start_temperature|floatformat:1 }}</td>
-              {% if record.temperature > 38 or record.temperature < 36 %}
-              <td class="warning">{{ record.temperature|floatformat:1 }}</td>
-              {% else %}
-              <td>{{ record.temperature|floatformat:0 }}</td>
-              {% endif %}              
-              <td>{{ record.d_id.start_flow_speed|floatformat:0 }}</td>
-              <td>{{ record.d_id.start_blood_speed|floatformat:0 }}</td>
-              {% if record.blood_speed < 150 %}
-              <td class="warning">{{ record.blood_speed|floatformat:0 }}</td>
-              {% else %}
-              <td>{{ record.blood_speed|floatformat:0 }}</td>
-              {% endif %}
-              {% if record.flow_speed < 250 %}
-              <td class="warning">{{ record.flow_speed|floatformat:0 }}</td>
-              {% else %}
-              <td>{{ record.flow_speed|floatformat:0 }}</td>
-              {% endif %}
-              <td>{{ record.dialyse_temperature|floatformat:1 }}</td>
-              <td>{{ record.d_id.before_weight|floatformat:1 }}</td>
-              <td>{{ record.d_id.ideal_weight|floatformat:1 }}</td>
-              <td>{{ record.d_id.expect_dehydration|floatformat:1 }}</td>
-              <td>{{ record.d_id.transfusion|floatformat:1 }}</td>
-              <td>{{ record.d_id.food|floatformat:1 }}</td>
-              <td>{{ record.d_id.estimate_dehydration|floatformat:1 }}</td>
-              <td>{{ record.d_id.set_dehydration|floatformat:1 }}</td>
-              <td>{{ record.d_id.after_weight|floatformat:1 }}</td>
-              <td>{{ record.d_id.real_dehydration|floatformat:1 }}</td>
-              <td>{{ record.CVP }}</td>
-              <td>{{ record.DP|floatformat:1 }}</td>
-              <td>{{ record.TMP|floatformat:1 }}</td>
-              <td>{{ record.dehydrate_speed|floatformat:2 }}</td>
-              <td>{{ record.accumulation|floatformat:2 }}</td>
-              <td>{{ record.d_id.Ca|floatformat:1 }}</td>
-              <td>{{ record.d_id.machine_id }}</td>
-              <td>{{ record.d_id.start_SBP|floatformat:1 }}</td>
-              <td>{{ record.d_id.start_DBP }}</td>
-              <td>{{ record.d_id.end_SBP|floatformat:1 }}</td>
-              <td>{{ record.d_id.end_DBP }}</td>
-              <td>{{ record.d_id.mode }}</td>
-              <td>{{ record.d_id.machine }}</td>
-              <td>{{ record.d_id.channel }}</td>
-              <td>{{ record.d_id.heparin }}</td>
-              <td>{{ record.d_id.ESA }}</td>
-              <td>{{ record.d_id.coagulation }}</td>
-              <td>{{ record.heparin_volume|floatformat:2 }}</td>
-              <td>{{ record.flush|floatformat:1 }}</td>
-              <td>{{ record.channel_confirmed }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th title="Field #1">ID</th>
+                <th title="Field #2">姓名</th>
+                <th title="Field #3">性別</th>
+                <th title="Field #4">年齡</th>
+                <th title="Field #5">出生年月日</th>
+                <th title="Field #6">床位</th>
+                <th title="Field #7">透析次數(本院)</th>
+                <th title="Field #8">透析開始時間</th>
+                <th title="Field #9">透析結束時間</th>
+                <th title="Field #10">紀錄時間</th>
+                <th title="Field #11">血壓(收縮)</th>
+                <th title="Field #12">血壓(舒張)</th>
+                <th title="Field #13">脈搏</th>
+                <th title="Field #14">呼吸</th>
+                <th title="Field #15">開始體溫</th>
+                <th title="Field #16">體溫</th>
+                <th title="Field #17">開始透析液流速</th>
+                <th title="Field #18">開始血液流速</th>
+                <th title="Field #19">血流速(ml/min)</th>
+                <th title="Field #20">透析液流速(ml/min)</th>
+                <th title="Field #21">透析液溫度(℃)</th>
+                <th title="Field #22">透析前體重(kg)</th>
+                <th title="Field #23">理想體重(kg)</th>
+                <th title="Field #24">目標脫水量(L)</th>
+                <th title="Field #25">輸液量(L)</th>
+                <th title="Field #26">食物重量(kg)</th>
+                <th title="Field #27">預估脫水量(L)</th>
+                <th title="Field #28">設定脫水量(L)</th>
+                <th title="Field #29">結束體重(kg)</th>
+                <th title="Field #30">實際脫水量(L)</th>
+                <th title="Field #31">靜脈壓(mmHg)</th>
+                <th title="Field #32">透析液壓(mmHg)</th>
+                <th title="Field #33">膜上壓(mmHg)</th>
+                <th title="Field #34">脫水速率</th>
+                <th title="Field #35">累積量</th>
+                <th title="Field #36">透析液Ca</th>
+                <th title="Field #37">透析機編號</th>
+                <th title="Field #38">Start_SBP</th>
+                <th title="Field #39">Start_DBP</th>
+                <th title="Field #40">End_SBP</th>
+                <th title="Field #41">End_DBP</th>
+                <th title="Field #42">透析模式</th>
+                <th title="Field #43">透析器</th>
+                <th title="Field #44">血管通路</th>
+                <th title="Field #45">Heparin</th>
+                <th title="Field #46">ESA</th>
+                <th title="Field #47">透析器凝血情況</th>
+                <th title="Field #48">肝素注射量(ml/hr)</th>
+                <th title="Field #49">沖水量(L)</th>
+                <th title="Field #50">確認血管通路</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in all_record reversed %}
+              <tr>
+                <td>{{ id.p_id }}</td>
+                <td>{{ id.p_name }}</td>
+                <td>{{ id.gender }}</td>
+                <td>{{ record.d_id.age }}</td>
+                <td>{{ id.birth }}</td>
+                <td>{{ record.d_id.bed }}</td>
+                <td>{{ record.d_id.times }}</td>
+                <td>{{ record.d_id.start_time }}</td>
+                <td>{{ record.d_id.end_time }}</td>
+                <td>{{ record.record_time }}</td>
+                {% if record.SBP > 180 or record.SBP < 90 %}
+                <td class="danger">{{ record.SBP|floatformat:0 }}</td>
+                {% elif record.SBP > 165 or record.SBP < 100 %}
+                <td class="warning">{{ record.SBP|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.SBP|floatformat:0 }}</td>
+                {% endif %}
+                <td>{{ record.DBP }}</td>
+                {% if record.pulse > 140 or record.pulse < 60 %}
+                <td class="danger">{{ record.pulse|floatformat:0 }}</td>
+                {% elif record.pulse > 120 %}
+                <td class="warning">{{ record.pulse|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.pulse|floatformat:0 }}</td>
+                {% endif %}
+                <td>{{ record.breath|floatformat:0 }}</td>
+                {% if record.d_id.start_temperature == '-' %}
+                <td>{{ record.d_id.temperature }}</td>
+                {% else %}
+                <td>{{ record.d_id.start_temperature|floatformat:1 }}</td>
+                {% endif %}
+                {% if record.d_id.temperature == '-' %}
+                <td>{{ record.d_id.temperature }}</td>
+                {% elif record.d_id.temperature > 38 or record.d_id.temperature < 36 %}
+                <td class="warning">{{ record.d_id.temperature|floatformat:1 }}</td>
+                {% else %}
+                <td>{{ record.d_id.temperature|floatformat:1 }}</td>
+                {% endif %}              
+                <td>{{ record.d_id.start_flow_speed|floatformat:0 }}</td>
+                <td>{{ record.d_id.start_blood_speed|floatformat:0 }}</td>
+                {% if record.blood_speed < 150 %}
+                <td class="warning">{{ record.blood_speed|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.blood_speed|floatformat:0 }}</td>
+                {% endif %}
+                {% if record.flow_speed < 250 %}
+                <td class="warning">{{ record.flow_speed|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.flow_speed|floatformat:0 }}</td>
+                {% endif %}
+                <td>{{ record.dialyse_temperature|floatformat:1 }}</td>
+                <td>{{ record.d_id.before_weight|floatformat:1 }}</td>
+                <td>{{ record.d_id.ideal_weight|floatformat:1 }}</td>
+                <td>{{ record.d_id.expect_dehydration|floatformat:1 }}</td>
+                <td>{{ record.d_id.transfusion|floatformat:1 }}</td>
+                <td>{{ record.d_id.food|floatformat:1 }}</td>
+                <td>{{ record.d_id.estimate_dehydration|floatformat:1 }}</td>
+                <td>{{ record.d_id.set_dehydration|floatformat:1 }}</td>
+                <td>{{ record.d_id.after_weight|floatformat:1 }}</td>
+                <td>{{ record.d_id.real_dehydration|floatformat:1 }}</td>
+                <td>{{ record.CVP }}</td>
+                <td>{{ record.DP|floatformat:1 }}</td>
+                <td>{{ record.TMP|floatformat:1 }}</td>
+                <td>{{ record.dehydrate_speed|floatformat:2 }}</td>
+                <td>{{ record.accumulation|floatformat:2 }}</td>
+                <td>{{ record.d_id.Ca|floatformat:1 }}</td>
+                <td>{{ record.d_id.machine_id }}</td>
+                <td>{{ record.d_id.start_SBP|floatformat:1 }}</td>
+                <td>{{ record.d_id.start_DBP }}</td>
+                <td>{{ record.d_id.end_SBP|floatformat:1 }}</td>
+                <td>{{ record.d_id.end_DBP }}</td>
+                <td>{{ record.d_id.mode }}</td>
+                <td>{{ record.d_id.machine }}</td>
+                <td>{{ record.d_id.channel }}</td>
+                <td>{{ record.d_id.heparin }}</td>
+                <td>{{ record.d_id.ESA }}</td>
+                <td>{{ record.d_id.coagulation }}</td>
+                <td>{{ record.heparin_volume|floatformat:2 }}</td>
+                {% if record.flush == '-' %}
+                <td>{{ record.flush }}</td>
+                {% else %}
+                <td>{{ record.flush|floatformat:1 }}</td>
+                {% endif %}
+                <td>{{ record.channel_confirmed }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="close-btn" onclick="closeModal()">
         <img src="{%static 'img/close.svg'%}" />
