@@ -287,10 +287,14 @@
 }
 
 .modal-table{
-    overflow: auto;
-    width: 100%;
-    height: 90%;
     padding: 0.5em;
+}
+
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 80%;
+    width: 80vw;
 }
 
 table {
@@ -299,6 +303,12 @@ table {
     white-space: nowrap;
     border-collapse: collapse;
     text-align: center;
+    table-layout: fixed;
+}
+
+thead tr th{
+    position: sticky;
+    top: 0;
 }
 
 th {
