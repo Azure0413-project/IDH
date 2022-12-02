@@ -202,7 +202,7 @@ def get_detail(request, bed, idh):
     for i in range(8):
         timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
         time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-        if timestamp < d.end_time:
+        if timestamp < d.start_time + timedelta(hours=4):
             if len(plot_data) < 8:
                 plot_data.append({
                     "timestamp": time_string,

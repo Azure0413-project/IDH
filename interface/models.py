@@ -13,7 +13,7 @@ class Dialysis(models.Model):
     age = models.IntegerField()
     times = models.IntegerField()
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    end_time = models.DateTimeField(blank=True, null=True)
     machine_id = models.CharField(max_length=10)
     bed = models.CharField(max_length=10)
     temperature = models.DecimalField(decimal_places=2, max_digits=10, default=Decimal('0.0'), null=True)
