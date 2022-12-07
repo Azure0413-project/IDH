@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/tab.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
     
     <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
@@ -20,8 +21,8 @@
         <nav class="navbar">
             {% comment %} <img src="{%static 'img/dropdown.svg' %}" alt="v"> {% endcomment %}
             <ul class="nav_link">
-                <li><a href="">首頁</a></li>
-                <li><a>填寫透析紀錄</a></li>
+                <li><a href="{% url 'index' %}">首頁</a></li>
+                <li><a href="{% url 'get_record' %}">填寫透析紀錄</a></li>
             </ul>
             <img src="{%static 'img/user.svg' %}" alt="user">
         </nav>
