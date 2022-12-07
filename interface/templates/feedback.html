@@ -163,7 +163,7 @@
 {% else %}
 <div id="modal" class="modal">
   <!-- Modal content -->
-  <div class="modal-content">
+  <div class="modal-idh">
     <div class="modal-feedback">
       <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
       <div class="idh-linechart" id="linechart"></div>
@@ -275,7 +275,6 @@
         let IDH = [];
         for(let i = 0; i < chart.length; i++) {
           if(chart[i].SBP != null && chart[i].SBP <= 90) {
-            console.log(chart[i].SBP)
             IDH.push({
               "timestamp": chart[i].timestamp,
               "SBP": chart[i].SBP
@@ -287,7 +286,8 @@
               id: 'band' + (i)
             })
           }
-        }   
+        }
+        {% comment %} document.getElementById('linechart') {% endcomment %}
       </script>
     </div>
   </div>
