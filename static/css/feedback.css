@@ -1,0 +1,11 @@
+.record {
+    height: 2.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-inactive {
+    color: #CBD3DE;
+}

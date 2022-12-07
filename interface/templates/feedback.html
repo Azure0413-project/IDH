@@ -2,8 +2,178 @@
 <div class="container">
   <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'dashboard')" id="defaultOpen">
-      <img src="{%static 'img/record.svg'%}" />首<br />頁
+      <img src="{%static 'img/record.svg'%}" />透<br/>析<br/>紀<br/>錄<br/>
     </button>
+  </div>
+<div id="dashboard" class="tabcontent">
+    <div class="map">
+      <section class="area">
+        <h1>B</h1>
+        <ul class="up">
+        {% for patient in b_patients %}
+          {% if patient.id == '---' %}
+          <li class="bed" id="bed-{{ patient.bed }}">
+            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+            <div class="record record-inactive">無紀錄</div>
+          {% else %}
+          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% else %}
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% endif %}
+            <div class="record">查看透析紀錄</div>
+          </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>C</h1>
+        <ul class="up">
+        {% for patient in c_patients %}
+          {% if patient.id == '---' %}
+          <li class="bed" id="bed-{{ patient.bed }}">
+            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+            <div class="record record-inactive">無紀錄</div>
+          {% else %}
+          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% else %}
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% endif %}
+            <div class="record">查看透析紀錄</div>
+          </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>D</h1>
+        <ul class="up">
+        {% for patient in d_patients %}
+          {% if patient.id == '---' %}
+          <li class="bed" id="bed-{{ patient.bed }}">
+            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+            <div class="record record-inactive">無紀錄</div>
+          {% else %}
+          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% else %}
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+          {% endif %}
+            <div class="record">查看透析紀錄</div>
+          </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      </section>
+      <section class="area">
+        <h1>A</h1>
+        <ul class="down">
+        {% for patient in a_patients %}
+          {% if patient.bed == '' %}
+          <li></li>
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="record record-inactive">無紀錄</div>
+            {% else %}
+            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% endif %}
+              <div class="record">查看透析紀錄</div>
+            </li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>E</h1>
+        <ul class="down">
+          {% for patient in e_patients %}
+          {% if patient.bed == '' %}
+          <li></li>
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="record record-inactive">無紀錄</div>
+            {% else %}
+            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% endif %}
+              <div class="record">查看透析紀錄</div>
+            </li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        </ul>
+        <div class="divider"></div>
+      </section>
+      <section class="area">
+        <h1>I</h1>
+        <ul class="down">
+        {% for patient in i_patients %}
+          {% if patient.bed == '' %}
+          <li></li>
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="record record-inactive">無紀錄</div>
+            {% else %}
+            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% endif %}
+              <div class="record">查看透析紀錄</div>
+            </li>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        </ul>
+      </section>
+    </div>
   </div>
 </div>
 {% endblock %}

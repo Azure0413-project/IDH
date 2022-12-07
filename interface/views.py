@@ -36,6 +36,18 @@ def index(request):
         "i_patients": patients["i_patients"],
     })
 
+def get_record(request):
+    patients = get_patients()
+    return render(request, 'feedback.html', {
+        "home": True,
+        "a_patients": patients["a_patients"],
+        "b_patients": patients["b_patients"],
+        "c_patients": patients["c_patients"],
+        "d_patients": patients["d_patients"],
+        "e_patients": patients["e_patients"],
+        "i_patients": patients["i_patients"],
+    })
+
 def get_patients():
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     a_patients = []
