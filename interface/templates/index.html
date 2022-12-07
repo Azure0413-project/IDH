@@ -1407,13 +1407,13 @@
               name: "收縮壓",
               data: SBP,
               lineWidth: 3,
+              color: "#fe7878",
             },
             {
               name: "脈搏",
               data: pulse,
               yAxis: 1,
               lineWidth: 3,
-              color: "#fe7878",
             },
             {
               name: "靜脈壓",
@@ -1422,7 +1422,23 @@
               color: "#999999"
             }]
           });
-          console.log(chart)
+          console.log(chart);
+          let IDH = [];
+          for(let i = 0; i < chart.length; i++) {
+            if(chart[i].SBP != null && chart[i].SBP <= 90) {
+              console.log(chart[i].SBP)
+              IDH.push({
+                "timestamp": chart[i].timestamp,
+                "SBP": chart[i].SBP
+              })
+              linechart.xAxis[0].addPlotBand({
+                from: i - 0.5,
+                to: i + 0.5,
+                color: "#ffecc4",
+                id: 'band' + (i)
+              })
+            }
+          }   
         </script>
         <ul class="dialysis-info">
           <li class="dialysis-item">Heparin</li>
