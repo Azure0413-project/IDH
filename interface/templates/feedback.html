@@ -16,14 +16,11 @@
             <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
             <div class="record record-inactive">無紀錄</div>
           {% else %}
-          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          {% if patient.status %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
-            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="record">查看透析紀錄</div>
@@ -42,14 +39,11 @@
             <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
             <div class="record record-inactive">無紀錄</div>
           {% else %}
-          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          {% if patient.status %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
-            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="record">查看透析紀錄</div>
@@ -68,14 +62,11 @@
             <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
             <div class="record record-inactive">無紀錄</div>
           {% else %}
-          {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          {% if patient.status %}
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
-            <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="record">查看透析紀錄</div>
@@ -96,14 +87,11 @@
               <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
               <div class="record record-inactive">無紀錄</div>
             {% else %}
-            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            {% if patient.status %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
-              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="record">查看透析紀錄</div>
@@ -126,14 +114,11 @@
               <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
               <div class="record record-inactive">無紀錄</div>
             {% else %}
-            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            {% if patient.status %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
-              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="record">查看透析紀錄</div>
@@ -156,14 +141,11 @@
               <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
               <div class="record record-inactive">無紀錄</div>
             {% else %}
-            {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            {% if patient.status %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
-              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail_idh/{{patient.bed}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="record">查看透析紀錄</div>
@@ -176,4 +158,139 @@
     </div>
   </div>
 </div>
+{% if home %}
+<div id="modal" class="modal hidden">
+{% else %}
+<div id="modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-feedback">
+      <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
+      <div class="idh-linechart" id="linechart"></div>
+      <script>
+        let chart = {{ chart|safe }};
+        const xAxis = chart.map(data => data["timestamp"])
+        const SBP = chart.map(data => data["SBP"]);
+        const pulse = chart.map(data => data["pulse"]);
+        const CVP = chart.map(data => data["CVP"]);
+        let linechart = Highcharts.chart("linechart", {
+          chart: { 
+            type: "line",
+            height: 260 + "em",
+            width: 1100,
+            backgroundColor: "#f4f7fb",
+            spacing: [30, 0, 0, 10],
+          },
+          title: { 
+            style: {
+              "display": "none",
+            }
+          },
+          credits: {
+            enabled: false,
+          },
+          legend: {
+            align: "right",
+            verticalAlign: "middle",
+            layout: "vertical",
+            itemMarginTop: 10,
+            itemStyle: {
+              color: "#4A5563",
+              fontSize: "18px",
+            },
+            symbolWidth: 24,
+            symbolHeight: 24,
+            symbolPadding: 10,
+          },
+          tooltip: {
+            borderRadius: 8,
+          },
+          xAxis: { 
+            categories: xAxis,
+          },
+          yAxis: [
+          {
+            title: { 
+              text: "壓力",
+              rotation: 0,
+              align: "high",
+              style: {
+                fontSize: "18px",
+                color: "#4A5563",
+              },
+              y: -15,
+              offset: 25,
+            },
+            labels: { 
+              algin: "center",
+              format: "{value} mmHg",
+              style: {
+                fontSize: 12,
+              }
+            },
+            minorTicks: true,
+          },
+          {
+            opposite: true,
+            title: { 
+              text: "脈搏",
+              rotation: 0,
+              align: "high",
+              style: {
+                fontSize: "18px",
+                color: "#4A5563",
+              },
+              y: -15,
+              offset: 15,
+            },
+            labels: { 
+              algin: "center",
+              format: "{value} bpm",
+              style: {
+                fontSize: 12,
+              }
+            },
+          }],
+          series: [
+          {
+            name: "收縮壓",
+            data: SBP,
+            lineWidth: 3,
+            color: "#fe7878",
+          },
+          {
+            name: "脈搏",
+            data: pulse,
+            yAxis: 1,
+            lineWidth: 3,
+          },
+          {
+            name: "靜脈壓",
+            data: CVP,
+            lineWidth: 3,
+            color: "#999999"
+          }]
+        });
+        console.log(chart);
+        let IDH = [];
+        for(let i = 0; i < chart.length; i++) {
+          if(chart[i].SBP != null && chart[i].SBP <= 90) {
+            console.log(chart[i].SBP)
+            IDH.push({
+              "timestamp": chart[i].timestamp,
+              "SBP": chart[i].SBP
+            })
+            linechart.xAxis[0].addPlotBand({
+              from: i - 0.5,
+              to: i + 0.5,
+              color: "#ffecc4",
+              id: 'band' + (i)
+            })
+          }
+        }   
+      </script>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endblock %}
