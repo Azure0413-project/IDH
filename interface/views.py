@@ -37,7 +37,7 @@ def index(request):
     })
 
 def get_record(request):
-    patients = get_patients()
+    patients = get_idh_patients()
     return render(request, 'feedback.html', {
         "home": True,
         "a_patients": patients["a_patients"],
@@ -245,5 +245,184 @@ def get_detail(request, bed, idh):
         "idh": idh,
         "diff": diff,
         "all_record": patient['all_record'],
+        "chart": json.dumps(plot_data),
+    })
+
+def get_idh_patients():
+    now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
+    a_patients = []
+    b_patients = []
+    c_patients = []
+    d_patients = []
+    e_patients = []
+    i_patients = []
+    for index, bed in enumerate(a_area):
+        patient = {}
+        patient = {'bed': bed}
+        for d in now_dialysis:
+            if bed == d.bed:
+                start_time = d.start_time
+                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                patient['setting'] = d
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['status'] = False
+                for r in records:
+                    if r.SBP <= 90:
+                        patient['status'] = True
+                continue
+        if 'id' not in patient:
+            patient['id'] = '---'
+        a_patients.append(patient)    
+    for index, bed in enumerate(b_area):
+        patient = {}
+        patient = {'bed': bed}
+        for d in now_dialysis:
+            if bed == d.bed:
+                start_time = d.start_time
+                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                patient['setting'] = d
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['status'] = False
+                for r in records:
+                    if r.SBP <= 90:
+                        patient['status'] = True
+                continue
+        if 'id' not in patient:
+            patient['id'] = '---'
+        b_patients.append(patient)
+    for index, bed in enumerate(c_area):
+        patient = {}
+        patient = {'bed': bed}
+        for d in now_dialysis:
+            if bed == d.bed:
+                start_time = d.start_time
+                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                patient['setting'] = d
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['status'] = False
+                for r in records:
+                    if r.SBP <= 90:
+                        patient['status'] = True
+                continue
+        if 'id' not in patient:
+            patient['id'] = '---'
+        c_patients.append(patient)    
+    for index, bed in enumerate(d_area):
+        patient = {}
+        patient = {'bed': bed}
+        for d in now_dialysis:
+            if bed == d.bed:
+                start_time = d.start_time
+                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                patient['setting'] = d                
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['status'] = False
+                for r in records:
+                    if r.SBP <= 90:
+                        patient['status'] = True
+                continue
+        if 'id' not in patient:
+            patient['id'] = '---'
+        d_patients.append(patient)
+    for index, bed in enumerate(e_area):
+        patient = {}
+        patient = {'bed': bed}
+        for d in now_dialysis:
+            if bed == d.bed:
+                start_time = d.start_time
+                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                patient['setting'] = d
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['status'] = False
+                for r in records:
+                    if r.SBP <= 90:
+                        patient['status'] = True
+                continue
+        if 'id' not in patient:
+            patient['id'] = '---'
+        e_patients.append(patient)
+    for index, bed in enumerate(i_area):
+        patient = {}
+        patient = {'bed': bed}
+        for d in now_dialysis:
+            if d.bed == bed:
+                start_time = d.start_time
+                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                patient['setting'] = d    
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                patient['status'] = False
+                for r in records:
+                    if r.SBP <= 90:
+                        patient['status'] = True
+                continue
+        if 'id' not in patient:
+            patient['id'] = '---'
+        i_patients.append(patient)
+    # print(r_list)
+    return {
+        'a_patients': a_patients, 
+        'b_patients': b_patients, 
+        'c_patients': c_patients,
+        'd_patients': d_patients,
+        'e_patients': e_patients,
+        'i_patients': i_patients,
+    }
+
+def get_detail_idh(request, bed):
+    patient = {}
+    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
+    start_time = d.start_time
+    # patient data
+    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+    # latest dialysis information
+    patient['setting'] = d
+    # latest dialysis record
+    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+    patient['record'] = r_today[len(r_today) - 1]
+
+    patients = get_idh_patients()
+    plot_data = []
+    for r in r_today:
+        timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
+        sbp = float(r.SBP)
+        pulse = r.pulse
+        cvp = r.CVP
+        plot_data.append({
+            "timestamp": timestamp,
+            "SBP": sbp,
+            "pulse": pulse,
+            "CVP": cvp, 
+        })
+    time_string = timestamp
+    for i in range(8):
+        if plot_data[i]['SBP'] == 0:
+            plot_data[i]['SBP'] = None
+        if plot_data[i]['pulse'] == 0:
+            plot_data[i]['pulse'] = None
+        if plot_data[i]['CVP'] == 0:
+            plot_data[i]['CVP'] = None
+        timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+        time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+        if timestamp < d.start_time + timedelta(hours=4):
+            if len(plot_data) < 8:
+                plot_data.append({
+                    "timestamp": time_string,
+                    "SBP": None,
+                    "pulse": None,
+                    "CVP": None,
+                })
+        else:
+            break
+
+    return render(request, 'feedback.html', {
+        "home": False,
+        "a_patients": patients["a_patients"],
+        "b_patients": patients["b_patients"],
+        "c_patients": patients["c_patients"],
+        "d_patients": patients["d_patients"],
+        "e_patients": patients["e_patients"],
+        "i_patients": patients["i_patients"],
+        "id": patient['id'],
+        "setting": patient['setting'],
         "chart": json.dumps(plot_data),
     })
