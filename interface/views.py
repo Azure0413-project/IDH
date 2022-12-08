@@ -24,10 +24,11 @@ d_idh = [0.0098, 0.0000, 0.0245, 0.0000, 0.0191, 0.0000, 0.9229, 0.0000]
 e_idh = [0.0000, 0.0000, 0.9863, 0.0073, 0.0242, 0.0125, 0.0000, 0.2468, 0.3468, 0.0000]
 i_idh = [0.0000, 0.0000, 0.3927, 0.0000, 0.8806, 0.0000]
 
-def index(request):
+def index(request, area="dashboard"):
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
+        "area": area,
         "a_patients": patients["a_patients"],
         "b_patients": patients["b_patients"],
         "c_patients": patients["c_patients"],
@@ -156,7 +157,7 @@ def get_patients():
         'i_patients': i_patients,
     }
 
-def get_detail(request, bed, idh):
+def get_detail(request, area, bed, idh):
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
     start_time = d.start_time
@@ -233,6 +234,7 @@ def get_detail(request, bed, idh):
 
     return render(request, 'index.html', {
         "home": False,
+        "area": area,
         "a_patients": patients["a_patients"],
         "b_patients": patients["b_patients"],
         "c_patients": patients["c_patients"],

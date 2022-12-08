@@ -1,20 +1,17 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="container">
   <div class="tab">
-    <button
-      class="tablinks"
-      onclick="openTab(event, 'dashboard')"
-      id="defaultOpen"
-    >
+    <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
       <img src="{%static 'img/dashboard.svg'%}" />首<br />頁
     </button>
-    <button class="tablinks" onclick="openTab(event, 'tabA')">A<br />區</button>
-    <button class="tablinks" onclick="openTab(event, 'tabB')">B<br />區</button>
-    <button class="tablinks" onclick="openTab(event, 'tabC')">C<br />區</button>
-    <button class="tablinks" onclick="openTab(event, 'tabD')">D<br />區</button>
-    <button class="tablinks" onclick="openTab(event, 'tabE')">E<br />區</button>
-    <button class="tablinks" onclick="openTab(event, 'tabI')">I<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabA', 'A')">A<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabB', 'B')">B<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabC', 'C')">C<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabD', 'D')">D<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabE', 'E')">E<br />區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabI', 'I')">I<br />區</button>
   </div>
+  {% if area == "dashboard" %}
   <div id="dashboard" class="tabcontent">
     <div class="map">
       <section class="area">
@@ -39,13 +36,13 @@
             </div>
           {% else %}
           {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="bed-bottom">
@@ -111,13 +108,13 @@
             </div>
           {% else %}
           {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="bed-bottom">
@@ -183,13 +180,13 @@
             </div>
           {% else %}
           {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+          <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             <div class="bed-bottom">
@@ -257,13 +254,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -333,13 +330,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -409,13 +406,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/dashboard/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -490,7 +487,7 @@
       </section>
     </div>
   </div>
-
+  {% elif area == "A" %}
   <div id="tabA" class="tabcontent">
     <section class="tab-area">
       <h1>A</h1>
@@ -521,13 +518,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/A/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/A/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/A/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -609,7 +606,7 @@
       </div>
     </section>
   </div>
-
+  {% elif area == "B" %}
   <div id="tabB" class="tabcontent">
     <section class="tab-area">
       <h1>B</h1>
@@ -640,13 +637,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/B/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="location.href='get_detail/B/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/B/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -728,7 +725,7 @@
       </div>
     </section>
   </div>
-
+  {% elif area == "C" %}
   <div id="tabC" class="tabcontent">
     <section class="tab-area">
       <h1>C</h1>
@@ -759,13 +756,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/C/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/C/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/C/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -847,7 +844,7 @@
       </div>
     </section>
   </div>
-
+  {% elif area == "D" %}
   <div id="tabD" class="tabcontent">
     <section class="tab-area">
       <h1>D</h1>
@@ -878,13 +875,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/D/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/D/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/D/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -966,7 +963,7 @@
       </div>
     </section>
   </div>
-
+  {% elif area == "E" %}
   <div id="tabE" class="tabcontent">
     <section class="tab-area">
       <h1>E</h1>
@@ -997,13 +994,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/E/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/E/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/E/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -1085,7 +1082,7 @@
       </div>
     </section>
   </div>
-
+  {% elif area == "I" %}
   <div id="tabI" class="tabcontent">
     <section class="tab-area">
       <h1>I</h1>
@@ -1116,13 +1113,13 @@
               </div>
             {% else %}
             {% if patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/I/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/I/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/{{patient.bed}}/{{patient.idh}}'">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="location.href='get_detail/I/{{patient.bed}}/{{patient.idh}}'">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               <div class="bed-bottom">
@@ -1204,6 +1201,7 @@
       </div>
     </section>
   </div>
+  {% endif %}
 </div>
 <!-- Modal -->
 {% if home %}
@@ -1422,7 +1420,6 @@
               color: "#999999"
             }]
           });
-          console.log(chart);
           let IDH = [];
           for(let i = 0; i < chart.length; i++) {
             if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
