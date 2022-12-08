@@ -173,6 +173,8 @@
         const SBP = chart.map(data => data["SBP"]);
         const pulse = chart.map(data => data["pulse"]);
         const CVP = chart.map(data => data["CVP"]);
+        let IDH = [];                
+        let exist = false;
         let linechart = Highcharts.chart("linechart", {
           chart: { 
             type: "line",
@@ -180,6 +182,31 @@
             width: 1100,
             backgroundColor: "#f4f7fb",
             spacing: [30, 0, 0, 10],
+            events: {
+              click: function(e) {
+                let id = Math.round(e.xAxis[0].value);
+                exist = false;
+                let nowbands = this.xAxis[0].plotLinesAndBands;
+                for(let i = 0; i < nowbands.length; i++) {
+                  if(nowbands[i].id == "band" + id) {
+                    exist = true;
+                    IDH = IDH.filter(function(item) {
+                        return item['index'] != id
+                    });
+                    removePlotBand(nowbands[i].id);
+                  }
+                }
+                if(!exist) {
+                  IDH.push({
+                    "index": id,
+                    "timestamp": chart[id].timestamp,
+                    "SBP": chart[id].SBP,
+                  })
+                  addPlotBand(id);
+                }
+                console.log(IDH);
+              },
+            }
           },
           title: { 
             style: {
@@ -269,25 +296,39 @@
             data: CVP,
             lineWidth: 3,
             color: "#999999"
-          }]
+          }],
         });
-        console.log(chart);
-        let IDH = [];
         for(let i = 0; i < chart.length; i++) {
-          if(chart[i].SBP != null && chart[i].SBP <= 90) {
+          if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
             IDH.push({
+              "index": i,
               "timestamp": chart[i].timestamp,
-              "SBP": chart[i].SBP
+              "SBP": chart[i].SBP,
             })
             linechart.xAxis[0].addPlotBand({
               from: i - 0.5,
               to: i + 0.5,
               color: "#ffecc4",
-              id: 'band' + (i)
+              borderColor: "#CBD3DE",
+              borderWidth: 0.5,
+              id: "band" + i,
             })
           }
         }
-        {% comment %} document.getElementById('linechart') {% endcomment %}
+        
+        function removePlotBand(id) {
+          linechart.xAxis[0].removePlotBand(id);
+        }
+        function addPlotBand(id){
+          linechart.xAxis[0].addPlotBand({
+            from: id - 0.5,
+            to: id + 0.5,
+            color: "#ffecc4",
+            borderColor: "#CBD3DE",
+            borderWidth: 0.5,
+            id: "band" + id,
+          });
+        }
       </script>
     </div>
   </div>

@@ -212,12 +212,12 @@ def get_detail(request, bed, idh):
         })
     time_string = timestamp
     for i in range(8):
-        if plot_data[i]['SBP'] == 0:
-            plot_data[i]['SBP'] = None
-        if plot_data[i]['pulse'] == 0:
-            plot_data[i]['pulse'] = None
-        if plot_data[i]['CVP'] == 0:
-            plot_data[i]['CVP'] = None
+        # if plot_data[i]['SBP'] == 0:
+        #     plot_data[i]['SBP'] = None
+        # if plot_data[i]['pulse'] == 0:
+        #     plot_data[i]['pulse'] = None
+        # if plot_data[i]['CVP'] == 0:
+        #     plot_data[i]['CVP'] = None
         timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
         time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
         if timestamp < d.start_time + timedelta(hours=4):
@@ -395,12 +395,12 @@ def get_detail_idh(request, bed):
         })
     time_string = timestamp
     for i in range(8):
-        if plot_data[i]['SBP'] == 0:
-            plot_data[i]['SBP'] = None
-        if plot_data[i]['pulse'] == 0:
-            plot_data[i]['pulse'] = None
-        if plot_data[i]['CVP'] == 0:
-            plot_data[i]['CVP'] = None
+        # if plot_data[i]['SBP'] == 0:
+        #     plot_data[i]['SBP'] = None
+        # if plot_data[i]['pulse'] == 0:
+        #     plot_data[i]['pulse'] = None
+        # if plot_data[i]['CVP'] == 0:
+        #     plot_data[i]['CVP'] = None
         timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
         time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
         if timestamp < d.start_time + timedelta(hours=4):

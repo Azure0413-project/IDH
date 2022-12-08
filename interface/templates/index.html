@@ -1425,8 +1425,7 @@
           console.log(chart);
           let IDH = [];
           for(let i = 0; i < chart.length; i++) {
-            if(chart[i].SBP != null && chart[i].SBP <= 90) {
-              console.log(chart[i].SBP)
+            if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
               IDH.push({
                 "timestamp": chart[i].timestamp,
                 "SBP": chart[i].SBP
@@ -1435,7 +1434,8 @@
                 from: i - 0.5,
                 to: i + 0.5,
                 color: "#ffecc4",
-                id: 'band' + (i)
+                borderColor: "#CBD3DE",
+                borderWidth: 0.5,
               })
             }
           }   
