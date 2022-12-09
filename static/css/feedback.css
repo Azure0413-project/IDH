@@ -1,3 +1,27 @@
+.bed-feedback {
+    background-color: rgb(74, 91, 112);
+    box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.16);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.5rem;
+}
+
+.bed-feedback-inactive {
+    background-color: #CBD3DE;
+}
+
+.bed-feedback-active {
+    background-color: #E91111;
+}
+
+.bed-feedback-text {
+    color: #f8f8fB;
+    font-weight: 500;
+    font-size: 20px;
+}
+
 .modal-idh {
     background-color: #f4f7fb;
     margin: auto;
