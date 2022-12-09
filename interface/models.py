@@ -41,6 +41,7 @@ class Dialysis(models.Model):
     heparin = models.CharField(max_length=100)
     ESA = models.CharField(max_length=100, null=True)
     coagulation = models.CharField(max_length=20)
+
 class Record(models.Model):
     r_id = models.AutoField(primary_key=True)
     d_id = models.ForeignKey(Dialysis, on_delete=models.CASCADE)
@@ -58,5 +59,17 @@ class Record(models.Model):
     accumulation = models.DecimalField(decimal_places=4, max_digits=10)
     dialyse_temperature = models.DecimalField(decimal_places=3, max_digits=10)
     heparin_volume = models.DecimalField(decimal_places=4, max_digits=10)
-    flush = models.DecimalField(decimal_places=3, max_digits=10)
+    flush = models.DecimalField(decimal_places=3, max_digits=10, null=True)
     channel_confirmed = models.CharField(max_length=5)
+    prediction = models.DecimalField(decimal_places=3, max_digits=10, default=Decimal('0.0'), null=True)
+
+class Feedback(models.Model):
+    f_id = models.AutoField(primary_key=True)
+    r_id = models.ForeignKey(Record, on_delete=models.CASCADE)
+    create_time = models.DateTimeField(auto_now_add=True)
+    is_noise = models.BooleanField(null=True)
+    is_sign = models.BooleanField(null=True)
+    is_drug = models.BooleanField(null=True)
+    is_inject = models.BooleanField(null=True)
+    is_setting = models.BooleanField(null=True)
+    is_other = models.BooleanField(null=True)
