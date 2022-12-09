@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 <div class="container">
   <div class="tab">
-    <button class="tablinks active" id="defaultOpen">
+    <button class="tablinks active">
       <img src="{%static 'img/record.svg'%}" />透<br/>析<br/>紀<br/>錄<br/>
     </button>
   </div>
@@ -12,18 +12,16 @@
       <ul class="up">
       {% for patient in b_patients %}
         {% if patient.id == '---' %}
-        <li class="bed" id="bed-{{ patient.bed }}">
-          <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
-          <div class="record record-inactive">無紀錄</div>
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
         {% else %}
-        {% if patient.status %}
-        <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-          <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-        {% else %}
-        <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-          <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-        {% endif %}
-          <div class="record">查看透析紀錄</div>
+          {% if patient.status %}
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          {% else %}
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          {% endif %}
         </li>
         {% endif %}
       {% endfor %}
@@ -35,18 +33,16 @@
       <ul class="up">
       {% for patient in c_patients %}
         {% if patient.id == '---' %}
-        <li class="bed" id="bed-{{ patient.bed }}">
-          <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
-          <div class="record record-inactive">無紀錄</div>
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
         {% else %}
-        {% if patient.status %}
-        <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-          <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-        {% else %}
-        <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-          <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-        {% endif %}
-          <div class="record">查看透析紀錄</div>
+          {% if patient.status %}
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          {% else %}
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          {% endif %}
         </li>
         {% endif %}
       {% endfor %}
@@ -58,18 +54,16 @@
       <ul class="up">
       {% for patient in d_patients %}
         {% if patient.id == '---' %}
-        <li class="bed" id="bed-{{ patient.bed }}">
-          <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
-          <div class="record record-inactive">無紀錄</div>
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
         {% else %}
-        {% if patient.status %}
-        <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='/{{patient.bed}}'">
-          <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-        {% else %}
-        <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-          <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-        {% endif %}
-          <div class="record">查看透析紀錄</div>
+          {% if patient.status %}
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          {% else %}
+          <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          {% endif %}
         </li>
         {% endif %}
       {% endfor %}
@@ -83,18 +77,16 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-          <li class="bed" id="bed-{{ patient.bed }}">
-            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
-            <div class="record record-inactive">無紀錄</div>
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+              <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           {% else %}
-          {% if patient.status %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% endif %}
-            <div class="record">查看透析紀錄</div>
+            {% if patient.status %}
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            {% else %}
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            {% endif %}
           </li>
           {% endif %}
         {% endif %}
@@ -110,18 +102,16 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-          <li class="bed" id="bed-{{ patient.bed }}">
-            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
-            <div class="record record-inactive">無紀錄</div>
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+              <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           {% else %}
-          {% if patient.status %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% endif %}
-            <div class="record">查看透析紀錄</div>
+            {% if patient.status %}
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            {% else %}
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            {% endif %}
           </li>
           {% endif %}
         {% endif %}
@@ -137,24 +127,28 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-          <li class="bed" id="bed-{{ patient.bed }}">
-            <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
-            <div class="record record-inactive">無紀錄</div>
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+              <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           {% else %}
-          {% if patient.status %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-            <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="location.href='{{patient.bed}}'">
-            <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-          {% endif %}
-            <div class="record">查看透析紀錄</div>
+            {% if patient.status %}
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            {% else %}
+            <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            {% endif %}
           </li>
           {% endif %}
         {% endif %}
       {% endfor %}
       </ul>
     </section>
+    <script>
+      function changeStatus(bed_id) {
+        let bed = document.getElementById(bed_id);
+        bed.classList.toggle("bed-feedback-active");
+      }
+    </script>
   </div>
 </div>
 {% if home %}
