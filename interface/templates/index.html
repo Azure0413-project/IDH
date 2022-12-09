@@ -11,6 +11,45 @@
     <button class="tablinks" onclick="openTab(event, 'tabE', 'E')">E<br />區</button>
     <button class="tablinks" onclick="openTab(event, 'tabI', 'I')">I<br />區</button>
   </div>
+  <script>
+    let area = '{{ area|safe }}';
+    let number = 0;
+    switch(area) {
+      case 'dashboard':
+        number = 0;
+        break;
+      case 'A':
+        number = 1;
+        break;
+      case 'B':
+        number = 2;
+        break;
+      case 'C':
+        number = 3;
+        break;
+      case 'D':
+        number = 4;
+        break;
+      case 'E':
+        number = 5;
+        break;
+      case 'I':
+        number = 6;
+        break;
+      default:
+        number = 0;
+        break;
+    }
+    console.log(number);
+    let tablinks = document.getElementsByClassName('tablinks');
+    for(let i = 0; i < tablinks.length; i++) {
+      if(i == number) {
+        tablinks[i].className += " active";
+      } else {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+    }
+  </script>
   {% if area == "dashboard" %}
   <div id="dashboard" class="tabcontent">
     <div class="map">

@@ -63,25 +63,7 @@ runTime();
 setInterval(runTime, 1000);
 
 // Left panel
-// document.getElementById("defaultOpen").click();
 function openTab(evt, tabName, area) {
-  // Declare all variables
-  let i, tabcontent, tablinks;
-
-  // // Get all elements with class="tabcontent" and hide them
-  // tabcontent = document.getElementsByClassName("tabcontent");
-  // for (i = 0; i < tabcontent.length; i++) {
-  //   tabcontent[i].style.display = "none";
-  // }
-
-  // // Get all elements with class="tablinks" and remove the class "active"
-  // tablinks = document.getElementsByClassName("tablinks");
-  // for (i = 0; i < tablinks.length; i++) {
-  //   tablinks[i].className = tablinks[i].className.replace(" active", "");
-  // }
-
-  // Show the current tab, and add an "active" class to the link that opened the tab
-  evt.currentTarget.className += " active";
   document.location.href = "http://140.116.247.175:80/index/" + area;
 }
 
@@ -136,7 +118,6 @@ function clear() {
   flag = true;
   let back = document.location.href;
   let area = back.split("/");
-  console.log(area[4])
   if(area[4] == 'get_record'){
     document.location.href = "http://140.116.247.175:80/index/get_record/";
   } else {
