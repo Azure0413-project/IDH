@@ -141,6 +141,10 @@
           {% endif %}
         {% endif %}
       {% endfor %}
+        <li></li>
+        <li></li>
+        <li></li>
+        <li id="confirmPatientBtn" class="btn-confirm">確認</li>
       </ul>
     </section>
     <script>
@@ -193,6 +197,7 @@
                 if(!exist) {
                   IDH.push({
                     "index": id,
+                    "patient_id": id.p_id,
                     "timestamp": chart[id].timestamp,
                     "SBP": chart[id].SBP,
                   })
@@ -296,6 +301,7 @@
           if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
             IDH.push({
               "index": i,
+              "patient_id": id.p_id,
               "timestamp": chart[i].timestamp,
               "SBP": chart[i].SBP,
             })
