@@ -18,7 +18,7 @@
 
 .bed-feedback-text {
     color: #f8f8fB;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 20px;
 }
 
@@ -55,4 +55,21 @@
 
 .record-inactive {
     color: #CBD3DE;
+}
+
+.btn-confirm {
+    background-color: #FEA623;
+    box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.16);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.5rem;
+    color: #f4f7fb;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.btn-confirm:hover {
+    background-color: #feb123;
 }
