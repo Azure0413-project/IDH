@@ -373,6 +373,7 @@ def get_idh_patients():
 def get_detail_idh(request):
     if request.method == 'POST':
         beds = request.POST.getlist('idh-patient')
+        patients = []
         for bed in beds:
             patient = {}
             d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
@@ -384,51 +385,49 @@ def get_detail_idh(request):
             # latest dialysis record
             r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
             patient['record'] = r_today[len(r_today) - 1]
-
-    patients = get_idh_patients()
-    print(patients)
-    plot_data = []
-    for r in r_today:
-        timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
-        sbp = float(r.SBP)
-        pulse = r.pulse
-        cvp = r.CVP
-        plot_data.append({
-            "timestamp": timestamp,
-            "SBP": sbp,
-            "pulse": pulse,
-            "CVP": cvp, 
-        })
-    time_string = timestamp
-    for i in range(8):
-        # if plot_data[i]['SBP'] == 0:
-        #     plot_data[i]['SBP'] = None
-        # if plot_data[i]['pulse'] == 0:
-        #     plot_data[i]['pulse'] = None
-        # if plot_data[i]['CVP'] == 0:
-        #     plot_data[i]['CVP'] = None
-        timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-        time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-        if timestamp < d.start_time + timedelta(hours=4):
-            if len(plot_data) < 8:
+            
+            plot_data = []
+            for r in r_today:
+                timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
+                sbp = float(r.SBP)
+                pulse = r.pulse
+                cvp = r.CVP
                 plot_data.append({
-                    "timestamp": time_string,
-                    "SBP": None,
-                    "pulse": None,
-                    "CVP": None,
+                    "timestamp": timestamp,
+                    "SBP": sbp,
+                    "pulse": pulse,
+                    "CVP": cvp, 
                 })
-        else:
-            break
-
+            time_string = timestamp
+            for i in range(8):
+                # if plot_data[i]['SBP'] == 0:
+                #     plot_data[i]['SBP'] = None
+                # if plot_data[i]['pulse'] == 0:
+                #     plot_data[i]['pulse'] = None
+                # if plot_data[i]['CVP'] == 0:
+                #     plot_data[i]['CVP'] = None
+                timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+                time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+                if timestamp < d.start_time + timedelta(hours=4):
+                    if len(plot_data) < 8:
+                        plot_data.append({
+                            "timestamp": time_string,
+                            "SBP": None,
+                            "pulse": None,
+                            "CVP": None,
+                        })
+                else:
+                    break
+            patient['chart'] = json.dumps(plot_data)
+            patients.append(patient)
+    all_patients = get_idh_patients()
     return render(request, 'feedback.html', {
         "home": False,
-        "a_patients": patients["a_patients"],
-        "b_patients": patients["b_patients"],
-        "c_patients": patients["c_patients"],
-        "d_patients": patients["d_patients"],
-        "e_patients": patients["e_patients"],
-        "i_patients": patients["i_patients"],
-        "id": patient['id'],
-        "setting": patient['setting'],
-        "chart": json.dumps(plot_data),
+        "patients": patients,
+        'b_patients': all_patients['b_patients'], 
+        'a_patients': all_patients['a_patients'], 
+        'c_patients': all_patients['c_patients'],
+        'd_patients': all_patients['d_patients'],
+        'e_patients': all_patients['e_patients'],
+        'i_patients': all_patients['i_patients'],
     })
