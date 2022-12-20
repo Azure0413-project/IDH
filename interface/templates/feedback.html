@@ -204,21 +204,22 @@
   <!-- Modal content -->
   <div class="modal-idh">
     <div class="modal-feedback">
-      <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
-      <div class="idh-linechart" id="linechart"></div>
+      {% for patient in patients %}
+      <div id="patient">{{ patient.setting.bed }}  {{ patient.id.p_name }}</div>
+      <div class="idh-linechart" id="linechart-{{ patient.setting.bed }}"></div>
       <script>
-        let chart = {{ chart|safe }};
+        let chart = {{ patient.chart|safe }};
         const xAxis = chart.map(data => data["timestamp"])
         const SBP = chart.map(data => data["SBP"]);
         const pulse = chart.map(data => data["pulse"]);
         const CVP = chart.map(data => data["CVP"]);
         let IDH = [];                
         let exist = false;
-        let linechart = Highcharts.chart("linechart", {
+        let linechart = Highcharts.chart("linechart-{{ patient.setting.bed }}", {
           chart: { 
             type: "line",
             height: 260 + "em",
-            width: 1100,
+            width: 1000,
             backgroundColor: "#f4f7fb",
             spacing: [30, 0, 0, 10],
             events: {
@@ -357,7 +358,7 @@
             })
           }
         }
-        
+        console.log(linechart);
         function removePlotBand(id) {
           linechart.xAxis[0].removePlotBand(id);
         }
@@ -372,12 +373,12 @@
           });
         }
       </script>
+      {% endfor %}
       <div class="close-btn" onclick="closeModal()">
         <img src="{%static 'img/close.svg'%}" />
       </div>
     </div>
   </div>
-</form>
 </div>
 {% endif %}
 {% endblock %}
