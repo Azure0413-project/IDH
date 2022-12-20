@@ -1,3 +1,7 @@
+button {
+    border: 0;
+}
+
 .bed-feedback {
     background-color: rgb(74, 91, 112);
     box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.16);
