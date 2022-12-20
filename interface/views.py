@@ -370,19 +370,23 @@ def get_idh_patients():
         'i_patients': i_patients,
     }
 
-def get_detail_idh(request, bed):
-    patient = {}
-    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
-    start_time = d.start_time
-    # patient data
-    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-    # latest dialysis information
-    patient['setting'] = d
-    # latest dialysis record
-    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-    patient['record'] = r_today[len(r_today) - 1]
+def get_detail_idh(request):
+    if request.method == 'POST':
+        beds = request.POST.getlist('idh-patient')
+        for bed in beds:
+            patient = {}
+            d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
+            start_time = d.start_time
+            # patient data
+            patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+            # latest dialysis information
+            patient['setting'] = d
+            # latest dialysis record
+            r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+            patient['record'] = r_today[len(r_today) - 1]
 
     patients = get_idh_patients()
+    print(patients)
     plot_data = []
     for r in r_today:
         timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))

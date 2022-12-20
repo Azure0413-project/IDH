@@ -6,23 +6,28 @@
     </button>
   </div>
 <div id="dashboard" class="tabcontent">
+  <form method="post" action="get_detail_idh" enctype="multipart/form-data">
+  {% csrf_token %} 
   <div class="map">
     <section class="area">
       <h1>B</h1>
       <ul class="up">
       {% for patient in b_patients %}
         {% if patient.id == '---' %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
         {% else %}
           {% if patient.status %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
+          </button>
           {% else %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
           {% endif %}
-        </li>
         {% endif %}
       {% endfor %}
       </ul>
@@ -33,17 +38,20 @@
       <ul class="up">
       {% for patient in c_patients %}
         {% if patient.id == '---' %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
         {% else %}
           {% if patient.status %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
+          </button>
           {% else %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
           {% endif %}
-        </li>
         {% endif %}
       {% endfor %}
       </ul>
@@ -54,17 +62,20 @@
       <ul class="up">
       {% for patient in d_patients %}
         {% if patient.id == '---' %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
         {% else %}
           {% if patient.status %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
+          </button>
           {% else %}
-          <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
           {% endif %}
-        </li>
         {% endif %}
       {% endfor %}
       </ul>
@@ -77,17 +88,20 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
-              <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
           {% else %}
             {% if patient.status %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+              <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
+            </button>
             {% else %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
             {% endif %}
-          </li>
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -102,17 +116,20 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
-              <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
           {% else %}
             {% if patient.status %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+              <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
+            </button>
             {% else %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
             {% endif %}
-          </li>
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -127,33 +144,58 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
-              <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
           {% else %}
             {% if patient.status %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+              <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
+            </button>
             {% else %}
-            <li id="feedback-{{ patient.bed }}" class="bed-feedback" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
             {% endif %}
-          </li>
           {% endif %}
         {% endif %}
       {% endfor %}
         <li></li>
         <li></li>
         <li></li>
-        <li id="confirmPatientBtn" class="btn-confirm" onclick="location.href='{{}}'">確 認</li>
+        <button id="confirmPatientBtn" class="btn-confirm" type="submit">確 認</button>
       </ul>
     </section>
     <script>
       function changeStatus(bed_id) {
         let bed = document.getElementById(bed_id);
+        if(bed.classList.contains("bed-feedback-active")){
+          bed.children[1].remove();
+        } else {
+          let inputEle = document.createElement("input");
+          inputEle.type = "hidden";
+          inputEle.value = bed.id.split('-')[1];
+          inputEle.name = "idh-patient";
+          bed.appendChild(inputEle);
+        }
         bed.classList.toggle("bed-feedback-active");
+      }
+      function writeDetail() {
+        let modal = document.getElementById("modal");
+        modal.classList.toggle("hidden");
+        let idh_patients = document.getElementsByClassName("bed-feedback-active");
+        console.log(idh_patients);
+        let idh_id = [];
+        for(let i = 0; i < idh_patients.length; i++) {
+          let tmp = idh_patients[i].id.split('-')[1];
+          idh_id.push(tmp);
+        }
+        console.log(idh_id);
       }
     </script>
   </div>
+  </form>
 </div>
 {% if home %}
 <div id="modal" class="modal hidden">
@@ -335,6 +377,7 @@
       </div>
     </div>
   </div>
+</form>
 </div>
 {% endif %}
 {% endblock %}
