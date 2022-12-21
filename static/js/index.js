@@ -79,7 +79,6 @@ const modal = document.getElementById("modal");
 window.onclick = function (event) {
   if (event.target.id == "modal") {
     clear();
-    modal.classList.add("hidden");
   }
 };
 
@@ -90,13 +89,10 @@ let flag = true;
 function next() {
   if (flag) {
     flag = false;
-    document.getElementById("patient2").innerText =
-      document.getElementById("patient").innerText;
+    document.getElementById("patient2").innerText = document.getElementById("patient").innerText;
     document.getElementsByClassName("modal-left")[0].style.display = "none";
     document.getElementsByClassName("modal-right")[0].style.display = "none";
-    document
-      .getElementsByClassName("modal-table")[0]
-      .classList.remove("hidden");
+    document.getElementsByClassName("modal-table")[0].classList.remove("hidden");
     document.getElementById("left").src = "/static/img/left_active.svg";
     document.getElementById("right").src = "/static/img/right_inactive.svg";
   }
@@ -114,7 +110,6 @@ function prev() {
 }
 
 function clear() {
-  flag = true;
   let back = document.location.href;
   let area = back.split("/");
   if(area[4] == 'get_record'){
@@ -127,6 +122,8 @@ function clear() {
   document.getElementsByClassName("modal-table")[0].classList.add("hidden");
   document.getElementById("left").src = "/static/img/left_inactive.svg";
   document.getElementById("right").src = "/static/img/right_active.svg";
+  modal.classList.add("hidden");
+  flag = true;
 }
 
 let chart, xAxis, SBP, pulse, CVP, exist, linechart;
