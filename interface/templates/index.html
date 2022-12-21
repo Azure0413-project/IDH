@@ -40,7 +40,6 @@
         number = 0;
         break;
     }
-    console.log(number);
     let tablinks = document.getElementsByClassName('tablinks');
     for(let i = 0; i < tablinks.length; i++) {
       if(i == number) {
@@ -1356,12 +1355,12 @@
         </div>
         <div id="linechart"></div>
         <script>
-          let chart = {{ chart|safe }};
-          const xAxis = chart.map(data => data["timestamp"])
-          const SBP = chart.map(data => data["SBP"]);
-          const pulse = chart.map(data => data["pulse"]);
-          const CVP = chart.map(data => data["CVP"]);
-          let linechart = Highcharts.chart("linechart", {
+          chart = {{ chart|safe }};
+          xAxis = chart.map(data => data["timestamp"])
+          SBP = chart.map(data => data["SBP"]);
+          pulse = chart.map(data => data["pulse"]);
+          CVP = chart.map(data => data["CVP"]);
+          linechart = Highcharts.chart("linechart", {
             chart: { 
               type: "line",
               height: 260 + "em",
@@ -1459,7 +1458,7 @@
               color: "#999999"
             }]
           });
-          let IDH = [];
+          IDH = [];
           for(let i = 0; i < chart.length; i++) {
             if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
               IDH.push({
