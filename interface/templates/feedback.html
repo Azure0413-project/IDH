@@ -2,13 +2,13 @@
 <div class="container">
   <div class="tab">
     <button class="tablinks active">
-      <img src="{%static 'img/record.svg'%}" />透<br/>析<br/>紀<br/>錄<br/>
+      <img src="{%static 'img/record.svg'%}" />透<br/>析<br/>紀<br/>錄<br/>｜<br/> 早<br/>班
     </button>
   </div>
 <div id="dashboard" class="tabcontent">
   <form method="post" action="get_detail_idh" enctype="multipart/form-data">
-  {% csrf_token %} 
-  <div class="map">
+    {% csrf_token %} 
+    <div class="map">
     <section class="area">
       <h1>B</h1>
       <ul class="up">
@@ -181,18 +181,6 @@
         }
         bed.classList.toggle("bed-feedback-active");
       }
-      function writeDetail() {
-        let modal = document.getElementById("modal");
-        modal.classList.toggle("hidden");
-        let idh_patients = document.getElementsByClassName("bed-feedback-active");
-        console.log(idh_patients);
-        let idh_id = [];
-        for(let i = 0; i < idh_patients.length; i++) {
-          let tmp = idh_patients[i].id.split('-')[1];
-          idh_id.push(tmp);
-        }
-        console.log(idh_id);
-      }
     </script>
   </div>
   </form>
@@ -340,6 +328,9 @@
                   lineWidth: 3,
                   color: "#999999"
                 }],
+                plotOptions: {
+                  series: { animation: false }
+                }
               });
               for(let i = 0; i < chart.length; i++) {
                 if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
@@ -389,7 +380,7 @@
           </div>
           <div class="feedback-right">
             <div class="note">
-              <div class="note-title">症狀</div>
+              <div class="note-title">症狀*</div>
               <label class="note-container">是
                 <input type="radio" name="symptom-{{ patient.id.p_id }}">
                 <span class="checkmark radio"></span>

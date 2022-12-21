@@ -32,7 +32,7 @@ button {
     border: 1px solid #888;
     border-radius: 2rem;
     box-shadow: 0px 12px 24px -8px rgba(0, 0, 0, 0.5);
-    width: 85%;
+    width: 80%;
     height: 90%;
 }
 
@@ -55,7 +55,7 @@ button {
 }
 
 .feedback-left {
-    margin-right: 3em;
+    margin-right: 4em;
 }
 
 .feedback-name {
@@ -162,6 +162,9 @@ button {
 
 .note-title {
     font-size: 20px;
+    background-color: #CBD3DE;
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
 }
 
 hr.rounded {

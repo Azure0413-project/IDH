@@ -252,6 +252,8 @@ def get_detail(request, area, bed, idh):
 
 def get_idh_patients():
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
+    # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
+    # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
     a_patients = []
     b_patients = []
     c_patients = []
@@ -266,10 +268,10 @@ def get_idh_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
                 patient['status'] = False
                 for r in records:
-                    if r.SBP <= 90:
+                    if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
                 continue
         if 'id' not in patient:
@@ -283,10 +285,10 @@ def get_idh_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
                 patient['status'] = False
                 for r in records:
-                    if r.SBP <= 90:
+                    if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
                 continue
         if 'id' not in patient:
@@ -300,10 +302,10 @@ def get_idh_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
                 patient['status'] = False
                 for r in records:
-                    if r.SBP <= 90:
+                    if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
                 continue
         if 'id' not in patient:
@@ -317,10 +319,10 @@ def get_idh_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d                
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
                 patient['status'] = False
                 for r in records:
-                    if r.SBP <= 90:
+                    if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
                 continue
         if 'id' not in patient:
@@ -334,10 +336,10 @@ def get_idh_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
                 patient['status'] = False
                 for r in records:
-                    if r.SBP <= 90:
+                    if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
                 continue
         if 'id' not in patient:
@@ -351,10 +353,10 @@ def get_idh_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d    
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
                 patient['status'] = False
                 for r in records:
-                    if r.SBP <= 90:
+                    if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
                 continue
         if 'id' not in patient:
@@ -383,7 +385,7 @@ def get_detail_idh(request):
             # latest dialysis information
             patient['setting'] = d
             # latest dialysis record
-            r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+            r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
             patient['record'] = r_today[len(r_today) - 1]
             
             plot_data = []
