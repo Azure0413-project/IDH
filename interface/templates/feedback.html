@@ -216,7 +216,6 @@
               SBP = chart.map(data => data["SBP"]);
               pulse = chart.map(data => data["pulse"]);
               CVP = chart.map(data => data["CVP"]);
-              IDH = [];                
               exist = false;
               linechart = Highcharts.chart("{{ patient.chart_id|safe }}", {
                 chart: { 
@@ -227,29 +226,28 @@
                   spacing: [30, 0, 0, 10],
                   events: {
                     click: function(e) {
-                      let id = Math.round(e.xAxis[0].value);
+                      let index = Math.round(e.xAxis[0].value);
                       exist = false;
                       let nowbands = this.xAxis[0].plotLinesAndBands;
                       for(let i = 0; i < nowbands.length; i++) {
-                        if(nowbands[i].id == "{{ patient.chart_id |safe }}" + "band" + id) {
+                        if(nowbands[i].id == "{{ patient.id.p_id |safe }}" + "-band-" + index) {
                           exist = true;
                           IDH = IDH.filter(function(item) {
-                              return item['index'] != id;
+                              return item['index'] != index;
                           });
-                          removePlotBand(nowbands[i].id);
+                          removePlotBand(index, {{ patient.id.p_id|safe }});
                           break;
                         }
                       }
                       if(!exist) {
                         IDH.push({
-                          "index": id,
+                          "index": index,
                           "patient_id": {{ patient.id.p_id|safe }},
-                          "timestamp": chart[id].timestamp,
-                          "SBP": chart[id].SBP,
+                          "timestamp": chart[index].timestamp,
+                          "SBP": chart[index].SBP,
                         })
-                        addPlotBand(id);
+                        addPlotBand(index, {{ patient.id.p_id|safe }});
                       }
-                      console.log(IDH);
                     },
                   }
                 },
@@ -357,23 +355,35 @@
                     color: "#ffecc4",
                     borderColor: "#CBD3DE",
                     borderWidth: 0.5,
-                    id: "{{ patient.chart_id |safe }}" + "band" + i,
+                    id: "{{ patient.id.p_id |safe }}" + "-band-" + i,
                   })
                 }
               }
-              console.log(linechart);
-              function removePlotBand(id) {
-                linechart.xAxis[0].removePlotBand(id);
+              linecharts.push({
+                "p_id": {{ patient.id.p_id }},
+                "linechart": linechart,
+              });
+              function removePlotBand(index, p_id) {
+                let id = p_id + "-band-" + index;
+                for(let i = 0; i < linecharts.length; i++){
+                  if(linecharts[i].p_id == p_id){
+                    linecharts[i].linechart.xAxis[0].removePlotBand(id);
+                  }
+                }
               }
-              function addPlotBand(id){
-                linechart.xAxis[0].addPlotBand({
-                  from: id - 0.5,
-                  to: id + 0.5,
-                  color: "#ffecc4",
-                  borderColor: "#CBD3DE",
-                  borderWidth: 0.5,
-                  id: "{{ patient.chart_id |safe }}" + "band" + id,
-                });
+              function addPlotBand(index, p_id){
+                for(let i = 0; i < linecharts.length; i++){
+                  if(linecharts[i].p_id == p_id){
+                    linecharts[i].linechart.xAxis[0].addPlotBand({
+                      from: index - 0.5,
+                      to: index + 0.5,
+                      color: "#ffecc4",
+                      borderColor: "#CBD3DE",
+                      borderWidth: 0.5,
+                      id: p_id + "-band-" + index,
+                    });
+                  }
+                }
               }
             </script>
           </div>
@@ -410,6 +420,10 @@
             </div>
           </div>
         </div>
+        {% if forloop.last %}
+        {% else %}
+        <hr class="rounded">
+        {% endif %}
         {% endfor %}
         <button id="confirmFeedbackBtn" class="btn-confirm feedback-btn" type="submit">確 認</button>
         <div class="close-btn" onclick="closeModal()">

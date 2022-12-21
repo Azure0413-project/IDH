@@ -85,8 +85,8 @@ button {
 }
 
 .feedback-btn {
-    width: 8em;
-    margin: 0 auto;
+    width: 10em;
+    margin: 2em auto;
 }
 
 .note {
@@ -162,4 +162,9 @@ button {
 
 .note-title {
     font-size: 20px;
+}
+
+hr.rounded {
+    border: 3px solid #ccc;
+    border-radius: 5px;
 }
