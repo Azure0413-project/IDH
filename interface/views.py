@@ -418,6 +418,7 @@ def get_detail_idh(request):
                         })
                 else:
                     break
+            patient['chart_id'] = "linechart-" + str(bed)
             patient['chart'] = json.dumps(plot_data)
             patients.append(patient)
     all_patients = get_idh_patients()

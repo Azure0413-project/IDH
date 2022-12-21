@@ -42,25 +42,29 @@ button {
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 4em;
+    padding: 1em;
     position: relative;
     overflow: auto;
 }
 
+.feedback-patient {
+    height: 20em;
+    display: flex;
+    align-items: flex-end;
+    margin: 2em;
+}
+
+.feedback-left {
+    margin-right: 3em;
+}
+
+.feedback-name {
+    font-size: 40px;
+    margin-bottom: 1em;
+}
+
 .idh-linechart {
     overflow: visible;
-}
-
-.record {
-    height: 2.5rem;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.record-inactive {
-    color: #CBD3DE;
 }
 
 .btn-confirm {
@@ -78,4 +82,84 @@ button {
 
 .btn-confirm:hover {
     background-color: #feb123;
+}
+
+.feedback-btn {
+    width: 8em;
+    margin: 0 auto;
+}
+
+.note {
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+}
+
+.note-container {
+    position: relative;
+    padding-left: 2em;
+    margin-top: 0.5em;
+}
+
+.note-container input {
+    position: absolute;
+    opacity: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.5em;
+    width: 1.5em;
+    background-color: #eee;
+}
+
+.radio {
+    border-radius: 50%;
+}
+
+.checkbox {
+    border-radius: 0.2em;
+}
+
+.note-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.note-container input:checked ~ .checkmark {
+    background-color: #62aaee;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.note-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.note-container .radio:after {
+    top: 0.47em;
+    left: 0.47em;
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    background: white;
+}
+
+.note-container .checkbox:after {
+    top: 0.05em;
+    left: 0.35em;
+    width: 0.5em;
+    height: 0.7em;
+    border: solid white;
+    border-width: 0 0.25em 0.25em 0;
+    transform: rotate(45deg);
+}
+
+.note-title {
+    font-size: 20px;
 }

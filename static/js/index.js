@@ -129,3 +129,6 @@ function clear() {
   document.getElementById("left").src = "/static/img/left_inactive.svg";
   document.getElementById("right").src = "/static/img/right_active.svg";
 }
+
+let chart, xAxis, SBP, pulse, CVP, exist, linechart;
+let IDH = [];
