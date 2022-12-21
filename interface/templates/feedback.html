@@ -14,7 +14,7 @@
       <ul class="up">
       {% for patient in b_patients %}
         {% if patient.id == '---' %}
-          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
         {% else %}
@@ -38,7 +38,7 @@
       <ul class="up">
       {% for patient in c_patients %}
         {% if patient.id == '---' %}
-          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
         {% else %}
@@ -62,7 +62,7 @@
       <ul class="up">
       {% for patient in d_patients %}
         {% if patient.id == '---' %}
-          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
         {% else %}
@@ -88,7 +88,7 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
           {% else %}
@@ -116,7 +116,7 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
           {% else %}
@@ -144,7 +144,7 @@
         <li></li>
         {% else %}
           {% if patient.id == '---' %}
-          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive">
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
           {% else %}
@@ -204,179 +204,218 @@
   <!-- Modal content -->
   <div class="modal-idh">
     <div class="modal-feedback">
-      {% for patient in patients %}
-      <div id="patient">{{ patient.setting.bed }}  {{ patient.id.p_name }}</div>
-      <div class="idh-linechart" id="linechart-{{ patient.setting.bed }}"></div>
-      <script>
-        let chart = {{ patient.chart|safe }};
-        const xAxis = chart.map(data => data["timestamp"])
-        const SBP = chart.map(data => data["SBP"]);
-        const pulse = chart.map(data => data["pulse"]);
-        const CVP = chart.map(data => data["CVP"]);
-        let IDH = [];                
-        let exist = false;
-        let linechart = Highcharts.chart("linechart-{{ patient.setting.bed }}", {
-          chart: { 
-            type: "line",
-            height: 260 + "em",
-            width: 1000,
-            backgroundColor: "#f4f7fb",
-            spacing: [30, 0, 0, 10],
-            events: {
-              click: function(e) {
-                let id = Math.round(e.xAxis[0].value);
-                exist = false;
-                let nowbands = this.xAxis[0].plotLinesAndBands;
-                for(let i = 0; i < nowbands.length; i++) {
-                  if(nowbands[i].id == "band" + id) {
-                    exist = true;
-                    IDH = IDH.filter(function(item) {
-                        return item['index'] != id
-                    });
-                    removePlotBand(nowbands[i].id);
-                    break;
+      <form method="post" action="">
+        {% for patient in patients %}
+        <div class="feedback-patient">
+          <div class="feedback-left">
+            <div class="feedback-name">{{ patient.setting.bed }}  {{ patient.id.p_name }}</div>
+            <div class="idh-linechart" id="{{ patient.chart_id }}"></div>
+            <script>
+              chart = {{ patient.chart|safe }};
+              xAxis = chart.map(data => data["timestamp"])
+              SBP = chart.map(data => data["SBP"]);
+              pulse = chart.map(data => data["pulse"]);
+              CVP = chart.map(data => data["CVP"]);
+              IDH = [];                
+              exist = false;
+              linechart = Highcharts.chart("{{ patient.chart_id|safe }}", {
+                chart: { 
+                  type: "line",
+                  height: 260 + "em",
+                  width: 1000,
+                  backgroundColor: "#f4f7fb",
+                  spacing: [30, 0, 0, 10],
+                  events: {
+                    click: function(e) {
+                      let id = Math.round(e.xAxis[0].value);
+                      exist = false;
+                      let nowbands = this.xAxis[0].plotLinesAndBands;
+                      for(let i = 0; i < nowbands.length; i++) {
+                        if(nowbands[i].id == "{{ patient.chart_id |safe }}" + "band" + id) {
+                          exist = true;
+                          IDH = IDH.filter(function(item) {
+                              return item['index'] != id;
+                          });
+                          removePlotBand(nowbands[i].id);
+                          break;
+                        }
+                      }
+                      if(!exist) {
+                        IDH.push({
+                          "index": id,
+                          "patient_id": {{ patient.id.p_id|safe }},
+                          "timestamp": chart[id].timestamp,
+                          "SBP": chart[id].SBP,
+                        })
+                        addPlotBand(id);
+                      }
+                      console.log(IDH);
+                    },
                   }
-                }
-                if(!exist) {
+                },
+                title: { 
+                  style: {
+                    "display": "none",
+                  }
+                },
+                credits: {
+                  enabled: false,
+                },
+                legend: {
+                  align: "right",
+                  verticalAlign: "middle",
+                  layout: "vertical",
+                  itemMarginTop: 10,
+                  itemStyle: {
+                    color: "#4A5563",
+                    fontSize: "18px",
+                  },
+                  symbolWidth: 24,
+                  symbolHeight: 24,
+                  symbolPadding: 10,
+                },
+                tooltip: {
+                  borderRadius: 8,
+                },
+                xAxis: { 
+                  categories: xAxis,
+                },
+                yAxis: [
+                {
+                  title: { 
+                    text: "壓力",
+                    rotation: 0,
+                    align: "high",
+                    style: {
+                      fontSize: "18px",
+                      color: "#4A5563",
+                    },
+                    y: -15,
+                    offset: 25,
+                  },
+                  labels: { 
+                    algin: "center",
+                    format: "{value} mmHg",
+                    style: {
+                      fontSize: 12,
+                    }
+                  },
+                  minorTicks: true,
+                },
+                {
+                  opposite: true,
+                  title: { 
+                    text: "脈搏",
+                    rotation: 0,
+                    align: "high",
+                    style: {
+                      fontSize: "18px",
+                      color: "#4A5563",
+                    },
+                    y: -15,
+                    offset: 15,
+                  },
+                  labels: { 
+                    algin: "center",
+                    format: "{value} bpm",
+                    style: {
+                      fontSize: 12,
+                    }
+                  },
+                }],
+                series: [
+                {
+                  name: "收縮壓",
+                  data: SBP,
+                  lineWidth: 3,
+                  color: "#fe7878",
+                },
+                {
+                  name: "脈搏",
+                  data: pulse,
+                  yAxis: 1,
+                  lineWidth: 3,
+                },
+                {
+                  name: "靜脈壓",
+                  data: CVP,
+                  lineWidth: 3,
+                  color: "#999999"
+                }],
+              });
+              for(let i = 0; i < chart.length; i++) {
+                if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
                   IDH.push({
-                    "index": id,
-                    "patient_id": id.p_id,
-                    "timestamp": chart[id].timestamp,
-                    "SBP": chart[id].SBP,
+                    "index": i,
+                    "patient_id": {{ patient.id.p_id |safe }},
+                    "timestamp": chart[i].timestamp,
+                    "SBP": chart[i].SBP,
                   })
-                  addPlotBand(id);
+                  linechart.xAxis[0].addPlotBand({
+                    from: i - 0.5,
+                    to: i + 0.5,
+                    color: "#ffecc4",
+                    borderColor: "#CBD3DE",
+                    borderWidth: 0.5,
+                    id: "{{ patient.chart_id |safe }}" + "band" + i,
+                  })
                 }
-                console.log(IDH);
-              },
-            }
-          },
-          title: { 
-            style: {
-              "display": "none",
-            }
-          },
-          credits: {
-            enabled: false,
-          },
-          legend: {
-            align: "right",
-            verticalAlign: "middle",
-            layout: "vertical",
-            itemMarginTop: 10,
-            itemStyle: {
-              color: "#4A5563",
-              fontSize: "18px",
-            },
-            symbolWidth: 24,
-            symbolHeight: 24,
-            symbolPadding: 10,
-          },
-          tooltip: {
-            borderRadius: 8,
-          },
-          xAxis: { 
-            categories: xAxis,
-          },
-          yAxis: [
-          {
-            title: { 
-              text: "壓力",
-              rotation: 0,
-              align: "high",
-              style: {
-                fontSize: "18px",
-                color: "#4A5563",
-              },
-              y: -15,
-              offset: 25,
-            },
-            labels: { 
-              algin: "center",
-              format: "{value} mmHg",
-              style: {
-                fontSize: 12,
               }
-            },
-            minorTicks: true,
-          },
-          {
-            opposite: true,
-            title: { 
-              text: "脈搏",
-              rotation: 0,
-              align: "high",
-              style: {
-                fontSize: "18px",
-                color: "#4A5563",
-              },
-              y: -15,
-              offset: 15,
-            },
-            labels: { 
-              algin: "center",
-              format: "{value} bpm",
-              style: {
-                fontSize: 12,
+              console.log(linechart);
+              function removePlotBand(id) {
+                linechart.xAxis[0].removePlotBand(id);
               }
-            },
-          }],
-          series: [
-          {
-            name: "收縮壓",
-            data: SBP,
-            lineWidth: 3,
-            color: "#fe7878",
-          },
-          {
-            name: "脈搏",
-            data: pulse,
-            yAxis: 1,
-            lineWidth: 3,
-          },
-          {
-            name: "靜脈壓",
-            data: CVP,
-            lineWidth: 3,
-            color: "#999999"
-          }],
-        });
-        for(let i = 0; i < chart.length; i++) {
-          if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
-            IDH.push({
-              "index": i,
-              "patient_id": id.p_id,
-              "timestamp": chart[i].timestamp,
-              "SBP": chart[i].SBP,
-            })
-            linechart.xAxis[0].addPlotBand({
-              from: i - 0.5,
-              to: i + 0.5,
-              color: "#ffecc4",
-              borderColor: "#CBD3DE",
-              borderWidth: 0.5,
-              id: "band" + i,
-            })
-          }
-        }
-        console.log(linechart);
-        function removePlotBand(id) {
-          linechart.xAxis[0].removePlotBand(id);
-        }
-        function addPlotBand(id){
-          linechart.xAxis[0].addPlotBand({
-            from: id - 0.5,
-            to: id + 0.5,
-            color: "#ffecc4",
-            borderColor: "#CBD3DE",
-            borderWidth: 0.5,
-            id: "band" + id,
-          });
-        }
-      </script>
-      {% endfor %}
-      <div class="close-btn" onclick="closeModal()">
-        <img src="{%static 'img/close.svg'%}" />
-      </div>
+              function addPlotBand(id){
+                linechart.xAxis[0].addPlotBand({
+                  from: id - 0.5,
+                  to: id + 0.5,
+                  color: "#ffecc4",
+                  borderColor: "#CBD3DE",
+                  borderWidth: 0.5,
+                  id: "{{ patient.chart_id |safe }}" + "band" + id,
+                });
+              }
+            </script>
+          </div>
+          <div class="feedback-right">
+            <div class="note">
+              <div class="note-title">症狀</div>
+              <label class="note-container">是
+                <input type="radio" name="symptom-{{ patient.id.p_id }}">
+                <span class="checkmark radio"></span>
+              </label>
+              <label class="note-container">否
+                <input type="radio" name="symptom-{{ patient.id.p_id }}">
+                <span class="checkmark radio"></span>
+              </label>
+            </div>
+            <div class="note">
+              <div class="note-title">處理</div>
+              <label class="note-container">口服藥物
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <span class="checkmark checkbox"></span>
+              </label>
+              <label class="note-container">針劑藥物
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <span class="checkmark checkbox"></span>
+              </label>
+              <label class="note-container">調整透析設定
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <span class="checkmark checkbox"></span>
+              </label>
+              <label class="note-container">其他
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <span class="checkmark checkbox"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <button id="confirmFeedbackBtn" class="btn-confirm feedback-btn" type="submit">確 認</button>
+        <div class="close-btn" onclick="closeModal()">
+          <img src="{%static 'img/close.svg'%}" />
+        </div>
+      </form>
     </div>
   </div>
 </div>
