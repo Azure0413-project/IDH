@@ -76,9 +76,8 @@ const bed = [
   "I1", "I2",
 ];
 const modal = document.getElementById("modal");
-
 window.onclick = function (event) {
-  if (event.target == modal) {
+  if (event.target.id == "modal") {
     clear();
     modal.classList.add("hidden");
   }
