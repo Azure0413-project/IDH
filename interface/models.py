@@ -62,10 +62,11 @@ class Record(models.Model):
     flush = models.DecimalField(decimal_places=3, max_digits=10, null=True)
     channel_confirmed = models.CharField(max_length=5)
     prediction = models.DecimalField(decimal_places=3, max_digits=10, default=Decimal('0.0'), null=True)
-    is_idh = models.BooleanField(null=True)
+    is_idh = models.BooleanField(default=False, null=True)
 
 class Feedback(models.Model):
     f_id = models.AutoField(primary_key=True)
+    d_id = models.ForeignKey(Dialysis, on_delete=models.CASCADE)
     create_time = models.DateTimeField(auto_now_add=True)
     is_sign = models.BooleanField()
     is_drug = models.BooleanField(null=True)

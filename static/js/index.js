@@ -126,5 +126,5 @@ function clear() {
   flag = true;
 }
 
-let chart, xAxis, SBP, pulse, CVP, exist, linechart;
+let chart, xAxis, SBP, pulse, CVP, exist, linechart, bands;
 let linecharts = [];
