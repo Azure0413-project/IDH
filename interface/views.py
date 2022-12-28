@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import json
 import datetime
 from datetime import datetime, timedelta
-from interface.models import Patient, Dialysis, Record
+from interface.models import Patient, Dialysis, Record, Feedback
 import decimal
 
 # Create your views here.
@@ -434,3 +434,26 @@ def get_detail_idh(request):
         'e_patients': all_patients['e_patients'],
         'i_patients': all_patients['i_patients'],
     })
+
+def post_feedback(request):
+    if request.method == 'POST':
+        sign = []
+        treatment = []
+        p_id = request.POST.getlist('patient')
+        for id in p_id:
+            sign.append(request.POST.get('sign-' + id))
+            treatment.append(request.POST.getlist('treatment-' + id))
+        print(p_id)
+        print(sign)
+        print(treatment)
+        patients = get_patients()
+        return redirect('/index/dashboard', {
+            "home": True,
+            "area": 'dashboard',
+            "a_patients": patients["a_patients"],
+            "b_patients": patients["b_patients"],
+            "c_patients": patients["c_patients"],
+            "d_patients": patients["d_patients"],
+            "e_patients": patients["e_patients"],
+            "i_patients": patients["i_patients"],
+        })

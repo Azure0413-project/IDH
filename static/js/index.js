@@ -128,4 +128,3 @@ function clear() {
 
 let chart, xAxis, SBP, pulse, CVP, exist, linechart;
 let linecharts = [];
-let IDH = [];

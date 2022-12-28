@@ -192,7 +192,8 @@
   <!-- Modal content -->
   <div class="modal-idh">
     <div class="modal-feedback">
-      <form method="post" action="">
+      <form method="post" action="{% url 'post_feedback' %}">
+      {% csrf_token %} 
         {% for patient in patients %}
         <div class="feedback-patient">
           <div class="feedback-left">
@@ -220,20 +221,11 @@
                       for(let i = 0; i < nowbands.length; i++) {
                         if(nowbands[i].id == "{{ patient.id.p_id |safe }}" + "-band-" + index) {
                           exist = true;
-                          IDH = IDH.filter(function(item) {
-                              return item['index'] != index;
-                          });
                           removePlotBand(index, {{ patient.id.p_id|safe }});
                           break;
                         }
                       }
                       if(!exist) {
-                        IDH.push({
-                          "index": index,
-                          "patient_id": {{ patient.id.p_id|safe }},
-                          "timestamp": chart[index].timestamp,
-                          "SBP": chart[index].SBP,
-                        })
                         addPlotBand(index, {{ patient.id.p_id|safe }});
                       }
                     },
@@ -334,12 +326,6 @@
               });
               for(let i = 0; i < chart.length; i++) {
                 if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
-                  IDH.push({
-                    "index": i,
-                    "patient_id": {{ patient.id.p_id |safe }},
-                    "timestamp": chart[i].timestamp,
-                    "SBP": chart[i].SBP,
-                  })
                   linechart.xAxis[0].addPlotBand({
                     from: i - 0.5,
                     to: i + 0.5,
@@ -377,35 +363,36 @@
                 }
               }
             </script>
+            <input type="hidden" name="patient" value="{{ patient.id.p_id }}">
           </div>
           <div class="feedback-right">
             <div class="note">
               <div class="note-title">症狀*</div>
               <label class="note-container">是
-                <input type="radio" name="symptom-{{ patient.id.p_id }}">
+                <input type="radio" name="sign-{{ patient.id.p_id }}" value="1">
                 <span class="checkmark radio"></span>
               </label>
               <label class="note-container">否
-                <input type="radio" name="symptom-{{ patient.id.p_id }}">
+                <input type="radio" name="sign-{{ patient.id.p_id }}" value="0">
                 <span class="checkmark radio"></span>
               </label>
             </div>
             <div class="note">
               <div class="note-title">處理</div>
               <label class="note-container">口服藥物
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="drug">
                 <span class="checkmark checkbox"></span>
               </label>
               <label class="note-container">針劑藥物
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="inject">
                 <span class="checkmark checkbox"></span>
               </label>
               <label class="note-container">調整透析設定
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting">
                 <span class="checkmark checkbox"></span>
               </label>
               <label class="note-container">其他
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="other">
                 <span class="checkmark checkbox"></span>
               </label>
             </div>
