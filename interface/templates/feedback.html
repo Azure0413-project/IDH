@@ -199,6 +199,9 @@
           <div class="feedback-left">
             <div class="feedback-name">{{ patient.setting.bed }}  {{ patient.id.p_name }}</div>
             <div class="idh-linechart" id="{{ patient.chart_id }}"></div>
+            <input type="hidden" name="patient" value="{{ patient.id.p_id }}">
+            <input type="hidden" name="setting" value="{{ patient.setting.d_id }}">
+            <input type="hidden" id="bands" name="bands">
             <script>
               chart = {{ patient.chart|safe }};
               xAxis = chart.map(data => data["timestamp"])
@@ -206,6 +209,7 @@
               pulse = chart.map(data => data["pulse"]);
               CVP = chart.map(data => data["CVP"]);
               exist = false;
+              bands = document.getElementById("bands");
               linechart = Highcharts.chart("{{ patient.chart_id|safe }}", {
                 chart: { 
                   type: "line",
@@ -326,6 +330,7 @@
               });
               for(let i = 0; i < chart.length; i++) {
                 if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
+                  bands.value += {{ patient.id.p_id |safe }} + "-band-" + i + ','
                   linechart.xAxis[0].addPlotBand({
                     from: i - 0.5,
                     to: i + 0.5,
@@ -342,6 +347,7 @@
               });
               function removePlotBand(index, p_id) {
                 let id = p_id + "-band-" + index;
+                bands.value = bands.value.replace(id + ",", "");
                 for(let i = 0; i < linecharts.length; i++){
                   if(linecharts[i].p_id == p_id){
                     linecharts[i].linechart.xAxis[0].removePlotBand(id);
@@ -351,6 +357,7 @@
               function addPlotBand(index, p_id){
                 for(let i = 0; i < linecharts.length; i++){
                   if(linecharts[i].p_id == p_id){
+                    bands.value += p_id + "-band-" + index + ','
                     linecharts[i].linechart.xAxis[0].addPlotBand({
                       from: index - 0.5,
                       to: index + 0.5,
@@ -363,13 +370,12 @@
                 }
               }
             </script>
-            <input type="hidden" name="patient" value="{{ patient.id.p_id }}">
           </div>
           <div class="feedback-right">
             <div class="note">
               <div class="note-title">症狀*</div>
               <label class="note-container">是
-                <input type="radio" name="sign-{{ patient.id.p_id }}" value="1">
+                <input type="radio" name="sign-{{ patient.id.p_id }}" value="1" required>
                 <span class="checkmark radio"></span>
               </label>
               <label class="note-container">否

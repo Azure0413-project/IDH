@@ -443,9 +443,26 @@ def post_feedback(request):
         for id in p_id:
             sign.append(request.POST.get('sign-' + id))
             treatment.append(request.POST.getlist('treatment-' + id))
-        print(p_id)
-        print(sign)
-        print(treatment)
+        setting = request.POST.getlist('setting')
+        bands = request.POST.getlist("bands")[0].split(',')
+        for index, id in enumerate(p_id):
+            dialysis = Dialysis.objects.get(d_id=setting[index])
+            is_sign = True if sign[index] == '1' else False
+            is_drug = True if 'drug' in treatment[index] else False
+            is_inject= True if 'inject' in treatment[index] else False
+            is_setting = True if 'setting' in treatment[index] else False
+            is_other = True if 'other' in treatment[index] else False
+            f = Feedback(d_id=dialysis, is_sign=is_sign, is_drug=is_drug, is_inject=is_inject, is_setting=is_setting, is_other=is_other)
+            f.save()
+        for idh in bands:
+            if idh != '':
+                patient = idh.split('-')[0]
+                record = idh.split('-')[2]
+                d = Dialysis.objects.filter(p_id=patient, start_time__lt=time)
+                r = Record.objects.filter(d_id=d[d.count()-1])[int(record)]
+                f = Record.objects.get(r_id=r.r_id)
+                f.is_idh = True
+                f.save()
         patients = get_patients()
         return redirect('/index/dashboard', {
             "home": True,
