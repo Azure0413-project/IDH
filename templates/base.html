@@ -22,7 +22,14 @@
             {% comment %} <img src="{%static 'img/dropdown.svg' %}" alt="v"> {% endcomment %}
             <ul class="nav_link">
                 <li><a href="{% url 'index' %}">首頁</a></li>
-                <li><a href="{% url 'get_record' %}">填寫透析紀錄</a></li>
+                <li class="dropdown">
+                    <span class="title">填寫透析紀錄</span>
+                    <div class="dropdown-content">
+                        <a href="{% url 'get_record' %}">早班</a>
+                        <a href="{% url 'get_record' %}">午班</a>
+                        <a href="{% url 'get_record' %}">晚班</a>
+                    </div>
+                </li>
             </ul>
             <img src="{%static 'img/user.svg' %}" alt="user">
         </nav>
