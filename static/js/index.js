@@ -113,17 +113,17 @@ function clear() {
   let back = document.location.href;
   let area = back.split("/");
   if(area[4] == 'get_record'){
-    document.location.href = "http://140.116.247.175:80/index/get_record/";
+    modal.classList.add("hidden");
   } else {
-    document.location.href = "http://140.116.247.175:80/index/" + area[5];
+    document.location.href = "http://140.116.247.175:80/index/" + area[5];  
+    document.getElementsByClassName("modal-left")[0].style.display = "flex";
+    document.getElementsByClassName("modal-right")[0].style.display = "flex";
+    document.getElementsByClassName("modal-table")[0].classList.add("hidden");
+    document.getElementById("left").src = "/static/img/left_inactive.svg";
+    document.getElementById("right").src = "/static/img/right_active.svg";
+    modal.classList.add("hidden");
+    flag = true;
   }
-  document.getElementsByClassName("modal-left")[0].style.display = "flex";
-  document.getElementsByClassName("modal-right")[0].style.display = "flex";
-  document.getElementsByClassName("modal-table")[0].classList.add("hidden");
-  document.getElementById("left").src = "/static/img/left_inactive.svg";
-  document.getElementById("right").src = "/static/img/right_active.svg";
-  modal.classList.add("hidden");
-  flag = true;
 }
 
 let chart, xAxis, SBP, pulse, CVP, exist, linechart, bands;
