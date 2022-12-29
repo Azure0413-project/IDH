@@ -288,20 +288,6 @@ def get_idh_patients():
                                 "pulse": pulse,
                                 "CVP": cvp, 
                             })
-                        time_string = timestamp
-                        for i in range(8):
-                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-                            if timestamp < d.start_time + timedelta(hours=4):
-                                if len(plot_data) < 8:
-                                    plot_data.append({
-                                        "timestamp": time_string,
-                                        "SBP": None,
-                                        "pulse": None,
-                                        "CVP": None,
-                                    })
-                            else:
-                                break
                         patient['chart_id'] = "linechart-" + str(bed)
                         patient['chart'] = json.dumps(plot_data)
                         idh_patients.append(patient)
@@ -336,24 +322,6 @@ def get_idh_patients():
                                 "pulse": pulse,
                                 "CVP": cvp, 
                             })
-                        time_string = timestamp
-                        for i in range(8):
-                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-                            if timestamp < d.start_time + timedelta(hours=4):
-                                if len(plot_data) < 8:
-                                    plot_data.append({
-                                        "timestamp": time_string,
-                                        "SBP": None,
-                                        "pulse": None,
-                                        "CVP": None,
-                                    })
-                            else:
-                                break
-                        patient['chart_id'] = "linechart-" + str(bed)
-                        patient['chart'] = json.dumps(plot_data)
-                        idh_patients.append(patient)
-                        break
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -384,20 +352,6 @@ def get_idh_patients():
                                 "pulse": pulse,
                                 "CVP": cvp, 
                             })
-                        time_string = timestamp
-                        for i in range(8):
-                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-                            if timestamp < d.start_time + timedelta(hours=4):
-                                if len(plot_data) < 8:
-                                    plot_data.append({
-                                        "timestamp": time_string,
-                                        "SBP": None,
-                                        "pulse": None,
-                                        "CVP": None,
-                                    })
-                            else:
-                                break
                         patient['chart_id'] = "linechart-" + str(bed)
                         patient['chart'] = json.dumps(plot_data)
                         idh_patients.append(patient)
@@ -432,20 +386,6 @@ def get_idh_patients():
                                 "pulse": pulse,
                                 "CVP": cvp, 
                             })
-                        time_string = timestamp
-                        for i in range(8):
-                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-                            if timestamp < d.start_time + timedelta(hours=4):
-                                if len(plot_data) < 8:
-                                    plot_data.append({
-                                        "timestamp": time_string,
-                                        "SBP": None,
-                                        "pulse": None,
-                                        "CVP": None,
-                                    })
-                            else:
-                                break
                         patient['chart_id'] = "linechart-" + str(bed)
                         patient['chart'] = json.dumps(plot_data)
                         idh_patients.append(patient)
@@ -480,20 +420,6 @@ def get_idh_patients():
                                 "pulse": pulse,
                                 "CVP": cvp, 
                             })
-                        time_string = timestamp
-                        for i in range(8):
-                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-                            if timestamp < d.start_time + timedelta(hours=4):
-                                if len(plot_data) < 8:
-                                    plot_data.append({
-                                        "timestamp": time_string,
-                                        "SBP": None,
-                                        "pulse": None,
-                                        "CVP": None,
-                                    })
-                            else:
-                                break
                         patient['chart_id'] = "linechart-" + str(bed)
                         patient['chart'] = json.dumps(plot_data)
                         idh_patients.append(patient)
@@ -528,20 +454,6 @@ def get_idh_patients():
                                 "pulse": pulse,
                                 "CVP": cvp, 
                             })
-                        time_string = timestamp
-                        for i in range(8):
-                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
-                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
-                            if timestamp < d.start_time + timedelta(hours=4):
-                                if len(plot_data) < 8:
-                                    plot_data.append({
-                                        "timestamp": time_string,
-                                        "SBP": None,
-                                        "pulse": None,
-                                        "CVP": None,
-                                    })
-                            else:
-                                break
                         patient['chart_id'] = "linechart-" + str(bed)
                         patient['chart'] = json.dumps(plot_data)
                         idh_patients.append(patient)
