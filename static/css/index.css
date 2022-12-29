@@ -41,12 +41,57 @@ nav ul {
 
 .nav_link li a {
     text-decoration: none;
-    padding: 0.2em 0.7em;
+    padding: 0.2rem 0.7rem;
     text-align: center;
 }
 
-.nav_link li a:hover {
+.nav_link li:first-child a:hover {
     background-color: #274C77;
     color: #f8f8f8;
-    border-radius: 3em;
+    border-radius: 0.5rem;
+}
+
+.nav_link li span {
+    padding: 0.2rem 0.7rem;
+    text-align: center;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    padding: 0.4rem 2rem;
+    width: 8.2rem;
+    text-align: center;
+    background-color: #274C77;
+    color: #f8f8f8;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .title {
+    background-color: #274C77;
+    color: #f8f8f8;
+}
+
+.dropdown-content a {
+    display: block;
+    background-color: #274C77;
+    color: #f8f8f8;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8f8f8;
+    color: #274C77;
+    margin: 0rem 0.2rem;
+    border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
 }
