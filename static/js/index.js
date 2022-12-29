@@ -113,7 +113,8 @@ function clear() {
   let back = document.location.href;
   let area = back.split("/");
   if(area[4] == 'get_record'){
-    modal.classList.add("hidden");
+    document.getElementById("modal").classList.add("hidden");
+    console.log(modal);
   } else {
     document.location.href = "http://140.116.247.175:80/index/" + area[5];  
     document.getElementsByClassName("modal-left")[0].style.display = "flex";

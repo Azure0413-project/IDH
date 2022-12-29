@@ -6,7 +6,7 @@
     </button>
   </div>
 <div id="dashboard" class="tabcontent">
-  <form method="post" action="get_detail_idh" enctype="multipart/form-data">
+  <form method="post" action="javascript: openModal();" enctype="multipart/form-data">
     {% csrf_token %} 
     <div class="map">
     <section class="area">
@@ -181,20 +181,20 @@
         }
         bed.classList.toggle("bed-feedback-active");
       }
+      function openModal() {
+        document.getElementById("modal").classList.remove("hidden");
+      }
     </script>
   </div>
   </form>
 </div>
-{% if home %}
 <div id="modal" class="modal hidden">
-{% else %}
-<div id="modal" class="modal">
   <!-- Modal content -->
   <div class="modal-idh">
     <div class="modal-feedback">
       <form method="post" action="{% url 'post_feedback' %}">
       {% csrf_token %} 
-        {% for patient in patients %}
+        {% for patient in idh_patients %}
         <div class="feedback-patient">
           <div class="feedback-left">
             <div class="feedback-name">{{ patient.setting.bed }}  {{ patient.id.p_name }}</div>
@@ -417,5 +417,4 @@
     </div>
   </div>
 </div>
-{% endif %}
 {% endblock %}

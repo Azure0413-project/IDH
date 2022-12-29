@@ -47,6 +47,7 @@ def get_record(request):
         "d_patients": patients["d_patients"],
         "e_patients": patients["e_patients"],
         "i_patients": patients["i_patients"],
+        "idh_patients": patients["idh_patients"],
     })
 
 def get_patients():
@@ -260,6 +261,7 @@ def get_idh_patients():
     d_patients = []
     e_patients = []
     i_patients = []
+    idh_patients = []
     for index, bed in enumerate(a_area):
         patient = {}
         patient = {'bed': bed}
@@ -269,10 +271,41 @@ def get_idh_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                patient['record'] = records[len(records) - 1]
                 patient['status'] = False
+                plot_data = []
                 for r in records:
                     if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
+                        for re in records:
+                            timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                            sbp = float(re.SBP)
+                            pulse = re.pulse
+                            cvp = re.CVP
+                            plot_data.append({
+                                "timestamp": timestamp,
+                                "SBP": sbp,
+                                "pulse": pulse,
+                                "CVP": cvp, 
+                            })
+                        time_string = timestamp
+                        for i in range(8):
+                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+                            if timestamp < d.start_time + timedelta(hours=4):
+                                if len(plot_data) < 8:
+                                    plot_data.append({
+                                        "timestamp": time_string,
+                                        "SBP": None,
+                                        "pulse": None,
+                                        "CVP": None,
+                                    })
+                            else:
+                                break
+                        patient['chart_id'] = "linechart-" + str(bed)
+                        patient['chart'] = json.dumps(plot_data)
+                        idh_patients.append(patient)
+                        break
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -286,10 +319,41 @@ def get_idh_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                patient['record'] = records[len(records) - 1]
                 patient['status'] = False
+                plot_data = []
                 for r in records:
                     if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
+                        for re in records:
+                            timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                            sbp = float(re.SBP)
+                            pulse = re.pulse
+                            cvp = re.CVP
+                            plot_data.append({
+                                "timestamp": timestamp,
+                                "SBP": sbp,
+                                "pulse": pulse,
+                                "CVP": cvp, 
+                            })
+                        time_string = timestamp
+                        for i in range(8):
+                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+                            if timestamp < d.start_time + timedelta(hours=4):
+                                if len(plot_data) < 8:
+                                    plot_data.append({
+                                        "timestamp": time_string,
+                                        "SBP": None,
+                                        "pulse": None,
+                                        "CVP": None,
+                                    })
+                            else:
+                                break
+                        patient['chart_id'] = "linechart-" + str(bed)
+                        patient['chart'] = json.dumps(plot_data)
+                        idh_patients.append(patient)
+                        break
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -303,10 +367,41 @@ def get_idh_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                patient['record'] = records[len(records) - 1]
                 patient['status'] = False
+                plot_data = []
                 for r in records:
                     if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
+                        for re in records:
+                            timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                            sbp = float(re.SBP)
+                            pulse = re.pulse
+                            cvp = re.CVP
+                            plot_data.append({
+                                "timestamp": timestamp,
+                                "SBP": sbp,
+                                "pulse": pulse,
+                                "CVP": cvp, 
+                            })
+                        time_string = timestamp
+                        for i in range(8):
+                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+                            if timestamp < d.start_time + timedelta(hours=4):
+                                if len(plot_data) < 8:
+                                    plot_data.append({
+                                        "timestamp": time_string,
+                                        "SBP": None,
+                                        "pulse": None,
+                                        "CVP": None,
+                                    })
+                            else:
+                                break
+                        patient['chart_id'] = "linechart-" + str(bed)
+                        patient['chart'] = json.dumps(plot_data)
+                        idh_patients.append(patient)
+                        break
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -320,10 +415,41 @@ def get_idh_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d                
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                patient['record'] = records[len(records) - 1]
                 patient['status'] = False
+                plot_data = []
                 for r in records:
                     if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
+                        for re in records:
+                            timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                            sbp = float(re.SBP)
+                            pulse = re.pulse
+                            cvp = re.CVP
+                            plot_data.append({
+                                "timestamp": timestamp,
+                                "SBP": sbp,
+                                "pulse": pulse,
+                                "CVP": cvp, 
+                            })
+                        time_string = timestamp
+                        for i in range(8):
+                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+                            if timestamp < d.start_time + timedelta(hours=4):
+                                if len(plot_data) < 8:
+                                    plot_data.append({
+                                        "timestamp": time_string,
+                                        "SBP": None,
+                                        "pulse": None,
+                                        "CVP": None,
+                                    })
+                            else:
+                                break
+                        patient['chart_id'] = "linechart-" + str(bed)
+                        patient['chart'] = json.dumps(plot_data)
+                        idh_patients.append(patient)
+                        break
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -337,10 +463,41 @@ def get_idh_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                patient['record'] = records[len(records) - 1]
                 patient['status'] = False
+                plot_data = []
                 for r in records:
                     if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
+                        for re in records:
+                            timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                            sbp = float(re.SBP)
+                            pulse = re.pulse
+                            cvp = re.CVP
+                            plot_data.append({
+                                "timestamp": timestamp,
+                                "SBP": sbp,
+                                "pulse": pulse,
+                                "CVP": cvp, 
+                            })
+                        time_string = timestamp
+                        for i in range(8):
+                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+                            if timestamp < d.start_time + timedelta(hours=4):
+                                if len(plot_data) < 8:
+                                    plot_data.append({
+                                        "timestamp": time_string,
+                                        "SBP": None,
+                                        "pulse": None,
+                                        "CVP": None,
+                                    })
+                            else:
+                                break
+                        patient['chart_id'] = "linechart-" + str(bed)
+                        patient['chart'] = json.dumps(plot_data)
+                        idh_patients.append(patient)
+                        break
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -354,10 +511,41 @@ def get_idh_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d    
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                patient['record'] = records[len(records) - 1]
                 patient['status'] = False
+                plot_data = []
                 for r in records:
                     if r.SBP <= 90 and r.SBP != 0:
                         patient['status'] = True
+                        for re in records:
+                            timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                            sbp = float(re.SBP)
+                            pulse = re.pulse
+                            cvp = re.CVP
+                            plot_data.append({
+                                "timestamp": timestamp,
+                                "SBP": sbp,
+                                "pulse": pulse,
+                                "CVP": cvp, 
+                            })
+                        time_string = timestamp
+                        for i in range(8):
+                            timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+                            time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+                            if timestamp < d.start_time + timedelta(hours=4):
+                                if len(plot_data) < 8:
+                                    plot_data.append({
+                                        "timestamp": time_string,
+                                        "SBP": None,
+                                        "pulse": None,
+                                        "CVP": None,
+                                    })
+                            else:
+                                break
+                        patient['chart_id'] = "linechart-" + str(bed)
+                        patient['chart'] = json.dumps(plot_data)
+                        idh_patients.append(patient)
+                        break
                 continue
         if 'id' not in patient:
             patient['id'] = '---'
@@ -370,6 +558,7 @@ def get_idh_patients():
         'd_patients': d_patients,
         'e_patients': e_patients,
         'i_patients': i_patients,
+        'idh_patients': idh_patients
     }
 
 def get_detail_idh(request):
