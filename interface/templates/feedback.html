@@ -6,7 +6,7 @@
     </button>
   </div>
 <div id="dashboard" class="tabcontent">
-  <form method="post" action="javascript: openModal();" enctype="multipart/form-data">
+  <form id="idh-patients-form" method="post" action="javascript: openModal();" enctype="multipart/form-data">
     {% csrf_token %} 
     <div class="map">
     <section class="area">
@@ -167,27 +167,25 @@
         <button id="confirmPatientBtn" class="btn-confirm" type="submit">確 認</button>
       </ul>
     </section>
-    <script>
-      function changeStatus(bed_id) {
-        let bed = document.getElementById(bed_id);
-        if(bed.classList.contains("bed-feedback-active")){
-          bed.children[1].remove();
-        } else {
-          let inputEle = document.createElement("input");
-          inputEle.type = "hidden";
-          inputEle.value = bed.id.split('-')[1];
-          inputEle.name = "idh-patient";
-          bed.appendChild(inputEle);
-        }
-        bed.classList.toggle("bed-feedback-active");
-      }
-      function openModal() {
-        document.getElementById("modal").classList.remove("hidden");
-      }
-    </script>
   </div>
   </form>
 </div>
+<script>
+  function openModal() {
+    let data = new FormData();
+    let idh_list = document.getElementsByName("idh-patient");
+    for(let i = 0; i < idh_list.length; i++) {
+      data.append("idh-patients", idh_list[i].value);
+    }
+    data.append("csrfmiddlewaretoken", "{{csrf_token}}");
+    axios
+    .post("", data)
+    .then((res) => {
+      document.getElementById("modal").classList.remove("hidden");
+    })
+    .catch((err) => console.log(err));
+  }
+</script>
 <div id="modal" class="modal hidden">
   <!-- Modal content -->
   <div class="modal-idh">
