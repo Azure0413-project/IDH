@@ -112,11 +112,11 @@ function prev() {
 function clear() {
   let back = document.location.href;
   let area = back.split("/");
-  if(area[4] == 'get_record'){
+  if (area[4] == "get_record") {
     document.getElementById("modal").classList.add("hidden");
-    console.log(modal);
+    // console.log(modal);
   } else {
-    document.location.href = "http://140.116.247.175:80/index/" + area[5];  
+    document.location.href = "http://140.116.247.175:80/index/" + area[5];
     document.getElementsByClassName("modal-left")[0].style.display = "flex";
     document.getElementsByClassName("modal-right")[0].style.display = "flex";
     document.getElementsByClassName("modal-table")[0].classList.add("hidden");
@@ -129,3 +129,17 @@ function clear() {
 
 let chart, xAxis, SBP, pulse, CVP, exist, linechart, bands;
 let linecharts = [];
+
+function changeStatus(bed_id) {
+  let bed = document.getElementById(bed_id);
+  if (bed.classList.contains("bed-feedback-active")) {
+    bed.children[1].remove();
+  } else {
+    let inputEle = document.createElement("input");
+    inputEle.type = "hidden";
+    inputEle.value = bed.id.split("-")[1];
+    inputEle.name = "idh-patient";
+    bed.appendChild(inputEle);
+  }
+  bed.classList.toggle("bed-feedback-active");
+}
