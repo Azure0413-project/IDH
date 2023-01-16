@@ -6,8 +6,9 @@
     </button>
   </div>
 <div id="dashboard" class="tabcontent">
-  <form id="idh-patients-form" method="post" action="javascript: openModal();" enctype="multipart/form-data">
+  <form id="idh-patients-form" method="post" action="{%url 'get_record' %}" enctype="multipart/form-data">
     {% csrf_token %} 
+    <input type="hidden" id="idh-patients-list" name="idh-patients-list" value="{{ idh_bed }}"/>
     <div class="map">
     <section class="area">
       <h1>B</h1>
@@ -21,7 +22,6 @@
           {% if patient.status %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
-            <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
           </button>
           {% else %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
@@ -45,7 +45,6 @@
           {% if patient.status %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
-            <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
           </button>
           {% else %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
@@ -69,7 +68,6 @@
           {% if patient.status %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
-            <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
           </button>
           {% else %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
@@ -95,8 +93,7 @@
             {% if patient.status %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
-              <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
-            </button>
+              </button>
             {% else %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
@@ -123,8 +120,7 @@
             {% if patient.status %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
-              <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
-            </button>
+              </button>
             {% else %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
@@ -151,8 +147,7 @@
             {% if patient.status %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
-              <input type="hidden" value="{{ patient.bed }}" name="idh-patient">
-            </button>
+              </button>
             {% else %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
@@ -170,23 +165,10 @@
   </div>
   </form>
 </div>
-<script>
-  function openModal() {
-    let data = new FormData();
-    let idh_list = document.getElementsByName("idh-patient");
-    for(let i = 0; i < idh_list.length; i++) {
-      data.append("idh-patients", idh_list[i].value);
-    }
-    data.append("csrfmiddlewaretoken", "{{csrf_token}}");
-    axios
-    .post("", data)
-    .then((res) => {
-      document.getElementById("modal").classList.remove("hidden");
-    })
-    .catch((err) => console.log(err));
-  }
-</script>
-<div id="modal" class="modal hidden">
+{% if form %}
+<div id="modal" class="modal hidden"></div>
+{% else %}
+<div id="modal" class="modal">
   <!-- Modal content -->
   <div class="modal-idh">
     <div class="modal-feedback">
@@ -415,4 +397,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock %}
