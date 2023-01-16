@@ -132,14 +132,14 @@ let linecharts = [];
 
 function changeStatus(bed_id) {
   let bed = document.getElementById(bed_id);
+  bed_num = bed_id.split('-')[1];
+  let idh_bed = document.getElementById("idh-patients-list");
   if (bed.classList.contains("bed-feedback-active")) {
-    bed.children[1].remove();
+    idh_bed.value = idh_bed.value.replace(bed_num + '-', "");
+    console.log(idh_bed);
   } else {
-    let inputEle = document.createElement("input");
-    inputEle.type = "hidden";
-    inputEle.value = bed.id.split("-")[1];
-    inputEle.name = "idh-patient";
-    bed.appendChild(inputEle);
+    idh_bed.value += bed_num + "-";
+    console.log(idh_bed);
   }
   bed.classList.toggle("bed-feedback-active");
 }
