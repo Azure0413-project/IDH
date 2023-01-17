@@ -39,12 +39,12 @@ def index(request, area="dashboard"):
 
 def get_record(request):
     if request.method == 'POST':
-        # update_idh = request.POST.getlist('idh-patients')
-        # patients = get_update_idh_patients(update_idh)
         idh_list = request.POST.get('idh-patients-list')
+        tmp_form = request.POST.get('idh-tmp-form')
+        tmp_list = tmp_form.split('/')
         update_idh = idh_list.split('-')[0:-1]
-        print(update_idh)
-        patients = get_update_idh_patients(update_idh)
+        # print(request.POST)
+        patients = get_update_idh_patients(update_idh, tmp_list)
         return render(request, 'feedback.html', {
             "form": False,
             "a_patients": patients["a_patients"],
@@ -505,7 +505,7 @@ def get_idh_patients():
         'idh_bed': idh_bed,
     }
 
-def get_update_idh_patients(update_idh):
+def get_update_idh_patients(update_idh, tmp_list):
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
     # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
@@ -545,6 +545,17 @@ def get_update_idh_patients(update_idh):
                         })
                     patient['chart_id'] = "linechart-" + str(bed)
                     patient['chart'] = json.dumps(plot_data)
+                    for p in tmp_list:
+                        pid = p.split('-')[0]
+                        if pid == str(patient['id'].p_id):
+                            info = p.split('-')[1].split('+')
+                            sign = info[0]                       
+                            if sign == '1': patient['sign'] = True
+                            elif sign == '0': patient['sign'] = False
+                            if 'drug' in info: patient['drug'] = True
+                            if 'inject' in info: patient['inject'] = True
+                            if 'setting' in info: patient['set'] = True
+                            if 'other' in info: patient['other'] = True
                     idh_patients.append(patient)
                     idh_bed += bed + '-'
                     continue
@@ -580,6 +591,17 @@ def get_update_idh_patients(update_idh):
                         })
                     patient['chart_id'] = "linechart-" + str(bed)
                     patient['chart'] = json.dumps(plot_data)
+                    for p in tmp_list:
+                        pid = p.split('-')[0]
+                        if pid == str(patient['id'].p_id):
+                            info = p.split('-')[1].split('+')
+                            sign = info[0]                       
+                            if sign == '1': patient['sign'] = True
+                            elif sign == '0': patient['sign'] = False
+                            if 'drug' in info: patient['drug'] = True
+                            if 'inject' in info: patient['inject'] = True
+                            if 'setting' in info: patient['set'] = True
+                            if 'other' in info: patient['other'] = True
                     idh_patients.append(patient)
                     idh_bed += bed + '-'
                     continue
@@ -615,6 +637,17 @@ def get_update_idh_patients(update_idh):
                         })
                     patient['chart_id'] = "linechart-" + str(bed)
                     patient['chart'] = json.dumps(plot_data)
+                    for p in tmp_list:
+                        pid = p.split('-')[0]
+                        if pid == str(patient['id'].p_id):
+                            info = p.split('-')[1].split('+')
+                            sign = info[0]                       
+                            if sign == '1': patient['sign'] = True
+                            elif sign == '0': patient['sign'] = False
+                            if 'drug' in info: patient['drug'] = True
+                            if 'inject' in info: patient['inject'] = True
+                            if 'setting' in info: patient['set'] = True
+                            if 'other' in info: patient['other'] = True
                     idh_patients.append(patient)
                     idh_bed += bed + '-'
                     continue
@@ -650,6 +683,17 @@ def get_update_idh_patients(update_idh):
                         })
                     patient['chart_id'] = "linechart-" + str(bed)
                     patient['chart'] = json.dumps(plot_data)
+                    for p in tmp_list:
+                        pid = p.split('-')[0]
+                        if pid == str(patient['id'].p_id):
+                            info = p.split('-')[1].split('+')
+                            sign = info[0]                       
+                            if sign == '1': patient['sign'] = True
+                            elif sign == '0': patient['sign'] = False
+                            if 'drug' in info: patient['drug'] = True
+                            if 'inject' in info: patient['inject'] = True
+                            if 'setting' in info: patient['set'] = True
+                            if 'other' in info: patient['other'] = True
                     idh_patients.append(patient)
                     idh_bed += bed + '-'
                     continue
@@ -685,6 +729,17 @@ def get_update_idh_patients(update_idh):
                         })
                     patient['chart_id'] = "linechart-" + str(bed)
                     patient['chart'] = json.dumps(plot_data)
+                    for p in tmp_list:
+                        pid = p.split('-')[0]
+                        if pid == str(patient['id'].p_id):
+                            info = p.split('-')[1].split('+')
+                            sign = info[0]                       
+                            if sign == '1': patient['sign'] = True
+                            elif sign == '0': patient['sign'] = False
+                            if 'drug' in info: patient['drug'] = True
+                            if 'inject' in info: patient['inject'] = True
+                            if 'setting' in info: patient['set'] = True
+                            if 'other' in info: patient['other'] = True
                     idh_patients.append(patient)
                     idh_bed += bed + '-'
                     continue
@@ -720,6 +775,17 @@ def get_update_idh_patients(update_idh):
                         })
                     patient['chart_id'] = "linechart-" + str(bed)
                     patient['chart'] = json.dumps(plot_data)
+                    for p in tmp_list:
+                        pid = p.split('-')[0]
+                        if pid == str(patient['id'].p_id):
+                            info = p.split('-')[1].split('+')
+                            sign = info[0]                       
+                            if sign == '1': patient['sign'] = True
+                            elif sign == '0': patient['sign'] = False
+                            if 'drug' in info: patient['drug'] = True
+                            if 'inject' in info: patient['inject'] = True
+                            if 'setting' in info: patient['set'] = True
+                            if 'other' in info: patient['other'] = True
                     idh_patients.append(patient)
                     idh_bed += bed + '-'
                     continue

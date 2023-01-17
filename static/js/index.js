@@ -113,6 +113,23 @@ function clear() {
   let back = document.location.href;
   let area = back.split("/");
   if (area[4] == "get_record") {
+    let tmp_form = document.getElementById("idh-tmp-form");
+    let sign_checked = document.querySelectorAll('[type=radio]:checked');
+    let treatment_checked = document.querySelectorAll('[type=checkbox]:checked');
+    let tmp_list = "";
+    for(let i = 0; i < sign_checked.length; i++) {
+      let p_id = sign_checked[i].name.split("-");
+      tmp_list = tmp_list + p_id[1] + '-' + sign_checked[i].value;
+      for(let j = 0; j < treatment_checked.length; j++) {
+        let tmp_id = treatment_checked[j].name.split("-")[1];
+        if(tmp_id == p_id[1]){
+          tmp_list = tmp_list + '+' + treatment_checked[j].value;
+        }
+      }
+      tmp_list += '/'
+    }
+    tmp_form.value = tmp_list;
+    console.log(tmp_list);
     document.getElementById("modal").classList.add("hidden");
     // console.log(modal);
   } else {
