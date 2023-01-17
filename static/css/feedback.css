@@ -131,17 +131,17 @@ button {
     background-color: #62aaee;
 }
 
-.checkmark:after {
+.checkmark::after {
     content: "";
     position: absolute;
     display: none;
 }
 
-.note-container input:checked ~ .checkmark:after {
+.note-container input:checked ~ .checkmark::after {
     display: block;
 }
 
-.note-container .radio:after {
+.note-container .radio::after {
     top: 0.47em;
     left: 0.47em;
     width: 0.65em;
@@ -150,7 +150,7 @@ button {
     background: white;
 }
 
-.note-container .checkbox:after {
+.note-container .checkbox::after {
     top: 0.05em;
     left: 0.35em;
     width: 0.5em;

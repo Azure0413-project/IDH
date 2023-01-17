@@ -9,6 +9,7 @@
   <form id="idh-patients-form" method="post" action="{%url 'get_record' %}" enctype="multipart/form-data">
     {% csrf_token %} 
     <input type="hidden" id="idh-patients-list" name="idh-patients-list" value="{{ idh_bed }}"/>
+    <input type="hidden" id="idh-tmp-form" name="idh-tmp-form" value=""/>
     <div class="map">
     <section class="area">
       <h1>B</h1>
@@ -355,30 +356,30 @@
             <div class="note">
               <div class="note-title">症狀*</div>
               <label class="note-container">是
-                <input type="radio" name="sign-{{ patient.id.p_id }}" value="1" required>
+                <input type="radio" name="sign-{{ patient.id.p_id }}" value="1" {% if patient.sign %} checked {% endif %} required>
                 <span class="checkmark radio"></span>
               </label>
               <label class="note-container">否
-                <input type="radio" name="sign-{{ patient.id.p_id }}" value="0">
+                <input type="radio" name="sign-{{ patient.id.p_id }}" value="0" {% if patient.sign == False %} checked {% endif %}>
                 <span class="checkmark radio"></span>
               </label>
             </div>
             <div class="note">
               <div class="note-title">處理</div>
               <label class="note-container">口服藥物
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="drug">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="drug" {% if patient.drug %} checked {% endif %}>
                 <span class="checkmark checkbox"></span>
               </label>
               <label class="note-container">針劑藥物
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="inject">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="inject" {% if patient.inject %} checked {% endif %}>
                 <span class="checkmark checkbox"></span>
               </label>
               <label class="note-container">調整透析設定
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.set %} checked {% endif %}>
                 <span class="checkmark checkbox"></span>
               </label>
               <label class="note-container">其他
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="other">
+                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="other" {% if patient.other %} checked {% endif %}>
                 <span class="checkmark checkbox"></span>
               </label>
             </div>
