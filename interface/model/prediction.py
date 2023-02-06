@@ -109,16 +109,8 @@ def Predict(traindata):
         maxlen = np.max(lengths)
         logit, labels, self_attention = model(batch_diagnosis_codes, batch_time_step, batch_labels, options, maxlen)
         p_out.append(logit)
-    
-        prediction = []
-        for i in range(len(logit)):
-            if(logit[i][0]>threshold):
-                prediction.append(0)
-            else:
-                prediction.append(1)
-        prediction = np.array(prediction)
-        #prediction = torch.max(logit, 1)[1].view((len(labels),)).data.numpy()
-    return prediction
+
+    return logit[:,1]
 #%%
 def predict_idh():
     traindata = Data_Preprocess('202111-202207_before07051100.csv')
