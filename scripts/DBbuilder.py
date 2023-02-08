@@ -8,7 +8,7 @@ class CSV:
     def read_to_patient(self):
         usecols= ['ID', '姓名', '性別', '出生年月日']
         df = pd.read_csv(self.file, usecols=usecols)
-        df['出生年月日'] = df['出生年月日'].apply(lambda x: datetime.strptime(str(x), '%Y/%m/%d').date())
+        df['出生年月日'] = df['出生年月日'].apply(lambda x: datetime.strptime(str(x), '%Y-%m-%d').date())
         df = df.drop_duplicates()                     # drop duplicates
         df.to_csv('interface/data/patient.csv', encoding='utf_8_sig')    
     
@@ -35,8 +35,8 @@ class CSV:
 
 
 def run():
-    data = CSV('interface/data/202111-202207.csv')
-    # data.read_to_patient()
+    data = CSV('interface/data/temp.csv')
+    data.read_to_patient()
     data.read_to_dialysis()
-    # data.read_to_record()
+    data.read_to_record()
 
