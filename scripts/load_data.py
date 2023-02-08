@@ -17,7 +17,8 @@ def run():
                 gender = row[3],
                 birth = row[4] 
             )
-            patients.append(patient)
+            if not Patient.objects.filter(p_id=patient.p_id).exists():                
+                patients.append(patient)
             if len(patients) > 100:
                 Patient.objects.bulk_create(patients)         # 減少儲存次數
                 patients = []
