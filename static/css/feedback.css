@@ -145,13 +145,13 @@ button {
 .note-container:hover input ~ .checkmark {
     background-color: #ccc;
     transform: scale(1.05);
-    transition: 0.1s;
+    transition: all 0.1s;
 }
 
 .note-container input:checked ~ .checkmark {
     background-color: #62aaee;
     transform: scale(1.05);
-    transition: 0.1s;
+    transition: all 0.1s;
 }
 
 .checkmark::after {
