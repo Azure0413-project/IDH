@@ -113,6 +113,6 @@ def Predict(traindata):
     return logit[:,1]
 #%%
 def predict_idh():
-    traindata = Data_Preprocess('202111-202207_before07051100.csv')
+    traindata = Data_Preprocess("../data/temp.csv")
     prediction = Predict(traindata)
     return prediction
