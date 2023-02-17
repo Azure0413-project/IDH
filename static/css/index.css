@@ -91,6 +91,10 @@ nav ul {
     border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
 }
 
+.dropdown-content a:active {
+    transform: scale(0.95);
+}
+
 .dropdown:hover .dropdown-content {
     display: flex;
     flex-direction: column;
