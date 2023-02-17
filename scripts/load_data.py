@@ -1,6 +1,8 @@
 import csv
 from interface.models import Patient, Dialysis, Record
 from decimal import Decimal
+import datetime
+from datetime import datetime, timedelta
 
 def run():
     patient_path = 'interface/data/patient.csv'
@@ -29,12 +31,16 @@ def run():
         next(data)
         dialysis = []
         for row in data:
+            if row[5] == "-1":
+                end_time = datetime.strptime(row[4], "%Y-%m-%d %H:%M:%S") + timedelta(hours=4)
+            else:
+                end_time = row[5]
             dialyse = Dialysis(
                 p_id = Patient.objects.get(p_id = row[1]),
                 age = row[2],
                 times = row[3],
                 start_time = row[4],
-                end_time = row[5],
+                end_time = end_time,
                 machine_id = row[6],
                 bed = row[7],
                 temperature = Decimal(row[8]),
@@ -49,9 +55,9 @@ def run():
                 after_weight = Decimal(row[17]),
                 real_dehydration = Decimal(row[18]),
                 start_SBP = Decimal(row[19]),
-                start_DBP = row[20],
+                start_DBP = Decimal(row[20]),
                 end_SBP = Decimal(row[21]),
-                end_DBP = row[22],
+                end_DBP = Decimal(row[22]),
                 mode = row[23],
                 machine = row[24],
                 start_flow_speed = Decimal(row[25]),
@@ -63,7 +69,8 @@ def run():
                 ESA = row[31],
                 coagulation = row[32],
             )
-            dialysis.append(dialyse)
+            if not Dialysis.objects.filter(p_id=dialyse.p_id, times=dialyse.times).exists():                
+                dialysis.append(dialyse)
         if len(dialysis) > 5000:
             Dialysis.objects.bulk_create(dialysis)   
             dialysis = []
@@ -83,12 +90,12 @@ def run():
                 d_id = d_id,
                 record_time = row[3],
                 SBP = Decimal(row[4]),
-                DBP = row[5],
-                pulse = row[6],
+                DBP = Decimal(row[5]),
+                pulse = Decimal(row[6]),
                 breath = Decimal(row[7]),
                 blood_speed = Decimal(row[8]),
-                flow_speed = row[9],
-                CVP = row[10],
+                flow_speed = Decimal(row[9]),
+                CVP = Decimal(row[10]),
                 DP = Decimal(row[11]),
                 TMP = Decimal(row[12]),
                 dehydrate_speed = Decimal(row[13]),
@@ -97,8 +104,9 @@ def run():
                 heparin_volume = Decimal(row[16]),
                 flush = row[17],
                 channel_confirmed = row[18],
-            )
-            records.append(record)
+            )            
+            if not Record.objects.filter(d_id=record.d_id, record_time=record.record_time).exists():                
+                records.append(record)
             if len(records) > 5000:
                 Record.objects.bulk_create(records)         # 減少儲存次數
                 records = []
