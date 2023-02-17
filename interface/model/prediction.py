@@ -8,7 +8,7 @@ Created on Fri Feb  3 15:36:33 2023
 import pandas as pd
 import numpy as np
 import torch
-from models.transformer import *
+from interface.weights.transformer import *
 import warnings
 warnings.filterwarnings("ignore")
 #%%
@@ -96,7 +96,7 @@ def Predict(traindata):
         model_file = eval(model_choice)
         options = locals().copy()
         model = model_file(n_diagnosis_codes, batch_size, options)
-        model.load_state_dict(torch.load('models/tran_TransformerTime_hf_sample_L1_wt_1e-4_focal0.00.19'), strict=False)
+        model.load_state_dict(torch.load('interface/weights/tran_TransformerTime_hf_sample_L1_wt_1e-4_focal0.00.19'), strict=False)
         model.eval()
         y_pred = np.array([])
         
@@ -113,6 +113,8 @@ def Predict(traindata):
     return logit[:,1]
 #%%
 def predict_idh():
-    traindata = Data_Preprocess("../data/temp.csv")
+    traindata = Data_Preprocess("interface/data/temp.csv")
     prediction = Predict(traindata)
+    prediction = prediction.detach().numpy()
+    # print(prediction)
     return prediction
