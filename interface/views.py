@@ -5,6 +5,7 @@ import datetime
 from datetime import datetime, timedelta
 from interface.models import Patient, Dialysis, Record, Feedback
 from django.core import serializers
+from interface.model.prediction import predict_idh
 
 # Create your views here.
 
