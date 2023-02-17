@@ -42,6 +42,11 @@
 .tab button:hover {
     opacity: 0.8;
     font-weight: bold;
+    transform: scale(1.05);
+}
+
+.tab button:active {
+    transform: scale(1);
 }
 
 /* Create an active/current "tab button" class */

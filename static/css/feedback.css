@@ -10,6 +10,17 @@ button {
     justify-content: center;
     align-items: center;
     height: 4.5rem;
+    transition: 0.1s;
+}
+
+.bed-feedback:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.3);
+}
+
+.bed-feedback:active {
+    transform: scale(1);
+    transition: 0.1s;
 }
 
 .bed-feedback-inactive {
@@ -78,10 +89,18 @@ button {
     color: #f4f7fb;
     font-weight: 600;
     font-size: 20px;
+    transition: 0.1s;
 }
 
 .btn-confirm:hover {
     background-color: #feb123;
+    transform: scale(1.02);
+    box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.3);
+}
+
+.btn-confirm:active {
+    transform: scale(0.98);
+    transition: 0.2s;
 }
 
 .feedback-btn {
@@ -125,10 +144,14 @@ button {
 
 .note-container:hover input ~ .checkmark {
     background-color: #ccc;
+    transform: scale(1.05);
+    transition: 0.1s;
 }
 
 .note-container input:checked ~ .checkmark {
     background-color: #62aaee;
+    transform: scale(1.05);
+    transition: 0.1s;
 }
 
 .checkmark::after {
