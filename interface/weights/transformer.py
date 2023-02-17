@@ -4,7 +4,7 @@ import torch.nn.functional as F
 import numpy as np
 import math
 import torch.nn.init as init
-from models import units
+from interface.weights import units
 import copy
 
 class Embedding(nn.Module):
