@@ -49,3 +49,8 @@ def run():
     date = getNowDate()
     data = getAPIResponse(date)
     convertCSV(data)
+
+def fetchData():
+    date = getNowDate()
+    data = getAPIResponse(date)
+    convertCSV(data)

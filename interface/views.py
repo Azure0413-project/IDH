@@ -6,6 +6,9 @@ from datetime import datetime, timedelta
 from interface.models import Patient, Dialysis, Record, Feedback
 from django.core import serializers
 from interface.model.prediction import predict_idh
+from scripts.fetch_API import fetchData
+from scripts.DBbuilder import splitCSV
+from scripts.load_data import saveData
 
 # Create your views here.
 
@@ -846,3 +849,11 @@ def post_feedback(request):
             "e_patients": patients["e_patients"],
             "i_patients": patients["i_patients"],
         })
+
+def corn_job():
+    fetchData()
+    print("Successfully fetch API")
+    splitCSV()
+    print("Successfully split to 3 CSV files")
+    saveData()
+    print("Successfully save new data to database")
