@@ -112,3 +112,6 @@ def run():
                 records = []
         if records:
             Record.objects.bulk_create(records)
+
+def saveData():
+    run()

@@ -40,3 +40,8 @@ def run():
     data.read_to_dialysis()
     data.read_to_record()
 
+def splitCSV():
+    data = CSV('interface/data/temp.csv')
+    data.read_to_patient()
+    data.read_to_dialysis()
+    data.read_to_record()
