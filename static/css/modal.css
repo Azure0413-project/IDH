@@ -275,6 +275,16 @@
     right: 1em;
 }
 
+.close-btn:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+.close-btn:active {
+    transform: scale(1);
+    transition: 0.2s;
+}
+
 .page {
     position: absolute;
     bottom: 0.5em;
@@ -284,6 +294,16 @@
 
 .page-btn {
     margin: 0 0.5em;
+}
+
+.page-btn:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+.page-btn:active {
+    transform: scale(1);
+    transition: 0.2s;
 }
 
 .modal-table{
