@@ -2,11 +2,11 @@
 <div class="container">
   <div class="tab">
     <button class="tablinks active">
-      <img src="{%static 'img/record.svg'%}" />透<br/>析<br/>紀<br/>錄<br/>｜<br/> 早<br/>班
+      <img src="{%static 'img/record.svg'%}" />透<br/>析<br/>紀<br/>錄<br/>｜<br/> {{ shift }}<br/>班
     </button>
   </div>
 <div id="dashboard" class="tabcontent">
-  <form id="idh-patients-form" method="post" action="{%url 'get_record' %}" enctype="multipart/form-data">
+  <form id="idh-patients-form" method="post" action="{% url 'get_record' shift=t %}" enctype="multipart/form-data">
     {% csrf_token %} 
     <input type="hidden" id="idh-patients-list" name="idh-patients-list" value="{{ idh_bed }}"/>
     <input type="hidden" id="idh-tmp-form" name="idh-tmp-form" value=""/>
