@@ -62,6 +62,11 @@ function runTime() {
 runTime();
 setInterval(runTime, 1000);
 
+function refresh() {
+  window.location.reload();
+}
+setInterval(refresh, 180000);
+
 // Left panel
 function openTab(evt, tabName, area) {
   document.location.href = "http://140.116.247.175:80/index/" + area;
