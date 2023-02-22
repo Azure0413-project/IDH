@@ -65,11 +65,12 @@ setInterval(runTime, 1000);
 function refresh() {
   window.location.reload();
 }
-setInterval(refresh, 180000);
+setInterval(refresh, 600000);
 
 // Left panel
 function openTab(evt, tabName, area) {
-  document.location.href = "http://140.116.247.175:80/index/" + area;
+  // document.location.href = "http://140.116.247.175:80/index/" + area;
+  document.location.href = "http://127.0.0.1:8000/index/" + area;
 }
 
 const bed = [
@@ -138,7 +139,8 @@ function clear() {
     document.getElementById("modal").classList.add("hidden");
     // console.log(modal);
   } else {
-    document.location.href = "http://140.116.247.175:80/index/" + area[5];
+    // document.location.href = "http://140.116.247.175:80/index/" + area[5];
+    document.location.href = "http://127.0.0.1:8000/index/" + area[5];
     document.getElementsByClassName("modal-left")[0].style.display = "flex";
     document.getElementsByClassName("modal-right")[0].style.display = "flex";
     document.getElementsByClassName("modal-table")[0].classList.add("hidden");

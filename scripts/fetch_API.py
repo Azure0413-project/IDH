@@ -23,7 +23,7 @@ def getAPIResponse(day_month_year):
         try:
             data = response.text.strip('<meta charset="UTF-8" />')
             data_list = json.loads(data)['data_list']
-            print(data_list)
+            # print(data_list)
         except ValueError:
             data_list = []
             print("error")

@@ -12,7 +12,7 @@ from scripts.load_data import saveData
 
 # Create your views here.
 
-time = datetime(2022, 7, 5, 10, 50, 12)
+time = datetime.now()
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
@@ -22,6 +22,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def index(request, area="dashboard"):
+    corn_job()
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
@@ -34,16 +35,18 @@ def index(request, area="dashboard"):
         "i_patients": patients["i_patients"],
     })
 
-def get_record(request):
+def get_record(request, shift):
     if request.method == 'POST':
         idh_list = request.POST.get('idh-patients-list')
         tmp_form = request.POST.get('idh-tmp-form')
         tmp_list = tmp_form.split('/')
         update_idh = idh_list.split('-')[0:-1]
         # print(request.POST)
-        patients = get_update_idh_patients(update_idh, tmp_list)
+        t, shift, patients = get_update_idh_patients(shift, update_idh, tmp_list)
         return render(request, 'feedback.html', {
             "form": False,
+            "t": t,
+            "shift": shift,
             "a_patients": patients["a_patients"],
             "b_patients": patients["b_patients"],
             "c_patients": patients["c_patients"],
@@ -54,9 +57,11 @@ def get_record(request):
             "idh_bed": patients["idh_bed"],
         })
     else:
-        patients = get_idh_patients()
+        t, shift, patients = get_idh_patients(shift)
         return render(request, 'feedback.html', {
             "form": True,
+            "t": t,
+            "shift": shift,
             "a_patients": patients["a_patients"],
             "b_patients": patients["b_patients"],
             "c_patients": patients["c_patients"],
@@ -196,7 +201,7 @@ def get_detail(request, area, bed, idh):
     patient['record'] = r_today[len(r_today) - 1]
 
     # all record
-    all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-1)
+    all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-2)
     temp = []
     for dialysis in all_dialysis:
         record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time).select_related()
@@ -276,7 +281,19 @@ def get_detail(request, area, bed, idh):
         "chart": json.dumps(plot_data),
     })
 
-def get_idh_patients():
+def get_idh_patients(shift):
+    # date = time.date()
+    t = shift
+    if shift == 0:
+        shift = "早"
+        # shiftTime = time(hour = 12)
+    elif shift == 1:
+        shift = "午"
+        # shiftTime = time(hour = 18)
+    else:
+        shift = "晚"
+        # shiftTime = time(hour = 24)
+
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
     # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
@@ -499,7 +516,7 @@ def get_idh_patients():
             patient['id'] = '---'
         i_patients.append(patient)
 
-    return {
+    return t, shift, {
         'a_patients': a_patients, 
         'b_patients': b_patients, 
         'c_patients': c_patients,
@@ -510,7 +527,8 @@ def get_idh_patients():
         'idh_bed': idh_bed,
     }
 
-def get_update_idh_patients(update_idh, tmp_list):
+def get_update_idh_patients(shift, update_idh, tmp_list):
+    t = shift
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
     # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
@@ -799,7 +817,7 @@ def get_update_idh_patients(update_idh, tmp_list):
             patient['id'] = '---'
         i_patients.append(patient)
 
-    return {
+    return t, shift, {
         'a_patients': a_patients, 
         'b_patients': b_patients, 
         'c_patients': c_patients,
