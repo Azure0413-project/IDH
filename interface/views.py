@@ -12,7 +12,8 @@ from scripts.load_data import saveData
 
 # Create your views here.
 
-time = datetime.now()
+# time = datetime.now()
+time = datetime(2023, 2, 22, 11, 38, 0)
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
@@ -22,7 +23,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def index(request, area="dashboard"):
-    corn_job()
+    # corn_job()
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
