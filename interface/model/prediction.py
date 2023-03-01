@@ -80,35 +80,30 @@ def Predict(traindata):
     hidden_size = 128 # size of hidden layer
     gamma = 0.0 # setting for Focal Loss, when it's zero, it's equal to standard cross loss
     use_gpu = False
-    layer = 2 # layer of Transformer
-    model_choice = 'TransformerTime' # name of the proposed HiTANet in our paper
-    model_file = eval(model_choice)
-    disease_list = ['hf_sample']
+    layer = 1 # layer of Transformer
     max_len = 50
     total_precision = []
     total_accuracy = []
     total_accuracy = []
     p_out = []
     n_diagnosis_codes=8693
-    threshold = 0.5
-    for disease in disease_list:
-        model_choice = 'TransformerTime' # name of the proposed HiTANet in our paper
-        model_file = eval(model_choice)
-        options = locals().copy()
-        model = model_file(n_diagnosis_codes, batch_size, options)
-        model.load_state_dict(torch.load('interface/weights/tran_TransformerTime_hf_sample_L1_wt_1e-4_focal0.00.19'), strict=False)
-        model.eval()
-        y_pred = np.array([])
-        
-        batch_diagnosis_codes = traindata[0]
-        batch_time_step = traindata[2]
-        
-        batch_diagnosis_codes, batch_time_step = adjust_input(batch_diagnosis_codes, batch_time_step, max_len, n_diagnosis_codes)
-        batch_labels = traindata[1]
-        lengths = np.array([len(seq) for seq in batch_diagnosis_codes])
-        maxlen = np.max(lengths)
-        logit, labels, self_attention = model(batch_diagnosis_codes, batch_time_step, batch_labels, options, maxlen)
-        p_out.append(logit)
+
+    model_choice = 'TransformerTime' # name of the proposed HiTANet in our paper
+    model_file = eval(model_choice)
+    options = locals().copy()
+    model = model_file(n_diagnosis_codes, batch_size, options)
+    model.load_state_dict(torch.load('interface/weights/tran_TransformerTime_hf_sample_L1_wt_1e-4_focal0.00.19'), strict=False)
+    
+    batch_diagnosis_codes = traindata[0]
+    batch_labels = traindata[1]
+    batch_time_step = traindata[2]
+    batch_diagnosis_codes, batch_time_step = adjust_input(batch_diagnosis_codes, batch_time_step, max_len, n_diagnosis_codes)
+    
+    lengths = np.array([len(seq) for seq in batch_diagnosis_codes])
+    maxlen = np.max(lengths)
+    model.eval()
+    logit, labels, self_attention = model(batch_diagnosis_codes, batch_time_step, batch_labels, options, maxlen)
+    p_out.append(logit)
 
     return logit[:,1]
 #%%
