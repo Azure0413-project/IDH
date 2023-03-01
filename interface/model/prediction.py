@@ -13,7 +13,7 @@ import warnings
 warnings.filterwarnings("ignore")
 #%%
 def Data_Preprocess(file_name):
-    data = pd.read_csv(file_name, encoding='utf-8', engine='python')
+    data = pd.read_csv(file_name, encoding='utf-8_sig', engine='python')
     temp = ['透析開始時間', '紀錄時間']
     for i in temp:
         data[i] = pd.to_datetime(data[i])

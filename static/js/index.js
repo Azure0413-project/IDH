@@ -67,8 +67,8 @@ function refresh() {
 }
 setInterval(refresh, 600000);
 
-const location_path = "http://140.116.247.175:80/index/";
-// const location_path = "http://127.0.0.1:8000/index/";
+// const location_path = "http://140.116.247.175:80/index/";
+const location_path = "http://127.0.0.1:8000/index/";
 
 // Left panel
 function openTab(evt, tabName, area) {
