@@ -12,8 +12,8 @@ from scripts.load_data import saveData
 
 # Create your views here.
 
-# time = datetime.now()
-time = datetime(2023, 2, 22, 11, 38, 0)
+time = datetime.now()
+# time = datetime(2023, 2, 22, 11, 38, 0)
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
@@ -23,7 +23,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def index(request, area="dashboard"):
-    # corn_job()
+    corn_job()
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
@@ -93,7 +93,7 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                patient['idh'] = round(all_idh[flag] * 100)
+                patient['idh'] = int(round(all_idh[flag] * 100))
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -109,7 +109,7 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                patient['idh'] = round(all_idh[flag] * 100)
+                patient['idh'] = int(round(all_idh[flag] * 100))
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -125,7 +125,7 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                patient['idh'] = round(all_idh[flag] * 100)
+                patient['idh'] = int(round(all_idh[flag] * 100))
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -141,7 +141,7 @@ def get_patients():
                 patient['setting'] = d                
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                patient['idh'] = round(all_idh[flag] * 100)
+                patient['idh'] = int(round(all_idh[flag] * 100))
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -157,7 +157,7 @@ def get_patients():
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                patient['idh'] = round(all_idh[flag] * 100)
+                patient['idh'] = int(round(all_idh[flag] * 100))
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -173,7 +173,7 @@ def get_patients():
                 patient['setting'] = d    
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
                 patient['record'] = r[len(r) - 1]
-                patient['idh'] = round(all_idh[flag] * 100)
+                patient['idh'] = int(round(all_idh[flag] * 100))
                 flag += 1
                 continue
         if 'id' not in patient:

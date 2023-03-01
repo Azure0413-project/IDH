@@ -36,7 +36,7 @@ def convertCSV(data):
     row_indexes = res[res['床位'].apply(lambda x: x[0].isdigit())]
     res = res.drop(row_indexes.index)
     res = res.sort_values(by=['床位'], ascending=True)
-    res.to_csv('interface/data/temp.csv', index=False, encoding='utf-8_sig', errors='ignore')
+    res.to_csv('interface/data/temp.csv', index=False, encoding='utf-8_sig')
 
 def reorder():
     res = pd.read_csv('../data/temp.csv')
