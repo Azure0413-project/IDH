@@ -160,7 +160,7 @@
     border-right: 0.15em solid #4A5563;
     position: absolute;
     left: 0;
-    height: 0.9em;
+    height: 1em;
 }
 
 .bar-neg {
@@ -168,7 +168,7 @@
     border-left: 0.15em solid #4A5563;
     position: absolute;
     right: 0;
-    height: 0.9em;
+    height: 1em;
 }
 
 .modal-right {

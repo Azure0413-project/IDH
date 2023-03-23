@@ -1519,7 +1519,11 @@
           <li class="dialysis-item">透析器</li>
           <li class="dialysis-content">{{ setting.machine }}</li>
           <li class="dialysis-item">血管通路</li>
+          {% if setting.channel == "-1" %}
+          <li class="dialysis-content"> --- </li>
+          {% else %}
           <li class="dialysis-content">{{ setting.channel }}</li>
+          {% endif %}
           <li class="dialysis-item">透析次數</li>
           <li class="dialysis-content">{{ setting.times }}</li>
         </ul>
