@@ -530,6 +530,14 @@ def get_idh_patients(shift):
 
 def get_update_idh_patients(shift, update_idh, tmp_list):
     t = shift
+    if shift == 0:
+        shift = "早"
+        # shiftTime = time(hour = 12)
+    elif shift == 1:
+        shift = "午"
+        # shiftTime = time(hour = 18)
+    else:
+        shift = "晚"
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
     # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
