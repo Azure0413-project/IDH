@@ -283,19 +283,23 @@ def get_detail(request, area, bed, idh):
     })
 
 def get_idh_patients(shift):
-    # date = time.date()
+    now_date = time
     t = shift
     if shift == 0:
         shift = "早"
-        # shiftTime = time(hour = 12)
+        shift_start = time.replace(hour=10, minute=0)
+        shift_end = time.replace(hour=12, minute=0)
+        print(shift_start, shift_end)
     elif shift == 1:
         shift = "午"
-        # shiftTime = time(hour = 18)
+        shift_start = time.replace(hour=14, minute=0)
+        shift_end = time.replace(hour=16, minute=0)
     else:
         shift = "晚"
-        # shiftTime = time(hour = 24)
+        shift_start = time.replace(hour=19, minute=0)
+        shift_end = time.replace(hour=21, minute=0)
 
-    now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
+    now_dialysis = Dialysis.objects.filter(start_time__lte=shift_start, end_time__gte=shift_end)
     # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
     # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
     a_patients = []
@@ -865,6 +869,7 @@ def post_feedback(request):
                 f = Record.objects.get(r_id=r.r_id)
                 f.is_idh = True
                 f.save()
+        print("Successfully fill in the feedback form")
         patients = get_patients()
         return redirect('/index/dashboard', {
             "home": True,
@@ -879,8 +884,8 @@ def post_feedback(request):
 
 def corn_job():
     fetchData()
-    print("Successfully fetch API")
+    # print("Successfully fetch API")
     splitCSV()
-    print("Successfully split to 3 CSV files")
+    # print("Successfully split to 3 CSV files")
     saveData()
     print("Successfully save new data to database")

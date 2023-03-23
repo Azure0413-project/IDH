@@ -11,7 +11,7 @@ def getNowDate():
     hour = '{:02d}'.format(now.hour)
     minute = '{:02d}'.format(now.minute)
     day_month_year = '{}-{}-{}'.format(year, month, day)
-    print('day_month_year: ' + day_month_year)
+    # print('day_month_year: ' + day_month_year)
     return day_month_year
 
 def getAPIResponse(day_month_year):
