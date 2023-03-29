@@ -537,7 +537,6 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
         shift = "早"
         shift_start = time.replace(hour=10, minute=0)
         shift_end = time.replace(hour=12, minute=0)
-        print(shift_start, shift_end)
     elif shift == 1:
         shift = "午"
         shift_start = time.replace(hour=14, minute=0)
