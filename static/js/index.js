@@ -65,7 +65,7 @@ setInterval(runTime, 1000);
 function refresh() {
   window.location.reload();
 }
-setInterval(refresh, 600000);
+setInterval(refresh, 60000);
 
 const location_path = "http://192.168.83.226:80/index/";
 // const location_path = "http://127.0.0.1:8000/index/";
