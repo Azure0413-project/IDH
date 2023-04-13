@@ -12,7 +12,6 @@ from scripts.load_data import saveData
 
 # Create your views here.
 
-time = datetime.now()
 # time = datetime(2023, 2, 22, 11, 38, 0)
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
@@ -23,7 +22,9 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def index(request, area="dashboard"):
-    corn_job()
+    time = datetime.now()
+    if area == "dashboard" and time.second % 3 == 0:
+        corn_job()
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
@@ -74,6 +75,7 @@ def get_record(request, shift):
         })
 
 def get_patients():
+    time = datetime.now()
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     a_patients = []
     b_patients = []
@@ -81,7 +83,10 @@ def get_patients():
     d_patients = []
     e_patients = []
     i_patients = []
-    all_idh = predict_idh()
+    if len(now_dialysis) == 0:
+        all_idh = [0]
+    else:
+        all_idh = predict_idh()
     flag = 0
     for index, bed in enumerate(a_area):
         patient = {}
@@ -190,6 +195,7 @@ def get_patients():
     }
 
 def get_detail(request, area, bed, idh):
+    time = datetime.now()
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
     start_time = d.start_time
@@ -283,6 +289,7 @@ def get_detail(request, area, bed, idh):
     })
 
 def get_idh_patients(shift):
+    time = datetime.now()
     t = shift
     if shift == 0:
         shift = "早"
@@ -299,8 +306,6 @@ def get_idh_patients(shift):
         shift_end = time.replace(hour=21, minute=0)
 
     now_dialysis = Dialysis.objects.filter(start_time__lte=shift_start, end_time__gte=shift_end)
-    # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
-    # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
     a_patients = []
     b_patients = []
     c_patients = []
@@ -532,6 +537,7 @@ def get_idh_patients(shift):
     }
 
 def get_update_idh_patients(shift, update_idh, tmp_list):
+    time = datetime.now()
     t = shift
     if shift == 0:
         shift = "早"
@@ -546,8 +552,6 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
         shift_start = time.replace(hour=19, minute=0)
         shift_end = time.replace(hour=21, minute=0)
     now_dialysis = Dialysis.objects.filter(start_time__lte=shift_start, end_time__gte=shift_end)
-    # start = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).earliest("start_time").start_time
-    # end = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time).latest("end_time").end_time
     a_patients = []
     b_patients = []
     c_patients = []
@@ -845,6 +849,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
     }
 
 def post_feedback(request):
+    time = datetime.now()
     if request.method == 'POST':
         sign = []
         treatment = []
