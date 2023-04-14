@@ -35,6 +35,11 @@ def convertCSV(data):
     res = res.sort_values(by=['ID', '透析開始時間', '透析結束時間', '紀錄時間'])
     row_indexes = res[res['床位'].apply(lambda x: x[0].isdigit())]
     res = res.drop(row_indexes.index)
+    ### drop for patient with 2 IDs  ###
+    row_indexes2 = res[res['ID'].apply(lambda x: x.isdigit()==False)]
+    res = res.drop(row_indexes2.index)
+    ####################################
+    print(row_indexes2)
     res = res.sort_values(by=['床位'], ascending=True)
     res.to_csv('interface/data/temp.csv', index=False, encoding='utf-8_sig')
 
