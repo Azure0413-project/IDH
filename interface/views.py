@@ -294,15 +294,14 @@ def get_idh_patients(shift):
     if shift == 0:
         shift = "早"
         shift_start = time.replace(hour=10, minute=0)
-        shift_end = time.replace(hour=12, minute=0)
-        print(shift_start, shift_end)
+        shift_end = time.replace(hour=11, minute=0)
     elif shift == 1:
         shift = "午"
-        shift_start = time.replace(hour=14, minute=0)
+        shift_start = time.replace(hour=15, minute=0)
         shift_end = time.replace(hour=16, minute=0)
     else:
         shift = "晚"
-        shift_start = time.replace(hour=19, minute=0)
+        shift_start = time.replace(hour=20, minute=0)
         shift_end = time.replace(hour=21, minute=0)
 
     now_dialysis = Dialysis.objects.filter(start_time__lte=shift_start, end_time__gte=shift_end)
