@@ -39,7 +39,6 @@ def convertCSV(data):
     row_indexes2 = res[res['ID'].apply(lambda x: x.isdigit()==False)]
     res = res.drop(row_indexes2.index)
     ####################################
-    print(row_indexes2)
     res = res.sort_values(by=['床位'], ascending=True)
     res.to_csv('interface/data/temp.csv', index=False, encoding='utf-8_sig')
 
