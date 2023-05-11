@@ -14,6 +14,8 @@ warnings.filterwarnings("ignore")
 #%%
 def Data_Preprocess(file_name):
     data = pd.read_csv(file_name, encoding='utf-8_sig', engine='python')
+    if len(data) <= 1:
+        return [0]
     temp = ['透析開始時間', '紀錄時間']
     for i in temp:
         data[i] = pd.to_datetime(data[i])
@@ -22,7 +24,6 @@ def Data_Preprocess(file_name):
     for i in sequential:
         data[i] = pd.to_numeric(data[i],errors='coerce')
     data = data.fillna(-1)
-    
     # 計算time_step
     date = data['透析開始時間'][0]
     record_num = 0 # calculate同次透析第幾筆紀錄
@@ -104,11 +105,13 @@ def Predict(traindata):
     model.eval()
     logit, labels, self_attention = model(batch_diagnosis_codes, batch_time_step, batch_labels, options, maxlen)
     p_out.append(logit)
-
+    del model
     return logit[:,1]
 #%%
 def predict_idh():
     traindata = Data_Preprocess("interface/data/temp.csv")
+    if len(traindata) == 1:
+        return [0]
     prediction = Predict(traindata)
     prediction = prediction.detach().numpy()
     # print(prediction)
