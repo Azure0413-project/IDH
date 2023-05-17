@@ -83,7 +83,7 @@ def get_patients():
     d_patients = []
     e_patients = []
     i_patients = []
-    if len(now_dialysis) == 0:
+    if len(now_dialysis) <= 1:
         all_idh = [0]
     else:
         all_idh = predict_idh()
