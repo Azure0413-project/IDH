@@ -97,8 +97,14 @@ def get_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-                patient['record'] = r[len(r) - 1]
+                if len(r) == 0:
+                    patient['id'] = '---'
+                    continue
+                else:
+                    patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                if flag == 32:
+                    continue
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -113,8 +119,14 @@ def get_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-                patient['record'] = r[len(r) - 1]
+                if len(r) == 0:
+                    patient['id'] = '---'
+                    continue
+                else:
+                    patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                if flag == 32:
+                    continue
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -129,8 +141,14 @@ def get_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-                patient['record'] = r[len(r) - 1]
+                if len(r) == 0:
+                    patient['id'] = '---'
+                    continue
+                else:
+                    patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                if flag == 32:
+                    continue
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -145,8 +163,14 @@ def get_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d                
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-                patient['record'] = r[len(r) - 1]
+                if len(r) == 0:
+                    patient['id'] = '---'
+                    continue
+                else:
+                    patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                if flag == 32:
+                    continue
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -161,8 +185,14 @@ def get_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-                patient['record'] = r[len(r) - 1]
+                if len(r) == 0:
+                    patient['id'] = '---'
+                    continue
+                else:
+                    patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                if flag == 32:
+                    continue
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -177,8 +207,14 @@ def get_patients():
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d    
                 r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
-                patient['record'] = r[len(r) - 1]
+                if len(r) == 0:
+                    patient['id'] = '---'
+                    continue
+                else:
+                    patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                if flag == 32:
+                    continue
                 flag += 1
                 continue
         if 'id' not in patient:
@@ -322,6 +358,8 @@ def get_idh_patients(shift):
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                if len(records) == 0:
+                    continue
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -357,6 +395,8 @@ def get_idh_patients(shift):
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                if len(records) == 0:
+                    continue
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -392,6 +432,8 @@ def get_idh_patients(shift):
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                if len(records) == 0:
+                    continue
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -427,6 +469,8 @@ def get_idh_patients(shift):
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                if len(records) == 0:
+                    continue
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -462,6 +506,8 @@ def get_idh_patients(shift):
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                if len(records) == 0:
+                    continue
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -497,6 +543,8 @@ def get_idh_patients(shift):
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
                 records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                if len(records) == 0:
+                    continue
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
