@@ -12,8 +12,6 @@ from scripts.load_data import saveData
 
 # Create your views here.
 
-# time = datetime(2023, 9, 22, 11, 38, 0)
-
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
 d_area = ['D5', 'D9', 'D3', 'D8', 'D2', 'D7', 'D1', 'D6']
@@ -21,8 +19,16 @@ a_area = ['A9', '', 'A5', '', 'A3', 'A8', 'A2', 'A7', 'A1', 'A6']
 e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
+def get_time():
+    now = False
+    if now:
+        time = datetime.now()
+    else:
+        time = datetime(2023, 9, 23, 10, 43, 0)
+    return time
+
 def index(request, area="dashboard"):
-    time = datetime.now()
+    time = get_time()
     if area == "dashboard" and time.second % 3 == 0:
         corn_job()
     patients = get_patients()
@@ -75,7 +81,7 @@ def get_record(request, shift):
         })
 
 def get_patients():
-    time = datetime.now()
+    time = get_time()
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     a_patients = []
     b_patients = []
@@ -231,7 +237,7 @@ def get_patients():
     }
 
 def get_detail(request, area, bed, idh):
-    time = datetime.now()
+    time = get_time()
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
     start_time = d.start_time
@@ -325,7 +331,7 @@ def get_detail(request, area, bed, idh):
     })
 
 def get_idh_patients(shift):
-    time = datetime.now()
+    time =get_time()
     t = shift
     if shift == 0:
         shift = "早"
@@ -584,7 +590,7 @@ def get_idh_patients(shift):
     }
 
 def get_update_idh_patients(shift, update_idh, tmp_list):
-    time = datetime.now()
+    time = get_time()
     t = shift
     if shift == 0:
         shift = "早"
@@ -896,7 +902,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
     }
 
 def post_feedback(request):
-    time = datetime.now()
+    time = get_time()
     if request.method == 'POST':
         sign = []
         treatment = []
