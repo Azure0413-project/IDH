@@ -111,19 +111,19 @@
                 {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
-              {% if patient.idh > 85 %}
               <div class="idhrate">
-                <img src="{% static 'img/idh_danger.svg' %} " />
+                {% if patient.record.SBP == 0 %}
+                <img src="{% static "img/idh_inactive.svg" %}" />
+                {% else %}
+                  {% if patient.idh > 85 %}
+                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% elif patient.idh > 70 %}
+                  <img src="{% static 'img/idh_warning.svg' %} " />
+                  {% else %}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
+                  {% endif %}
+                {% endif %}
               </div>
-              {% elif patient.idh > 70 %}
-              <div class="idhrate">
-                <img src="{% static 'img/idh_warning.svg' %} " />
-              </div>
-              {% else %}
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-              {% endif %}
             </div>
           {% endif %}</a>
           </li>
@@ -190,19 +190,19 @@
                 {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
-              {% if patient.idh > 85 %}
               <div class="idhrate">
-                <img src="{% static 'img/idh_danger.svg' %} " />
+                {% if patient.record.SBP == 0 %}
+                <img src="{% static "img/idh_inactive.svg" %}" />
+                {% else %}
+                  {% if patient.idh > 85 %}
+                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% elif patient.idh > 70 %}
+                  <img src="{% static 'img/idh_warning.svg' %} " />
+                  {% else %}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
+                  {% endif %}
+                {% endif %}
               </div>
-              {% elif patient.idh > 70 %}
-              <div class="idhrate">
-                <img src="{% static 'img/idh_warning.svg' %} " />
-              </div>
-              {% else %}
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-              {% endif %}
             </div>
           {% endif %}
           </li>
@@ -268,19 +268,19 @@
                 {% endif %}
                 <img src="{% static 'img/heartbeat_active.svg' %} " />
               </div>
-              {% if patient.idh > 85 %}
               <div class="idhrate">
-                <img src="{% static 'img/idh_danger.svg' %} " />
+                {% if patient.record.SBP == 0 %}
+                <img src="{% static "img/idh_inactive.svg" %}" />
+                {% else %}
+                  {% if patient.idh > 85 %}
+                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% elif patient.idh > 70 %}
+                  <img src="{% static 'img/idh_warning.svg' %} " />
+                  {% else %}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
+                  {% endif %}
+                {% endif %}
               </div>
-              {% elif patient.idh > 70 %}
-              <div class="idhrate">
-                <img src="{% static 'img/idh_warning.svg' %} " />
-              </div>
-              {% else %}
-              <div class="idhrate">
-                <img src="{% static 'img/idh_safe.svg' %} " />
-              </div>
-              {% endif %}
             </div>
           {% endif %}
           </li>
@@ -348,19 +348,19 @@
                   {% endif %}
                   <img src="{% static 'img/heartbeat_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -430,19 +430,19 @@
                   {% endif %}
                   <img src="{% static 'img/heartbeat_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -512,19 +512,19 @@
                   {% endif %}
                   <img src="{% static 'img/heartbeat_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -635,19 +635,19 @@
                   <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
                   <img src="{% static 'img/water_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -761,19 +761,19 @@
                   <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
                   <img src="{% static 'img/water_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -887,19 +887,19 @@
                   <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
                   <img src="{% static 'img/water_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -1013,19 +1013,19 @@
                   <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
                   <img src="{% static 'img/water_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -1139,19 +1139,19 @@
                   <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
                   <img src="{% static 'img/water_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -1265,19 +1265,19 @@
                   <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
                   <img src="{% static 'img/water_active.svg' %} " />
                 </div>
-                {% if patient.idh > 85 %}
                 <div class="idhrate">
-                  <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
                 </div>
-                {% elif patient.idh > 70 %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_warning.svg' %} " />
-                </div>
-                {% else %}
-                <div class="idhrate">
-                  <img src="{% static 'img/idh_safe.svg' %} " />
-                </div>
-                {% endif %}
               </div>
             {% endif %}
             </li>
@@ -1388,7 +1388,13 @@
           <li>體溫：{{ setting.temperature|floatformat:1 }} ℃</li>
           {% endif %}
           <li>脈搏：{{ record.pulse }} bpm</li>
-          <li>飲食 / 預計沖水量：{{ setting.food|floatformat:1 }} kg / {{ setting.expect_dehydration|floatformat:1 }} L</li>
+          <li>飲食 / 沖水量：{{ setting.food|floatformat:1 }} kg / 
+            {% if record.flush == -1 %}
+            -
+            {% else %}
+            {{ record.flush|floatformat:1 }}
+            {% endif %} ml
+          </li>
         </ul>
         <div class="sub-info">
           <ul class="left-info">
@@ -1421,7 +1427,7 @@
                 <div class="img-text">{{ record.flow_speed }}</div>
                 <img src="{%static 'img/speed.svg' %}" />
               </div>
-              <div class="info-unit">上次流速：810 ml/min</div>
+              {% comment %} <div class="info-unit">上次流速：810 ml/min</div> {% endcomment %}
             </div>
             <div class="info-group">
               <div class="info-title">目標脫水量</div>
@@ -1624,7 +1630,7 @@
                 <th title="Field #46">ESA</th>
                 <th title="Field #47">透析器凝血情況</th>
                 <th title="Field #48">肝素注射量(ml/hr)</th>
-                <th title="Field #49">沖水量(L)</th>
+                <th title="Field #49">沖水量(ml)</th>
                 <th title="Field #50">確認血管通路</th>
               </tr>
             </thead>
