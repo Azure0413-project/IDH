@@ -12,7 +12,7 @@ from scripts.load_data import saveData
 
 # Create your views here.
 
-# time = datetime(2023, 2, 22, 11, 38, 0)
+# time = datetime(2023, 9, 22, 11, 38, 0)
 
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
@@ -96,7 +96,7 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
                 if len(r) == 0:
                     patient['id'] = '---'
                     continue
@@ -118,7 +118,7 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
                 if len(r) == 0:
                     patient['id'] = '---'
                     continue
@@ -140,7 +140,7 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
                 if len(r) == 0:
                     patient['id'] = '---'
                     continue
@@ -162,7 +162,7 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d                
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
                 if len(r) == 0:
                     patient['id'] = '---'
                     continue
@@ -184,7 +184,7 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
                 if len(r) == 0:
                     patient['id'] = '---'
                     continue
@@ -206,7 +206,7 @@ def get_patients():
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d    
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
                 if len(r) == 0:
                     patient['id'] = '---'
                     continue
@@ -240,19 +240,19 @@ def get_detail(request, area, bed, idh):
     # latest dialysis information
     patient['setting'] = d
     # latest dialysis record
-    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time)
+    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
     patient['record'] = r_today[len(r_today) - 1]
 
     # all record
     all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-2)
     temp = []
     for dialysis in all_dialysis:
-        record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time).select_related()
+        record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time).select_related().order_by('record_time')
         for record in record_list:
             if record.d_id.temperature <= 0: record.d_id.temperature = '-'
             if record.d_id.start_temperature <= 0: record.d_id.start_temperature = '-'
             if record.d_id.ESA == str(-1): record.d_id.ESA = '-'
-            if record.flush == -1: record.flush = '-'
+            if record.flush == -1.000: record.flush = '-'
             temp.append(record)
 
     patient['all_record'] = temp
@@ -357,7 +357,7 @@ def get_idh_patients(shift):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 if len(records) == 0:
                     continue
                 patient['record'] = records[len(records) - 1]
@@ -394,7 +394,7 @@ def get_idh_patients(shift):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 if len(records) == 0:
                     continue
                 patient['record'] = records[len(records) - 1]
@@ -431,7 +431,7 @@ def get_idh_patients(shift):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 if len(records) == 0:
                     continue
                 patient['record'] = records[len(records) - 1]
@@ -468,7 +468,7 @@ def get_idh_patients(shift):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 if len(records) == 0:
                     continue
                 patient['record'] = records[len(records) - 1]
@@ -505,7 +505,7 @@ def get_idh_patients(shift):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 if len(records) == 0:
                     continue
                 patient['record'] = records[len(records) - 1]
@@ -542,7 +542,7 @@ def get_idh_patients(shift):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 if len(records) == 0:
                     continue
                 patient['record'] = records[len(records) - 1]
@@ -615,7 +615,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -661,7 +661,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -707,7 +707,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -753,7 +753,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -799,7 +799,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -845,7 +845,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                 start_time = d.start_time
                 patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
                 patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time)
+                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
                 patient['record'] = records[len(records) - 1]
                 patient['status'] = False
                 plot_data = []
@@ -921,7 +921,7 @@ def post_feedback(request):
                     patient = idh.split('-')[0]
                     record = idh.split('-')[2]
                     d = Dialysis.objects.filter(p_id=patient, start_time__lt=time)
-                    r = Record.objects.filter(d_id=d[d.count()-1])[int(record)]
+                    r = Record.objects.filter(d_id=d[d.count()-1])[int(record)].order_by('record_time')
                     f = Record.objects.get(r_id=r.r_id)
                     f.is_idh = True
                     f.save()
