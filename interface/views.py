@@ -20,7 +20,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = False
+    now = True
     if now:
         time = datetime.now()
     else:
@@ -927,7 +927,7 @@ def post_feedback(request):
                     patient = idh.split('-')[0]
                     record = idh.split('-')[2]
                     d = Dialysis.objects.filter(p_id=patient, start_time__lt=time)
-                    r = Record.objects.filter(d_id=d[d.count()-1])[int(record)].order_by('record_time')
+                    r = Record.objects.filter(d_id=d[d.count()-1])[int(record)]
                     f = Record.objects.get(r_id=r.r_id)
                     f.is_idh = True
                     f.save()
