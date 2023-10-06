@@ -1388,12 +1388,12 @@
           <li>體溫：{{ setting.temperature|floatformat:1 }} ℃</li>
           {% endif %}
           <li>脈搏：{{ record.pulse }} bpm</li>
-          <li>飲食 / 沖水量：{{ setting.food|floatformat:1 }} kg / 
-            {% if record.flush == -1 %}
+          <li>飲食 / 輸液量：{{ setting.food|floatformat:1 }} kg / 
+            {% if record.d_id.transfusion == -1 %}
             -
             {% else %}
-            {{ record.flush|floatformat:1 }}
-            {% endif %} ml
+            {{ record.d_id.transfusion|floatformat:1 }}
+            {% endif %} L
           </li>
         </ul>
         <div class="sub-info">
