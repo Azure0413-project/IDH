@@ -20,7 +20,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = True
+    now = False
     if now:
         time = datetime.now()
     else:
@@ -29,8 +29,8 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
-    if area == "dashboard" and time.second % 3 == 0:
-        corn_job()
+    # if area == "dashboard" and time.minute % 3 == 0:
+    #     corn_job()
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
