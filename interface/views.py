@@ -31,6 +31,8 @@ def index(request, area="dashboard"):
     time = get_time()
     # if area == "dashboard" and time.minuteœœœ % 3 == 0:
     #     corn_job()
+    if area == 'Z':
+        return render(request, 'nurseArea.html')
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,

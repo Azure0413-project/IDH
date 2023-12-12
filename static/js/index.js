@@ -75,6 +75,11 @@ function openTab(evt, tabName, area) {
   document.location.href = location_path + area;
 }
 
+function openNurseArea(){
+  console.log("open nurse area.");
+  document.location.href = location_path + 'Z';
+}
+
 const bed = [
   "A1", "A2", "A3", "A5", "A6", "A7", "A8", "A9",
   "B1", "B2", "B3", "B5", "B6", "B7", "B8", "B9",
