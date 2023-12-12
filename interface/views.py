@@ -29,7 +29,7 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
-    # if area == "dashboard" and time.minute % 3 == 0:
+    # if area == "dashboard" and time.minuteœœœ % 3 == 0:
     #     corn_job()
     patients = get_patients()
     return render(request, 'index.html', {
