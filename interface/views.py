@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 import json
 import datetime
 from datetime import datetime, timedelta
-from interface.models import Patient, Dialysis, Record, Feedback
+from interface.models import Patient, Dialysis, Record, Feedback, Predict, Warnings
 from django.core import serializers
 from interface.model.prediction import predict_idh
 from scripts.fetch_API import fetchData
