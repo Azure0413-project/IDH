@@ -24,6 +24,27 @@ def Data_Preprocess(file_name):
     for i in sequential:
         data[i] = pd.to_numeric(data[i],errors='coerce')
     data = data.fillna(-1)
+
+    #1205改: 只保留以一小時為間隔的資料
+    first_record = data.groupby("ID")['紀錄時間'].min()
+    len(data['ID'].unique())
+    filtered_data = pd.DataFrame()
+    for patient_id, first_time in first_record.iteritems():
+        # print(patient_id, end=' ')
+        filtered_times = []
+        patient_data = data[data['ID'] == patient_id]
+        # print(len(patient_data), end=' ')
+        for i in range(len(patient_data)):
+            next_hour = first_time + pd.DateOffset(hours=i)
+            closest_time = min(patient_data['紀錄時間'], key=lambda x: abs(x-next_hour))
+            if closest_time not in filtered_times:
+                filtered_times.append(closest_time)
+        # print(len(filtered_times))
+        patient_data = patient_data[patient_data['紀錄時間'].isin(filtered_times)]
+        filtered_data = pd.concat([filtered_data, patient_data], axis=0)
+    data = filtered_data.sort_index().reset_index(drop=True)
+    #1205 ---
+
     # 計算time_step
     date = data['透析開始時間'][0]
     record_num = 0 # calculate同次透析第幾筆紀錄
