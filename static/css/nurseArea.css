@@ -1,0 +1,57 @@
+.list-format {
+    display: inline!important;
+    border: 1px solid;
+    padding: 3px 3px 3px 3px;
+    overflow-y: scroll;
+    height: 15rem;
+}
+
+.middle-tab-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 5px 5px 5px;
+    padding:  5px 5px 5px 5px;
+}
+
+.top-tab-area{
+    background-color: #E7ECEF;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px 10px 10px;
+}
+
+.bottom-tab-area{
+    background-color: #E7ECEF;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px 10px 10px;
+    border-left: 1px solid #4D4D4D;
+    border-right: 1px solid #4D4D4D;
+    border-bottom: 1px solid #4D4D4D;
+}
+
+.list-cell-format {
+    height: 2rem;
+    width: auto;
+    font-size: 18px;
+    background-color: #E7ECEF;
+    margin: 2px 2px 2px 2px;
+}
+
+.left-tab-area, .right-tab-area {
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+}
+
+.nurse-btn {
+    background-color: white;
+    margin-left: 15px;
+    padding: 5px;
+    border: 1px black solid;
+}

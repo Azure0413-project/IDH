@@ -181,6 +181,20 @@
     height: 100%;
 }
 
+.tab-area-nurse {
+    padding: 3rem;
+    height: 100%;
+}
+
+.tab-area-nurse-v2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    border-left: 1px solid #4D4D4D;
+    border-right: 1px solid #4D4D4D;
+}
+
 .tab-area h1 {
     color: rgba(135, 156, 179, 0.4);
     font-size: 72px;
@@ -275,14 +289,42 @@
 }
 
 .bed-danger {
-    border: 3px solid #E91111;
+    /* animation-name: dangerBorderSparkle;
+    animation-iteration-count: infinite;
+    animation-duration: 1s; */
     border-radius: 0.5rem;
+    background-color: #E91111;
 }
 
 .bed-top-danger {
     padding-bottom: 0em;
-    border-radius: 0;
     background-color: #E91111;
+    /* border-radius: 0; */
+    /* animation-name: dangerBGSparkle;
+    animation-iteration-count: infinite;
+    animation-duration: 1s; */
+}
+
+.danger-bg {
+    animation-name: dangerBGSparkle;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes
+dengerBorderSparkle {
+    0% {border: 3px solid #ed888d;}
+    50% {border: 3px solid #ed888d;}
+    51% {border: 3px solid rgb(74, 91, 112);}
+    100% {border: 3px solid rgb(74, 91, 112);}
+}
+
+@keyframes
+dangerBGSparkle {
+    0% {background-color: #ed888d;}
+    50% {background-color: #ed888d;}
+    51% {background-color: rgb(255, 255, 255);}
+    100% {background-color: rgb(255, 255, 255);}
 }
 
 .bed > img {
