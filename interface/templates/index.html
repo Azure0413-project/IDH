@@ -1754,28 +1754,32 @@
       <div class="close-btn" onclick="CloseWarningModal()">
         <img src="{%static 'img/close.svg'%}" />
       </div>
-      <div class="modal-sm-left">
-        <h2>病患床號:</h2>
-        <a id="patientBed">B1</a>
-        <h2>病患姓名:</h2>
-        <a id="patientName">XXX</a>
-      </div>
-      <div class="modal-right">
-        <form id="warningReport">
+      <div class="modal-sm-content">
+        <div class="modal-sm-title">
+          <a id="patientBed">B1</a>
+          <a id="patientName">XXX</a>
+        </div>
+        <form id="warningReport" class="modal-sm-form">
           {% csrf_token %}
-          <h2><label for="empNo">工號:</label></h2>
-          <input class="input-warning" type="text" id="empNo" name="empNo"/>
-          <br><br>
-          <h2><label for="SBP">病患當前收縮壓:</label></h2>
-          <input class="input-warning" type="text" id="SBP" name="SBP"/>mmHg
-          <br><br>
-          <h2><label for="DBP">病患當前舒張壓:</label></h2>
-          <input class="input-warning" type="text" id="DBP" name="DBP"/>mmHg
-          <br>
+          <div class="text-label">
+            <label for="empNo">工號:</label>
+            <br>
+            <input class="input-warning" type="text" id="empNo" name="empNo"/>
+          </div>
+          <div class="text-label">
+            <label for="SBP">病患當前收縮壓:</label>
+            <br>
+            <input class="input-warning" type="text" id="SBP" name="SBP"/>mmHg
+          </div>
+          <div class="text-label">
+            <label for="DBP">病患當前舒張壓:</label>
+            <br>
+            <input class="input-warning" type="text" id="DBP" name="DBP"/>mmHg
+          </div>
         </form>
       </div>
-      <div class="btn-right">
-        <button id="confirmWarningBtn" class="btn-confirm" type="submit" style="width: 8rem;" onclick="SubmitWarning()">確認</button>
+      <div class="">
+        <button id="confirmWarningBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitWarning()">確認</button>
       </div>
     </div>
   </div>
