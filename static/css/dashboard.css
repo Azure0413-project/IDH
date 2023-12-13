@@ -105,12 +105,17 @@
     justify-content: space-around;
 }
 
-.pressure, .heartbeat, .dehydration {
+.pressure,
+.heartbeat,
+.dehydration {
     position: relative;
     text-align: center;
 }
 
-.pressure>img, .heartbeat>img, .dehydration>img, .idhrate>img{
+.pressure>img,
+.heartbeat>img,
+.dehydration>img,
+.idhrate>img {
     height: 1.7em;
 }
 
@@ -230,16 +235,16 @@
     height: 40rem;
 }
 
-.tab-bed .bed .bed-bottom .pressure > img,
-.tab-bed .bed .bed-bottom .heartbeat > img,
-.tab-bed .bed .bed-bottom .dehydration > img,
-.tab-bed .bed .bed-bottom .idhrate > img {
+.tab-bed .bed .bed-bottom .pressure>img,
+.tab-bed .bed .bed-bottom .heartbeat>img,
+.tab-bed .bed .bed-bottom .dehydration>img,
+.tab-bed .bed .bed-bottom .idhrate>img {
     height: 2.6em;
 }
 
-.tab-bed .bed .bed-bottom .pressure > .img-text,
-.tab-bed .bed .bed-bottom .heartbeat > .img-text,
-.tab-bed .bed .bed-bottom .dehydration > .img-text {
+.tab-bed .bed .bed-bottom .pressure>.img-text,
+.tab-bed .bed .bed-bottom .heartbeat>.img-text,
+.tab-bed .bed .bed-bottom .dehydration>.img-text {
     font-size: 32px;
 }
 
@@ -268,11 +273,12 @@
     margin: 1em 1em;
 }
 
-.tab-legend-bottom .legend-item > img {
+.tab-legend-bottom .legend-item>img {
     width: 2em;
     height: 2em;
     margin: 0.2em 0.6em 0.2em 0.2em;
 }
+
 .tab-legend-bottom .legend-item .legend-text {
     font-size: 16px;
 }
@@ -293,7 +299,7 @@
     animation-iteration-count: infinite;
     animation-duration: 1s; */
     border-radius: 0.5rem;
-    background-color: #E91111;
+    /* background-color: #E91111; */
 }
 
 .bed-top-danger {
@@ -311,29 +317,49 @@
     animation-duration: 1s;
 }
 
-@keyframes
-dengerBorderSparkle {
-    0% {border: 3px solid #ed888d;}
-    50% {border: 3px solid #ed888d;}
-    51% {border: 3px solid rgb(74, 91, 112);}
-    100% {border: 3px solid rgb(74, 91, 112);}
+@keyframes dengerBorderSparkle {
+    0% {
+        border: 3px solid #ffd4ce;
+    }
+
+    50% {
+        border: 3px solid #ffd4ce;
+    }
+
+    51% {
+        border: 3px solid rgb(74, 91, 112);
+    }
+
+    100% {
+        border: 3px solid rgb(74, 91, 112);
+    }
 }
 
-@keyframes
-dangerBGSparkle {
-    0% {background-color: #ed888d;}
-    50% {background-color: #ed888d;}
-    51% {background-color: rgb(255, 255, 255);}
-    100% {background-color: rgb(255, 255, 255);}
+@keyframes dangerBGSparkle {
+    0% {
+        background-color: #ffd4ce;
+    }
+
+    50% {
+        background-color: #ffd4ce;
+    }
+
+    51% {
+        background-color: rgb(255, 255, 255);
+    }
+
+    100% {
+        background-color: rgb(255, 255, 255);
+    }
 }
 
-.bed > img {
+.bed>img {
     width: 1.8em;
     position: absolute;
     top: -0.9em;
     right: -0.9em;
 }
 
-.tab-bed .bed > img {
+.tab-bed .bed>img {
     width: 2.5em;
 }
