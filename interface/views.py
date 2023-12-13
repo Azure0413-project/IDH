@@ -116,7 +116,7 @@ def get_patients():
                 #1212改
                 dialysis = Dialysis.objects.get(d_id=d.d_id)
                 pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                pred.save()
+                # pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -142,7 +142,7 @@ def get_patients():
                 #1212改
                 dialysis = Dialysis.objects.get(d_id=d.d_id)
                 pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                pred.save()
+                # pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -168,7 +168,7 @@ def get_patients():
                 #1212改
                 dialysis = Dialysis.objects.get(d_id=d.d_id)
                 pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                pred.save()
+                # pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -194,7 +194,7 @@ def get_patients():
                 #1212改
                 dialysis = Dialysis.objects.get(d_id=d.d_id)
                 pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                pred.save()
+                # pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -220,7 +220,7 @@ def get_patients():
                 #1212改
                 dialysis = Dialysis.objects.get(d_id=d.d_id)
                 pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                pred.save()
+                # pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -246,7 +246,7 @@ def get_patients():
                 #1212改
                 dialysis = Dialysis.objects.get(d_id=d.d_id)
                 pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                pred.save()
+                # pred.save()
                 if flag == 32:
                     continue
                 flag += 1
