@@ -58,7 +58,8 @@
     justify-content: center;
 }
 
-.modal div, .modal li {
+.modal div,
+.modal li {
     color: #4A5563;
     font-weight: 600;
 }
@@ -79,7 +80,8 @@
     margin: 5em 6em 5em 2em;
 }
 
-#patient, #patient2 {
+#patient,
+#patient2 {
     font-size: 56px;
 }
 
@@ -296,10 +298,12 @@
     height: 0.1em;
     float: right;
 }
+
 .dialysis-content {
     overflow: auto;
     white-space: nowrap;
 }
+
 .dialysis-content::after {
     content: "";
     display: block;
@@ -346,7 +350,7 @@
     transition: 0.2s;
 }
 
-.modal-table{
+.modal-table {
     padding: 0.5em;
 }
 
@@ -366,7 +370,7 @@ table {
     table-layout: fixed;
 }
 
-thead tr th{
+thead tr th {
     position: sticky;
     top: 0;
 }

@@ -1,20 +1,20 @@
 .list-format {
-    display: inline!important;
+    display: inline !important;
     border: 1px solid;
     padding: 3px 3px 3px 3px;
     overflow-y: scroll;
     height: 15rem;
 }
 
-.middle-tab-area{
+.middle-tab-area {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 5px 5px 5px 5px;
-    padding:  5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
 }
 
-.top-tab-area{
+.top-tab-area {
     background-color: #E7ECEF;
     font-size: 20px;
     display: flex;
@@ -23,7 +23,7 @@
     padding: 10px 10px 10px 10px;
 }
 
-.bottom-tab-area{
+.bottom-tab-area {
     background-color: #E7ECEF;
     font-size: 20px;
     display: flex;
@@ -43,10 +43,11 @@
     margin: 2px 2px 2px 2px;
 }
 
-.left-tab-area, .right-tab-area {
-    display: flex!important;
-    align-items: center!important;
-    justify-content: center!important;
+.left-tab-area,
+.right-tab-area {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .nurse-btn {
