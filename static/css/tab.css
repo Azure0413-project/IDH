@@ -17,12 +17,12 @@
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-    margin-bottom: 0.5em;
-    display: block;
+    margin-bottom: 0.3em;
     background-color: #274C77;
     color: #E7ECEF;
     opacity: 0.5;
-    padding: 1.2em 0.5em;
+    letter-spacing: 0.2em;
+    padding: 25%;
     width: 100%;
     border: none;
     border-radius: 15px 0px 0px 15px;
