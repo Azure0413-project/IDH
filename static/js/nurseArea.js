@@ -1,5 +1,7 @@
 $(document).ready(function () {
   const nurseId = document.getElementById("nurseId").value;
+  const existedList = document.getElementById("existedList");
+  const notInList = document.getElementById("notInList");
   if (!sessionStorage.getItem(nurseId)) {
     sessionStorage.setItem(nurseId, JSON.stringify(new Array()));
   }
@@ -9,8 +11,6 @@ $(document).ready(function () {
     newLI.textContent = tmp[i];
     existedList.appendChild(newLI);
   }
-  const existedList = document.getElementById("existedList");
-  const notInList = document.getElementById("notInList");
   existedList.addEventListener("click", (e) => {
     let setTmp = new Set(JSON.parse(sessionStorage.getItem(nurseId)));
     existedList.removeChild(e.target);
