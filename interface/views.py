@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 import json
 import datetime
 from datetime import datetime, timedelta
-from interface.models import Patient, Dialysis, Record, Feedback
+from interface.models import Patient, Dialysis, Record, Feedback, Predict, Warnings
 from django.core import serializers
 from interface.model.prediction import predict_idh
 from scripts.fetch_API import fetchData
@@ -29,10 +29,8 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
-    # if area == "dashboard" and time.minuteœœœ % 3 == 0:
+    # if area == "dashboard" and time.minute % 3 == 0:
     #     corn_job()
-    if area == 'Z':
-        return render(request, 'nurseArea.html')
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
@@ -94,7 +92,9 @@ def get_patients():
     if len(now_dialysis) <= 1:
         all_idh = [0]
     else:
-        all_idh = predict_idh()
+        # print("Here", now_dialysis[0])
+        all_idh = predict_idh() #1205
+        # print('Prediction:', all_idh[0])
     flag = 0
     for index, bed in enumerate(a_area):
         patient = {}
@@ -111,6 +111,10 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                #1212改
+                dialysis = Dialysis.objects.get(d_id=d.d_id)
+                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
+                pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -133,6 +137,10 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                #1212改
+                dialysis = Dialysis.objects.get(d_id=d.d_id)
+                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
+                pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -155,6 +163,10 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                #1212改
+                dialysis = Dialysis.objects.get(d_id=d.d_id)
+                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
+                pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -177,6 +189,10 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                #1212改
+                dialysis = Dialysis.objects.get(d_id=d.d_id)
+                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
+                pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -199,6 +215,10 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                #1212改
+                dialysis = Dialysis.objects.get(d_id=d.d_id)
+                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
+                pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -221,6 +241,10 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+                #1212改
+                dialysis = Dialysis.objects.get(d_id=d.d_id)
+                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
+                pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -945,6 +969,21 @@ def post_feedback(request):
             "e_patients": patients["e_patients"],
             "i_patients": patients["i_patients"],
         })
+
+def warning_feedback(request):
+    # 1210改
+    if request.method == 'POST':
+        time = get_time()
+        empNo = request.POST.get('empNo')
+        warning_SBP = request.POST.get('SBP')
+        warning_DBP = request.POST.get('DBP')
+        pBed = request.POST.get('patientBed')
+        pName = request.POST.get('patientName')
+        print(f'{time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
+        w = Warnings(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
+        w.save()
+        print("Successfully fill in the Warning form")
+    return JsonResponse({"status": 'success'})
 
 def corn_job():
     fetchData()
