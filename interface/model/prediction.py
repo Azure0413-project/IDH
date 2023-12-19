@@ -29,7 +29,7 @@ def Data_Preprocess(file_name):
     first_record = data.groupby("ID")['紀錄時間'].min()
     len(data['ID'].unique())
     filtered_data = pd.DataFrame()
-    for patient_id, first_time in first_record.iteritems():
+    for patient_id, first_time in first_record.items():
         # print(patient_id, end=' ')
         filtered_times = []
         patient_data = data[data['ID'] == patient_id]

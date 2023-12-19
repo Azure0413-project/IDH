@@ -32,7 +32,14 @@ def index(request, area="dashboard"):
     # if area == "dashboard" and time.minute % 3 == 0:
     #     corn_job()
     if area == 'Z':
-        return render(request, 'nurseArea.html')
+        return render(request, 'nurseAreaAdjust.html')
+    if area == 'Y':
+        patients = get_patients()
+        return render(request, 'nurseAreaSearch.html', {
+            "home": True,
+            "patients": patients["a_patients"],
+            "chart": json.dumps([]),
+        })
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
