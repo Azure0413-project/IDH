@@ -79,8 +79,9 @@ class Predict(models.Model):
     # 透析、預測時間、當下預測值
     pred_id = models.AutoField(primary_key=True)
     d_id = models.ForeignKey(Dialysis, on_delete=models.CASCADE)
+    flag = models.IntegerField()
     pred_time = models.DateTimeField(auto_now_add=True)
-    pred_idh = models.DecimalField(decimal_places=3, max_digits=10, default=Decimal('0.0'), null=True)
+    pred_idh = models.DecimalField(decimal_places=10, max_digits=20, default=Decimal('0.0'), null=True)
 
 class Warnings(models.Model):
     # 存發生預測的時間、當下預測值、護理師點掉警示的時間點、收到警示時病人的血壓(SBP, DBP)、操作的護理師員工號
@@ -89,5 +90,7 @@ class Warnings(models.Model):
     # pred_id = models.ForeignKey(Predict, on_delete=models.CASCADE)
     dismiss_time = models.DateTimeField(auto_now_add=True)
     empNo = models.IntegerField()
+    p_name = models.CharField(max_length=10)
+    p_bed = models.CharField(max_length=10)
     warning_SBP = models.DecimalField(decimal_places=3, max_digits=10)
     warning_DBP = models.IntegerField()
