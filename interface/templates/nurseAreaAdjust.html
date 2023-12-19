@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-<script src="{% static "js/nurseArea.js" %}"></script>
+<script src="{% static "js/nurseAreaAdjust.js" %}"></script>
 <link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
 <div class="container">
   <div class="tab">
@@ -24,8 +24,8 @@
             <option value="C">C</option>
             <option value="D">D</option>
           </select>
-          <button class="nurse-btn">搜尋</button>
-          <button class="nurse-btn">修改</button>
+          <button class="nurse-btn" onclick="SearchPage()">搜尋</button>
+          <button class="nurse-btn" onclick="AdjustPage()">切換至修改</button>
         </div>
         <div class="tab-area-nurse-v2">
           <div class="left-tab-area">
@@ -33,17 +33,6 @@
                 尚未列入名單之床號:
               </div>
               <ul id="notInList" class="list-format">
-                  <li class="list-cell-format">test1</li>
-                  <li class="list-cell-format">test2</li>
-                  <li class="list-cell-format">test3</li>
-                  <li class="list-cell-format">test4</li>
-                  <li class="list-cell-format">test5</li>
-                  <li class="list-cell-format">test6</li>
-                  <li class="list-cell-format">test7</li>
-                  <li class="list-cell-format">test8</li>
-                  <li class="list-cell-format">test9</li>
-                  <li class="list-cell-format">test9</li>
-                  <li class="list-cell-format">test9</li>
               </ul>
           </div>
           <div class="middle-tab-area">
@@ -54,16 +43,11 @@
                 當前觀察名單:
               </div>
               <ul id="existedList" class="list-format">
-                  {% comment %} <li class="list-cell-format">test-1</li>
-                  <li class="list-cell-format">test-2</li>
-                  <li class="list-cell-format">test-3</li>
-                  <li class="list-cell-format">test-4</li>
-                  <li class="list-cell-format">test-5</li> {% endcomment %}
               </ul>
           </div>
         </div>
         <div class="bottom-tab-area">
-          <button class="nurse-btn">儲存變更</button>
+          {% comment %} <button class="nurse-btn" onclick="SaveAdjust()">儲存變更</button> {% endcomment %}
         </div>
     </section>
   </div>

@@ -77,7 +77,7 @@ function openTab(evt, tabName, area) {
 
 function openNurseArea(){
   console.log("open nurse area.");
-  document.location.href = location_path + 'Z';
+  document.location.href = location_path + 'Y';
 }
 
 const bed = [
