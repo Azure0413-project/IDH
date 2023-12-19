@@ -9,6 +9,8 @@ from interface.model.prediction import predict_idh
 from scripts.fetch_API import fetchData
 from scripts.DBbuilder import splitCSV
 from scripts.load_data import saveData
+from decimal import Decimal
+import numpy as np
 
 # Create your views here.
 
@@ -101,9 +103,23 @@ def get_patients():
     if len(now_dialysis) <= 1:
         all_idh = [0]
     else:
-        # print("Here", now_dialysis[0])
-        all_idh = predict_idh() #1205
-        # print('Prediction:', all_idh[0])
+        # p = Predict.objects.all()
+        # p.delete()
+        preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
+        last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
+        # all_idh = predict_idh() #1205
+        if datetime.now() >= last_pred + timedelta(hours=1): # 先用 datetime.now() 代替 time
+            print("Predict -", datetime.now())
+            do_pred = True
+            all_idh = predict_idh() #1205
+        else:
+            print("Use previous Pred data -", datetime.now())
+            do_pred = False
+            print(preds[0].pred_time)
+            same_preds = Predict.objects.filter(pred_time__date=preds[0].pred_time.date(), pred_time__hour=preds[0].pred_time.hour).order_by('flag')
+            all_pred_idh = [s.pred_idh for s in same_preds]
+            print("all_pred:", [np.float32(a) for a in all_pred_idh])
+            all_idh = [np.float32(a) for a in all_pred_idh]
     flag = 0
     for index, bed in enumerate(a_area):
         patient = {}
@@ -120,10 +136,11 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
-                #1212改
-                dialysis = Dialysis.objects.get(d_id=d.d_id)
-                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                # pred.save()
+                #1218改
+                if do_pred:
+                    dialysis = Dialysis.objects.get(d_id=d.d_id)
+                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
+                    pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -147,9 +164,10 @@ def get_patients():
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
                 #1212改
-                dialysis = Dialysis.objects.get(d_id=d.d_id)
-                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                # pred.save()
+                if do_pred:
+                    dialysis = Dialysis.objects.get(d_id=d.d_id)
+                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
+                    pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -173,9 +191,10 @@ def get_patients():
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
                 #1212改
-                dialysis = Dialysis.objects.get(d_id=d.d_id)
-                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                # pred.save()
+                if do_pred:
+                    dialysis = Dialysis.objects.get(d_id=d.d_id)
+                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
+                    pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -199,9 +218,10 @@ def get_patients():
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
                 #1212改
-                dialysis = Dialysis.objects.get(d_id=d.d_id)
-                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                # pred.save()
+                if do_pred:
+                    dialysis = Dialysis.objects.get(d_id=d.d_id)
+                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
+                    pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -225,9 +245,10 @@ def get_patients():
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
                 #1212改
-                dialysis = Dialysis.objects.get(d_id=d.d_id)
-                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                # pred.save()
+                if do_pred:
+                    dialysis = Dialysis.objects.get(d_id=d.d_id)
+                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
+                    pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -251,9 +272,10 @@ def get_patients():
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
                 #1212改
-                dialysis = Dialysis.objects.get(d_id=d.d_id)
-                pred = Predict(d_id=dialysis, pred_idh=patient['idh'])
-                # pred.save()
+                if do_pred:
+                    dialysis = Dialysis.objects.get(d_id=d.d_id)
+                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
+                    pred.save()
                 if flag == 32:
                     continue
                 flag += 1
@@ -356,6 +378,7 @@ def get_detail(request, area, bed, idh):
         "d_patients": patients["d_patients"],
         "e_patients": patients["e_patients"],
         "i_patients": patients["i_patients"],
+        # "Warning feedback" 時間, in patient
         "id": patient['id'],
         "setting": patient['setting'],
         "record": patient['record'],
@@ -989,10 +1012,18 @@ def warning_feedback(request):
         pBed = request.POST.get('patientBed')
         pName = request.POST.get('patientName')
         print(f'{time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
-        w = Warnings(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
-        w.save()
-        print("Successfully fill in the Warning form")
-    return JsonResponse({"status": 'success'})
+        try:
+            w = Warnings(empNo=empNo, p_bed=pBed, p_name=pName, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
+            w.save()
+            return JsonResponse({"status": 'success'}) 
+        except Exception as error:
+            return JsonResponse({"status": 'fail', "msg": str(error)})
+
+def get_nurse_patients(request):
+    return True
+
+def get_nurse_detail(request):
+    return True
 
 def corn_job():
     fetchData()
