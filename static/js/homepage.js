@@ -10,10 +10,15 @@ function ClickOnPatient(bed, idh, name, mode) {
     console.log("danger");
     warningModal.classList.toggle("hidden");
   } else {
+    let targetUrl = "";
+    let urlArr = location.href.split("/");
+    for(let i=0; i<urlArr.length-1; ++i){
+      targetUrl += urlArr[i] + "/";
+    }
     if (mode == 0) {
-      location.href = `get_detail/dashboard/${bed}/${idh}`;
+      location.href = targetUrl + `get_detail/dashboard/${bed}/${idh}`;
     } else {
-      location.href = `get_detail/${bed[0]}/${bed}/${idh}`;
+      location.href = targetUrl + `get_detail/${bed[0]}/${bed}/${idh}`;
     }
   }
   // if(serverity_level == 1){
