@@ -16,6 +16,30 @@ function SearchPage(){
     }
     targetUrl += "Y";
     location.href = targetUrl;
+    let setTmp = new Set(JSON.parse(sessionStorage.getItem(nurseId)));
+    $.ajax({
+        url: "nurseArea/SearchFunc/",
+        method: "POST",
+        headers: {
+          "X-CSRFToken": $('[name="csrf-token"]').attr("content"),
+        },
+        dataType: "json",
+        data: result,
+        success: (res) => {
+          if (res["status"] == "success") {
+            // 頁面跳轉
+            alert("Add success.");
+            // 記錄床號與時間
+            location.href = originLocation;
+          } else {
+            // 畫面提醒 送出表單失敗
+            alert("Add fail.\n" + res["msg"]);
+          }
+        },
+        error: (res) => {
+          console.log(res);
+        },
+    });
 }
 
 function ClickOnPatient(bed, idh, name, mode) {
@@ -32,7 +56,7 @@ function ClickOnPatient(bed, idh, name, mode) {
         } else {
             location.href = `get_detail/${bed[0]}/${bed}/${idh}`;
         }
-}
+    }
 // if(serverity_level == 1){
 //     pBed = document.getElementById('patientBed');
 //     pName = document.getElementById('patientName');

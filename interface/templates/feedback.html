@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
+
 <div class="container">
   <div class="tab">
     <button class="tablinks active">
@@ -385,6 +386,16 @@
             </div>
           </div>
         </div>
+        <div>
+          <div class="note">
+            <div class="note-title">
+              透析低血壓時間:
+            </div>
+            <label for="idh-time-{{ patient.id.p_id }}">
+              <input class="idh-time-input" type="text" name="idh-time-{{ patient.id.p_id }}" id="idh-time-{{ patient.id.p_id }}">
+            </label>
+          </div>
+        </div>
         {% if forloop.last %}
         {% else %}
         <hr class="rounded">
@@ -398,5 +409,15 @@
     </div>
   </div>
 </div>
+<script>
+  {% comment %} $(".idh-time-input").datetimepicker({
+    format: "HH:mm",
+    useCurrent: false,
+    stepping: 15,
+    icons: {
+      time: "glyphicon glyphicon-time",
+    },
+  }); {% endcomment %}
+</script>
 {% endif %}
 {% endblock %}

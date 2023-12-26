@@ -1015,7 +1015,7 @@ def warning_feedback(request):
         try:
             w = Warnings(empNo=empNo, p_bed=pBed, p_name=pName, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
             w.save()
-            return JsonResponse({"status": 'success'}) 
+            return JsonResponse({"status": 'success'})
         except Exception as error:
             return JsonResponse({"status": 'fail', "msg": str(error)})
 
