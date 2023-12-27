@@ -28,9 +28,9 @@ function ClickOnPatient(bed, idh, name, mode) {
         warningModal.classList.toggle("hidden");
     } else {
         if (mode == 0) {
-            location.href = `get_detail/dashboard/${bed}/${idh}`;
+            location.href = `get_nurse_detail/dashboard/${bed}/${idh}`;
         } else {
-            location.href = `get_detail/${bed[0]}/${bed}/${idh}`;
+            location.href = `get_nurse_detail/Y/${bed}/${idh}`;
         }
 }
 // if(serverity_level == 1){
