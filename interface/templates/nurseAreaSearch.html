@@ -53,16 +53,16 @@
                 </div>
               {% else %}
               {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-              <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1)">
+              <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
                 <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
               {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-              <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1)">
+              <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
                 <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
               {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-              <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1)">
+              <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
                 <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
               {% else %}
-              <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1)">
+              <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
                 <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
               {% endif %}
                 <div class="bed-bottom {% if patient.idh > 85 %}danger-bg{% else %}{% endif %}">
@@ -521,7 +521,7 @@
           </table>
         </div>
       </div>
-      <div class="close-btn" onclick="closeModal()">
+      <div class="close-btn" onclick="close_modal()">
         <img src="{%static 'img/close.svg'%}" />
       </div>
       <div class="page">

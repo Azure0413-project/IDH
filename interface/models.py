@@ -88,7 +88,7 @@ class Warnings(models.Model):
     # 1206 仁賢會推Json request
     w_id = models.AutoField(primary_key=True)
     # pred_id = models.ForeignKey(Predict, on_delete=models.CASCADE)
-    dismiss_time = models.DateTimeField(auto_now_add=True)
+    dismiss_time = models.DateTimeField() # auto_now_add=True
     empNo = models.IntegerField()
     p_name = models.CharField(max_length=10)
     p_bed = models.CharField(max_length=10)
