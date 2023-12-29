@@ -74,13 +74,7 @@ function AdjustPage(){
 }
 
 function SearchPage(){
-  let urlArr = location.href.split("/");
-  let targetUrl = ""
-  for(let i=0; i<urlArr.length-1; ++i){
-    targetUrl += urlArr[i] + "/";
-  }
-  targetUrl += "Y";
-  location.href = targetUrl;
+  location.href = location_path + "Y";
 }
 
 function removeAllNodes(tag){

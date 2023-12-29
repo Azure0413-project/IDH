@@ -1,8 +1,8 @@
 // mode:
 // 0 -> dashboard
 // 1 -> each tag
-function ClickOnPatient(bed, idh, name, mode) {
-  if (idh > 85) {
+function ClickOnPatient(bed, idh, name, mode, done) {
+  if (idh > 85 && done == 'True') {
     pBed = document.getElementById("patientBed");
     pName = document.getElementById("patientName");
     pBed.innerText = bed;
