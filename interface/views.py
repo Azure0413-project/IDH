@@ -5,6 +5,7 @@ import datetime
 from datetime import datetime, timedelta
 from interface.models import Patient, Dialysis, Record, Feedback, Predict, Warnings
 from django.core import serializers
+from django.db.models import Max
 from interface.model.prediction import predict_idh
 from scripts.fetch_API import fetchData
 from scripts.DBbuilder import splitCSV
@@ -36,10 +37,10 @@ def index(request, area="dashboard"):
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
-        patients = get_patients()
+        patients = get_nurse_patients()
         return render(request, 'nurseAreaSearch.html', {
             "home": True,
-            "patients": patients["a_patients"],
+            "patients": patients["nurse_patients"],
             "chart": json.dumps([]),
         })
     patients = get_patients()
@@ -109,16 +110,16 @@ def get_patients():
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
         # all_idh = predict_idh() #1205
         if datetime.now() >= last_pred + timedelta(hours=1): # 先用 datetime.now() 代替 time
-            print("Predict -", datetime.now())
+            # print("Predict -", datetime.now())
             do_pred = True
             all_idh = predict_idh() #1205
         else:
-            print("Use previous Pred data -", datetime.now())
+            # print("Use previous Pred data -", datetime.now())
             do_pred = False
-            print(preds[0].pred_time)
+            # print(preds[0].pred_time)
             same_preds = Predict.objects.filter(pred_time__date=preds[0].pred_time.date(), pred_time__hour=preds[0].pred_time.hour).order_by('flag')
             all_pred_idh = [s.pred_idh for s in same_preds]
-            print("all_pred:", [np.float32(a) for a in all_pred_idh])
+            # print("all_pred:", [np.float32(a) for a in all_pred_idh])
             all_idh = [np.float32(a) for a in all_pred_idh]
     flag = 0
     for index, bed in enumerate(a_area):
@@ -136,6 +137,16 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+
+                # print('BED:', bed)
+                #1226 warning Feedback 
+                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+                if len(w) == 0:
+                    patient['done_warning'] = True 
+                else:
+                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
+                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+
                 #1218改
                 if do_pred:
                     dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -163,6 +174,16 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+
+                # print('BED:', bed)
+                #1226 warning Feedback 
+                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+                if len(w) == 0:
+                    patient['done_warning'] = True 
+                else:
+                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
+                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+
                 #1212改
                 if do_pred:
                     dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -190,6 +211,16 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+
+                # print('BED:', bed)
+                #1226 warning Feedback 
+                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+                if len(w) == 0:
+                    patient['done_warning'] = True 
+                else:
+                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
+                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+
                 #1212改
                 if do_pred:
                     dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -217,6 +248,16 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+
+                # print('BED:', bed)
+                #1226 warning Feedback 
+                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+                if len(w) == 0:
+                    patient['done_warning'] = True 
+                else:
+                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
+                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+
                 #1212改
                 if do_pred:
                     dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -244,6 +285,16 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+
+                # print('BED:', bed)
+                #1226 warning Feedback 
+                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+                if len(w) == 0:
+                    patient['done_warning'] = True 
+                else:
+                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
+                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+
                 #1212改
                 if do_pred:
                     dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -271,6 +322,16 @@ def get_patients():
                 else:
                     patient['record'] = r[len(r) - 1]
                 patient['idh'] = int(round(all_idh[flag] * 100))
+
+                # print('BED:', bed)
+                #1226 warning Feedback 
+                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+                if len(w) == 0:
+                    patient['done_warning'] = True 
+                else:
+                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
+                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+
                 #1212改
                 if do_pred:
                     dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -335,7 +396,8 @@ def get_detail(request, area, bed, idh):
             diff['per_width'] = (-1) * diff_percentage * 10
             diff['class'] = 'diff-neg'
     patients = get_patients()
-    
+
+    # plot 
     plot_data = []
     for r in r_today:
         timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
@@ -378,7 +440,6 @@ def get_detail(request, area, bed, idh):
         "d_patients": patients["d_patients"],
         "e_patients": patients["e_patients"],
         "i_patients": patients["i_patients"],
-        # "Warning feedback" 時間, in patient
         "id": patient['id'],
         "setting": patient['setting'],
         "record": patient['record'],
@@ -1005,7 +1066,8 @@ def post_feedback(request):
 def warning_feedback(request):
     # 1210改
     if request.method == 'POST':
-        time = get_time()
+        time = datetime.now()
+        dismiss_time = time
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
@@ -1013,17 +1075,113 @@ def warning_feedback(request):
         pName = request.POST.get('patientName')
         print(f'{time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
         try:
-            w = Warnings(empNo=empNo, p_bed=pBed, p_name=pName, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
+            w = Warnings(dismiss_time=dismiss_time, empNo=empNo, p_bed=pBed, p_name=pName, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
             w.save()
             return JsonResponse({"status": 'success'})
         except Exception as error:
             return JsonResponse({"status": 'fail', "msg": str(error)})
 
-def get_nurse_patients(request):
-    return True
+def get_nurse_patients():
+    # if request.method == 'POST':
+    #   bed_list = request.POST.getlist('nurse_bed') 
+    bed_list = ["A1", "A2", "A5", "B2", "B7"]
+    patients = get_patients()
+    nurse_patients = []
+    for index, bed in enumerate(bed_list):
+        for p_area in patients.keys():
+            for p in patients[p_area]:
+                if p['bed'] == bed:
+                    nurse_patients.append(p)
+    return {'nurse_patients': nurse_patients}
 
-def get_nurse_detail(request):
-    return True
+def get_nurse_detail(request, bed, idh):
+    time = get_time()
+    patient = {}
+    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
+    start_time = d.start_time
+    # patient data
+    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+    # latest dialysis information
+    patient['setting'] = d
+    # latest dialysis record
+    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
+    patient['record'] = r_today[len(r_today) - 1]
+
+    # all record
+    all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-2)
+    temp = []
+    for dialysis in all_dialysis:
+        record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time).select_related().order_by('record_time')
+        for record in record_list:
+            if record.d_id.temperature <= 0: record.d_id.temperature = '-'
+            if record.d_id.start_temperature <= 0: record.d_id.start_temperature = '-'
+            if record.d_id.ESA == str(-1): record.d_id.ESA = '-'
+            if record.flush == -1.000: record.flush = '-'
+            temp.append(record)
+
+    patient['all_record'] = temp
+    diff = {}
+    # weight
+    if d.ideal_weight > 0:
+        diff_weight = round(d.before_weight - d.ideal_weight, 1)
+        diff_percentage = round(diff_weight / d.ideal_weight * 100, 1)
+        if diff_weight > 0:
+            diff['value'] = '+' + str(diff_weight)
+            diff['percentage'] = '+' + str(diff_percentage) + "%"
+            diff['per_width'] = diff_percentage * 10
+            diff['class'] = 'diff-pos'
+        else:
+            diff['value'] = str(diff_weight)
+            diff['percentage'] = str(diff_percentage) + "%"
+            diff['per_width'] = (-1) * diff_percentage * 10
+            diff['class'] = 'diff-neg'
+    patients = get_nurse_patients()
+    
+    # plot 
+    plot_data = []
+    for r in r_today:
+        timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
+        sbp = float(r.SBP)
+        pulse = r.pulse
+        cvp = r.CVP
+        plot_data.append({
+            "timestamp": timestamp,
+            "SBP": sbp,
+            "pulse": pulse,
+            "CVP": cvp, 
+        })
+    time_string = timestamp
+    for i in range(8):
+        # if plot_data[i]['SBP'] == 0:
+        #     plot_data[i]['SBP'] = None
+        # if plot_data[i]['pulse'] == 0:
+        #     plot_data[i]['pulse'] = None
+        # if plot_data[i]['CVP'] == 0:
+        #     plot_data[i]['CVP'] = None
+        timestamp = datetime.strptime(time_string, "%Y-%m-%d %H:%M") + timedelta(hours=1)
+        time_string = str(timestamp.strftime("%Y-%m-%d %H:%M"))
+        if timestamp < d.start_time + timedelta(hours=4):
+            if len(plot_data) < 8:
+                plot_data.append({
+                    "timestamp": time_string,
+                    "SBP": None,
+                    "pulse": None,
+                    "CVP": None,
+                })
+        else:
+            break
+
+    return render(request, 'nurseAreaSearch.html', {
+        "home": False,
+        "nurse_patients": patients["nurse_patients"], #1226
+        "id": patient['id'],
+        "setting": patient['setting'],
+        "record": patient['record'],
+        "idh": idh,
+        "diff": diff,
+        "all_record": patient['all_record'],
+        "chart": json.dumps(plot_data),
+    })
 
 def corn_job():
     fetchData()

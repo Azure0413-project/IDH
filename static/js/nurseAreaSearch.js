@@ -1,11 +1,5 @@
 function AdjustPage(){
-    let urlArr = location.href.split("/");
-    let targetUrl = ""
-    for(let i=0; i<urlArr.length-1; ++i){
-        targetUrl += urlArr[i] + "/";
-    }
-    targetUrl += "Z";
-    location.href = targetUrl;
+    location.href = "http://127.0.0.1:8000/index/" + "Z";
 }
 
 function SearchPage(){
@@ -42,8 +36,8 @@ function SearchPage(){
     });
 }
 
-function ClickOnPatient(bed, idh, name, mode) {
-    if (idh > 85) {
+function ClickOnPatient(bed, idh, name, mode, done) {
+    if (idh > 85 && done == 'True') {
         pBed = document.getElementById("patientBed");
         pName = document.getElementById("patientName");
         pBed.innerText = bed;
@@ -77,22 +71,10 @@ function removeAllNodes(tag){
     return;
 }
 
-function closeModal() {
+function close_modal() {
     document.getElementById("modal").classList.toggle("hidden");
+    location.href = "http://127.0.0.1:8000/index/" + "Y";
 }
-
-// function SaveAdjust(){
-// const existedList = document.getElementById("existedList");
-// let result = [];
-// let childList = existedList.childNodes;
-// for(let i=1; i<childList.length; ++i){
-//   result.push(childList.innerText);
-// }
-// result.sort();
-// sessionStorage.setItem(nurseId, JSON.stringify(Array.from(result)));
-// alert("success!")
-// console.log(existedList.childNodes);
-// }
 
 function liClickEvent(e) {
     console.log(e);
