@@ -201,3 +201,10 @@ hr.rounded {
     margin: 2px 2px 2px 2px;
     font-size: 14px;
 }
+
+.btn {
+    color: white;
+    border: 1px solid rgba(39, 76, 119);
+    background-color: rgba(39, 76, 119);
+    padding: 3px 3px 3px 3px;
+}

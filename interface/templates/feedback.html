@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-
+<script src="{%static 'js/feedback.js' %}" crossorigin="anonymous"></script>
 <div class="container">
   <div class="tab">
     <button class="tablinks active">
@@ -392,7 +392,11 @@
               透析低血壓時間:
             </div>
             <label for="idh-time-{{ patient.id.p_id }}">
-              <input class="idh-time-input" type="text" name="idh-time-{{ patient.id.p_id }}" id="idh-time-{{ patient.id.p_id }}">
+              所有時間:<input class="idh-time-input" type="text" id="idh-time-{{ patient.id.p_id }}">
+              <br>
+              請選擇時間並點按添加:<input class="idh-time-input" type="time" id="idh-select-{{ patient.id.p_id }}">
+              <br>
+              <button id="timeAppendBtn{{ patient.id.p_id }}" class="btn" type="button" onclick="TimeAppend('{{ patient.id.p_id }}')">時間添加</button>
             </label>
           </div>
         </div>
