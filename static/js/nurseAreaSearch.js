@@ -12,13 +12,13 @@ function SearchPage(){
     location.href = targetUrl;
     let setTmp = new Set(JSON.parse(sessionStorage.getItem(nurseId)));
     $.ajax({
-        url: "nurseArea/SearchFunc/",
+        url: "index/Y/",
         method: "POST",
         headers: {
           "X-CSRFToken": $('[name="csrf-token"]').attr("content"),
         },
         dataType: "json",
-        data: result,
+        data: {'nurse_id': nurseId, 'nurse_bed': setTmp},
         success: (res) => {
           if (res["status"] == "success") {
             // 頁面跳轉
@@ -45,11 +45,7 @@ function ClickOnPatient(bed, idh, name, mode, done) {
         console.log("danger");
         warningModal.classList.toggle("hidden");
     } else {
-        if (mode == 0) {
-            location.href = `get_detail/dashboard/${bed}/${idh}`;
-        } else {
-            location.href = `get_detail/${bed[0]}/${bed}/${idh}`;
-        }
+        location.href = `get_nurse_detail/${bed}/${idh}`;
     }
 // if(serverity_level == 1){
 //     pBed = document.getElementById('patientBed');
@@ -70,6 +66,12 @@ function removeAllNodes(tag){
     }
     return;
 }
+
+window.onclick = function (event) {
+  if (event.target.id == "modal") {
+    close_modal();
+  }
+};
 
 function close_modal() {
     document.getElementById("modal").classList.toggle("hidden");
