@@ -1,39 +1,18 @@
+const rootUrl = "http://127.0.0.1:8000/index/";
+
 function AdjustPage(){
     location.href = "http://192.168.83.226:8000/index/" + "Z";
 }
 
-function SearchPage(){
-    let urlArr = location.href.split("/");
-    let targetUrl = ""
-    for(let i=0; i<urlArr.length-1; ++i){
-        targetUrl += urlArr[i] + "/";
+function SearchFunc(){
+    let nurseId = document.getElementById('nurseId').value;
+    let setTmp = JSON.parse(sessionStorage.getItem(nurseId));
+    let bedStr = "emp";
+    if(setTmp != null){
+        bedStr = setTmp.join("-");
     }
-    targetUrl += "Y";
+    targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
     location.href = targetUrl;
-    let setTmp = new Set(JSON.parse(sessionStorage.getItem(nurseId)));
-    $.ajax({
-        url: "nurseArea/SearchFunc/",
-        method: "POST",
-        headers: {
-          "X-CSRFToken": $('[name="csrf-token"]').attr("content"),
-        },
-        dataType: "json",
-        data: result,
-        success: (res) => {
-          if (res["status"] == "success") {
-            // 頁面跳轉
-            alert("Add success.");
-            // 記錄床號與時間
-            location.href = originLocation;
-          } else {
-            // 畫面提醒 送出表單失敗
-            alert("Add fail.\n" + res["msg"]);
-          }
-        },
-        error: (res) => {
-          console.log(res);
-        },
-    });
 }
 
 function ClickOnPatient(bed, idh, name, mode, done) {
@@ -45,31 +24,16 @@ function ClickOnPatient(bed, idh, name, mode, done) {
         console.log("danger");
         warningModal.classList.toggle("hidden");
     } else {
-        if (mode == 0) {
-            location.href = `get_detail/dashboard/${bed}/${idh}`;
-        } else {
-            location.href = `get_detail/${bed[0]}/${bed}/${idh}`;
-        }
+        let nurseId = document.getElementById('nurseId').value;
+        location.href = rootUrl + `get_nurse_detail/${nurseId}/${bed}/${idh}`;
     }
-// if(serverity_level == 1){
-//     pBed = document.getElementById('patientBed');
-//     pName = document.getElementById('patientName');
-//     pBed.innerText = bed;
-//     pName.innerText = name;
-//     console.log("danger");
-//     warningModal.classList.toggle("hidden");
-// } else {
-//     console.log(bed, idh, serverity_level)
-//     location.href = `get_detail/dashboard/${bed}/${idh}`;
-// }
 }
 
-function removeAllNodes(tag){
-    while(tag.firstChild){
-        tag.removeChild(tag.firstChild);
-    }
-    return;
-}
+window.onclick = function (event) {
+  if (event.target.id == "modal") {
+    close_modal();
+  }
+};
 
 function close_modal() {
     document.getElementById("modal").classList.toggle("hidden");
@@ -78,5 +42,7 @@ function close_modal() {
 
 function liClickEvent(e) {
     console.log(e);
+    SearchFunc();
+    // location.href = "http://127.0.0.1:8000/index/" + "Y";
 }
   

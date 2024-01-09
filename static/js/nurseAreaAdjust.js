@@ -1,3 +1,5 @@
+const rootUrl = "http://127.0.0.1:8000/index/";
+
 const patientBedList = new Set([
   'A1', 'A2', 'A3', 'A5', 'A6', 'A7', 'A8', 'A9', 
   'B1', 'B2', 'B3', 'B5', 'B6', 'B7', 'B8', 'B9', 
@@ -34,7 +36,7 @@ $(document).ready(function () {
     existedList.removeChild(e.target);
     notInList.appendChild(e.target);
     setTmp.delete(e.target.innerText);
-    sessionStorage.setItem(nurseId, JSON.stringify(Array.from(setTmp)));
+    sessionStorage.setItem(nurseId, JSON.stringify(Array.from(setTmp).sort()));
   });
   notInList.addEventListener("click", (e) => {
     const nurseId = document.getElementById("nurseId").value;
@@ -45,7 +47,7 @@ $(document).ready(function () {
     notInList.removeChild(e.target);
     existedList.appendChild(e.target);
     setTmp.add(e.target.innerText);
-    sessionStorage.setItem(nurseId, JSON.stringify(Array.from(setTmp)));
+    sessionStorage.setItem(nurseId, JSON.stringify(Array.from(setTmp).sort()));
   });
 });
 
@@ -73,8 +75,15 @@ function AdjustPage(){
   })
 }
 
-function SearchPage(){
-  location.href = location_path + "Y";
+function SwitchSearchPage(){
+  let nurseId = document.getElementById('nurseId').value;
+  let setTmp = JSON.parse(sessionStorage.getItem(nurseId));
+  let bedStr = "emp";
+  if(setTmp != null){
+      bedStr = setTmp.join("-");
+  }
+  targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
+  location.href = targetUrl;
 }
 
 function removeAllNodes(tag){
@@ -82,21 +91,4 @@ function removeAllNodes(tag){
     tag.removeChild(tag.firstChild);
   }
   return;
-}
-
-// function SaveAdjust(){
-  // const existedList = document.getElementById("existedList");
-  // let result = [];
-  // let childList = existedList.childNodes;
-  // for(let i=1; i<childList.length; ++i){
-  //   result.push(childList.innerText);
-  // }
-  // result.sort();
-  // sessionStorage.setItem(nurseId, JSON.stringify(Array.from(result)));
-  // alert("success!")
-  // console.log(existedList.childNodes);
-// }
-
-function liClickEvent(e) {
-  console.log(e);
 }
