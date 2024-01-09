@@ -9,4 +9,5 @@ urlpatterns = [
     path('get_record/<int:shift>', views.get_record, name='get_record'),
     path('post_feedback/', views.post_feedback, name='post_feedback'),
     path('warningFeedback/', views.warning_feedback, name='warningFeedback'),
+    path('export_file/', views.export_file, name='export_file'),
 ]
