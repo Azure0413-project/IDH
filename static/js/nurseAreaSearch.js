@@ -1,5 +1,5 @@
 function AdjustPage(){
-    location.href = "http://127.0.0.1:8000/index/" + "Z";
+    location.href = "http://192.168.83.226:8000/index/" + "Z";
 }
 
 function SearchPage(){
@@ -73,7 +73,7 @@ function removeAllNodes(tag){
 
 function close_modal() {
     document.getElementById("modal").classList.toggle("hidden");
-    location.href = "http://127.0.0.1:8000/index/" + "Y";
+    location.href = "http://192.168.83.226:8000/index/" + "Y";
 }
 
 function liClickEvent(e) {
