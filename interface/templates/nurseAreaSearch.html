@@ -19,12 +19,13 @@
         <div class="top-tab-area">
             護理師工號與名稱:
             <select id="nurseId">
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
+              <option value="A" {% if nurseId == 'A' %} selected {% else %}{% endif %}>A</option>
+              <option value="B" {% if nurseId == 'B' %} selected {% else %}{% endif %}>B</option>
+              <option value="C" {% if nurseId == 'C' %} selected {% else %}{% endif %}>C</option>
+              <option value="D" {% if nurseId == 'D' %} selected {% else %}{% endif %}>D</option>
             </select>
-            <button class="nurse-btn" onclick="SearchPage()">搜尋</button>
+            {% csrf_token %}
+            <button class="nurse-btn" onclick="SearchFunc()">搜尋</button>
             <button class="nurse-btn" onclick="AdjustPage()">切換至修改</button>
         </div>
         <ul class="down tab-bed">

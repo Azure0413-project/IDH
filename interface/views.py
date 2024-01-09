@@ -37,12 +37,12 @@ def index(request, area="dashboard"):
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
-        patients = get_nurse_patients()
-        return render(request, 'nurseAreaSearch.html', {
-            "home": True,
-            "patients": patients["nurse_patients"],
-            "chart": json.dumps([]),
-        })
+        if request.method == 'GET':
+            return render(request, 'nurseAreaSearch.html', {
+                "home": True,
+                "patients": [],
+                "chart": json.dumps([]),
+            })
     patients = get_patients()
     return render(request, 'index.html', {
         "home": True,
@@ -53,6 +53,18 @@ def index(request, area="dashboard"):
         "d_patients": patients["d_patients"],
         "e_patients": patients["e_patients"],
         "i_patients": patients["i_patients"],
+    })
+
+def NurseAreaSearch(request, nurseId, bedList):
+    if bedList != "emp":
+        patients = get_nurse_patients(bedList.split("-"))
+    else:
+        patients = []
+    return render(request, 'nurseAreaSearch.html', {
+        "nurseId": nurseId,
+        "home": True,
+        "patients": patients["nurse_patients"] if len(patients) > 0 else [],
+        "chart": json.dumps([]),
     })
 
 def get_record(request, shift):
@@ -1081,10 +1093,10 @@ def warning_feedback(request):
         except Exception as error:
             return JsonResponse({"status": 'fail', "msg": str(error)})
 
-def get_nurse_patients():
+def get_nurse_patients(bed_list):
     # if request.method == 'POST':
     #   bed_list = request.POST.getlist('nurse_bed') 
-    bed_list = ["A1", "A2", "A5", "B2", "B7"]
+    # bed_list = ["A1", "A2", "A5", "B2", "B7"]
     patients = get_patients()
     nurse_patients = []
     for index, bed in enumerate(bed_list):
@@ -1094,7 +1106,7 @@ def get_nurse_patients():
                     nurse_patients.append(p)
     return {'nurse_patients': nurse_patients}
 
-def get_nurse_detail(request, bed, idh):
+def get_nurse_detail(request, nurseId, bed, idh):
     time = get_time()
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
@@ -1135,7 +1147,7 @@ def get_nurse_detail(request, bed, idh):
             diff['percentage'] = str(diff_percentage) + "%"
             diff['per_width'] = (-1) * diff_percentage * 10
             diff['class'] = 'diff-neg'
-    patients = get_nurse_patients()
+    patients = get_nurse_patients([bed])
     
     # plot 
     plot_data = []
@@ -1172,6 +1184,7 @@ def get_nurse_detail(request, bed, idh):
             break
 
     return render(request, 'nurseAreaSearch.html', {
+        "nurseId": nurseId,
         "home": False,
         "nurse_patients": patients["nurse_patients"], #1226
         "id": patient['id'],
