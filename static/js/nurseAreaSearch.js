@@ -1,7 +1,9 @@
 const rootUrl = "http://127.0.0.1:8000/index/";
 
 function AdjustPage(){
-    location.href = "http://127.0.0.1:8000/index/" + "Z";
+    let nurseId = document.getElementById("nurseId").value;
+    location.href = rootUrl + `NAadjust/${nurseId}`;
+    // location.href = "http://127.0.0.1:8000/index/" + "Z";
 }
 
 function SearchFunc(){
@@ -17,6 +19,7 @@ function SearchFunc(){
 
 function ClickOnPatient(bed, idh, name, mode, done) {
     if (idh > 85 && done == 'True') {
+        document.getElementById("empNo").value = document.getElementById("nurseId").value;
         pBed = document.getElementById("patientBed");
         pName = document.getElementById("patientName");
         pBed.innerText = bed;
@@ -30,7 +33,7 @@ function ClickOnPatient(bed, idh, name, mode, done) {
 }
 
 window.onclick = function (event) {
-  if (event.target.id == "modal") {
+  if (event.target.id == "modal" || event.target.id == "warningModal") {
     close_modal();
   }
 };
@@ -41,3 +44,44 @@ function close_modal() {
     // location.href = "http://127.0.0.1:8000/index/" + "Y";
 }
   
+function CloseWarningModal() {
+    document.getElementById("warningModal").classList.toggle("hidden");
+    SearchFunc();
+    // location.href = "http://127.0.0.1:8000/index/" + "Y";
+}
+
+function SubmitWarning() {
+    let pBed = document.getElementById("patientBed").innerText;
+    let pName = document.getElementById("patientName").innerText;
+    let formData = new FormData(document.getElementById("warningReport"));
+    let originLocation = location.href;
+    formData.append("patientBed", pBed);
+    formData.append("patientName", pName);
+    result = {};
+    for (let p of formData.entries()) {
+      result[p[0]] = p[1];
+    }
+    $.ajax({
+      url: rootUrl + "warningFeedback/",
+      method: "POST",
+      headers: {
+        "X-CSRFToken": $('[name="csrf-token"]').attr("content"),
+      },
+      dataType: "json",
+      data: result,
+      success: (res) => {
+        if (res["status"] == "success") {
+          // 頁面跳轉
+          alert("Add success.");
+          // 記錄床號與時間
+          location.href = originLocation;
+        } else {
+          // 畫面提醒 送出表單失敗
+          alert("Add fail.\n" + res["msg"]);
+        }
+      },
+      error: (res) => {
+        console.log(res);
+      },
+    });
+  }

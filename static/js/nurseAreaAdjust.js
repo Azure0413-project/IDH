@@ -79,7 +79,7 @@ function SwitchSearchPage(){
   let nurseId = document.getElementById('nurseId').value;
   let setTmp = JSON.parse(sessionStorage.getItem(nurseId));
   let bedStr = "emp";
-  if(setTmp != null){
+  if(setTmp && setTmp.length > 0){
       bedStr = setTmp.join("-");
   }
   targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
