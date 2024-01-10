@@ -12,6 +12,7 @@ from scripts.DBbuilder import splitCSV
 from scripts.load_data import saveData
 from decimal import Decimal
 import numpy as np
+from openpyxl import Workbook
 
 # Create your views here.
 
@@ -121,22 +122,16 @@ def get_patients():
     if len(now_dialysis) <= 1:
         all_idh = [0]
     else:
-        # p = Predict.objects.all()
-        # p.delete()
         preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
         # all_idh = predict_idh() #1205
         if datetime.now() >= last_pred + timedelta(hours=1): # 先用 datetime.now() 代替 time
-            # print("Predict -", datetime.now())
             do_pred = True
             all_idh = predict_idh() #1205
         else:
-            # print("Use previous Pred data -", datetime.now())
             do_pred = False
-            # print(preds[0].pred_time)
             same_preds = Predict.objects.filter(pred_time__date=preds[0].pred_time.date(), pred_time__hour=preds[0].pred_time.hour).order_by('flag')
             all_pred_idh = [s.pred_idh for s in same_preds]
-            # print("all_pred:", [np.float32(a) for a in all_pred_idh])
             all_idh = [np.float32(a) for a in all_pred_idh]
     flag = 0
     for index, bed in enumerate(a_area):
@@ -372,6 +367,7 @@ def get_patients():
     }
 
 def get_detail(request, area, bed, idh):
+    export_file()
     time = get_time()
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
@@ -1200,6 +1196,36 @@ def get_nurse_detail(request, nurseId, bed, idh):
         "all_record": patient['all_record'],
         "chart": json.dumps(plot_data),
     })
+
+def export_file():
+    '''0109 Export patient detail data to Excel file'''
+
+    # Create the export view 
+    filename = f'PatientData_{datetime.now().strftime("%Y%m%d")}.xlsx'
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=%s' % filename
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "all_record"
+
+    ws.append(["SBP", "DBP"])
+    warnings = Warnings.objects.all()
+    for warning in warnings:
+        ws.append([warning.warning_SBP, warning.warning_DBP])
+
+    for i in range(1, ws.max_row+1):
+        for j in range(1, ws.max_column+1):
+            print(ws.cell(row = i, column = j).value, end=' ')
+        print()
+
+    # Save the workbook to the HttpResponse
+    wb.save(response)
+
+    print(response)
+
+    # return response
+    return 0
 
 def corn_job():
     fetchData()
