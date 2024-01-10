@@ -3,7 +3,6 @@ const rootUrl = "http://127.0.0.1:8000/index/";
 function AdjustPage(){
     let nurseId = document.getElementById("nurseId").value;
     location.href = rootUrl + `NAadjust/${nurseId}`;
-    // location.href = "http://127.0.0.1:8000/index/" + "Z";
 }
 
 function SearchFunc(){
@@ -40,6 +39,11 @@ window.onclick = function (event) {
 
 function close_modal() {
     document.getElementById("modal").classList.toggle("hidden");
+    location.href = "http://192.168.83.226:8000/index/" + "Y";
+}
+
+function liClickEvent(e) {
+    console.log(e);
     SearchFunc();
     // location.href = "http://127.0.0.1:8000/index/" + "Y";
 }
