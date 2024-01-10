@@ -67,6 +67,11 @@ def NurseAreaSearch(request, nurseId, bedList):
         "chart": json.dumps([]),
     })
 
+def NurseAreaAdjust(request, nurseId):
+    return render(request, 'nurseAreaAdjust.html', {
+        "nurseId": nurseId
+    })
+
 def get_record(request, shift):
     if request.method == 'POST':
         idh_list = request.POST.get('idh-patients-list')
