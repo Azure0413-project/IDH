@@ -1,4 +1,5 @@
-const rootUrl = "http://127.0.0.1:8000/index/";
+// const rootUrl = "http://127.0.0.1:8000/index/";
+const rootUrl = "http://192.168.83.226:80/index/";
 
 function AdjustPage(){
     let nurseId = document.getElementById("nurseId").value;
@@ -9,7 +10,7 @@ function SearchFunc(){
     let nurseId = document.getElementById('nurseId').value;
     let setTmp = JSON.parse(sessionStorage.getItem(nurseId));
     let bedStr = "emp";
-    if(setTmp != null){
+    if(setTmp && setTmp.length > 0){
         bedStr = setTmp.join("-");
     }
     targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
@@ -32,26 +33,26 @@ function ClickOnPatient(bed, idh, name, mode, done) {
 }
 
 window.onclick = function (event) {
-  if (event.target.id == "modal" || event.target.id == "warningModal") {
+  if (event.target.id == "modal") {
     close_modal();
+  } else if(event.target.id == "warningModal"){
+    CloseWarningModal();
   }
 };
 
 function close_modal() {
     document.getElementById("modal").classList.toggle("hidden");
-    location.href = "http://192.168.83.226:8000/index/" + "Y";
+    location.href = rootUrl + "Y";
 }
 
 function liClickEvent(e) {
     console.log(e);
     SearchFunc();
-    // location.href = "http://127.0.0.1:8000/index/" + "Y";
 }
   
 function CloseWarningModal() {
     document.getElementById("warningModal").classList.toggle("hidden");
     SearchFunc();
-    // location.href = "http://127.0.0.1:8000/index/" + "Y";
 }
 
 function SubmitWarning() {
