@@ -92,6 +92,8 @@ const modal = document.getElementById("modal");
 window.onclick = function (event) {
   if (event.target.id == "modal") {
     clear();
+  } else if(event.target.id == "warningModal"){
+    document.getElementById("warningModal").classList.toggle("hidden");
   }
 };
 

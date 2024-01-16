@@ -1,15 +1,16 @@
-const rootUrl = "http://192.168.83.226:80/index/";
 // const rootUrl = "http://127.0.0.1:8000/index/";
+const rootUrl = "http://192.168.83.226:80/index/";
 
 function AdjustPage(){
-    location.href = rootUrl + "Z";
+    let nurseId = document.getElementById("nurseId").value;
+    location.href = rootUrl + `NAadjust/${nurseId}`;
 }
 
 function SearchFunc(){
     let nurseId = document.getElementById('nurseId').value;
     let setTmp = JSON.parse(sessionStorage.getItem(nurseId));
     let bedStr = "emp";
-    if(setTmp != null){
+    if(setTmp && setTmp.length > 0){
         bedStr = setTmp.join("-");
     }
     targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
@@ -18,6 +19,7 @@ function SearchFunc(){
 
 function ClickOnPatient(bed, idh, name, mode, done) {
     if (idh > 85 && done == 'True') {
+        document.getElementById("empNo").value = document.getElementById("nurseId").value;
         pBed = document.getElementById("patientBed");
         pName = document.getElementById("patientName");
         pBed.innerText = bed;
@@ -33,6 +35,8 @@ function ClickOnPatient(bed, idh, name, mode, done) {
 window.onclick = function (event) {
   if (event.target.id == "modal") {
     close_modal();
+  } else if(event.target.id == "warningModal"){
+    CloseWarningModal();
   }
 };
 
@@ -44,6 +48,45 @@ function close_modal() {
 function liClickEvent(e) {
     console.log(e);
     SearchFunc();
-    // location.href = "http://127.0.0.1:8000/index/" + "Y";
 }
   
+function CloseWarningModal() {
+    document.getElementById("warningModal").classList.toggle("hidden");
+    SearchFunc();
+}
+
+function SubmitWarning() {
+    let pBed = document.getElementById("patientBed").innerText;
+    let pName = document.getElementById("patientName").innerText;
+    let formData = new FormData(document.getElementById("warningReport"));
+    let originLocation = location.href;
+    formData.append("patientBed", pBed);
+    formData.append("patientName", pName);
+    result = {};
+    for (let p of formData.entries()) {
+      result[p[0]] = p[1];
+    }
+    $.ajax({
+      url: rootUrl + "warningFeedback/",
+      method: "POST",
+      headers: {
+        "X-CSRFToken": $('[name="csrf-token"]').attr("content"),
+      },
+      dataType: "json",
+      data: result,
+      success: (res) => {
+        if (res["status"] == "success") {
+          // 頁面跳轉
+          alert("Add success.");
+          // 記錄床號與時間
+          location.href = originLocation;
+        } else {
+          // 畫面提醒 送出表單失敗
+          alert("Add fail.\n" + res["msg"]);
+        }
+      },
+      error: (res) => {
+        console.log(res);
+      },
+    });
+  }

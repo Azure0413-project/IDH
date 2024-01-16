@@ -21,17 +21,6 @@ function ClickOnPatient(bed, idh, name, mode, done) {
       location.href = targetUrl + `get_detail/${bed[0]}/${bed}/${idh}`;
     }
   }
-  // if(serverity_level == 1){
-  //     pBed = document.getElementById('patientBed');
-  //     pName = document.getElementById('patientName');
-  //     pBed.innerText = bed;
-  //     pName.innerText = name;
-  //     console.log("danger");
-  //     warningModal.classList.toggle("hidden");
-  // } else {
-  //     console.log(bed, idh, serverity_level)
-  //     location.href = `get_detail/dashboard/${bed}/${idh}`;
-  // }
 }
 
 function CloseWarningModal() {

@@ -26,7 +26,7 @@
             </select>
             {% csrf_token %}
             <button class="nurse-btn" onclick="SearchFunc()">搜尋</button>
-            <button class="nurse-btn" onclick="AdjustPage()">切換至修改</button>
+            <button class="nurse-btn" onclick="AdjustPage()">修改床位</button>
         </div>
         <ul class="down tab-bed">
           {% for patient in patients %}
