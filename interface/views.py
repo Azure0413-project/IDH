@@ -24,7 +24,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = False
+    now = True #push
     if now:
         time = datetime.now()
     else:
@@ -33,8 +33,8 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
-    # if area == "dashboard" and time.minute % 3 == 0:
-    #     corn_job()
+    if area == "dashboard" and time.minute % 3 == 0: #push要開
+        corn_job() 
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -362,7 +362,6 @@ def get_patients():
     }
 
 def get_detail(request, area, bed, idh):
-    export_file()
     time = get_time()
     patient = {}
     d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
@@ -1033,10 +1032,12 @@ def post_feedback(request):
     if request.method == 'POST':
         sign = []
         treatment = []
+        idh_time = []
         p_id = request.POST.getlist('patient')
         for id in p_id:
             sign.append(request.POST.get('sign-' + id))
             treatment.append(request.POST.getlist('treatment-' + id))
+            idh_time.append(request.POST.getlist('idh-time-' + id)) #0110
         setting = request.POST.getlist('setting')
         if len(request.POST.getlist("bands")) > 0:
             bands = request.POST.getlist("bands")[0].split(',')
@@ -1047,7 +1048,7 @@ def post_feedback(request):
                 is_inject= True if 'inject' in treatment[index] else False
                 is_setting = True if 'setting' in treatment[index] else False
                 is_other = True if 'other' in treatment[index] else False
-                f = Feedback(d_id=dialysis, is_sign=is_sign, is_drug=is_drug, is_inject=is_inject, is_setting=is_setting, is_other=is_other)
+                f = Feedback(d_id=dialysis, is_sign=is_sign, is_drug=is_drug, is_inject=is_inject, is_setting=is_setting, is_other=is_other, idh_time=idh_time[index]) 
                 f.save()
             for idh in bands:
                 if idh != '':
@@ -1193,34 +1194,22 @@ def get_nurse_detail(request, nurseId, bed, idh):
     })
 
 def export_file():
-    '''0109 Export patient detail data to Excel file'''
-
+    '''0109 Export patient data to Excel file'''
     # Create the export view 
     filename = f'PatientData_{datetime.now().strftime("%Y%m%d")}.xlsx'
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename=%s' % filename
-
     wb = Workbook()
     ws = wb.active
     ws.title = "all_record"
-
-    ws.append(["SBP", "DBP"])
+    ws.append(["工號", "姓名", "床位", "SBP", "DBP"])
     warnings = Warnings.objects.all()
-    for warning in warnings:
-        ws.append([warning.warning_SBP, warning.warning_DBP])
-
-    for i in range(1, ws.max_row+1):
-        for j in range(1, ws.max_column+1):
-            print(ws.cell(row = i, column = j).value, end=' ')
-        print()
-
+    if len(warnings) != 0:
+        for warning in warnings:
+            ws.append([warning.empNo, warning.p_name, warning.p_name, warning.warning_SBP, warning.warning_DBP])
     # Save the workbook to the HttpResponse
     wb.save(response)
-
-    print(response)
-
-    # return response
-    return 0
+    return response
 
 def corn_job():
     fetchData()

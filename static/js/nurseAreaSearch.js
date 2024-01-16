@@ -1,7 +1,8 @@
-const rootUrl = "http://127.0.0.1:8000/index/";
+const rootUrl = "http://192.168.83.226:80/index/";
+// const rootUrl = "http://127.0.0.1:8000/index/";
 
 function AdjustPage(){
-    location.href = "http://192.168.83.226:8000/index/" + "Z";
+    location.href = rootUrl + "Z";
 }
 
 function SearchFunc(){
@@ -37,7 +38,7 @@ window.onclick = function (event) {
 
 function close_modal() {
     document.getElementById("modal").classList.toggle("hidden");
-    location.href = "http://192.168.83.226:8000/index/" + "Y";
+    location.href = rootUrl + "Y";
 }
 
 function liClickEvent(e) {

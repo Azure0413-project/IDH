@@ -73,6 +73,7 @@ class Feedback(models.Model):
     is_inject = models.BooleanField(null=True)
     is_setting = models.BooleanField(null=True)
     is_other = models.BooleanField(null=True)
+    idh_time = models.CharField(max_length=100)
 
 # 1205新增
 class Predict(models.Model):
@@ -86,11 +87,17 @@ class Predict(models.Model):
 class Warnings(models.Model):
     # 存發生預測的時間、當下預測值、護理師點掉警示的時間點、收到警示時病人的血壓(SBP, DBP)、操作的護理師員工號
     # 1206 仁賢會推Json request
-    w_id = models.AutoField(primary_key=True)
     # pred_id = models.ForeignKey(Predict, on_delete=models.CASCADE)
+    w_id = models.AutoField(primary_key=True)
     dismiss_time = models.DateTimeField() # auto_now_add=True
-    empNo = models.IntegerField()
+    empNo = models.CharField(max_length=20)
     p_name = models.CharField(max_length=10)
     p_bed = models.CharField(max_length=10)
     warning_SBP = models.DecimalField(decimal_places=3, max_digits=10)
     warning_DBP = models.IntegerField()
+
+class Nurse(models.Model):
+    # 護理師名單
+    n_id = models.AutoField(primary_key=True)
+    n_name = models.CharField(max_length=10)
+    empNo = models.CharField(max_length=20)
