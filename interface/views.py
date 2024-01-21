@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 import json
 import datetime
 from datetime import datetime, timedelta
-from interface.models import Patient, Dialysis, Record, Feedback, Predict, Warnings
+from interface.models import Patient, Dialysis, Record, Feedback, Predict, Warnings, Nurse
 from django.core import serializers
 from django.db.models import Max
 from interface.model.prediction import predict_idh
@@ -24,7 +24,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = True #push
+    now = False #push
     if now:
         time = datetime.now()
     else:
@@ -39,10 +39,13 @@ def index(request, area="dashboard"):
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
         if request.method == 'GET':
+            nurseList = list(Nurse.objects.all().values())
+            print("index Y nurse list:", nurseList)
             return render(request, 'nurseAreaSearch.html', {
                 "home": True,
                 "patients": [],
                 "chart": json.dumps([]),
+                'nurseList': nurseList,
             })
     patients = get_patients()
     return render(request, 'index.html', {
@@ -61,7 +64,9 @@ def NurseAreaSearch(request, nurseId, bedList):
         patients = get_nurse_patients(bedList.split("-"))
     else:
         patients = []
+    nurseList = list(Nurse.objects.all().values())
     return render(request, 'nurseAreaSearch.html', {
+        'nurseList': nurseList,
         "nurseId": nurseId,
         "home": True,
         "patients": patients["nurse_patients"] if len(patients) > 0 else [],
@@ -69,11 +74,36 @@ def NurseAreaSearch(request, nurseId, bedList):
     })
 
 def NurseAreaAdjust(request, nurseId):
+    if nurseId == "emp":
+        nurseId = list(Nurse.objects.all().values())[0]["empNo"]
+    nurseList = list(Nurse.objects.all().values())
     return render(request, 'nurseAreaAdjust.html', {
-        "nurseId": nurseId
+        "nurseId": nurseId,
+        'nurseList': nurseList
     })
 
+def NurseList(request):
+    if request.method == "GET":
+        nurseList = list(Nurse.objects.all().values())
+        return render(request, 'nurseAreaNurseList.html', {
+            'nurseList': nurseList
+        })
+    else:
+        empNo = request.POST.get("empNo")
+        n_name = request.POST.get("nurseName")
+        Nurse.objects.create(
+            empNo=empNo,
+            n_name=n_name
+        )
+        return JsonResponse({'status': 'success'})
+    
+def DeleteNurse(request):
+    empNo = request.POST.get("empNo")
+    Nurse.objects.filter(empNo=empNo).delete()
+    return JsonResponse({'status': 'success'})
+
 def get_record(request, shift):
+    nurseList = list(Nurse.objects.all().values())
     if request.method == 'POST':
         idh_list = request.POST.get('idh-patients-list')
         tmp_form = request.POST.get('idh-tmp-form')
@@ -93,6 +123,7 @@ def get_record(request, shift):
             "i_patients": patients["i_patients"],
             "idh_patients": patients["idh_patients"],
             "idh_bed": patients["idh_bed"],
+            "nurseList": nurseList
         })
     else:
         t, shift, patients = get_idh_patients(shift)
@@ -108,6 +139,7 @@ def get_record(request, shift):
             "i_patients": patients["i_patients"],
             "idh_patients": patients["idh_patients"],
             "idh_bed": patients["idh_bed"],
+            "nurseList": nurseList
         })
 
 def get_patients():

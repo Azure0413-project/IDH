@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<script src="{% static "js/nurseAreaNurseList.js" %}"></script>
+<link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
+<div class="container">
+  <div class="tab">
+    <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
+      <img src="{%static 'img/dashboard.svg'%}" />首頁
+    </button>
+    <button class="tablinks" onclick="openTab(event, 'tabA', 'A')">A區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabB', 'B')">B區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabC', 'C')">C區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabD', 'D')">D區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabE', 'E')">E區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabI', 'I')">I區</button>
+    <button class="tablinks active" onclick="openNurseArea()">護理師專區</button>
+  </div>
+  <div class="tabcontent">
+    <section class="tab-area-nurse">
+        <div class="top-tab-area">
+          <button class="nurse-btn" onclick="AdjustPage()">切換至修改</button>
+          <button class="nurse-btn" onclick="SwitchSearchPage()">顯示床位資訊</button>
+        </div>
+        <div style="text-align: center;">
+            <div>
+                <div style="display: flex; justify-content: center;">
+                    當前護理師名單:
+                </div>
+                <ul id="notInList">
+                    {% for nurseInfo in nurseList %}
+                        <li class="nurseList-cell-format">
+                            {{ nurseInfo.empNo }} - {{ nurseInfo.n_name }}
+                            <button class="nurse-btn" onclick="DeleteNurse('{{ nurseInfo.empNo }}')">刪除</button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="OperateNurseModal()">新增</button>
+            </div>
+        </div>
+        <div id="nurseInfoModal" class="modal-sm hidden">
+            <div class="modal-content">
+                <div class="modal-main">
+                    <div class="close-btn" onclick="OperateNurseModal()">
+                        <img src="{%static 'img/close.svg'%}" />
+                    </div>
+                    <div class="modal-sm-content">
+                        <form id="nurseInfo" class="modal-sm-form">
+                            {% csrf_token %}
+                            <div class="text-label">
+                                <label for="empNo">工號:</label>
+                                <br>
+                                <input class="input-warning" type="text" id="empNo" name="empNo"/>
+                            </div>
+                            <div class="text-label">
+                                <label for="nurseName">名稱:</label>
+                                <br>
+                                <input class="input-warning" type="text" id="nurseName" name="nurseName"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="">
+                        <button id="confirmAddNurseBtn" class="btn-confirm warning-btn" type="submit" onclick="AddNurse()">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </div>
+</div>
+{% endblock %}

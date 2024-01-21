@@ -3,6 +3,8 @@ from interface import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('NurseArea/NurseList', views.NurseList, name='NurseList'),
+    path('NurseArea/DeleteNurse', views.DeleteNurse, name='DeleteNurse'),
     path('<str:area>', views.index, name='index'),
     path('NASearch/<str:nurseId>/<str:bedList>', views.NurseAreaSearch, name='NurseAreaSearch'),
     path('NAadjust/<str:nurseId>', views.NurseAreaAdjust, name='NurseAreaSearch'),

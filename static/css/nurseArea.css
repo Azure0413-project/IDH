@@ -41,6 +41,18 @@
     font-size: 18px;
     background-color: #E7ECEF;
     margin: 2px 2px 2px 2px;
+    list-style: none;
+}
+
+.nurseList-cell-format{
+    height: 2rem;
+    width: 50%;
+    font-size: 18px;
+    background-color: #E7ECEF;
+    margin: 2px 2px 2px 2px;
+    list-style: none; 
+    display: table;
+    margin: 0 auto;
 }
 
 .left-tab-area,
