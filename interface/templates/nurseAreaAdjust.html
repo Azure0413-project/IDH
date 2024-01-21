@@ -19,14 +19,18 @@
         <div class="top-tab-area">
           護理師工號與名稱:
           <select id="nurseId">
-            <option value="A" {% if nurseId == 'A' %} selected {% else %}{% endif %}>A</option>
+            {% for nurseInfo in nurseList %}
+              <option value="{{ nurseInfo.empNo }}" {% if nurseId == nurseInfo.empNo %} selected {% else %}{% endif %}>{{ nurseInfo.empNo }}</option>
+            {% endfor %}
+            {% comment %} <option value="A" {% if nurseId == 'A' %} selected {% else %}{% endif %}>A</option>
             <option value="B" {% if nurseId == 'B' %} selected {% else %}{% endif %}>B</option>
             <option value="C" {% if nurseId == 'C' %} selected {% else %}{% endif %}>C</option>
-            <option value="D" {% if nurseId == 'D' %} selected {% else %}{% endif %}>D</option>
+            <option value="D" {% if nurseId == 'D' %} selected {% else %}{% endif %}>D</option> {% endcomment %}
           </select>
           {% csrf_token %}
           <button class="nurse-btn" onclick="AdjustPage()">確認</button>
           <button class="nurse-btn" onclick="SwitchSearchPage()">顯示床位資訊</button>
+          <button class="nurse-btn" onclick="SwitchNurseList()">編輯護士名單</button>
         </div>
         <div class="tab-area-nurse-v2">
           <div class="left-tab-area">
