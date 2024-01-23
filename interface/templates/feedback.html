@@ -408,7 +408,7 @@
         護理師工號:
         <select id="nurseId" name="nurseId" aria-label="nurseId">
           {% for nurseInfo in nurseList %}
-            <option value="{{ nurseInfo.empNo }}" {% if nurseId == nurseInfo.empNo %} selected {% else %}{% endif %}>{{ nurseInfo.empNo }}</option>
+            <option value="{{ nurseInfo.empNo }}">{{ nurseInfo.empNo }}</option>
           {% endfor %}
         </select>
         <button id="confirmFeedbackBtn" class="btn-confirm feedback-btn" type="submit">確 認</button>
