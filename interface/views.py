@@ -24,7 +24,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = True #push
+    now = True #push要改True
     if now:
         time = datetime.now()
     else:
@@ -1046,6 +1046,7 @@ def post_feedback(request):
         setting = request.POST.getlist('setting')
         if len(request.POST.getlist("bands")) > 0:
             bands = request.POST.getlist("bands")[0].split(',')
+            empNo = request.POST.getlist("nurseId")[0]
             for index, id in enumerate(p_id):
                 dialysis = Dialysis.objects.get(d_id=setting[index])
                 is_sign = True if sign[index] == '1' else False
@@ -1053,7 +1054,7 @@ def post_feedback(request):
                 is_inject= True if 'inject' in treatment[index] else False
                 is_setting = True if 'setting' in treatment[index] else False
                 is_other = True if 'other' in treatment[index] else False
-                f = Feedback(d_id=dialysis, is_sign=is_sign, is_drug=is_drug, is_inject=is_inject, is_setting=is_setting, is_other=is_other, idh_time=idh_time[index]) 
+                f = Feedback(d_id=dialysis, is_sign=is_sign, is_drug=is_drug, is_inject=is_inject, is_setting=is_setting, is_other=is_other, idh_time=idh_time[index], empNo=empNo) 
                 f.save()
             for idh in bands:
                 if idh != '':
@@ -1198,7 +1199,7 @@ def get_nurse_detail(request, nurseId, bed, idh):
         "chart": json.dumps(plot_data),
     })
 
-def export_file():
+def export_file(request):
     '''0109 Export patient data to Excel file'''
     # Create the export view 
     filename = f'PatientData_{datetime.now().strftime("%Y%m%d")}.xlsx'
@@ -1207,13 +1208,14 @@ def export_file():
     wb = Workbook()
     ws = wb.active
     ws.title = "all_record"
-    ws.append(["工號", "姓名", "床位", "SBP", "DBP"])
+    ws.append(["工號", "姓名", "床位", "SBP", "DBP", "填寫時間"])
     warnings = Warnings.objects.all()
     if len(warnings) != 0:
         for warning in warnings:
-            ws.append([warning.empNo, warning.p_name, warning.p_name, warning.warning_SBP, warning.warning_DBP])
+            ws.append([warning.empNo, warning.p_name, warning.p_bed, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time])
     # Save the workbook to the HttpResponse
     wb.save(response)
+    print("Success exporting file")
     return response
 
 def corn_job():
