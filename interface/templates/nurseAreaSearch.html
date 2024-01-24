@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
+<script src="{% static "js/nurseAreaSearch.js" %}"></script>    
 <div class="container">
   <div class="tab">
     <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
@@ -14,109 +15,108 @@
   </div>
   <div class="tabcontent">
     <section class="tab-area-nurse">
-        <div class="top-tab-area">
-            護理師工號與名稱:
-            <select id="nurseId">
-              {% for nurseInfo in nurseList %}
-                <option value="{{ nurseInfo.empNo }}" {% if nurseId == nurseInfo.empNo %} selected {% else %}{% endif %}>{{ nurseInfo.empNo }}</option>
-              {% endfor %}
-              {% comment %} <option value="A" {% if nurseId == 'A' %} selected {% else %}{% endif %}>A</option>
-              <option value="B" {% if nurseId == 'B' %} selected {% else %}{% endif %}>B</option>
-              <option value="C" {% if nurseId == 'C' %} selected {% else %}{% endif %}>C</option>
-              <option value="D" {% if nurseId == 'D' %} selected {% else %}{% endif %}>D</option> {% endcomment %}
-            </select>
-            {% csrf_token %}
-            <button class="nurse-btn" onclick="SearchFunc()">搜尋</button>
-            <button class="nurse-btn" onclick="AdjustPage()">修改床位</button>
-            <button class="nurse-btn" onclick="SwitchNurseList()">編輯護士名單</button>
-        </div>
-        <ul class="down tab-bed">
-          {% for patient in patients %}
-            {% if patient.bed == '' %}
+      <div class="top-tab-area">
+          護理師工號與名稱：
+          <select id="nurseId" class="select">
+            {% for nurseInfo in nurseList %}
+              <option class="option" value="{{ nurseInfo.empNo }}" {% if nurseId == nurseInfo.empNo %} selected {% else %}{% endif %}>{{ nurseInfo.empNo }}</option>
+            {% endfor %}
+            {% comment %} <option value="A" {% if nurseId == 'A' %} selected {% else %}{% endif %}>A</option>
+            <option value="B" {% if nurseId == 'B' %} selected {% else %}{% endif %}>B</option>
+            <option value="C" {% if nurseId == 'C' %} selected {% else %}{% endif %}>C</option>
+            <option value="D" {% if nurseId == 'D' %} selected {% else %}{% endif %}>D</option> {% endcomment %}
+          </select>
+          {% csrf_token %}
+          <button class="nurse-btn" onclick="SearchFunc()">搜尋</button>
+          <button class="nurse-btn" onclick="AdjustPage()">修改床位</button>
+      </div>
+      <ul class="down tab-bed">
+        {% for patient in patients %}
+          {% if patient.bed == '' %}
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="bed-bottom">
+                <div class="pressure">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/pressure_inactive.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+                </div>
+                <div class="dehydration">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/water_inactive.svg' %} " />
+                </div>
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_inactive.svg' %} " />
+                </div>
+              </div>
             {% else %}
-              {% if patient.id == '---' %}
-              <li class="bed" id="bed-{{ patient.bed }}">
-                <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
-                <div class="bed-bottom">
-                  <div class="pressure">
-                    <div class="img-text"></div>
-                    <img src="{% static 'img/pressure_inactive.svg' %} " />
-                  </div>
-                  <div class="heartbeat">
-                    <div class="img-text"></div>
-                    <img src="{% static 'img/heartbeat_inactive.svg' %} " />
-                  </div>
-                  <div class="dehydration">
-                    <div class="img-text"></div>
-                    <img src="{% static 'img/water_inactive.svg' %} " />
-                  </div>
-                  <div class="idhrate">
-                    <img src="{% static 'img/idh_inactive.svg' %} " />
-                  </div>
-                </div>
-              {% else %}
-              {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-              <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
-                <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-              {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-              <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
-                <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-              {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-              <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
-                <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-              {% else %}
-              <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
-                <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
-              {% endif %}
-                <div class="bed-bottom {% if patient.idh > 85 %}danger-bg{% else %}{% endif %}">
-                  <div class="pressure">
-                    {% if patient.record.SBP == 0 %}
-                    <div class="img-text"> -/- </div>
-                    {% elif patient.record.SBP < 90 or patient.record.SBP > 180 %}
-                    <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                    {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
-                    <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                    {% else %}
-                    <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
-                    {% endif %}
-                    <img src="{% static 'img/pressure_active.svg' %} " />
-                  </div>
-                  <div class="heartbeat">
-                    {% if patient.record.pulse == 0 %}
-                    <div class="img-text"> - </div>                
-                    {% elif patient.record.pulse < 60 or patient.record.pulse > 140 %}
-                    <div class="img-text danger"> {{ patient.record.pulse }} </div>
-                    {% elif patient.record.pulse > 120 %}
-                    <div class="img-text"> {{ patient.record.pulse }} </div>
-                    {% else %}
-                    <div class="img-text"> {{ patient.record.pulse }} </div>
-                    {% endif %}
-                    <img src="{% static 'img/heartbeat_active.svg' %} " />
-                  </div>
-                  <div class="dehydration">
-                    <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
-                    <img src="{% static 'img/water_active.svg' %} " />
-                  </div>
-                  <div class="idhrate">
-                    {% if patient.record.SBP == 0 %}
-                    <img src="{% static "img/idh_inactive.svg" %}" />
-                    {% else %}
-                      {% if patient.idh > 85 %}
-                      <img src="{% static 'img/idh_danger.svg' %} " />
-                      {% elif patient.idh > 70 %}
-                      <img src="{% static 'img/idh_warning.svg' %} " />
-                      {% else %}
-                      <img src="{% static 'img/idh_safe.svg' %} " />
-                      {% endif %}
-                    {% endif %}
-                  </div>
-                </div>
-              {% endif %}
-              </li>
+            {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
-          {% endfor %}
-        </ul>
-      </section>
+              <div class="bed-bottom {% if patient.idh > 85 %}danger-bg{% else %}{% endif %}">
+                <div class="pressure">
+                  {% if patient.record.SBP == 0 %}
+                  <div class="img-text"> -/- </div>
+                  {% elif patient.record.SBP < 90 or patient.record.SBP > 180 %}
+                  <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/pressure_active.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  {% if patient.record.pulse == 0 %}
+                  <div class="img-text"> - </div>                
+                  {% elif patient.record.pulse < 60 or patient.record.pulse > 140 %}
+                  <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                  {% elif patient.record.pulse > 120 %}
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/heartbeat_active.svg' %} " />
+                </div>
+                <div class="dehydration">
+                  <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
+                  <img src="{% static 'img/water_active.svg' %} " />
+                </div>
+                <div class="idhrate">
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > 85 %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > 70 %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </section>
   </div>
 </div>
 {% if home %}
@@ -553,17 +553,17 @@
           <form id="warningReport" class="modal-sm-form">
             {% csrf_token %}
             <div class="text-label">
-              <label for="empNo">工號:</label>
+              <label for="empNo">工號：</label>
               <br>
               <input class="input-warning" type="text" id="empNo" name="empNo"/>
             </div>
             <div class="text-label">
-              <label for="SBP">病患當前收縮壓:</label>
+              <label for="SBP">病患當前收縮壓：</label>
               <br>
               <input class="input-warning" type="text" id="SBP" name="SBP"/>mmHg
             </div>
             <div class="text-label">
-              <label for="DBP">病患當前舒張壓:</label>
+              <label for="DBP">病患當前舒張壓：</label>
               <br>
               <input class="input-warning" type="text" id="DBP" name="DBP"/>mmHg
             </div>

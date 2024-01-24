@@ -125,6 +125,7 @@ function prev() {
 }
 
 function clear() {
+  console.log("clear");
   let back = document.location.href;
   let area = back.split("/");
   if (area[4] == "get_record") {

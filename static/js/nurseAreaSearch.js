@@ -12,6 +12,7 @@ function SearchFunc(){
     }
     targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
     location.href = targetUrl;
+    console.log('search');
 }
 
 function SwitchNurseList(){
