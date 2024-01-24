@@ -388,14 +388,16 @@
         <div>
           <div class="note">
             <div class="note-title">
-              透析低血壓時間:
+              透析低血壓發生時間
             </div>
             <label for="idh-time-{{ patient.id.p_id }}">
-              所有時間:<input class="idh-time-input" type="text" name="idh-time-{{ patient.id.p_id }}" id="idh-time-{{ patient.id.p_id }}">
-              <br>
-              請選擇時間並點按添加:<input class="idh-time-input" type="time" id="idh-select-{{ patient.id.p_id }}">
-              <br>
+              <div class="note-time">
+              時間紀錄<input class="idh-time-input" type="text" name="idh-time-{{ patient.id.p_id }}" id="idh-time-{{ patient.id.p_id }}" disabled>
+              </div>
+              <div class="note-time">
+              請選擇時間並點按添加<input class="idh-time-input" type="time" id="idh-select-{{ patient.id.p_id }}">
               <button id="timeAppendBtn{{ patient.id.p_id }}" class="btn" type="button" onclick="TimeAppend('{{ patient.id.p_id }}')">時間添加</button>
+              </div>
             </label>
           </div>
         </div>
@@ -404,7 +406,7 @@
         <hr class="rounded">
         {% endif %}
         {% endfor %}
-        護理師工號:
+        護理師員工號：
         <select id="nurseId" name="nurseId" aria-label="nurseId">
           {% for nurseInfo in nurseList %}
             <option value="{{ nurseInfo.empNo }}">{{ nurseInfo.empNo }}</option>

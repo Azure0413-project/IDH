@@ -83,12 +83,6 @@ function SwitchSearchPage(){
   targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
   location.href = targetUrl;
 }
-
-function SwitchNurseList(){
-  targetUrl = rootUrl + `NurseArea/NurseList`;
-  location.href = targetUrl;
-}
-
 function removeAllNodes(tag){
   while(tag.firstChild){
     tag.removeChild(tag.firstChild);

@@ -24,8 +24,8 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = False
-    # now = True #push要改True
+    # now = False
+    now = True #push要改True
     if now:
         time = datetime.now()
     else:
@@ -34,8 +34,8 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
-    # if area == "dashboard" and time.minute % 3 == 0: #push要開
-        # corn_job() 
+    if area == "dashboard" and time.minute % 3 == 0: #push要開
+        corn_job() 
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -1241,7 +1241,7 @@ def export_file(request):
     wb = Workbook()
     ws = wb.active
     ws.title = "all_record"
-    ws.append(["工號", "姓名", "床位", "SBP", "DBP", "填寫時間"])
+    ws.append(["員工號", "姓名", "床位", "SBP", "DBP", "填寫時間"])
     warnings = Warnings.objects.all()
     if len(warnings) != 0:
         for warning in warnings:

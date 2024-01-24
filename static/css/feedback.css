@@ -183,6 +183,12 @@ button {
     transform: rotate(45deg);
 }
 
+.note-time {
+    margin: 0.5rem 0 0.2rem 0;
+    display: flex;
+    align-items: center;
+}
+
 .note-title {
     font-size: 20px;
     background-color: #CBD3DE;
@@ -196,10 +202,12 @@ hr.rounded {
 }
 
 .idh-time-input {
-    width: 40%;
+    width: 200px;
     height: 2rem;
-    margin: 2px 2px 2px 2px;
+    margin: 0 0.2rem;
     font-size: 14px;
+    border-radius: 0.2rem;
+    padding: 0 0.5rem;
 }
 
 .btn {

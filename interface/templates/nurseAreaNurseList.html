@@ -31,17 +31,20 @@
                 <button class="btn btn-primary" onclick="OperateNurseModal()">新增</button>
             </div>
         </div>
-        <div id="nurseInfoModal" class="modal-sm hidden">
+        <div id="nurseInfoModal" class="modal-sm modal-xs hidden">
             <div class="modal-content">
                 <div class="modal-main">
                     <div class="close-btn" onclick="OperateNurseModal()">
                         <img src="{%static 'img/close.svg'%}" />
                     </div>
                     <div class="modal-sm-content">
+                        <div class="modal-sm-title">
+                            <a>新增護理師</a>
+                        </div>
                         <form id="nurseInfo" class="modal-sm-form">
                             {% csrf_token %}
                             <div class="text-label">
-                                <label for="empNo">工號：</label>
+                                <label for="empNo">員工號：</label>
                                 <br>
                                 <input class="input-warning" type="text" id="empNo" name="empNo"/>
                             </div>
