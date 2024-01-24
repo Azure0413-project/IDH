@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
+<script src="{% static "js/nurseAreaAdjust.js" %}"></script>
 <div class="container">
   <div class="tab">
     <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
@@ -28,22 +29,22 @@
           {% csrf_token %}
           <button class="nurse-btn" onclick="AdjustPage()">確認</button>
           <button class="nurse-btn" onclick="SwitchSearchPage()">顯示床位資訊</button>
-          <button class="nurse-btn">編輯護士名單</button>
         </div>
         <div class="tab-area-nurse-v2">
           <div class="left-tab-area">
-              <div style="display: flex; justify-content: center;">
-                尚未列入名單之床號:
+              <div>
+                可選擇之床號：
               </div>
               <ul id="notInList" class="list-format">
               </ul>
           </div>
           <div class="middle-tab-area">
-              <a style="border: 1px solid; border-radius: 8px;">＞＞</a>
+            {%load static%}
+            <img src="{% static 'img/right_active.svg' %}" alt=">>">
           </div>
           <div class="right-tab-area">
               <div>
-                當前觀察名單:
+                當前觀察名單：
               </div>
               <ul id="existedList" class="list-format">
               </ul>
