@@ -1,6 +1,4 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-<script src="{% static "js/nurseAreaNurseList.js" %}"></script>
-<link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
 <div class="container">
   <div class="tab">
     <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
@@ -16,24 +14,18 @@
   </div>
   <div class="tabcontent">
     <section class="tab-area-nurse">
-        <div class="top-tab-area">
-          <button class="nurse-btn" onclick="AdjustPage()">切換至修改</button>
-          <button class="nurse-btn" onclick="SwitchSearchPage()">顯示床位資訊</button>
-        </div>
         <div style="text-align: center;">
-            <div>
-                <div style="display: flex; justify-content: center;">
-                    當前護理師名單:
-                </div>
-                <ul id="notInList">
-                    {% for nurseInfo in nurseList %}
-                        <li class="nurseList-cell-format">
-                            {{ nurseInfo.empNo }} - {{ nurseInfo.n_name }}
-                            <button class="nurse-btn" onclick="DeleteNurse('{{ nurseInfo.empNo }}')">刪除</button>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="nurse-title">
+                當前護理師名單
             </div>
+            <ul id="notInList">
+                {% for nurseInfo in nurseList %}
+                    <li class="nurseList-cell-format">
+                        {{ nurseInfo.empNo }} - {{ nurseInfo.n_name }}
+                        <button class="nurse-btn" onclick="DeleteNurse('{{ nurseInfo.empNo }}')">刪除</button>
+                    </li>
+                {% endfor %}
+            </ul>
             <div>
                 <button class="btn btn-primary" onclick="OperateNurseModal()">新增</button>
             </div>
@@ -48,12 +40,12 @@
                         <form id="nurseInfo" class="modal-sm-form">
                             {% csrf_token %}
                             <div class="text-label">
-                                <label for="empNo">工號:</label>
+                                <label for="empNo">工號：</label>
                                 <br>
                                 <input class="input-warning" type="text" id="empNo" name="empNo"/>
                             </div>
                             <div class="text-label">
-                                <label for="nurseName">名稱:</label>
+                                <label for="nurseName">名稱：</label>
                                 <br>
                                 <input class="input-warning" type="text" id="nurseName" name="nurseName"/>
                             </div>

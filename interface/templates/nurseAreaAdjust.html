@@ -1,6 +1,4 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
-<script src="{% static "js/nurseAreaAdjust.js" %}"></script>
-<link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
 <div class="container">
   <div class="tab">
     <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
@@ -17,7 +15,7 @@
   <div class="tabcontent">
     <section class="tab-area-nurse">
         <div class="top-tab-area">
-          護理師工號與名稱:
+          護理師工號與名稱：
           <select id="nurseId">
             {% for nurseInfo in nurseList %}
               <option value="{{ nurseInfo.empNo }}" {% if nurseId == nurseInfo.empNo %} selected {% else %}{% endif %}>{{ nurseInfo.empNo }}</option>

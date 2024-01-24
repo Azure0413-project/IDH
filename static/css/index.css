@@ -37,10 +37,12 @@ nav ul {
     display: flex;
     padding-right: 1em;
     list-style: none;
+    align-items: center;
 }
 
 .nav_link li a {
     text-decoration: none;
+    width: 100%;
     padding: 0.2rem 0.7rem;
     text-align: center;
 }
@@ -57,12 +59,25 @@ nav ul {
     border-radius: 0.5rem 0.5rem 0 0;
 }
 
+.nav_link li button {
+    background-color: #f8f8f8;
+    text-align: center;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.7rem 0rem 0.7rem;
+}
+
+.nav_link li button:hover {
+    background-color: #274C77;
+    color: #f8f8f8;
+    border-radius: 0.5rem;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
     z-index: 9999 !important;
     padding: 0.4rem 2rem;
-    width: 8.2rem;
+    width: 100%;
     text-align: center;
     background-color: #274C77;
     color: #f8f8f8;

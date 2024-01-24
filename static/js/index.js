@@ -67,17 +67,17 @@ function refresh() {
 }
 setInterval(refresh, 180000);
 
-const location_path = "http://192.168.83.226:8000/index/";
-// const location_path = "http://127.0.0.1:8000/index/";
+const rootUrl = "http://127.0.0.1:8000/index/";
+// const rootUrl = "http://192.168.83.226:8000/index/";
 
 // Left panel
 function openTab(evt, tabName, area) {
-  document.location.href = location_path + area;
+  document.location.href = rootUrl + area;
 }
 
 function openNurseArea(){
   console.log("open nurse area.");
-  document.location.href = location_path + 'Y';
+  document.location.href = rootUrl + 'Y';
 }
 
 const bed = [
@@ -148,7 +148,7 @@ function clear() {
     document.getElementById("modal").classList.add("hidden");
     // console.log(modal);
   } else {
-    document.location.href = location_path + area[5];
+    document.location.href = rootUrl + area[5];
     document.getElementsByClassName("modal-left")[0].style.display = "flex";
     document.getElementsByClassName("modal-right")[0].style.display = "flex";
     document.getElementsByClassName("modal-table")[0].classList.add("hidden");

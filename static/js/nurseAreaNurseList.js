@@ -1,8 +1,5 @@
-// const rootUrl = "http://127.0.0.1:8000/index/";
-const rootUrl = "http://192.168.83.226:80/index/";
-
 function SwitchSearchPage(){
-    location.href = location_path + 'Y';
+    location.href = rootUrl + 'Y';
 }
 
 function AdjustPage(){
