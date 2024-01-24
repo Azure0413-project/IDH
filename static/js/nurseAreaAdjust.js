@@ -1,6 +1,3 @@
-// const rootUrl = "http://127.0.0.1:8000/index/";
-const rootUrl = "http://192.168.83.226:8000/index/";
-
 const patientBedList = new Set([
   'A1', 'A2', 'A3', 'A5', 'A6', 'A7', 'A8', 'A9', 
   'B1', 'B2', 'B3', 'B5', 'B6', 'B7', 'B8', 'B9', 

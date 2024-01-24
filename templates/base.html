@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/modal.css' %}">
     <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
     <script src="https://code.highcharts.com/highcharts.js"></script>    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -32,7 +33,9 @@
                     </div>
                 </li>
                 <li>
-                    <button onclick="SwitchNurseList()">
+                    <button onclick="SwitchNurseList()" 
+                        onmouseover="this.firstElementChild.src='{%static 'img/user_active.svg' %}'"
+                        onmouseout="this.firstElementChild.src='{%static 'img/user.svg' %}'">
                         <img src="{%static 'img/user.svg' %}" alt="user">
                     </button>
                 </li>
@@ -42,6 +45,11 @@
     <main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="{%static 'js/index.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static "js/homepage.js" %}"></script>
+    <script src="{%static 'js/feedback.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static "js/nurseAreaAdjust.js" %}"></script>
+    <script src="{% static "js/nurseAreaNurseList.js" %}"></script>
+    <script src="{% static "js/nurseAreaSearch.js" %}"></script>    
     {% block content %}
     {% endblock %}
     </main>
