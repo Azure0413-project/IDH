@@ -16,7 +16,7 @@
   <div class="tabcontent">
     <section class="tab-area-nurse">
         <div class="top-tab-area">
-          護理師工號與名稱：
+          護理師員工號與名稱：
           <select id="nurseId">
             {% for nurseInfo in nurseList %}
               <option value="{{ nurseInfo.empNo }}" {% if nurseId == nurseInfo.empNo %} selected {% else %}{% endif %}>{{ nurseInfo.empNo }}</option>

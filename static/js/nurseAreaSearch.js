@@ -44,8 +44,15 @@ window.onclick = function (event) {
 };
 
 function close_modal() {
-    document.getElementById("modal").classList.toggle("hidden");
-    location.href = rootUrl + "Y";
+    let nurseId = location.href.split("/")[5];
+    let setTmp = JSON.parse(sessionStorage.getItem(nurseId));
+    let bedStr = "emp";
+    if (setTmp && setTmp.length > 0) {
+      bedStr = setTmp.join("-");
+    }
+    targetUrl = rootUrl + `NASearch/${nurseId}/${bedStr}`;
+    location.href = targetUrl;
+    console.log("search");
 }
 
 function liClickEvent(e) {

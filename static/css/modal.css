@@ -356,7 +356,7 @@ td {
 .modal-sm {
     position: fixed;
     z-index: 1;
-    padding: 15% 20%;
+    padding: 10% 15%;
     left: 0;
     top: 0;
     right: 0;
@@ -366,6 +366,14 @@ td {
     overflow: auto;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-xs {
+    padding: 15% 30%;
+}
+
+.modal-xs .modal-sm-title a{
+    font-size: 2rem;
 }
 
 .modal-sm > .modal-content > .modal-main {

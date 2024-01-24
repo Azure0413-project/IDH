@@ -67,8 +67,8 @@ function refresh() {
 }
 setInterval(refresh, 180000);
 
-const rootUrl = "http://127.0.0.1:8000/index/";
-// const rootUrl = "http://192.168.83.226:8000/index/";
+// const rootUrl = "http://127.0.0.1:8000/index/";
+const rootUrl = "http://192.168.83.226:8000/index/";
 
 // Left panel
 function openTab(evt, tabName, area) {
@@ -175,4 +175,9 @@ function changeStatus(bed_id) {
     console.log(idh_bed);
   }
   bed.classList.toggle("bed-feedback-active");
+}
+
+function SwitchNurseList() {
+  targetUrl = rootUrl + `NurseArea/NurseList`;
+  location.href = targetUrl;
 }
