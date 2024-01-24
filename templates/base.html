@@ -31,8 +31,12 @@
                         <a href="{% url 'get_record' shift=2 %}">晚班</a>
                     </div>
                 </li>
+                <li>
+                    <button onclick="SwitchNurseList()">
+                        <img src="{%static 'img/user.svg' %}" alt="user">
+                    </button>
+                </li>
             </ul>
-            <img src="{%static 'img/user.svg' %}" alt="user">
         </nav>
     </header>
     <main>
