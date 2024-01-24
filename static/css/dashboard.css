@@ -308,7 +308,7 @@
     animation-duration: 1s;
 }
 
-@keyframes dengerBorderSparkle {
+@keyframes dangerBorderSparkle {
     0% {
         border: 3px solid #ffd4ce;
     }
