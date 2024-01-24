@@ -34,6 +34,7 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
+    print("Time:", time)
     if area == "dashboard" and time.minute % 3 == 0: #push要開
         corn_job() 
     if area == 'Z':
@@ -154,6 +155,7 @@ def get_patients():
     i_patients = []
     if len(now_dialysis) <= 1:
         all_idh = [0]
+        do_pred = False
     else:
         preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
@@ -187,10 +189,10 @@ def get_patients():
                 #1226 warning Feedback 
                 w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                 if len(w) == 0:
-                    patient['done_warning'] = True 
+                    patient['done_warning'] = False 
                 else:
                     # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
 
                 #1218改
                 if do_pred:
@@ -224,10 +226,10 @@ def get_patients():
                 #1226 warning Feedback 
                 w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                 if len(w) == 0:
-                    patient['done_warning'] = True 
+                    patient['done_warning'] = False 
                 else:
                     # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
 
                 #1212改
                 if do_pred:
@@ -261,10 +263,10 @@ def get_patients():
                 #1226 warning Feedback 
                 w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                 if len(w) == 0:
-                    patient['done_warning'] = True 
+                    patient['done_warning'] = False 
                 else:
                     # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
 
                 #1212改
                 if do_pred:
@@ -298,10 +300,10 @@ def get_patients():
                 #1226 warning Feedback 
                 w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                 if len(w) == 0:
-                    patient['done_warning'] = True 
+                    patient['done_warning'] = False 
                 else:
                     # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
 
                 #1212改
                 if do_pred:
@@ -335,10 +337,10 @@ def get_patients():
                 #1226 warning Feedback 
                 w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                 if len(w) == 0:
-                    patient['done_warning'] = True 
+                    patient['done_warning'] = False 
                 else:
                     # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
 
                 #1212改
                 if do_pred:
@@ -372,10 +374,10 @@ def get_patients():
                 #1226 warning Feedback 
                 w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                 if len(w) == 0:
-                    patient['done_warning'] = True 
+                    patient['done_warning'] = False 
                 else:
                     # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = True if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else False
+                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
 
                 #1212改
                 if do_pred:
@@ -1245,7 +1247,8 @@ def export_file(request):
     warnings = Warnings.objects.all()
     if len(warnings) != 0:
         for warning in warnings:
-            ws.append([warning.empNo, warning.p_name, warning.p_bed, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time])
+            data = [warning.empNo, warning.p_name, warning.p_name, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time]
+            ws.append(data)
     # Save the workbook to the HttpResponse
     wb.save(response)
     print("Success exporting file")
@@ -1257,4 +1260,4 @@ def corn_job():
     splitCSV()
     # print("Successfully split to 3 CSV files")
     saveData()
-    print("Successfully save new data to database")
+    print("[corn_job]Successfully save new data to database")
