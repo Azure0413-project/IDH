@@ -94,8 +94,14 @@ window.onclick = function (event) {
     clear();
   } else if(event.target.id == "warningModal"){
     document.getElementById("warningModal").classList.toggle("hidden");
+  } else if(event.target.id == "exportFileModal"){
+    document.getElementById("exportFileModal").classList.toggle("hidden");
   }
 };
+
+function openExportFileModal() {
+  document.getElementById("exportFileModal").classList.toggle("hidden");
+}
 
 function closeModal() {
   clear();

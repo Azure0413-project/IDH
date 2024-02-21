@@ -183,7 +183,10 @@ def get_patients():
                     continue
                 else:
                     patient['record'] = r[len(r) - 1]
-                patient['idh'] = int(round(all_idh[flag] * 100))
+                try:
+                    patient['idh'] = int(round(all_idh[flag] * 100))
+                except:
+                    patient['idh'] = 0
 
                 # print('BED:', bed)
                 #1226 warning Feedback 
@@ -220,7 +223,10 @@ def get_patients():
                     continue
                 else:
                     patient['record'] = r[len(r) - 1]
-                patient['idh'] = int(round(all_idh[flag] * 100))
+                try:
+                    patient['idh'] = int(round(all_idh[flag] * 100))
+                except:
+                    patient['idh'] = 0
 
                 # print('BED:', bed)
                 #1226 warning Feedback 
@@ -257,7 +263,10 @@ def get_patients():
                     continue
                 else:
                     patient['record'] = r[len(r) - 1]
-                patient['idh'] = int(round(all_idh[flag] * 100))
+                try:
+                    patient['idh'] = int(round(all_idh[flag] * 100))
+                except:
+                    patient['idh'] = 0
 
                 # print('BED:', bed)
                 #1226 warning Feedback 
@@ -294,7 +303,10 @@ def get_patients():
                     continue
                 else:
                     patient['record'] = r[len(r) - 1]
-                patient['idh'] = int(round(all_idh[flag] * 100))
+                try:
+                    patient['idh'] = int(round(all_idh[flag] * 100))
+                except:
+                    patient['idh'] = 0
 
                 # print('BED:', bed)
                 #1226 warning Feedback 
@@ -331,7 +343,10 @@ def get_patients():
                     continue
                 else:
                     patient['record'] = r[len(r) - 1]
-                patient['idh'] = int(round(all_idh[flag] * 100))
+                try:
+                    patient['idh'] = int(round(all_idh[flag] * 100))
+                except:
+                    patient['idh'] = 0
 
                 # print('BED:', bed)
                 #1226 warning Feedback 
@@ -368,7 +383,10 @@ def get_patients():
                     continue
                 else:
                     patient['record'] = r[len(r) - 1]
-                patient['idh'] = int(round(all_idh[flag] * 100))
+                try:
+                    patient['idh'] = int(round(all_idh[flag] * 100))
+                except:
+                    patient['idh'] = 0
 
                 # print('BED:', bed)
                 #1226 warning Feedback 
@@ -1236,6 +1254,10 @@ def get_nurse_detail(request, nurseId, bed, idh):
 
 def export_file(request):
     '''0109 Export patient data to Excel file'''
+    start_time = request.POST.get('start_time')
+    end_time = request.POST.get('end_time')
+    start_time = datetime.strptime(str(start_time), "%Y-%m-%dT%H:%M")
+    end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
     # Create the export view 
     filename = f'PatientData_{datetime.now().strftime("%Y%m%d")}.xlsx'
     response = HttpResponse(content_type='application/ms-excel')
@@ -1244,14 +1266,14 @@ def export_file(request):
     ws = wb.active
     ws.title = "all_record"
     ws.append(["員工號", "姓名", "床位", "SBP", "DBP", "填寫時間"])
-    warnings = Warnings.objects.all()
+    warnings = Warnings.objects.filter(dismiss_time__gte=start_time, dismiss_time__lte=end_time)
     if len(warnings) != 0:
         for warning in warnings:
             data = [warning.empNo, warning.p_name, warning.p_name, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time]
             ws.append(data)
     # Save the workbook to the HttpResponse
     wb.save(response)
-    print("Success exporting file")
+    print("Success exporting file", response)
     return response
 
 def corn_job():

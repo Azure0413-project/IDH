@@ -21,7 +21,8 @@ function SwitchNurseList(){
 }
 
 function ClickOnPatient(bed, idh, name, mode, done) {
-    if (idh > 85 && done == 'True') {
+    if (idh > 85 && done == 'False') {
+        let warningModal = document.getElementById("warningModal");
         document.getElementById("empNo").value = document.getElementById("nurseId").value;
         pBed = document.getElementById("patientBed");
         pName = document.getElementById("patientName");

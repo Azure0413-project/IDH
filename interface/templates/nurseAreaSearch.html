@@ -68,7 +68,7 @@
             <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
-              <div class="bed-bottom {% if patient.idh > 85 %}danger-bg{% else %}{% endif %}">
+              <div class="bed-bottom {% if patient.idh > 85 and not patient.done_warning%}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>

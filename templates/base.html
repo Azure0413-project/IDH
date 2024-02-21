@@ -23,7 +23,8 @@
             {% comment %} <img src="{%static 'img/dropdown.svg' %}" alt="v"> {% endcomment %}
             <ul class="nav_link">
                 <li><a href="{% url 'index' %}">首頁</a></li>
-                <li><a href="{% url 'export_file' %}">輸出報表</a></li>
+                <!-- <li><a href="{% url 'export_file' %}">輸出報表</a></li> -->
+                <li><a onclick="openExportFileModal()">輸出報表</a></li>
                 <li class="dropdown">
                     <span class="title">填寫透析紀錄</span>
                     <div class="dropdown-content">
@@ -50,5 +51,32 @@
     {% block content %}
     {% endblock %}
     </main>
+    <div id="exportFileModal" class="modal-sm hidden">
+        <div class="modal-content">
+          <div class="modal-main">
+            <div class="close-btn" onclick="CloseExportFileModal()">
+              <img src="{%static 'img/close.svg'%}" />
+            </div>
+            <div class="modal-sm-content">
+              <form id="exportFileForm" class="modal-sm-form">
+                {% csrf_token %}
+                <div class="text-label">
+                  <label for="export-file-start">Start time:</label>
+                  <br>
+                  <input class="idh-time-input" type="datetime-local" id="export-file-start" name="export-file-start">
+                </div>
+                <div class="text-label">
+                  <label for="export-file-end">End time:</label>
+                  <br>
+                  <input class="idh-time-input" type="datetime-local" id="export-file-end" name="export-file-end">
+                </div>
+              </form>
+            </div>
+            <div class="">
+              <button id="confirmExportFileBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitExportFile()">確認</button>
+            </div>
+          </div>
+        </div>
+    </div>
 </body>
 </html>
