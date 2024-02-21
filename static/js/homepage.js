@@ -3,6 +3,7 @@
 // 1 -> each tag
 function ClickOnPatient(bed, idh, name, mode, done) {
   if (idh > 85 && done == 'False') {
+    let warningModal = document.getElementById("warningModal");
     pBed = document.getElementById("patientBed");
     pName = document.getElementById("patientName");
     pBed.innerText = bed;
@@ -26,6 +27,11 @@ function ClickOnPatient(bed, idh, name, mode, done) {
 function CloseWarningModal() {
   let warningModal = document.getElementById("warningModal");
   warningModal.classList.toggle("hidden");
+}
+
+function CloseExportFileModal() {
+  let exportFileModal = document.getElementById("exportFileModal");
+  exportFileModal.classList.toggle("hidden");
 }
 
 function SubmitWarning() {
@@ -53,6 +59,35 @@ function SubmitWarning() {
         alert("Add success.");
         // 記錄床號與時間
         location.href = originLocation;
+      } else {
+        // 畫面提醒 送出表單失敗
+        alert("Add fail.\n" + res["msg"]);
+      }
+    },
+    error: (res) => {
+      console.log(res);
+    },
+  });
+}
+
+function SubmitExportFile() {
+  let start_time = document.getElementById("export-file-start").value;
+  let end_time = document.getElementById("export-file-end").value;
+  result = {};
+  result["start_time"] = start_time;
+  result["end_time"] = end_time;
+  $.ajax({
+    url: "export_file/",
+    method: "POST",
+    headers: {
+      "X-CSRFToken": $('[name="csrfmiddlewaretoken"]')[0].value,
+    },
+    dataType: "json",
+    data: result,
+    success: (res) => {
+      if (res["status"] == "success") {
+        // 頁面跳轉
+        alert("Add success.");
       } else {
         // 畫面提醒 送出表單失敗
         alert("Add fail.\n" + res["msg"]);
