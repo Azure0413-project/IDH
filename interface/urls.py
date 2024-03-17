@@ -12,6 +12,7 @@ urlpatterns = [
     path('get_nurse_detail/<str:nurseId>/<str:bed>/<int:idh>', views.get_nurse_detail, name='get_nurse_detail'),
     path('get_record/<int:shift>', views.get_record, name='get_record'),
     path('post_feedback/', views.post_feedback, name='post_feedback'),
+    path('warning_click/<str:bed>/<int:name>', views.warning_click, name='warning_click'),
     path('warningFeedback/', views.warning_feedback, name='warningFeedback'),
     path('export_file/', views.export_file, name='export_file'),
 ]

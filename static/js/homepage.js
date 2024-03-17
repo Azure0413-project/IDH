@@ -87,10 +87,11 @@ function SubmitExportFile() {
     success: (res) => {
       if (res["status"] == "success") {
         // 頁面跳轉
-        alert("Add success.");
+        alert("Export success.");
+        location.href = originLocation;
       } else {
         // 畫面提醒 送出表單失敗
-        alert("Add fail.\n" + res["msg"]);
+        alert("Export fail.\n" + res["msg"]);
       }
     },
     error: (res) => {
