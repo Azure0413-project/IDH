@@ -35,8 +35,8 @@ def get_time():
 def index(request, area="dashboard"):
     time = get_time()
     print("Time:", time)
-    if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job() 
+    # if area == "dashboard" and time.minute % 3 == 0: #push要開
+    #     corn_job() 
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -1131,20 +1131,32 @@ def post_feedback(request):
             "i_patients": patients["i_patients"],
         })
 
+def warning_click(request, bed, name):
+    click_time = datetime.now() # 點掉閃爍
+    try:
+        w = Warnings(click_time=click_time, p_bed=bed, p_name=name)
+        w.save()
+        return JsonResponse({"status": 'success'})
+    except Exception as error:
+        return JsonResponse({"status": 'fail', "msg": str(error)})
+
 def warning_feedback(request):
     # 1210改
     if request.method == 'POST':
         time = datetime.now()
-        dismiss_time = time
+        dismiss_time = time # 0312 紀錄血壓
+        pBed = request.POST.get('patientBed')
+        pName = request.POST.get('patientName')
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
-        pBed = request.POST.get('patientBed')
-        pName = request.POST.get('patientName')
         print(f'{time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
+        ws = Warnings.objects.filter(p_bed=pBed, p_name=pName)
         try:
-            w = Warnings(dismiss_time=dismiss_time, empNo=empNo, p_bed=pBed, p_name=pName, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
-            w.save()
+            if len(ws) > 1:
+                ws.order_by('-click_time')[0].update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
+            else:
+                ws.update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
             return JsonResponse({"status": 'success'})
         except Exception as error:
             return JsonResponse({"status": 'fail', "msg": str(error)})
@@ -1256,25 +1268,29 @@ def export_file(request):
     '''0109 Export patient data to Excel file'''
     start_time = request.POST.get('start_time')
     end_time = request.POST.get('end_time')
-    start_time = datetime.strptime(str(start_time), "%Y-%m-%dT%H:%M")
-    end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
-    # Create the export view 
-    filename = f'PatientData_{datetime.now().strftime("%Y%m%d")}.xlsx'
-    response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=%s' % filename
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "all_record"
-    ws.append(["員工號", "姓名", "床位", "SBP", "DBP", "填寫時間"])
-    warnings = Warnings.objects.filter(dismiss_time__gte=start_time, dismiss_time__lte=end_time)
-    if len(warnings) != 0:
-        for warning in warnings:
-            data = [warning.empNo, warning.p_name, warning.p_name, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time]
-            ws.append(data)
-    # Save the workbook to the HttpResponse
-    wb.save(response)
-    print("Success exporting file", response)
-    return response
+    if start_time != '' and end_time != '':
+        start_time = datetime.strptime(str(start_time), "%Y-%m-%dT%H:%M")
+        end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
+        # Create the export view 
+        # filename = f'PatientData_{datetime.now().strftime("%Y%m%d")}.xlsx'
+        filename = 'PatientData.xlsx'
+        response = HttpResponse(content_type='application/ms-excel')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "all_record"
+        ws.append(["員工號", "姓名", "床位", "SBP", "DBP", "填寫時間"])
+        warnings = Warnings.objects.filter(dismiss_time__gte=start_time, dismiss_time__lte=end_time)
+        if len(warnings) != 0:
+            for warning in warnings:
+                data = [warning.empNo, warning.p_name, warning.p_name, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time]
+                ws.append(data)
+        # Save the workbook to the HttpResponse
+        wb.save(response)
+        print("Success exporting file", response)
+        return response
+    else:
+        return HttpResponse("請提供有效的起始時間和結束時間")
 
 def corn_job():
     fetchData()
