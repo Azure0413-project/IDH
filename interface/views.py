@@ -33,6 +33,7 @@ def get_time():
     return time
 
 def index(request, area="dashboard"):
+    # Warnings.objects.all().delete()
     time = get_time()
     print("Time:", time)
     # if area == "dashboard" and time.minute % 3 == 0: #push要開
@@ -1269,6 +1270,7 @@ def export_file(request):
     start_time = request.POST.get('start_time')
     end_time = request.POST.get('end_time')
     if start_time != '' and end_time != '':
+        print("start time:", start_time, ", end time: ", end_time)
         start_time = datetime.strptime(str(start_time), "%Y-%m-%dT%H:%M")
         end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
         # Create the export view 

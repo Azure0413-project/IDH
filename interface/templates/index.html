@@ -81,6 +81,7 @@
           {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
           <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}')">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            <img src="/static/img/legend/notification.svg">
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
           <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}')">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
