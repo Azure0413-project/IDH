@@ -3,6 +3,9 @@
 // 1 -> each tag
 function ClickOnPatient(bed, idh, name, mode, done) {
   if (idh > 85 && done == 'False') {
+    // $.get(location.href+`warning_click/${bed}/${name}`, ()=>{
+    //   console.log("test warning click");
+    // });
     let warningModal = document.getElementById("warningModal");
     pBed = document.getElementById("patientBed");
     pName = document.getElementById("patientName");
@@ -73,29 +76,39 @@ function SubmitWarning() {
 function SubmitExportFile() {
   let start_time = document.getElementById("export-file-start").value;
   let end_time = document.getElementById("export-file-end").value;
+  let formData = new FormData(document.getElementById("exportFileForm"));
+  formData.append("start_time", start_time);
+  formData.append("end_time", end_time);
   result = {};
-  result["start_time"] = start_time;
-  result["end_time"] = end_time;
+  for (let p of formData.entries()) {
+    result[p[0]] = p[1];
+  }
   $.ajax({
     url: "export_file/",
     method: "POST",
     headers: {
       "X-CSRFToken": $('[name="csrfmiddlewaretoken"]')[0].value,
     },
-    dataType: "json",
+    xhrFields: {
+      responseType: 'blob' // to avoid binary data being mangled on charset conversion
+    },
+    dataType: "binary",
     data: result,
     success: (res) => {
-      if (res["status"] == "success") {
-        // 頁面跳轉
-        alert("Export success.");
-        location.href = originLocation;
-      } else {
-        // 畫面提醒 送出表單失敗
-        alert("Export fail.\n" + res["msg"]);
-      }
+      console.log("this status:", res);
+      console.log(new Blob([res]))
+      var blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      var url = window.URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'PatientData.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     },
-    error: (res) => {
-      console.log(res);
+    error: (xhr, status, error) => {
+      console.log("err res:", error);
     },
   });
 }
