@@ -98,7 +98,7 @@ def cal_x_len(data):
 def Predict(model_path, test_x, test_u, test_t, test_y, test_l, test_info, device=torch.device("cpu")):
     model = GRUNet(input_dim = 8, hidden_dim=256, output_dim = 1, n_layers = 1, drop_prob=0.5)
     model.to(device)
-    model.load_state_dict(torch.load(model_path))
+    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
     model.eval()
     
     preds = []
