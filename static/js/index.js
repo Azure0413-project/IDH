@@ -67,8 +67,8 @@ function refresh() {
 }
 setInterval(refresh, 180000);
 
-const rootUrl = "http://127.0.0.1:8000/index/";
-// const rootUrl = "http://192.168.83.226:8000/index/";
+// const rootUrl = "http://127.0.0.1:8000/index/";
+const rootUrl = "http://192.168.83.226:8000/index/";
 
 // Left panel
 function openTab(evt, tabName, area) {
@@ -186,4 +186,15 @@ function changeStatus(bed_id) {
 function SwitchNurseList() {
   targetUrl = rootUrl + `NurseArea/NurseList`;
   location.href = targetUrl;
+}
+
+function SwitchRendomCodeDisplay(){
+  let allRedCheckList = $('img.redCheck');
+  for(let i=0; i<allRedCheckList.length; ++i){
+    if(allRedCheckList[i].hidden == true){
+      allRedCheckList[i].hidden = false;
+    } else {
+      allRedCheckList[i].hidden = true;
+    }
+  }
 }
