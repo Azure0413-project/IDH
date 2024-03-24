@@ -47,7 +47,7 @@ nav ul {
     text-align: center;
 }
 
-.nav_link li:first-child a:hover, .nav_link li:first-child+li a:hover {
+.nav_link li:first-child a:hover, .nav_link li:first-child+li a:hover, .nav_link li:first-child+li+li a:hover {
     background-color: #274C77;
     color: #f8f8f8;
     border-radius: 0.5rem;
