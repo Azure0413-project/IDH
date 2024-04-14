@@ -24,8 +24,8 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = True
-    # now = True #push要改True
+    # now = False
+    now = True #push要改True
     if now:
         time = datetime.now()
     else:
@@ -170,247 +170,59 @@ def get_patients():
             all_pred_idh = [s.pred_idh for s in same_preds]
             all_idh = [np.float32(a) for a in all_pred_idh]
     flag = 0
-    for index, bed in enumerate(a_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-                if len(r) == 0:
-                    patient['id'] = '---'
-                    continue
-                else:
-                    patient['record'] = r[len(r) - 1]
-                try:
-                    patient['idh'] = int(round(all_idh[flag] * 100))
-                except:
-                    patient['idh'] = 0
+    all_area = [a_area, b_area, c_area, d_area, e_area, i_area]
+    all_patients = [a_patients, b_patients, c_patients, d_patients, e_patients, i_patients]
+    for a in range(len(all_area)):
+        for index, bed in enumerate(all_area[a]):
+            patient = {}
+            patient = {'bed': bed}
+            for d in now_dialysis:
+                if bed == d.bed:
+                    start_time = d.start_time
+                    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                    patient['setting'] = d
+                    r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
+                    if len(r) == 0:
+                        patient['id'] = '---'
+                        continue
+                    else:
+                        patient['record'] = r[len(r) - 1]
+                    try:
+                        patient['idh'] = int(round(all_idh[flag] * 100))
+                    except:
+                        patient['idh'] = 0
+                    
+                    #0326 random code
+                    patient['random_code'] = d.random_code
 
-                # print('BED:', bed)
-                #1226 warning Feedback 
-                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                if len(w) == 0:
-                    patient['done_warning'] = False 
-                else:
-                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
+                    #0326 first click 
+                    w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
+                    if len(w) == 0:
+                        patient['first_click'] = False 
+                    else:
+                        patient['first_click'] = False if w[0].click_time < datetime.now() - timedelta(hours=1) else True
+                    if bed == 'E1': print(f"E1: {patient['first_click']}")
 
-                #1218改
-                if do_pred:
-                    dialysis = Dialysis.objects.get(d_id=d.d_id)
-                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                    pred.save()
-                if flag == 32:
-                    continue
-                flag += 1
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        a_patients.append(patient)    
-    for index, bed in enumerate(b_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-                if len(r) == 0:
-                    patient['id'] = '---'
-                    continue
-                else:
-                    patient['record'] = r[len(r) - 1]
-                try:
-                    patient['idh'] = int(round(all_idh[flag] * 100))
-                except:
-                    patient['idh'] = 0
+                    #1226 warning Feedback 
+                    w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+                    if len(w) == 0 or w[0].dismiss_time == None:
+                        patient['done_warning'] = False 
+                    else:
+                        patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
 
-                # print('BED:', bed)
-                #1226 warning Feedback 
-                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                if len(w) == 0:
-                    patient['done_warning'] = False 
-                else:
-                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-
-                #1212改
-                if do_pred:
-                    dialysis = Dialysis.objects.get(d_id=d.d_id)
-                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                    pred.save()
-                if flag == 32:
+                    #1218改
+                    if do_pred:
+                        dialysis = Dialysis.objects.get(d_id=d.d_id)
+                        pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
+                        pred.save()
+                    if flag == 32:
+                        continue
+                    flag += 1
                     continue
-                flag += 1
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        b_patients.append(patient)
-    for index, bed in enumerate(c_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-                if len(r) == 0:
-                    patient['id'] = '---'
-                    continue
-                else:
-                    patient['record'] = r[len(r) - 1]
-                try:
-                    patient['idh'] = int(round(all_idh[flag] * 100))
-                except:
-                    patient['idh'] = 0
+            if 'id' not in patient:
+                patient['id'] = '---'
+            all_patients[a].append(patient)
 
-                # print('BED:', bed)
-                #1226 warning Feedback 
-                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                if len(w) == 0:
-                    patient['done_warning'] = False 
-                else:
-                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-
-                #1212改
-                if do_pred:
-                    dialysis = Dialysis.objects.get(d_id=d.d_id)
-                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                    pred.save()
-                if flag == 32:
-                    continue
-                flag += 1
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        c_patients.append(patient)    
-    for index, bed in enumerate(d_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d                
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-                if len(r) == 0:
-                    patient['id'] = '---'
-                    continue
-                else:
-                    patient['record'] = r[len(r) - 1]
-                try:
-                    patient['idh'] = int(round(all_idh[flag] * 100))
-                except:
-                    patient['idh'] = 0
-
-                # print('BED:', bed)
-                #1226 warning Feedback 
-                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                if len(w) == 0:
-                    patient['done_warning'] = False 
-                else:
-                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-
-                #1212改
-                if do_pred:
-                    dialysis = Dialysis.objects.get(d_id=d.d_id)
-                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                    pred.save()
-                if flag == 32:
-                    continue
-                flag += 1
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        d_patients.append(patient)
-    for index, bed in enumerate(e_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-                if len(r) == 0:
-                    patient['id'] = '---'
-                    continue
-                else:
-                    patient['record'] = r[len(r) - 1]
-                try:
-                    patient['idh'] = int(round(all_idh[flag] * 100))
-                except:
-                    patient['idh'] = 0
-
-                # print('BED:', bed)
-                #1226 warning Feedback 
-                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                if len(w) == 0:
-                    patient['done_warning'] = False 
-                else:
-                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-
-                #1212改
-                if do_pred:
-                    dialysis = Dialysis.objects.get(d_id=d.d_id)
-                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                    pred.save()
-                if flag == 32:
-                    continue
-                flag += 1
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        e_patients.append(patient)
-    for index, bed in enumerate(i_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if d.bed == bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d    
-                r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-                if len(r) == 0:
-                    patient['id'] = '---'
-                    continue
-                else:
-                    patient['record'] = r[len(r) - 1]
-                try:
-                    patient['idh'] = int(round(all_idh[flag] * 100))
-                except:
-                    patient['idh'] = 0
-
-                # print('BED:', bed)
-                #1226 warning Feedback 
-                w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                if len(w) == 0:
-                    patient['done_warning'] = False 
-                else:
-                    # print(w[0].dismiss_time,'---', datetime.now() - timedelta(hours=1))
-                    patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-
-                #1212改
-                if do_pred:
-                    dialysis = Dialysis.objects.get(d_id=d.d_id)
-                    pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                    pred.save()
-                if flag == 32:
-                    continue
-                flag += 1
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        i_patients.append(patient)
-    # print(r_list)
     return {
         'a_patients': a_patients, 
         'b_patients': b_patients, 
@@ -1133,6 +945,7 @@ def post_feedback(request):
         })
 
 def warning_click(request, bed, name):
+    print("Warning click")
     click_time = datetime.now() # 點掉閃爍
     try:
         w = Warnings(click_time=click_time, p_bed=bed, p_name=name)

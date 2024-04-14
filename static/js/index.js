@@ -188,7 +188,7 @@ function SwitchNurseList() {
   location.href = targetUrl;
 }
 
-function SwitchRendomCodeDisplay(){
+function SwitchRandomCodeDisplay(){
   let allRedCheckList = $('img.redCheck');
   for(let i=0; i<allRedCheckList.length; ++i){
     if(allRedCheckList[i].hidden == true){

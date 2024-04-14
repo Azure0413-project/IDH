@@ -3,6 +3,7 @@ from interface.models import Patient, Dialysis, Record
 from decimal import Decimal
 import datetime
 from datetime import datetime, timedelta
+from random import randint
 
 def run():
     patient_path = 'interface/data/patient.csv'
@@ -68,6 +69,7 @@ def run():
                 heparin = row[30],
                 ESA = row[31],
                 coagulation = row[32],
+                random_code = randint(0, 1)
             )
             if not Dialysis.objects.filter(p_id=dialyse.p_id, times=dialyse.times).exists():                
                 dialysis.append(dialyse)
