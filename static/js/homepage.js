@@ -2,7 +2,8 @@
 // 0 -> dashboard
 // 1 -> each tag
 function ClickOnPatient(bed, idh, name, mode, done, first_click) {
-  if (idh > 85 && done == 'False' && first_click == 'True') {
+  console.log("FIRST_CLICK:", first_click);
+  if (idh > 70 && done == 'False' && first_click == 'True') {
     let warningModal = document.getElementById("warningModal");
     pBed = document.getElementById("patientBed");
     pName = document.getElementById("patientName");
@@ -10,7 +11,7 @@ function ClickOnPatient(bed, idh, name, mode, done, first_click) {
     pName.innerText = name;
     console.log("danger");
     warningModal.classList.toggle("hidden");
-  } else if (idh > 85 && done == 'False' && first_click == 'False') {
+  } else if (idh > 70 && done == 'False' && first_click == 'False') {
     $.get(location.href+`warning_click/${bed}/${name}`, ()=>{
       console.log("first warning click.");
     });

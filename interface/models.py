@@ -41,6 +41,7 @@ class Dialysis(models.Model):
     heparin = models.CharField(max_length=100)
     ESA = models.CharField(max_length=100, null=True)
     coagulation = models.CharField(max_length=20)
+    random_code = models.IntegerField(default=1)
 
 class Record(models.Model):
     r_id = models.AutoField(primary_key=True)
