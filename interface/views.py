@@ -24,8 +24,8 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = False
-    # now = True #push要改True
+    # now = False
+    now = True #push要改True
     if now:
         time = datetime.now()
     else:
