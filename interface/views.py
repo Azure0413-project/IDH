@@ -24,11 +24,12 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    # now = False
-    now = True #push要改True
+    now = False
+    # now = True #push要改True
     if now:
         time = datetime.now()
     else:
+        # time = datetime(2024, 4, 19, 9, 50, 0)
         time = datetime(2023, 9, 23, 10, 43, 0)
     return time
 
@@ -201,7 +202,7 @@ def get_patients():
                         patient['first_click'] = False 
                     else:
                         patient['first_click'] = False if w[0].click_time < datetime.now() - timedelta(hours=1) else True
-                    if bed == 'E1': print(f"E1: {patient['first_click']}")
+                    # if bed == 'E1': print(f"E1: {patient['first_click']}")
 
                     #1226 warning Feedback 
                     w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
@@ -957,20 +958,19 @@ def warning_click(request, bed, name):
 def warning_feedback(request):
     # 1210改
     if request.method == 'POST':
-        time = datetime.now()
-        dismiss_time = time # 0312 紀錄血壓
+        dismiss_time = datetime.now() # 0312 紀錄血壓
         pBed = request.POST.get('patientBed')
         pName = request.POST.get('patientName')
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
-        print(f'{time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
+        print(f'{dismiss_time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
         ws = Warnings.objects.filter(p_bed=pBed, p_name=pName)
         try:
             if len(ws) > 1:
-                ws.order_by('-click_time')[0].update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
+                ws.order_by('-click_time')[0].update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
             else:
-                ws.update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP)
+                ws.update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
             return JsonResponse({"status": 'success'})
         except Exception as error:
             return JsonResponse({"status": 'fail', "msg": str(error)})

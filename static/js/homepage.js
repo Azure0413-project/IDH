@@ -3,7 +3,7 @@
 // 1 -> each tag
 function ClickOnPatient(bed, idh, name, mode, done, first_click) {
   console.log("FIRST_CLICK:", first_click);
-  if (idh > 70 && done == 'False' && first_click == 'True') {
+  if (idh > 85 && done == 'False' && first_click == 'True') {
     let warningModal = document.getElementById("warningModal");
     pBed = document.getElementById("patientBed");
     pName = document.getElementById("patientName");
@@ -11,8 +11,8 @@ function ClickOnPatient(bed, idh, name, mode, done, first_click) {
     pName.innerText = name;
     console.log("danger");
     warningModal.classList.toggle("hidden");
-  } else if (idh > 70 && done == 'False' && first_click == 'False') {
-    $.get(location.href+`warning_click/${bed}/${name}`, ()=>{
+  } else if (idh > 85 && done == 'False' && first_click == 'False') {
+    $.get(rootUrl+`warning_click/${bed}/${name}`, ()=>{ //0416
       console.log("first warning click.");
     });
     location.reload();
@@ -87,7 +87,7 @@ function SubmitExportFile() {
     result[p[0]] = p[1];
   }
   $.ajax({
-    url: "export_file/",
+    url: rootUrl+"export_file/",
     method: "POST",
     headers: {
       "X-CSRFToken": $('[name="csrfmiddlewaretoken"]')[0].value,

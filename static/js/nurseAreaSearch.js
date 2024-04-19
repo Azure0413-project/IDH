@@ -20,20 +20,24 @@ function SwitchNurseList(){
   location.href = targetUrl;
 }
 
-function ClickOnPatient(bed, idh, name, mode, done) {
-    if (idh > 85 && done == 'False') {
-        let warningModal = document.getElementById("warningModal");
-        document.getElementById("empNo").value = document.getElementById("nurseId").value;
-        pBed = document.getElementById("patientBed");
-        pName = document.getElementById("patientName");
-        pBed.innerText = bed;
-        pName.innerText = name;
-        console.log("danger");
-        warningModal.classList.toggle("hidden");
-    } else {
-        let nurseId = document.getElementById('nurseId').value;
-        location.href = rootUrl + `get_nurse_detail/${nurseId}/${bed}/${idh}`;
-    }
+function ClickOnPatient(bed, idh, name, mode, done, first_click) {
+  if (idh > 85 && done == 'False' && first_click == 'True') {
+    let warningModal = document.getElementById("warningModal");
+    pBed = document.getElementById("patientBed");
+    pName = document.getElementById("patientName");
+    pBed.innerText = bed;
+    pName.innerText = name;
+    console.log("danger");
+    warningModal.classList.toggle("hidden");
+  } else if (idh > 85 && done == 'False' && first_click == 'False') {
+    $.get(rootUrl+`warning_click/${bed}/${name}`, ()=>{ //0416
+      console.log("first warning click.");
+    });
+    location.reload();
+  } else {
+    let nurseId = document.getElementById('nurseId').value;
+    location.href = rootUrl + `get_nurse_detail/${nurseId}/${bed}/${idh}`;
+  }
 }
 
 window.onclick = function (event) {
