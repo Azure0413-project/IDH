@@ -36,8 +36,8 @@ def index(request, area="dashboard"):
     # Warnings.objects.all().delete()
     time = get_time()
     print("Time:", time)
-    # if area == "dashboard" and time.minute % 3 == 0: #push要開
-    #     corn_job() 
+    if area == "dashboard" and time.minute % 3 == 0: #push要開
+        corn_job() 
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
