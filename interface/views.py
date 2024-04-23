@@ -29,8 +29,8 @@ def get_time():
     if now:
         time = datetime.now()
     else:
-        time = datetime(2024, 4, 10, 11, 0, 0)
-        # time = datetime(2023, 9, 23, 10, 43, 0)
+        # time = datetime(2024, 4, 19, 13, 40, 0)
+        time = datetime(2023, 9, 23, 10, 43, 0)
     return time
 
 def index(request, area="dashboard"):

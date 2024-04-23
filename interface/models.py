@@ -77,7 +77,6 @@ class Feedback(models.Model):
     idh_time = models.CharField(max_length=100) #0110
     empNo = models.CharField(max_length=20) #0122
 
-# 1205新增
 class Predict(models.Model):
     # 透析、預測時間、當下預測值
     pred_id = models.AutoField(primary_key=True)
