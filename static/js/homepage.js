@@ -35,6 +35,10 @@ function CloseWarningModal() {
   warningModal.classList.toggle("hidden");
 }
 
+function OpenWarningModal(){
+  
+}
+
 function CloseExportFileModal() {
   let exportFileModal = document.getElementById("exportFileModal");
   exportFileModal.classList.toggle("hidden");
