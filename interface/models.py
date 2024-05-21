@@ -72,8 +72,14 @@ class Feedback(models.Model):
     is_sign = models.BooleanField()
     is_drug = models.BooleanField(null=True)
     is_inject = models.BooleanField(null=True)
+    is_nursing = models.BooleanField(null=True)
     is_setting = models.BooleanField(null=True)
     is_other = models.BooleanField(null=True)
+    drug_all = models.CharField(max_length=100)
+    inject_all = models.CharField(max_length=100)
+    setting_all = models.CharField(max_length=100)
+    nursing_all = models.CharField(max_length=100)
+    other_all = models.CharField(max_length=100)
     idh_time = models.CharField(max_length=100) #0110
     empNo = models.CharField(max_length=20) #0122
 

@@ -352,7 +352,7 @@
               }
             </script>
           </div>
-          <div class="feedback-right">
+          <div class="feedback-right" style="overflow-y: auto; max-height: 300px;">
             <div class="note">
               <div class="note-title">症狀*</div>
               <label class="note-container">是
@@ -366,39 +366,88 @@
             </div>
             <div class="note">
               <div class="note-title">處理</div>
-              <label class="note-container">口服藥物
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="drug" {% if patient.drug %} checked {% endif %}>
-                <span class="checkmark checkbox"></span>
-              </label>
-              <label class="note-container">針劑藥物
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="inject" {% if patient.inject %} checked {% endif %}>
-                <span class="checkmark checkbox"></span>
-              </label>
-              <label class="note-container">調整透析設定
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.set %} checked {% endif %}>
-                <span class="checkmark checkbox"></span>
-              </label>
-              <label class="note-container">其他
-                <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="other" {% if patient.other %} checked {% endif %}>
-                <span class="checkmark checkbox"></span>
-              </label>
+              <label style="padding: 6% 0% 0% 0%">口服藥物：</label>
+                <label class="note-container">midodrine
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="midodrine">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="drug" {% if patient.drug %} checked {% endif %}>
+                  <input type="text" name="drug-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">針劑藥物：</label>
+                <label class="note-container">IV Glucose
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="IV_Glucose">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="inject" {% if patient.inject %} checked {% endif %}>
+                  <input type="text" name="inject-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">調整透析設定：</label>
+                <label class="note-container">降低blood flow
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_blood_flow">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">降低UF
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_UF">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">降低dialysate flow
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_dialysate_flow">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.setting %} checked {% endif %}>
+                  <input type="text" name="setting-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">護理處置：</label>
+                <label class="note-container">頭低腳高
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="HLFH">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">調低溫度
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_temp">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">沖水
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="flush">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.setting %} checked {% endif %}>
+                  <input type="text" name="setting-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">其他處理：</label>
+                <label class="note-container">再觀察，不做任何處理
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="observe">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="other" {% if patient.other %} checked {% endif %}>
+                  <span class="checkmark checkbox"></span>
+                  <input type="text" name="other-{{ patient.id.p_id }}">
+                </label>
+
             </div>
           </div>
         </div>
         <div>
           <div class="note">
-            <div class="note-title">
-              透析低血壓發生時間
-            </div>
-            <label for="idh-time-{{ patient.id.p_id }}">
-              <div class="note-time">
-              時間紀錄<input class="idh-time-input" type="text" name="idh-time-{{ patient.id.p_id }}" id="idh-time-{{ patient.id.p_id }}" disabled>
-              </div>
-              <div class="note-time">
-              請選擇時間並點按添加<input class="idh-time-input" type="time" id="idh-select-{{ patient.id.p_id }}">
-              <button id="timeAppendBtn{{ patient.id.p_id }}" class="btn" type="button" onclick="TimeAppend('{{ patient.id.p_id }}')">時間添加</button>
-              </div>
-            </label>
+            <div class="note-title">透析低血壓發生時間</div>
+              <label for="idh-time-{{ patient.id.p_id }}">
+                <div class="note-time">
+                時間紀錄<input class="idh-time-input" type="text" name="idh-time-{{ patient.id.p_id }}" id="idh-time-{{ patient.id.p_id }}" disabled>
+                </div>
+                <div class="note-time">
+                請選擇時間並點按添加<input class="idh-time-input" type="time" id="idh-select-{{ patient.id.p_id }}">
+                <button id="timeAppendBtn{{ patient.id.p_id }}" class="btn" type="button" onclick="TimeAppend('{{ patient.id.p_id }}')">時間添加</button>
+                </div>
+              </label>
           </div>
         </div>
         {% if forloop.last %}
