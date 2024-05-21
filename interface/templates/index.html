@@ -1362,6 +1362,9 @@
     <div class="modal-main">
       <div class="modal-left">
         <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
+        <div class="">
+          <button id="openWarningBtn" class="btn-confirm primary-btn" type="submit" onclick="CloseWarningModal()">開啟回饋表單</button>
+        </div>
         <div class="idhcontainer">
           {% if idh > 70 %}
           <div class="idhboard idh-danger">
@@ -1781,8 +1784,8 @@
       </div>
       <div class="modal-sm-content">
         <div class="modal-sm-title">
-          <a id="patientBed">B1</a>
-          <a id="patientName">XXX</a>
+          <a id="patientBed">{{ setting.bed }}</a>
+          <a id="patientName">{{ id.p_name }}</a>
         </div>
         <form id="warningReport" class="modal-sm-form">
           {% csrf_token %}
