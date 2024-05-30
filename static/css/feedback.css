@@ -35,6 +35,10 @@ button {
     background-color: #FEA623;
 }
 
+.bed-feedback-active-bothver {
+    background-color: hsl(16, 95%, 56%);
+}
+
 .bed-feedback-text {
     color: #f8f8fB;
     font-weight: 600;
