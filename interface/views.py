@@ -52,6 +52,15 @@ def index(request, area="dashboard"):
                 'nurseList': nurseList,
             })
     patients = get_patients()
+    start = True
+    for p in list(patients.values()):
+        for i in p:
+            if i['id'] != '---':
+                start = False
+    if start:
+        corn_job() #0528
+        print("Success corn job")
+
     return render(request, 'index.html', {
         "home": True,
         "area": area,
@@ -370,9 +379,15 @@ def get_idh_patients(shift):
                     patient['record'] = records[len(records) - 1]
                     patient['status'] = 0
                     plot_data = []
+                    flag1 = False
+                    flag2 = False
                     for r in range(len(records)):
                         if records[r].SBP <= 90 and records[r].SBP != 0:
+                            flag1 = True
                             patient['status'] = 1
+                            for r in range(len(records)):
+                                if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
+                                    patient['status'] = 3
                             for re in records:
                                 timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
                                 sbp = float(re.SBP)
@@ -389,8 +404,12 @@ def get_idh_patients(shift):
                             idh_patients.append(patient)
                             idh_bed += bed + '-'
                             break
-                        elif r > 1 and records[r].SBP < records[r].SBP - 20 and records[r].SBP != 0:
+                        if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
+                            flag2 = True
                             patient['status'] = 2
+                            for r in range(len(records)):
+                                if records[r].SBP <= 90 and records[r].SBP != 0:
+                                    patient['status'] = 3
                             for re in records:
                                 timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
                                 sbp = float(re.SBP)
@@ -407,6 +426,7 @@ def get_idh_patients(shift):
                             idh_patients.append(patient)
                             idh_bed += bed + '-'
                             break
+                    # if flag1 and flag2: patient['status'] = 3
                     continue
             if 'id' not in patient:
                 patient['id'] = '---' 
@@ -446,283 +466,95 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
     i_patients = []
     idh_patients = []
     idh_bed = ''
-    for index, bed in enumerate(a_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
-                patient['record'] = records[len(records) - 1]
-                patient['status'] = False
-                plot_data = []
-                if bed in update_idh:
-                    patient['status'] = True
+    all_area = [a_area, b_area, c_area, d_area, e_area, i_area]
+    all_patients = [a_patients, b_patients, c_patients, d_patients, e_patients, i_patients]
+    for a in range(len(all_area)):
+        for index, bed in enumerate(all_area[a]):
+            patient = {}
+            patient = {'bed': bed}
+            for d in now_dialysis:
+                if bed == d.bed:
+                    start_time = d.start_time
+                    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                    patient['setting'] = d
+                    records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
+                    patient['record'] = records[len(records) - 1]
+                    patient['status'] = 0
                     plot_data = []
-                    for re in records:
-                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                        sbp = float(re.SBP)
-                        pulse = re.pulse
-                        cvp = re.CVP
-                        plot_data.append({
-                            "timestamp": timestamp,
-                            "SBP": sbp,
-                            "pulse": pulse,
-                            "CVP": cvp, 
-                        })
-                    patient['chart_id'] = "linechart-" + str(bed)
-                    patient['chart'] = json.dumps(plot_data)
-                    for p in tmp_list:
-                        pid = p.split('-')[0]
-                        if pid == str(patient['id'].p_id):
-                            info = p.split('-')[1].split('+')
-                            sign = info[0]                       
-                            if sign == '1': patient['sign'] = True
-                            elif sign == '0': patient['sign'] = False
-                            if 'drug' in info: patient['drug'] = True
-                            if 'inject' in info: patient['inject'] = True
-                            if 'setting' in info: patient['set'] = True
-                            if 'other' in info: patient['other'] = True
-                    idh_patients.append(patient)
-                    idh_bed += bed + '-'
+                    flag1 = False
+                    flag2 = False
+                    for r in range(len(records)):
+                        if records[r].SBP <= 90 and records[r].SBP != 0:
+                            flag1 = True
+                            patient['status'] = 1
+                            for r in range(len(records)):
+                                if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
+                                    patient['status'] = 3
+                            for re in records:
+                                timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                                sbp = float(re.SBP)
+                                pulse = re.pulse
+                                cvp = re.CVP
+                                plot_data.append({
+                                    "timestamp": timestamp,
+                                    "SBP": sbp,
+                                    "pulse": pulse,
+                                    "CVP": cvp, 
+                                })
+                            patient['chart_id'] = "linechart-" + str(bed)
+                            patient['chart'] = json.dumps(plot_data)
+                            for p in tmp_list:
+                                pid = p.split('-')[0]
+                                if pid == str(patient['id'].p_id):
+                                    info = p.split('-')[1].split('+')
+                                    sign = info[0]                       
+                                    if sign == '1': patient['sign'] = True
+                                    elif sign == '0': patient['sign'] = False
+                                    if 'drug' in info: patient['drug'] = True
+                                    if 'inject' in info: patient['inject'] = True
+                                    if 'setting' in info: patient['set'] = True
+                                    if 'other' in info: patient['other'] = True
+                            idh_patients.append(patient)
+                            idh_bed += bed + '-'
+                            break
+                        elif r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
+                            flag2 = True
+                            patient['status'] = 2
+                            for r in range(len(records)):
+                                if records[r].SBP <= 90 and records[r].SBP != 0:
+                                    patient['status'] = 3
+                            for re in records:
+                                timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                                sbp = float(re.SBP)
+                                pulse = re.pulse
+                                cvp = re.CVP
+                                plot_data.append({
+                                    "timestamp": timestamp,
+                                    "SBP": sbp,
+                                    "pulse": pulse,
+                                    "CVP": cvp, 
+                                })
+                            patient['chart_id'] = "linechart-" + str(bed)
+                            patient['chart'] = json.dumps(plot_data)
+                            for p in tmp_list:
+                                pid = p.split('-')[0]
+                                if pid == str(patient['id'].p_id):
+                                    info = p.split('-')[1].split('+')
+                                    sign = info[0]                       
+                                    if sign == '1': patient['sign'] = True
+                                    elif sign == '0': patient['sign'] = False
+                                    if 'drug' in info: patient['drug'] = True
+                                    if 'inject' in info: patient['inject'] = True
+                                    if 'setting' in info: patient['set'] = True
+                                    if 'other' in info: patient['other'] = True
+                            idh_patients.append(patient)
+                            idh_bed += bed + '-'
+                            break
+                    # if flag1 and flag2: patient['status'] = 3
                     continue
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        a_patients.append(patient)    
-    for index, bed in enumerate(b_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
-                patient['record'] = records[len(records) - 1]
-                patient['status'] = False
-                plot_data = []
-                if bed in update_idh:
-                    patient['status'] = True
-                    plot_data = []
-                    for re in records:
-                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                        sbp = float(re.SBP)
-                        pulse = re.pulse
-                        cvp = re.CVP
-                        plot_data.append({
-                            "timestamp": timestamp,
-                            "SBP": sbp,
-                            "pulse": pulse,
-                            "CVP": cvp, 
-                        })
-                    patient['chart_id'] = "linechart-" + str(bed)
-                    patient['chart'] = json.dumps(plot_data)
-                    for p in tmp_list:
-                        pid = p.split('-')[0]
-                        if pid == str(patient['id'].p_id):
-                            info = p.split('-')[1].split('+')
-                            sign = info[0]                       
-                            if sign == '1': patient['sign'] = True
-                            elif sign == '0': patient['sign'] = False
-                            if 'drug' in info: patient['drug'] = True
-                            if 'inject' in info: patient['inject'] = True
-                            if 'setting' in info: patient['set'] = True
-                            if 'other' in info: patient['other'] = True
-                    idh_patients.append(patient)
-                    idh_bed += bed + '-'
-                    continue
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        b_patients.append(patient)
-    for index, bed in enumerate(c_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
-                patient['record'] = records[len(records) - 1]
-                patient['status'] = False
-                plot_data = []
-                if bed in update_idh:
-                    patient['status'] = True
-                    plot_data = []
-                    for re in records:
-                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                        sbp = float(re.SBP)
-                        pulse = re.pulse
-                        cvp = re.CVP
-                        plot_data.append({
-                            "timestamp": timestamp,
-                            "SBP": sbp,
-                            "pulse": pulse,
-                            "CVP": cvp, 
-                        })
-                    patient['chart_id'] = "linechart-" + str(bed)
-                    patient['chart'] = json.dumps(plot_data)
-                    for p in tmp_list:
-                        pid = p.split('-')[0]
-                        if pid == str(patient['id'].p_id):
-                            info = p.split('-')[1].split('+')
-                            sign = info[0]                       
-                            if sign == '1': patient['sign'] = True
-                            elif sign == '0': patient['sign'] = False
-                            if 'drug' in info: patient['drug'] = True
-                            if 'inject' in info: patient['inject'] = True
-                            if 'setting' in info: patient['set'] = True
-                            if 'other' in info: patient['other'] = True
-                    idh_patients.append(patient)
-                    idh_bed += bed + '-'
-                    continue
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        c_patients.append(patient)    
-    for index, bed in enumerate(d_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
-                patient['record'] = records[len(records) - 1]
-                patient['status'] = False
-                plot_data = []
-                if bed in update_idh:
-                    patient['status'] = True
-                    plot_data = []
-                    for re in records:
-                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                        sbp = float(re.SBP)
-                        pulse = re.pulse
-                        cvp = re.CVP
-                        plot_data.append({
-                            "timestamp": timestamp,
-                            "SBP": sbp,
-                            "pulse": pulse,
-                            "CVP": cvp, 
-                        })
-                    patient['chart_id'] = "linechart-" + str(bed)
-                    patient['chart'] = json.dumps(plot_data)
-                    for p in tmp_list:
-                        pid = p.split('-')[0]
-                        if pid == str(patient['id'].p_id):
-                            info = p.split('-')[1].split('+')
-                            sign = info[0]                       
-                            if sign == '1': patient['sign'] = True
-                            elif sign == '0': patient['sign'] = False
-                            if 'drug' in info: patient['drug'] = True
-                            if 'inject' in info: patient['inject'] = True
-                            if 'setting' in info: patient['set'] = True
-                            if 'other' in info: patient['other'] = True
-                    idh_patients.append(patient)
-                    idh_bed += bed + '-'
-                    continue
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        d_patients.append(patient)
-    for index, bed in enumerate(e_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
-                patient['record'] = records[len(records) - 1]
-                patient['status'] = False
-                plot_data = []
-                if bed in update_idh:
-                    patient['status'] = True
-                    plot_data = []
-                    for re in records:
-                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                        sbp = float(re.SBP)
-                        pulse = re.pulse
-                        cvp = re.CVP
-                        plot_data.append({
-                            "timestamp": timestamp,
-                            "SBP": sbp,
-                            "pulse": pulse,
-                            "CVP": cvp, 
-                        })
-                    patient['chart_id'] = "linechart-" + str(bed)
-                    patient['chart'] = json.dumps(plot_data)
-                    for p in tmp_list:
-                        pid = p.split('-')[0]
-                        if pid == str(patient['id'].p_id):
-                            info = p.split('-')[1].split('+')
-                            sign = info[0]                       
-                            if sign == '1': patient['sign'] = True
-                            elif sign == '0': patient['sign'] = False
-                            if 'drug' in info: patient['drug'] = True
-                            if 'inject' in info: patient['inject'] = True
-                            if 'setting' in info: patient['set'] = True
-                            if 'other' in info: patient['other'] = True
-                    idh_patients.append(patient)
-                    idh_bed += bed + '-'
-                    continue
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        e_patients.append(patient)
-    for index, bed in enumerate(i_area):
-        patient = {}
-        patient = {'bed': bed}
-        for d in now_dialysis:
-            if bed == d.bed:
-                start_time = d.start_time
-                patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-                patient['setting'] = d
-                records = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=d.end_time).order_by('record_time')
-                patient['record'] = records[len(records) - 1]
-                patient['status'] = False
-                plot_data = []
-                if bed in update_idh:
-                    patient['status'] = True
-                    plot_data = []
-                    for re in records:
-                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                        sbp = float(re.SBP)
-                        pulse = re.pulse
-                        cvp = re.CVP
-                        plot_data.append({
-                            "timestamp": timestamp,
-                            "SBP": sbp,
-                            "pulse": pulse,
-                            "CVP": cvp, 
-                        })
-                    patient['chart_id'] = "linechart-" + str(bed)
-                    patient['chart'] = json.dumps(plot_data)
-                    for p in tmp_list:
-                        pid = p.split('-')[0]
-                        if pid == str(patient['id'].p_id):
-                            info = p.split('-')[1].split('+')
-                            sign = info[0]                       
-                            if sign == '1': patient['sign'] = True
-                            elif sign == '0': patient['sign'] = False
-                            if 'drug' in info: patient['drug'] = True
-                            if 'inject' in info: patient['inject'] = True
-                            if 'setting' in info: patient['set'] = True
-                            if 'other' in info: patient['other'] = True
-                    idh_patients.append(patient)
-                    idh_bed += bed + '-'
-                    continue
-                continue
-        if 'id' not in patient:
-            patient['id'] = '---'
-        i_patients.append(patient)
-
+            if 'id' not in patient:
+                patient['id'] = '---'
+            all_patients[a].append(patient)  
     return t, shift, {
         'a_patients': a_patients, 
         'b_patients': b_patients, 
@@ -759,7 +591,12 @@ def post_feedback(request):
                 # 口服藥物
                 is_midodrine = True if 'midodrine' in treatment[index] else False
                 drug_other = "口服藥物其他：" if 'drug' in treatment[index] else "--" #+request.POST.get("drug-"+index)
-                drug_all = str(['midodrine' if is_midodrine else ''] + [drug_other if drug_other != "--" else ''])
+                drug_list = ['midodrine' if is_midodrine else ''] + [drug_other if drug_other != "--" else '']
+                drug_all = ''
+                for i in drug_list:
+                    if i != '':
+                        drug_all += i
+                print(drug_all)
                 is_drug = True if is_midodrine or drug_other != "--" else False
                 # 針劑藥物
                 is_IVGlucose = True if 'IV_Glucose' in treatment[index] else False

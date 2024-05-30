@@ -20,11 +20,16 @@
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
         {% else %}
-          {% if patient.status == '2' %}
+          {% comment %} {{patient.status}} {% endcomment %}
+          {% if patient.status == 3 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 2 %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
           </button>
-          {% elif patient.status == '1' %}
+          {% elif patient.status == 1 %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
           </button>          
@@ -47,11 +52,15 @@
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
         {% else %}
-          {% if patient.status == '2' %}
+          {% if patient.status == 3 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 2 %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
           </button>
-          {% elif patient.status == '1' %}
+          {% elif patient.status == 1 %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
           </button>          
@@ -74,11 +83,16 @@
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
         {% else %}
-          {% if patient.status == '2' %}
+          {% comment %} {{patient.status}} {% endcomment %}
+          {% if patient.status == 3 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 2 %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
           </button>
-          {% elif patient.status == '1' %}
+          {% elif patient.status == 1 %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
           </button>          
@@ -103,11 +117,15 @@
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
           {% else %}
-            {% if patient.status == '2' %}
+            {% if patient.status == 3 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 2 %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
             </button>
-            {% elif patient.status == '1' %}
+            {% elif patient.status == 1 %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
             </button>          
@@ -125,7 +143,7 @@
     <section class="area">
       <h1>E</h1>
       <ul class="down">
-        {% for patient in e_patients %}
+      {% for patient in e_patients %}
         {% if patient.bed == '' %}
         <li></li>
         {% else %}
@@ -134,11 +152,15 @@
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
           {% else %}
-            {% if patient.status == '2' %}
+            {% if patient.status == 3 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 2 %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
             </button>
-            {% elif patient.status == '1' %}
+            {% elif patient.status == 1 %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
             </button>          
@@ -165,11 +187,15 @@
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
           {% else %}
-            {% if patient.status == '2' %}
+            {% if patient.status == 3 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 2 %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
             </button>
-            {% elif patient.status == '1' %}
+            {% elif patient.status == 1 %}
             <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
               <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
             </button>          
@@ -334,7 +360,7 @@
                 }
               });
               for(let i = 0; i < chart.length; i++) {
-                if(chart[i].SBP > 0 && chart[i].SBP <= 90 || (i>1 && chart[i].SBP < chart[i-1].SBP - 20)) {
+                if(chart[i].SBP > 0 && (chart[i].SBP <= 90 || (i>1 && chart[i].SBP < chart[i-1].SBP - 20))) {
                   bands.value += {{ patient.id.p_id |safe }} + "-band-" + i + ','
                   linechart.xAxis[0].addPlotBand({
                     from: i - 0.5,

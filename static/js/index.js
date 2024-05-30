@@ -173,14 +173,44 @@ function changeStatus(bed_id) {
   let bed = document.getElementById(bed_id);
   bed_num = bed_id.split('-')[1];
   let idh_bed = document.getElementById("idh-patients-list");
+  if(sessionStorage.getItem("orangeList") == null){
+    sessionStorage.setItem("orangeList", "[]");
+    sessionStorage.setItem("yellowList", "[]");
+  }
+
   if (bed.classList.contains("bed-feedback-active")) {
     idh_bed.value = idh_bed.value.replace(bed_num + '-', "");
+    bed.classList.toggle("bed-feedback-active");
     console.log(idh_bed);
+  } else if(bed.classList.contains("bed-feedback-active-20ver")){
+    idh_bed.value = idh_bed.value.replace(bed_num + '-', "");
+    let listTmp = JSON.parse(sessionStorage.getItem("yellowList"));
+    if(!listTmp.includes(bed_num)){
+      listTmp.push(bed_num);
+    }
+    sessionStorage.setItem("yellowList", JSON.stringify(listTmp));
+    bed.classList.toggle("bed-feedback-active-20ver");
+  } else if(bed.classList.contains("bed-feedback-active-bothver")){
+    idh_bed.value = idh_bed.value.replace(bed_num + '-', "");
+    let listTmp = JSON.parse(sessionStorage.getItem("orangeList"));
+    if(!listTmp.includes(bed_num)){
+      listTmp.push(bed_num);
+    }
+    sessionStorage.setItem("orangeList", JSON.stringify(listTmp));
+    bed.classList.toggle("bed-feedback-active-bothver");
   } else {
+    let yellowTmp = JSON.parse(sessionStorage.getItem("yellowList"));
+    let orangeTmp = JSON.parse(sessionStorage.getItem("orangeList"));
+    if(yellowTmp.includes(bed_num)){
+      bed.classList.toggle("bed-feedback-active-20ver");
+    } else if(orangeTmp.includes(bed_num)){
+      bed.classList.toggle("bed-feedback-active-bothver");
+    } else{
+      bed.classList.toggle("bed-feedback-active");
+    }
     idh_bed.value += bed_num + "-";
     console.log(idh_bed);
   }
-  bed.classList.toggle("bed-feedback-active");
 }
 
 function SwitchNurseList() {
