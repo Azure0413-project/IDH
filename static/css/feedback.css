@@ -235,3 +235,17 @@ hr.rounded {
     transform: scale(0.98);
     transition: 0.2s;
 }
+
+.text-label {
+    font-size: 1.5rem;
+    margin-left: 1em;
+}
+
+.nurseId {
+    width: 12rem;
+    height: 2rem;
+    padding: 0 0.8em;
+    border: 1px #274C77 solid;
+    border-radius: 0.5rem;
+    margin-right: 0.5em;
+}
