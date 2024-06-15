@@ -24,7 +24,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    # now = False
+    now = False
     now = True #push要改True
     if now:
         time = datetime.now()
@@ -34,7 +34,6 @@ def get_time():
     return time
 
 def index(request, area="dashboard"):
-    # Warnings.objects.all().delete()
     time = get_time()
     print("Time:", time)
     if area == "dashboard" and time.minute % 3 == 0: #push要開
@@ -51,16 +50,11 @@ def index(request, area="dashboard"):
                 "chart": json.dumps([]),
                 'nurseList': nurseList,
             })
+    # Do corn job at start
     patients = get_patients()
-    start = True
-    for p in list(patients.values()):
-        for i in p:
-            if i['id'] != '---':
-                start = False
-    if start:
-        corn_job() #0528
-        print("Success corn job")
-
+    if all(all(i['id'] == '---' for i in p) for p in list(patients.values())):
+        print("Success corn job at start")
+        corn_job() 
     return render(request, 'index.html', {
         "home": True,
         "area": area,
@@ -119,11 +113,10 @@ def get_record(request, shift):
     nurseList = list(Nurse.objects.all().values())
     if request.method == 'POST':
         idh_list = request.POST.get('idh-patients-list')
-        tmp_form = request.POST.get('idh-tmp-form')
-        tmp_list = tmp_form.split('/')
         update_idh = idh_list.split('-')[0:-1]
-        # print(request.POST)
-        t, shift, patients = get_update_idh_patients(shift, update_idh, tmp_list)
+        # tmp_form = request.POST.get('idh-tmp-form')
+        # tmp_list = tmp_form.split('/')
+        t, shift, patients = get_update_idh_patients(shift, update_idh)
         return render(request, 'feedback.html', {
             "form": False,
             "t": t,
@@ -170,7 +163,6 @@ def get_patients():
     else:
         preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
-        # all_idh = predict_idh() #1205
         if datetime.now() >= last_pred + timedelta(hours=1): # 先用 datetime.now() 代替 time
             do_pred = True
             all_idh = predict_idh() #1205
@@ -354,12 +346,7 @@ def get_idh_patients(shift):
         shift_end = time.replace(hour=21, minute=0)
 
     now_dialysis = Dialysis.objects.filter(start_time__lte=shift_start, end_time__gte=shift_end)
-    a_patients = []
-    b_patients = []
-    c_patients = []
-    d_patients = []
-    e_patients = []
-    i_patients = []
+    a_patients, b_patients, c_patients, d_patients, e_patients, i_patients = [], [], [], [], [], []
     idh_patients = []
     idh_bed = ''
     all_area = [a_area, b_area, c_area, d_area, e_area, i_area]
@@ -379,11 +366,8 @@ def get_idh_patients(shift):
                     patient['record'] = records[len(records) - 1]
                     patient['status'] = 0
                     plot_data = []
-                    flag1 = False
-                    flag2 = False
                     for r in range(len(records)):
                         if records[r].SBP <= 90 and records[r].SBP != 0:
-                            flag1 = True
                             patient['status'] = 1
                             for r in range(len(records)):
                                 if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
@@ -405,7 +389,6 @@ def get_idh_patients(shift):
                             idh_bed += bed + '-'
                             break
                         if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
-                            flag2 = True
                             patient['status'] = 2
                             for r in range(len(records)):
                                 if records[r].SBP <= 90 and records[r].SBP != 0:
@@ -426,7 +409,6 @@ def get_idh_patients(shift):
                             idh_patients.append(patient)
                             idh_bed += bed + '-'
                             break
-                    # if flag1 and flag2: patient['status'] = 3
                     continue
             if 'id' not in patient:
                 patient['id'] = '---' 
@@ -442,7 +424,7 @@ def get_idh_patients(shift):
         'idh_bed': idh_bed,
     }
 
-def get_update_idh_patients(shift, update_idh, tmp_list):
+def get_update_idh_patients(shift, update_idh):
     time = get_time()
     t = shift
     if shift == 0:
@@ -458,12 +440,7 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
         shift_start = time.replace(hour=19, minute=0)
         shift_end = time.replace(hour=21, minute=0)
     now_dialysis = Dialysis.objects.filter(start_time__lte=shift_start, end_time__gte=shift_end)
-    a_patients = []
-    b_patients = []
-    c_patients = []
-    d_patients = []
-    e_patients = []
-    i_patients = []
+    a_patients, b_patients, c_patients, d_patients, e_patients, i_patients = [], [], [], [], [], []
     idh_patients = []
     idh_bed = ''
     all_area = [a_area, b_area, c_area, d_area, e_area, i_area]
@@ -481,11 +458,8 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                     patient['record'] = records[len(records) - 1]
                     patient['status'] = 0
                     plot_data = []
-                    flag1 = False
-                    flag2 = False
                     for r in range(len(records)):
                         if records[r].SBP <= 90 and records[r].SBP != 0:
-                            flag1 = True
                             patient['status'] = 1
                             for r in range(len(records)):
                                 if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
@@ -503,22 +477,11 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                                 })
                             patient['chart_id'] = "linechart-" + str(bed)
                             patient['chart'] = json.dumps(plot_data)
-                            for p in tmp_list:
-                                pid = p.split('-')[0]
-                                if pid == str(patient['id'].p_id):
-                                    info = p.split('-')[1].split('+')
-                                    sign = info[0]                       
-                                    if sign == '1': patient['sign'] = True
-                                    elif sign == '0': patient['sign'] = False
-                                    if 'drug' in info: patient['drug'] = True
-                                    if 'inject' in info: patient['inject'] = True
-                                    if 'setting' in info: patient['set'] = True
-                                    if 'other' in info: patient['other'] = True
-                            idh_patients.append(patient)
+                            if bed in update_idh:
+                                idh_patients.append(patient)
                             idh_bed += bed + '-'
                             break
                         elif r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
-                            flag2 = True
                             patient['status'] = 2
                             for r in range(len(records)):
                                 if records[r].SBP <= 90 and records[r].SBP != 0:
@@ -536,21 +499,10 @@ def get_update_idh_patients(shift, update_idh, tmp_list):
                                 })
                             patient['chart_id'] = "linechart-" + str(bed)
                             patient['chart'] = json.dumps(plot_data)
-                            for p in tmp_list:
-                                pid = p.split('-')[0]
-                                if pid == str(patient['id'].p_id):
-                                    info = p.split('-')[1].split('+')
-                                    sign = info[0]                       
-                                    if sign == '1': patient['sign'] = True
-                                    elif sign == '0': patient['sign'] = False
-                                    if 'drug' in info: patient['drug'] = True
-                                    if 'inject' in info: patient['inject'] = True
-                                    if 'setting' in info: patient['set'] = True
-                                    if 'other' in info: patient['other'] = True
-                            idh_patients.append(patient)
+                            if bed in update_idh:
+                                idh_patients.append(patient)
                             idh_bed += bed + '-'
                             break
-                    # if flag1 and flag2: patient['status'] = 3
                     continue
             if 'id' not in patient:
                 patient['id'] = '---'
@@ -679,6 +631,11 @@ def warning_feedback(request):
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
+        # time = get_time()
+        # d = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time, bed=pBed)
+        # r = Record.objects.filter(d_id=d.d_id, record_time__gte=d.start_time, record_time__lte=time).order_by('-record_time')
+        # warning_SBP = r[0].SBP
+        # warning_DBP = r[0].DBP
         print(f'{dismiss_time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
         ws = Warnings.objects.filter(p_bed=pBed, p_name=pName)
         try:

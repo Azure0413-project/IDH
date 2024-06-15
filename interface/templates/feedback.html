@@ -225,6 +225,12 @@
     <div class="modal-feedback">
       <form method="post" action="{% url 'post_feedback' %}">
       {% csrf_token %} 
+        <label for="nurseId" class="text-label">護理師員工號：</label>
+        <select id="nurseId" class="nurseId" name="nurseId" aria-label="nurseId">
+          {% for nurseInfo in nurseList %}
+            <option value="{{ nurseInfo.empNo }}">{{ nurseInfo.empNo }}</option>
+          {% endfor %}
+        </select>
         {% for patient in idh_patients %}
         <div class="feedback-patient">
           <div class="feedback-left">
@@ -482,7 +488,6 @@
                   <span class="checkmark checkbox"></span>
                   <input type="text" name="other-{{ patient.id.p_id }}">
                 </label>
-
             </div>
           </div>
         </div>
@@ -505,12 +510,7 @@
         <hr class="rounded">
         {% endif %}
         {% endfor %}
-        護理師員工號：
-        <select id="nurseId" name="nurseId" aria-label="nurseId">
-          {% for nurseInfo in nurseList %}
-            <option value="{{ nurseInfo.empNo }}">{{ nurseInfo.empNo }}</option>
-          {% endfor %}
-        </select>
+        
         <button id="confirmFeedbackBtn" class="btn-confirm feedback-btn" type="submit">確 認</button>
         <div class="close-btn" onclick="closeModal()">
           <img src="{%static 'img/close.svg'%}" />
