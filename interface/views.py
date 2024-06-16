@@ -24,7 +24,7 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    now = False
+    # now = False
     now = True #push要改True
     if now:
         time = datetime.now()
@@ -35,7 +35,6 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
-    print("Time:", time)
     if area == "dashboard" and time.minute % 3 == 0: #push要開
         corn_job() 
     if area == 'Z':
@@ -574,7 +573,6 @@ def post_feedback(request):
                 other_other = "其他處理其他：" if 'other' in treatment[index] else "--" #+request.POST.get("inject-"+index)
                 other_all = str(['observe' if is_observe else ''] + [other_other if other_other != "--" else ''])
                 is_other = True if is_observe or other_other != "--" else False
-                print("HERE:", drug_all, inject_all, setting_all, nursing_all, other_all)
                 f = Feedback(d_id=dialysis, 
                              is_sign=is_sign, 
                              is_drug=is_drug, 
@@ -615,8 +613,10 @@ def post_feedback(request):
 def warning_click(request, bed, name):
     print("Warning click")
     click_time = datetime.now() # 點掉閃爍
+    if request.method == 'POST':
+        empNo = request.POST.get('empNo')
     try:
-        w = Warnings(click_time=click_time, p_bed=bed, p_name=name)
+        w = Warnings(click_time=click_time, empNo=empNo, p_bed=bed, p_name=name)
         w.save()
         return JsonResponse({"status": 'success'})
     except Exception as error:
@@ -631,18 +631,29 @@ def warning_feedback(request):
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
-        # time = get_time()
-        # d = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time, bed=pBed)
-        # r = Record.objects.filter(d_id=d.d_id, record_time__gte=d.start_time, record_time__lte=time).order_by('-record_time')
-        # warning_SBP = r[0].SBP
-        # warning_DBP = r[0].DBP
-        print(f'{dismiss_time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, \npatientBed: {pBed}, patientName: {pName}')
+
+        # treatment=request.POST.getlist('treatment-')
+        # # 口服藥物
+        # is_midodrine = True if 'midodrine' in treatment[index] else False
+        # drug_other = "口服藥物其他：" if 'drug' in treatment[index] else "--" #+request.POST.get("drug-"+index)
+        # drug_list = ['midodrine' if is_midodrine else ''] + [drug_other if drug_other != "--" else '']
+        # drug_all = ''
+        # for i in drug_list:
+        #     if i != '':
+        #         drug_all += i
+        # print("DRUG:", drug_all)
+
+        print(f'{dismiss_time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, patientBed: {pBed}, patientName: {pName}')
         ws = Warnings.objects.filter(p_bed=pBed, p_name=pName)
         try:
             if len(ws) > 1:
                 ws.order_by('-click_time')[0].update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
-            else:
+            elif len(ws) == 1:
                 ws.update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
+            else:
+                w = Warnings(click_time=dismiss_time, p_bed=pBed, p_name=pName, empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
+                w.save()
+            print("Success update warning")
             return JsonResponse({"status": 'success'})
         except Exception as error:
             return JsonResponse({"status": 'fail', "msg": str(error)})

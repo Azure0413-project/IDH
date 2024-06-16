@@ -56,7 +56,7 @@ function SubmitWarning() {
     result[p[0]] = p[1];
   }
   $.ajax({
-    url: "warningFeedback/",
+    url: rootUrl+"warningFeedback/",
     method: "POST",
     headers: {
       "X-CSRFToken": $('[name="csrf-token"]').attr("content"),
