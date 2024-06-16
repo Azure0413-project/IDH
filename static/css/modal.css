@@ -24,6 +24,7 @@
     box-shadow: 0px 12px 24px -8px rgba(0, 0, 0, 0.5);
     width: 85%;
     height: 90%;
+    /* overflow: auto; */
 }
 
 .hidden {
@@ -396,7 +397,7 @@ td {
 .modal-sm-form {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(1, minmax(0, 1fr));
     column-gap: 2.5em;
     row-gap: 0.6em;
 }
@@ -407,7 +408,8 @@ td {
 }
 
 .text-label {
-    font-size: 1.5rem;
+    margin-top: 0.5em;
+    font-size: 1.4rem;
 }
 
 .input-warning {
@@ -424,4 +426,15 @@ td {
     position: absolute;
     bottom: 1em;
     right: 1em;
+}
+
+.warning-left {
+    margin-left: 2em;
+    width: 350px;
+}
+
+.warning-right {
+    max-height: 400px;
+    width: 350px;
+    overflow-y: auto;
 }

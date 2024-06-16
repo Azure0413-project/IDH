@@ -2,3 +2,4 @@
 settings.py
 interface/data
 .DS_Store
+db.sqlite3

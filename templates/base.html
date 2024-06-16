@@ -59,6 +59,9 @@
               <img src="{%static 'img/close.svg'%}" />
             </div>
             <div class="modal-sm-content">
+              <div class="modal-sm-title">
+                <a>輸出報表</a> 
+              </div>
               <form id="exportFileForm" class="modal-sm-form">
                 {% csrf_token %}
                 <div class="text-label">
@@ -74,7 +77,7 @@
               </form>
             </div>
             <div class="">
-              <button id="confirmExportFileBtn" class="btn-confirm export-file-btn" type="submit" onclick="SubmitExportFile()">確認</button>
+              <button id="confirmExportFileBtn" class="export-file-confirm" type="submit" onclick="SubmitExportFile()">確認</button>
             </div>
           </div>
         </div>

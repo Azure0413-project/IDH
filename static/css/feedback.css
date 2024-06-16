@@ -119,13 +119,14 @@ button {
 .note {
     display: flex;
     flex-direction: column;
-    margin: 1em 0;
+    margin: 1em 0em;
 }
 
 .note-container {
     position: relative;
     padding-left: 2em;
     margin-top: 0.5em;
+    margin-left: 1.5em;
 }
 
 .note-container input {
@@ -198,7 +199,7 @@ button {
 }
 
 .note-title {
-    font-size: 20px;
+    font-size: 1.5rem;
     background-color: #CBD3DE;
     padding: 0.1em 0.3em;
     border-radius: 0.2em;
@@ -210,12 +211,13 @@ hr.rounded {
 }
 
 .idh-time-input {
-    width: 200px;
+    width: 15rem;
     height: 2rem;
-    margin: 0 0.2rem;
+    margin: 0 0.5rem;
     font-size: 14px;
-    border-radius: 0.2rem;
-    padding: 0 0.5rem;
+    border: 1px #274C77 solid;
+    border-radius: 0.5rem;
+    padding: 0 0.8em;
 }
 
 .btn {
@@ -236,10 +238,10 @@ hr.rounded {
     transition: 0.2s;
 }
 
-.text-label {
-    font-size: 1.5rem;
+/* .text-label {
+    font-size: 1rem;
     margin-left: 1em;
-}
+} */
 
 .nurseId {
     width: 12rem;

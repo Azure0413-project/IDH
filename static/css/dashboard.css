@@ -354,3 +354,25 @@
 .tab-bed .bed>img {
     width: 2.5em;
 }
+
+.export-file-confirm {
+    background-color: #FEA623;
+    box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.16);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    width: 8rem;
+    color: #f4f7fb;
+    font-weight: 600;
+    font-size: 20px;
+    transition: 0.1s;
+    margin: 14rem 5rem;
+}
+
+.export-file-confirm:hover {
+    background-color: #feb123;
+    transform: scale(1.02);
+    box-shadow: 0px 12px 24px -8px rgba(39, 76, 119, 0.3);
+}
