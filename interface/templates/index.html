@@ -1824,69 +1824,69 @@
               <div class="note-title">處理：</div>
               <label class="text-label">口服藥物：</label>
                 <label class="note-container">midodrine
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="midodrine">
+                  <input type="checkbox" name="drug-midodrine" value="midodrine">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">其他
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="drug" {% if patient.drug %} checked {% endif %}>
-                  <input type="text" name="drug-{{ patient.id.p_id }}">
+                  <input type="checkbox" name="drug-other-check" value="drug-other">
+                  <input type="text" name="drug-other-text">
                   <span class="checkmark checkbox"></span>
                 </label>
               <label class="text-label">針劑藥物：</label>
                 <label class="note-container">IV Glucose
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="IV_Glucose">
+                  <input type="checkbox" name="inject-IV_Glucose" value="IV_Glucose">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">其他
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="inject" {% if patient.inject %} checked {% endif %}>
-                  <input type="text" name="inject-{{ patient.id.p_id }}">
+                  <input type="checkbox" name="inject-other-check" value="inject-other">
+                  <input type="text" name="inject-other-text">
                   <span class="checkmark checkbox"></span>
                 </label>
               <label class="text-label">調整透析設定：</label>
                 <label class="note-container">降低blood flow
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_blood_flow">
+                  <input type="checkbox" name="setting-low_blood_flow" value="low_blood_flow">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">降低UF
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_UF">
+                  <input type="checkbox" name="setting-low_UF" value="low_UF">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">降低dialysate flow
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_dialysate_flow">
+                  <input type="checkbox" name="setting-low_dialysate_flow" value="low_dialysate_flow">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">其他
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.setting %} checked {% endif %}>
-                  <input type="text" name="setting-{{ patient.id.p_id }}">
+                  <input type="checkbox" name="setting-other-check" value="setting-other">
+                  <input type="text" name="setting-other-text">
                   <span class="checkmark checkbox"></span>
                 </label>
               <label class="text-label">護理處置：</label>
                 <label class="note-container">頭低腳高
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="HLFH">
+                  <input type="checkbox" name="nursing-HLFH" value="HLFH">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">調低溫度
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_temp">
+                  <input type="checkbox" name="nursing-low_temp" value="low_temp">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">沖水
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="flush">
+                  <input type="checkbox" name="nursing-flush" value="flush">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">其他
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.setting %} checked {% endif %}>
-                  <input type="text" name="setting-{{ patient.id.p_id }}">
+                  <input type="checkbox" name="nursing-other-check" value="nursing-other">
+                  <input type="text" name="nursing-other-text">
                   <span class="checkmark checkbox"></span>
                 </label>
               <label class="text-label">其他處理：</label>
                 <label class="note-container">再觀察，不做任何處理
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="observe">
+                  <input type="checkbox" name="other-observe" value="observe">
                   <span class="checkmark checkbox"></span>
                 </label>
                 <label class="note-container">其他
-                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="other" {% if patient.other %} checked {% endif %}>
+                  <input type="checkbox" name="other-other-check" value="other-other">
                   <span class="checkmark checkbox"></span>
-                  <input type="text" name="other-{{ patient.id.p_id }}">
+                  <input type="text" name="other-other-text">
                 </label>
             </div>
           </div>

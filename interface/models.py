@@ -69,17 +69,6 @@ class Feedback(models.Model):
     f_id = models.AutoField(primary_key=True)
     d_id = models.ForeignKey(Dialysis, on_delete=models.CASCADE)
     create_time = models.DateTimeField(auto_now_add=True)
-    is_sign = models.BooleanField()
-    is_drug = models.BooleanField(null=True)
-    is_inject = models.BooleanField(null=True)
-    is_nursing = models.BooleanField(null=True)
-    is_setting = models.BooleanField(null=True)
-    is_other = models.BooleanField(null=True)
-    drug_all = models.CharField(max_length=100)
-    inject_all = models.CharField(max_length=100)
-    setting_all = models.CharField(max_length=100)
-    nursing_all = models.CharField(max_length=100)
-    other_all = models.CharField(max_length=100)
     idh_time = models.CharField(max_length=100) #0110
     empNo = models.CharField(max_length=20) #0122
 
@@ -101,6 +90,17 @@ class Warnings(models.Model):
     p_bed = models.CharField(max_length=10)
     warning_SBP = models.DecimalField(decimal_places=3, max_digits=10, null=True)
     warning_DBP = models.IntegerField(null=True)
+    is_sign = models.BooleanField(null=True)
+    is_drug = models.BooleanField(null=True)
+    is_inject = models.BooleanField(null=True)
+    is_nursing = models.BooleanField(null=True)
+    is_setting = models.BooleanField(null=True)
+    is_other = models.BooleanField(null=True)
+    drug_all = models.CharField(max_length=100)
+    inject_all = models.CharField(max_length=100)
+    setting_all = models.CharField(max_length=100)
+    nursing_all = models.CharField(max_length=100)
+    other_all = models.CharField(max_length=100)
 
 class Nurse(models.Model):
     # 護理師名單

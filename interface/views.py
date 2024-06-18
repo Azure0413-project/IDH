@@ -113,39 +113,27 @@ def get_record(request, shift):
     if request.method == 'POST':
         idh_list = request.POST.get('idh-patients-list')
         update_idh = idh_list.split('-')[0:-1]
-        # tmp_form = request.POST.get('idh-tmp-form')
-        # tmp_list = tmp_form.split('/')
         t, shift, patients = get_update_idh_patients(shift, update_idh)
-        return render(request, 'feedback.html', {
-            "form": False,
-            "t": t,
-            "shift": shift,
-            "a_patients": patients["a_patients"],
-            "b_patients": patients["b_patients"],
-            "c_patients": patients["c_patients"],
-            "d_patients": patients["d_patients"],
-            "e_patients": patients["e_patients"],
-            "i_patients": patients["i_patients"],
-            "idh_patients": patients["idh_patients"],
-            "idh_bed": patients["idh_bed"],
-            "nurseList": nurseList
-        })
+        form = False
+        print("update_idh:", update_idh)
+        print("idh_bed:", patients["idh_bed"])
     else:
         t, shift, patients = get_idh_patients(shift)
-        return render(request, 'feedback.html', {
-            "form": True,
-            "t": t,
-            "shift": shift,
-            "a_patients": patients["a_patients"],
-            "b_patients": patients["b_patients"],
-            "c_patients": patients["c_patients"],
-            "d_patients": patients["d_patients"],
-            "e_patients": patients["e_patients"],
-            "i_patients": patients["i_patients"],
-            "idh_patients": patients["idh_patients"],
-            "idh_bed": patients["idh_bed"],
-            "nurseList": nurseList
-        })
+        form = True
+    return render(request, 'feedback.html', {
+        "form": form,
+        "t": t,
+        "shift": shift,
+        "a_patients": patients["a_patients"],
+        "b_patients": patients["b_patients"],
+        "c_patients": patients["c_patients"],
+        "d_patients": patients["d_patients"],
+        "e_patients": patients["e_patients"],
+        "i_patients": patients["i_patients"],
+        "idh_patients": patients["idh_patients"],
+        "idh_bed": patients["idh_bed"],
+        "nurseList": nurseList
+    })
 
 def get_patients():
     time = get_time()
@@ -192,25 +180,20 @@ def get_patients():
                         patient['idh'] = int(round(all_idh[flag] * 100))
                     except:
                         patient['idh'] = 0
-                    
                     #0326 random code
                     patient['random_code'] = d.random_code
-
                     #0326 first click 
                     w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
                     if len(w) == 0:
                         patient['first_click'] = False 
                     else:
                         patient['first_click'] = False if w[0].click_time < datetime.now() - timedelta(hours=1) else True
-                    # if bed == 'E1': print(f"E1: {patient['first_click']}")
-
                     #1226 warning Feedback 
                     w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                     if len(w) == 0 or w[0].dismiss_time == None:
                         patient['done_warning'] = False 
                     else:
                         patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-
                     #1218改
                     if do_pred:
                         dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -223,7 +206,6 @@ def get_patients():
             if 'id' not in patient:
                 patient['id'] = '---'
             all_patients[a].append(patient)
-
     return {
         'a_patients': a_patients, 
         'b_patients': b_patients, 
@@ -343,7 +325,6 @@ def get_idh_patients(shift):
         shift = "晚"
         shift_start = time.replace(hour=20, minute=0)
         shift_end = time.replace(hour=21, minute=0)
-
     now_dialysis = Dialysis.objects.filter(start_time__lte=shift_start, end_time__gte=shift_end)
     a_patients, b_patients, c_patients, d_patients, e_patients, i_patients = [], [], [], [], [], []
     idh_patients = []
@@ -371,44 +352,25 @@ def get_idh_patients(shift):
                             for r in range(len(records)):
                                 if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
                                     patient['status'] = 3
-                            for re in records:
-                                timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                                sbp = float(re.SBP)
-                                pulse = re.pulse
-                                cvp = re.CVP
-                                plot_data.append({
-                                    "timestamp": timestamp,
-                                    "SBP": sbp,
-                                    "pulse": pulse,
-                                    "CVP": cvp, 
-                                })
-                            patient['chart_id'] = "linechart-" + str(bed)
-                            patient['chart'] = json.dumps(plot_data)
-                            idh_patients.append(patient)
-                            idh_bed += bed + '-'
-                            break
-                        if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
+                                    break
+                        elif r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
                             patient['status'] = 2
-                            for r in range(len(records)):
-                                if records[r].SBP <= 90 and records[r].SBP != 0:
-                                    patient['status'] = 3
-                            for re in records:
-                                timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                                sbp = float(re.SBP)
-                                pulse = re.pulse
-                                cvp = re.CVP
-                                plot_data.append({
-                                    "timestamp": timestamp,
-                                    "SBP": sbp,
-                                    "pulse": pulse,
-                                    "CVP": cvp, 
-                                })
-                            patient['chart_id'] = "linechart-" + str(bed)
-                            patient['chart'] = json.dumps(plot_data)
-                            idh_patients.append(patient)
-                            idh_bed += bed + '-'
-                            break
-                    continue
+                    if patient['status'] != 0:
+                        idh_patients.append(patient)
+                        idh_bed += bed + '-'
+                    for re in records:
+                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                        sbp = float(re.SBP)
+                        pulse = re.pulse
+                        cvp = re.CVP
+                        plot_data.append({
+                            "timestamp": timestamp,
+                            "SBP": sbp,
+                            "pulse": pulse,
+                            "CVP": cvp, 
+                        })
+                    patient['chart_id'] = "linechart-" + str(bed)
+                    patient['chart'] = json.dumps(plot_data)
             if 'id' not in patient:
                 patient['id'] = '---' 
             all_patients[a].append(patient)
@@ -460,49 +422,31 @@ def get_update_idh_patients(shift, update_idh):
                     for r in range(len(records)):
                         if records[r].SBP <= 90 and records[r].SBP != 0:
                             patient['status'] = 1
+                            if bed not in idh_bed: idh_bed += bed + '-'
                             for r in range(len(records)):
                                 if r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
                                     patient['status'] = 3
-                            for re in records:
-                                timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                                sbp = float(re.SBP)
-                                pulse = re.pulse
-                                cvp = re.CVP
-                                plot_data.append({
-                                    "timestamp": timestamp,
-                                    "SBP": sbp,
-                                    "pulse": pulse,
-                                    "CVP": cvp, 
-                                })
-                            patient['chart_id'] = "linechart-" + str(bed)
-                            patient['chart'] = json.dumps(plot_data)
-                            if bed in update_idh:
-                                idh_patients.append(patient)
-                            idh_bed += bed + '-'
-                            break
+                                    if bed not in idh_bed: idh_bed += bed + '-'
+                                    break
                         elif r > 1 and records[r].SBP < records[r-1].SBP - 20 and records[r].SBP != 0:
                             patient['status'] = 2
-                            for r in range(len(records)):
-                                if records[r].SBP <= 90 and records[r].SBP != 0:
-                                    patient['status'] = 3
-                            for re in records:
-                                timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
-                                sbp = float(re.SBP)
-                                pulse = re.pulse
-                                cvp = re.CVP
-                                plot_data.append({
-                                    "timestamp": timestamp,
-                                    "SBP": sbp,
-                                    "pulse": pulse,
-                                    "CVP": cvp, 
-                                })
-                            patient['chart_id'] = "linechart-" + str(bed)
-                            patient['chart'] = json.dumps(plot_data)
-                            if bed in update_idh:
-                                idh_patients.append(patient)
-                            idh_bed += bed + '-'
-                            break
-                    continue
+                            if bed not in idh_bed: idh_bed += bed + '-'
+                    if bed in update_idh:
+                        idh_patients.append(patient)
+                        
+                    for re in records:
+                        timestamp = str(re.record_time.strftime("%Y-%m-%d %H:%M"))
+                        sbp = float(re.SBP)
+                        pulse = re.pulse
+                        cvp = re.CVP
+                        plot_data.append({
+                            "timestamp": timestamp,
+                            "SBP": sbp,
+                            "pulse": pulse,
+                            "CVP": cvp, 
+                        })
+                    patient['chart_id'] = "linechart-" + str(bed)
+                    patient['chart'] = json.dumps(plot_data)
             if 'id' not in patient:
                 patient['id'] = '---'
             all_patients[a].append(patient)  
@@ -520,13 +464,13 @@ def get_update_idh_patients(shift, update_idh):
 def post_feedback(request):
     time = get_time()
     if request.method == 'POST':
-        sign = []
-        treatment = []
+        # sign = []
+        # treatment = []
         idh_time = []
         p_id = request.POST.getlist('patient')
         for id in p_id:
-            sign.append(request.POST.get('sign-' + id))
-            treatment.append(request.POST.getlist('treatment-' + id))
+            # sign.append(request.POST.get('sign-' + id))
+            # treatment.append(request.POST.getlist('treatment-' + id))
             idh_time.append(request.POST.getlist('idh-time-' + id)) #0110
         setting = request.POST.getlist('setting')
         if len(request.POST.getlist("bands")) > 0:
@@ -534,57 +478,53 @@ def post_feedback(request):
             empNo = request.POST.getlist("nurseId")[0]
             for index, id in enumerate(p_id):
                 dialysis = Dialysis.objects.get(d_id=setting[index])
-                is_sign = True if sign[index] == '1' else False
-                # is_drug = True if 'drug' in treatment[index] else False
-                # is_inject= True if 'inject' in treatment[index] else False
-                # is_setting = True if 'setting' in treatment[index] else False
-                # is_other = True if 'other' in treatment[index] else False
-                # 口服藥物
-                is_midodrine = True if 'midodrine' in treatment[index] else False
-                drug_other = "口服藥物其他：" if 'drug' in treatment[index] else "--" #+request.POST.get("drug-"+index)
-                drug_list = ['midodrine' if is_midodrine else ''] + [drug_other if drug_other != "--" else '']
-                drug_all = ''
-                for i in drug_list:
-                    if i != '':
-                        drug_all += i
-                print(drug_all)
-                is_drug = True if is_midodrine or drug_other != "--" else False
-                # 針劑藥物
-                is_IVGlucose = True if 'IV_Glucose' in treatment[index] else False
-                inject_other = "針劑藥物其他：" if 'inject' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                inject_all = str(['IV_Glucose' if is_IVGlucose else ''] + [inject_other if inject_other != "--" else ''])
-                is_inject = True if is_IVGlucose or inject_other != "--" else False
-                # 調整透析設定
-                is_low_blood_flow = True if 'low_blood_flow' in treatment[index] else False
-                is_low_UF = True if 'low_UF' in treatment[index] else False
-                is_low_dialysate_flow = True if 'low_dialysate_flow' in treatment[index] else False
-                setting_other = "透析設定其他：" if 'setting' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                setting_all = str(['low_blood_flow' if is_low_blood_flow else ''] + ['low_UF' if is_low_UF else ''] + ['low_dialysate_flow' if is_low_dialysate_flow else ''] + [setting_other if setting_other != "--" else ''])
-                is_setting = True if is_low_blood_flow or is_low_UF or is_low_dialysate_flow or setting_other != "--" else False
-                # 護理處置
-                is_HLFH = True if 'HLFH' in treatment[index] else False
-                is_low_temp = True if 'low_temp' in treatment[index] else False
-                is_flush = True if 'flush' in treatment[index] else False
-                nursing_other = "護理處置其他：" if 'nursing' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                nursing_all = str(['HLFH' if is_HLFH else ''] + ['low_temp' if is_low_temp else ''] + ['flush' if is_flush else ''] + [nursing_other if nursing_other != "--" else ''])
-                is_nursing = True if is_HLFH or is_low_temp or is_flush or nursing_other != "--" else False
-                # 其他處理
-                is_observe = True if 'observe' in treatment[index] else False
-                other_other = "其他處理其他：" if 'other' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                other_all = str(['observe' if is_observe else ''] + [other_other if other_other != "--" else ''])
-                is_other = True if is_observe or other_other != "--" else False
+                # is_sign = True if sign[index] == '1' else False
+                # # 口服藥物
+                # is_midodrine = True if 'midodrine' in treatment[index] else False
+                # drug_other = "口服藥物其他：" if 'drug' in treatment[index] else "--" #+request.POST.get("drug-"+index)
+                # drug_list = ['midodrine' if is_midodrine else ''] + [drug_other if drug_other != "--" else '']
+                # drug_all = ''
+                # for i in drug_list:
+                #     if i != '':
+                #         drug_all += i
+                # print(drug_all)
+                # is_drug = True if is_midodrine or drug_other != "--" else False
+                # # 針劑藥物
+                # is_IVGlucose = True if 'IV_Glucose' in treatment[index] else False
+                # inject_other = "針劑藥物其他：" if 'inject' in treatment[index] else "--" #+request.POST.get("inject-"+index)
+                # inject_all = str(['IV_Glucose' if is_IVGlucose else ''] + [inject_other if inject_other != "--" else ''])
+                # is_inject = True if is_IVGlucose or inject_other != "--" else False
+                # # 調整透析設定
+                # is_low_blood_flow = True if 'low_blood_flow' in treatment[index] else False
+                # is_low_UF = True if 'low_UF' in treatment[index] else False
+                # is_low_dialysate_flow = True if 'low_dialysate_flow' in treatment[index] else False
+                # setting_other = "透析設定其他：" if 'setting' in treatment[index] else "--" #+request.POST.get("inject-"+index)
+                # setting_all = str(['low_blood_flow' if is_low_blood_flow else ''] + ['low_UF' if is_low_UF else ''] + ['low_dialysate_flow' if is_low_dialysate_flow else ''] + [setting_other if setting_other != "--" else ''])
+                # is_setting = True if is_low_blood_flow or is_low_UF or is_low_dialysate_flow or setting_other != "--" else False
+                # # 護理處置
+                # is_HLFH = True if 'HLFH' in treatment[index] else False
+                # is_low_temp = True if 'low_temp' in treatment[index] else False
+                # is_flush = True if 'flush' in treatment[index] else False
+                # nursing_other = "護理處置其他：" if 'nursing' in treatment[index] else "--" #+request.POST.get("inject-"+index)
+                # nursing_all = str(['HLFH' if is_HLFH else ''] + ['low_temp' if is_low_temp else ''] + ['flush' if is_flush else ''] + [nursing_other if nursing_other != "--" else ''])
+                # is_nursing = True if is_HLFH or is_low_temp or is_flush or nursing_other != "--" else False
+                # # 其他處理
+                # is_observe = True if 'observe' in treatment[index] else False
+                # other_other = "其他處理其他：" if 'other' in treatment[index] else "--" #+request.POST.get("inject-"+index)
+                # other_all = str(['observe' if is_observe else ''] + [other_other if other_other != "--" else ''])
+                # is_other = True if is_observe or other_other != "--" else False
                 f = Feedback(d_id=dialysis, 
-                             is_sign=is_sign, 
-                             is_drug=is_drug, 
-                             is_inject=is_inject, 
-                             is_setting=is_setting, 
-                             is_nursing=is_nursing, 
-                             is_other=is_other, 
-                             drug_all=drug_all,
-                             inject_all=inject_all,
-                             setting_all=setting_all,
-                             nursing_all=nursing_all,
-                             other_all=other_all,
+                            #  is_sign=is_sign, 
+                            #  is_drug=is_drug, 
+                            #  is_inject=is_inject, 
+                            #  is_setting=is_setting, 
+                            #  is_nursing=is_nursing, 
+                            #  is_other=is_other, 
+                            #  drug_all=drug_all,
+                            #  inject_all=inject_all,
+                            #  setting_all=setting_all,
+                            #  nursing_all=nursing_all,
+                            #  other_all=other_all,
                              idh_time=idh_time[index], 
                              empNo=empNo) 
                 f.save()
@@ -631,27 +571,96 @@ def warning_feedback(request):
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
-
-        # treatment=request.POST.getlist('treatment-')
-        # # 口服藥物
-        # is_midodrine = True if 'midodrine' in treatment[index] else False
-        # drug_other = "口服藥物其他：" if 'drug' in treatment[index] else "--" #+request.POST.get("drug-"+index)
-        # drug_list = ['midodrine' if is_midodrine else ''] + [drug_other if drug_other != "--" else '']
-        # drug_all = ''
-        # for i in drug_list:
-        #     if i != '':
-        #         drug_all += i
-        # print("DRUG:", drug_all)
-
-        print(f'{dismiss_time} \nempNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, patientBed: {pBed}, patientName: {pName}')
+        # 症狀
+        is_sign = True if request.POST.get('sign-') == '1' else False
+        # 口服藥物
+        drug_midodrine = request.POST.get('drug-midodrine')
+        drug_other = request.POST.get('drug-other-check')
+        drug_all = [i for i in [drug_midodrine, drug_other] if i is not None]
+        is_drug = True if len(drug_all) > 0 else False
+        # 針劑藥物
+        inject_IV_Glucose = request.POST.get('drug-IV_Glucose')
+        inject_other = request.POST.get('inject-other-check')
+        inject_all = [i for i in [inject_IV_Glucose, inject_other] if i is not None]
+        is_inject = True if len(inject_all) > 0 else False
+        # 調整透析設定
+        setting_low_blood_flow = request.POST.get('setting-low_blood_flow')
+        setting_low_UF = request.POST.get('setting-low_UF')
+        setting_low_dialysate_flow = request.POST.get('setting-low_dialysate_flow')
+        setting_other = request.POST.get('setting-other-check')
+        setting_all = [i for i in [setting_low_blood_flow, setting_low_UF, setting_low_dialysate_flow, setting_other] if i is not None]
+        is_setting = True if len(setting_all) > 0 else False
+        # 護理處置
+        nursing_HLFH = request.POST.get('nursing-HLFH')
+        nursing_low_temp = request.POST.get('nursing-low_temp')
+        nursing_flush = request.POST.get('nursing-flush')
+        nursing_other = request.POST.get('nursing-other-check')
+        nursing_all = [i for i in [nursing_HLFH, nursing_low_temp, nursing_flush, nursing_other] if i is not None]
+        is_nursing = True if len(nursing_all) > 0 else False
+        # 其他處理
+        other_observe = request.POST.get('other-observe')
+        other_other = request.POST.get('other-other-check')
+        other_all = [i for i in [other_observe, other_other] if i is not None]
+        is_other = True if len(other_all) > 0 else False
+        print("DRUG:", drug_all, is_drug)
+        print("INJECT:", inject_all, is_inject)
+        print("SETTING:", setting_all, is_setting)
+        print("NURSING:", nursing_all, is_nursing)
+        print("OTHER:", other_all, is_other)
+        print(f'Dismiss: {dismiss_time} empNo: {empNo}, SBP: {warning_SBP}, DBP: {warning_DBP}, patientBed: {pBed}, patientName: {pName}')
         ws = Warnings.objects.filter(p_bed=pBed, p_name=pName)
         try:
             if len(ws) > 1:
-                ws.order_by('-click_time')[0].update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
+                ws.order_by('-click_time')[0].update(empNo=empNo, 
+                                                     warning_SBP=warning_SBP, 
+                                                     warning_DBP=warning_DBP, 
+                                                     dismiss_time=dismiss_time,
+                                                     is_sign=is_sign, 
+                                                     is_drug=is_drug, 
+                                                     is_inject=is_inject, 
+                                                     is_setting=is_setting, 
+                                                     is_nursing=is_nursing, 
+                                                     is_other=is_other, 
+                                                     drug_all=drug_all,
+                                                     inject_all=inject_all,
+                                                     setting_all=setting_all,
+                                                     nursing_all=nursing_all,
+                                                     other_all=other_all)
             elif len(ws) == 1:
-                ws.update(empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
+                ws.update(empNo=empNo, 
+                          warning_SBP=warning_SBP, 
+                          warning_DBP=warning_DBP, 
+                          dismiss_time=dismiss_time,
+                          is_sign=is_sign, 
+                          is_drug=is_drug, 
+                          is_inject=is_inject, 
+                          is_setting=is_setting, 
+                          is_nursing=is_nursing, 
+                          is_other=is_other, 
+                          drug_all=drug_all,
+                          inject_all=inject_all,
+                          setting_all=setting_all,
+                          nursing_all=nursing_all,
+                          other_all=other_all)
             else:
-                w = Warnings(click_time=dismiss_time, p_bed=pBed, p_name=pName, empNo=empNo, warning_SBP=warning_SBP, warning_DBP=warning_DBP, dismiss_time=dismiss_time)
+                w = Warnings(empNo=empNo, 
+                             p_bed=pBed, 
+                             p_name=pName, 
+                             warning_SBP=warning_SBP, 
+                             warning_DBP=warning_DBP, 
+                             click_time=dismiss_time, 
+                             dismiss_time=dismiss_time,
+                             is_sign=is_sign, 
+                             is_drug=is_drug, 
+                             is_inject=is_inject, 
+                             is_setting=is_setting, 
+                             is_nursing=is_nursing, 
+                             is_other=is_other, 
+                             drug_all=drug_all,
+                             inject_all=inject_all,
+                             setting_all=setting_all,
+                             nursing_all=nursing_all,
+                             other_all=other_all)
                 w.save()
             print("Success update warning")
             return JsonResponse({"status": 'success'})

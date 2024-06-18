@@ -20,7 +20,6 @@
             <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
           </button>
         {% else %}
-          {% comment %} {{patient.status}} {% endcomment %}
           {% if patient.status == 3 %}
           <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
             <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
@@ -222,7 +221,7 @@
 <div id="modal" class="modal">
   <!-- Modal content -->
   <div class="modal-idh">
-    <div class="modal-feedback">
+    <div id="feedbackModal" class="modal-feedback">
       <form method="post" action="{% url 'post_feedback' %}">
       {% csrf_token %} 
         <label for="nurseId" class="text-label">護理師員工號：</label>
@@ -510,7 +509,6 @@
         <hr class="rounded">
         {% endif %}
         {% endfor %}
-        
         <button id="confirmFeedbackBtn" class="btn-confirm feedback-btn" type="submit">確 認</button>
         <div class="close-btn" onclick="closeModal()">
           <img src="{%static 'img/close.svg'%}" />
