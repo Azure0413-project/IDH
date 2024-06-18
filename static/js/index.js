@@ -92,6 +92,8 @@ const modal = document.getElementById("modal");
 window.onclick = function (event) {
   if (event.target.id == "modal") {
     clear();
+  // } else if(event.target.id == "feedbackModal"){
+  //   document.getElementById("feedbackModal").classList.toggle("hidden");
   } else if(event.target.id == "warningModal"){
     document.getElementById("warningModal").classList.toggle("hidden");
   } else if(event.target.id == "exportFileModal"){
@@ -177,7 +179,6 @@ function changeStatus(bed_id) {
     sessionStorage.setItem("orangeList", "[]");
     sessionStorage.setItem("yellowList", "[]");
   }
-
   if (bed.classList.contains("bed-feedback-active")) {
     idh_bed.value = idh_bed.value.replace(bed_num + '-', "");
     bed.classList.toggle("bed-feedback-active");
