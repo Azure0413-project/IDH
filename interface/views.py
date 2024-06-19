@@ -550,13 +550,15 @@ def post_feedback(request):
             "i_patients": patients["i_patients"],
         })
 
-def warning_click(request, bed, name):
+def warning_click(request):
     print("Warning click")
     click_time = datetime.now() # 點掉閃爍
     if request.method == 'POST':
+        pBed = request.POST.get('patientBed')
+        pName = request.POST.get('patientName')
         empNo = request.POST.get('empNo')
     try:
-        w = Warnings(click_time=click_time, empNo=empNo, p_bed=bed, p_name=name)
+        w = Warnings(click_time=click_time, empNo=empNo, p_bed=pBed, p_name=pName)
         w.save()
         return JsonResponse({"status": 'success'})
     except Exception as error:
@@ -790,7 +792,7 @@ def export_file(request):
         warnings = Warnings.objects.filter(dismiss_time__gte=start_time, dismiss_time__lte=end_time)
         if len(warnings) != 0:
             for warning in warnings:
-                data = [warning.empNo, warning.p_name, warning.p_name, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time]
+                data = [warning.empNo, warning.p_name, warning.p_bed, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time]
                 ws.append(data)
         # Save the workbook to the HttpResponse
         wb.save(response)
