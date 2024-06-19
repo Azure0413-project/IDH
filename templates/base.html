@@ -74,6 +74,23 @@
                   <br>
                   <input class="idh-time-input" type="datetime-local" id="export-file-end" name="export-file-end">
                 </div>
+                <script>
+                  document.addEventListener('DOMContentLoaded', (event) => {
+                      let now = new Date();
+                      let yesterday = new Date(now);
+                      yesterday.setDate(yesterday.getDate() - 1);
+                      let formatDate = (date) => {
+                          let year = date.getFullYear();
+                          let month = String(date.getMonth() + 1).padStart(2, '0');
+                          let day = String(date.getDate()).padStart(2, '0');
+                          let hours = String(date.getHours()).padStart(2, '0');
+                          let minutes = String(date.getMinutes()).padStart(2, '0');
+                          return `${year}-${month}-${day}T${hours}:${minutes}`;
+                      };
+                      document.getElementById('export-file-start').value = formatDate(yesterday);
+                      document.getElementById('export-file-end').value = formatDate(now);
+                  });
+                </script>
               </form>
             </div>
             <div class="">
