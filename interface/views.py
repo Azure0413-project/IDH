@@ -29,7 +29,7 @@ def get_time():
     if now:
         time = datetime.now()
     else:
-        # time = datetime(2024, 4, 19, 13, 40, 0)
+        # time = datetime(2024, 1, 24, 15, 3, 0)
         time = datetime(2023, 9, 23, 10, 43, 0)
     return time
 
@@ -37,6 +37,7 @@ def index(request, area="dashboard"):
     time = get_time()
     if area == "dashboard" and time.minute % 3 == 0: #push要開
         corn_job() 
+        # print(0)
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -150,9 +151,10 @@ def get_patients():
     else:
         preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
-        if datetime.now() >= last_pred + timedelta(hours=1): # 先用 datetime.now() 代替 time
+        if datetime.now() >= last_pred + timedelta(minutes=5): # 先用 datetime.now() 代替 time
             do_pred = True
             all_idh = predict_idh() #1205
+            print("[prediction]", time)
         else:
             do_pred = False
             same_preds = Predict.objects.filter(pred_time__date=preds[0].pred_time.date(), pred_time__hour=preds[0].pred_time.hour).order_by('flag')
@@ -781,18 +783,19 @@ def export_file(request):
         start_time = datetime.strptime(str(start_time), "%Y-%m-%dT%H:%M")
         end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
         # Create the export view 
-        # filename = f'PatientData_{datetime.now().strftime("%Y%m%d")}.xlsx'
         filename = 'PatientData.xlsx'
         response = HttpResponse(content_type='application/ms-excel')
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
         wb = Workbook()
         ws = wb.active
         ws.title = "all_record"
-        ws.append(["員工號", "姓名", "床位", "SBP", "DBP", "填寫時間"])
+        ws.append(["員工號", "姓名", "床位", "警示關閉時間", "SBP", "DBP", "填寫時間",
+                   "口服藥物", "針劑藥物", "調整透析設定", "護理處置", "其他處理"])
         warnings = Warnings.objects.filter(dismiss_time__gte=start_time, dismiss_time__lte=end_time)
         if len(warnings) != 0:
             for warning in warnings:
-                data = [warning.empNo, warning.p_name, warning.p_bed, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time]
+                data = [warning.empNo, warning.p_name, warning.p_bed, warning.click_time, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time,
+                        warning.drug_all, warning.inject_all, warning.setting_all, warning.nursing_all, warning.other_all]
                 ws.append(data)
         # Save the workbook to the HttpResponse
         wb.save(response)
