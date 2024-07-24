@@ -76,16 +76,16 @@
             </div>
           {% else %}
           {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -157,16 +157,16 @@
             </div>
           {% else %}
           {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -238,16 +238,16 @@
             </div>
           {% else %}
           {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}          
-          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% else %}
-          <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+          <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
             <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -321,16 +321,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}            
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -406,16 +406,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}                
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -491,16 +491,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}                
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}"  onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 0, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -612,16 +612,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -741,16 +741,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -869,16 +869,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -997,16 +997,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -1125,16 +1125,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -1253,16 +1253,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -1799,12 +1799,12 @@
             <div class="text-label" id="warning-left-SBP">
               <label for="SBP">病患當前收縮壓：</label>
               <br>
-              <input class="input-warning" type="text" id="SBP" name="SBP" value="{{r.SBP|floatformat:0}}"/>mmHg
+              <input class="input-warning" type="text" id="SBP" name="SBP" value="{% if r.in10minutes %}{{r.SBP|floatformat:0}}{% endif %}"/>mmHg
             </div>
             <div class="text-label" id="warning-left-DBP">
               <label for="DBP">病患當前舒張壓：</label>
               <br>
-              <input class="input-warning" type="text" id="DBP" name="DBP" value="{{r.DBP|floatformat:0}}"/>mmHg
+              <input class="input-warning" type="text" id="DBP" name="DBP" value="{% if r.in10minutes %}{{r.DBP|floatformat:0}}{% endif %}"/>mmHg
             </div>
             {% endwith %}
           </div>
@@ -1827,21 +1827,27 @@
                   <input type="checkbox" name="drug-midodrine" value="midodrine">
                   <span class="checkmark checkbox"></span>
                 </label>
-                <label class="note-container">其他
-                  <input type="checkbox" name="drug-other-check" value="drug-other">
-                  <input type="text" name="drug-other-text">
-                  <span class="checkmark checkbox"></span>
-                </label>
+                <div class="other-decoration">
+                  <label class="note-container">其他:
+                    <input type="checkbox" name="drug-other-check" value="drug-other">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label for="drug-other-text" class="note-container-other"></label>
+                  <input type="text" id="drug-other-text" name="drug-other-text">
+                </div>
               <label class="text-label">針劑藥物：</label>
                 <label class="note-container">IV Glucose
                   <input type="checkbox" name="inject-IV_Glucose" value="IV_Glucose">
                   <span class="checkmark checkbox"></span>
                 </label>
-                <label class="note-container">其他
-                  <input type="checkbox" name="inject-other-check" value="inject-other">
-                  <input type="text" name="inject-other-text">
-                  <span class="checkmark checkbox"></span>
-                </label>
+                <div class="other-decoration">
+                  <label class="note-container">其他:
+                    <input type="checkbox" name="inject-other-check" value="inject-other">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label for="inject-other-text" class="note-container-other"></label>
+                  <input type="text" name="inject-other-text" id="inject-other-text">
+                </div>
               <label class="text-label">調整透析設定：</label>
                 <label class="note-container">降低blood flow
                   <input type="checkbox" name="setting-low_blood_flow" value="low_blood_flow">
@@ -1855,11 +1861,14 @@
                   <input type="checkbox" name="setting-low_dialysate_flow" value="low_dialysate_flow">
                   <span class="checkmark checkbox"></span>
                 </label>
-                <label class="note-container">其他
-                  <input type="checkbox" name="setting-other-check" value="setting-other">
-                  <input type="text" name="setting-other-text">
-                  <span class="checkmark checkbox"></span>
-                </label>
+                <div class="other-decoration">
+                  <label class="note-container">其他:
+                    <input type="checkbox" name="setting-other-check" value="setting-other">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label for="setting-other-text" class="note-container-other"></label>
+                  <input type="text" name="setting-other-text" id="setting-other-text">
+                </div>
               <label class="text-label">護理處置：</label>
                 <label class="note-container">頭低腳高
                   <input type="checkbox" name="nursing-HLFH" value="HLFH">
@@ -1873,21 +1882,28 @@
                   <input type="checkbox" name="nursing-flush" value="flush">
                   <span class="checkmark checkbox"></span>
                 </label>
-                <label class="note-container">其他
-                  <input type="checkbox" name="nursing-other-check" value="nursing-other">
-                  <input type="text" name="nursing-other-text">
-                  <span class="checkmark checkbox"></span>
-                </label>
+                <div class="other-decoration">
+                  <label class="note-container">其他:
+                    <input type="checkbox" name="nursing-other-check" value="nursing-other">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label for="nursing-other-text" class="note-container-other"></label>
+                  <input type="text" name="nursing-other-text" id="nursing-other-text">
+                </div>
               <label class="text-label">其他處理：</label>
                 <label class="note-container">再觀察，不做任何處理
                   <input type="checkbox" name="other-observe" value="observe">
                   <span class="checkmark checkbox"></span>
                 </label>
-                <label class="note-container">其他
-                  <input type="checkbox" name="other-other-check" value="other-other">
-                  <span class="checkmark checkbox"></span>
-                  <input type="text" name="other-other-text">
-                </label>
+                <div class="other-decoration">
+                  <label class="note-container">其他:
+                    <input type="checkbox" name="other-other-check" value="other-other">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label for="other-other-text" class="note-container-other"></label>
+                  <input type="text" name="other-other-text" id="other-other-text">
+                </div>
+
             </div>
           </div>
         </form>
