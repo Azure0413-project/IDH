@@ -1,11 +1,12 @@
 // mode:
 // 0 -> dashboard
 // 1 -> each tag
-function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP) {
+function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP, random_code) {
   console.log("FIRST_CLICK:", first_click);
   SBP = parseInt(SBP);
   DBP = parseInt(DBP);
-  if (idh > 85 && done == 'False' && first_click == 'True') {
+  random_code = parseInt(random_code);
+  if (random_code == 1 && idh > 85 && done == 'False' && first_click == 'True') {
     let warningModal = document.getElementById("warningModal");
     document.getElementById("warning-left-SBP").style.display='';
     document.getElementById("warning-left-DBP").style.display='';
@@ -18,7 +19,7 @@ function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP) {
     document.getElementById("DBP").value = DBP;
     console.log("danger");
     warningModal.classList.toggle("hidden");
-  } else if (idh > 85 && done == 'False' && first_click == 'False') {
+  } else if (random_code == 1 && idh > 85 && done == 'False' && first_click == 'False') {
     warningModal.classList.toggle("hidden");
     document.getElementById("warning-left-SBP").style.display='None';
     document.getElementById("warning-left-DBP").style.display='None';

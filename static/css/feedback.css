@@ -129,6 +129,14 @@ button {
     margin-left: 1.5em;
 }
 
+.note-container-other {
+    position: relative;
+}
+
+.other-decoration {
+    margin-top: 0.5em;
+}
+
 .note-container input {
     position: absolute;
     opacity: 0;

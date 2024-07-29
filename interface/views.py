@@ -240,6 +240,7 @@ def get_detail(request, area, bed, idh):
             if record.d_id.start_temperature <= 0: record.d_id.start_temperature = '-'
             if record.d_id.ESA == str(-1): record.d_id.ESA = '-'
             if record.flush == -1.000: record.flush = '-'
+            if record.record_time > (datetime.now() - timedelta(minutes=10)): record.in10minutes = True
             temp.append(record)
 
     patient['all_record'] = temp
