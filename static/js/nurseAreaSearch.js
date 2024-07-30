@@ -20,7 +20,7 @@ function SwitchNurseList(){
   location.href = targetUrl;
 }
 
-function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP, random_code) {
+function ClickOnPatientNA(bed, idh, name, mode, done, first_click, SBP, DBP, random_code) {
   console.log("FIRST_CLICK:", first_click);
   SBP = parseInt(SBP);
   DBP = parseInt(DBP);
@@ -81,13 +81,13 @@ function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP, rando
 
 window.onclick = function (event) {
   if (event.target.id == "modal") {
-    close_modal();
+    close_modal_NA();
   } else if(event.target.id == "warningModal"){
     CloseWarningModal();
   }
 };
 
-function close_modal() {
+function close_modal_NA() {
     let nurseId = location.href.split("/")[5];
     let setTmp = JSON.parse(sessionStorage.getItem(nurseId));
     let bedStr = "emp";
@@ -104,12 +104,12 @@ function liClickEvent(e) {
     SearchFunc();
 }
   
-function CloseWarningModal() {
+function CloseWarningModalNA() {
     document.getElementById("warningModal").classList.toggle("hidden");
     // SearchFunc();
 }
 
-function SubmitWarning() {
+function SubmitWarningNA() {
     let pBed = document.getElementById("patientBed").innerText;
     let pName = document.getElementById("patientName").innerText;
     let formData = new FormData(document.getElementById("warningReport"));
@@ -145,7 +145,7 @@ function SubmitWarning() {
     });
 }
 
-function SubmitWarningClick() {
+function SubmitWarningClickNA() {
   let pBed = document.getElementById("patientBed").innerText;
   let pName = document.getElementById("patientName").innerText;
   let formData = new FormData(document.getElementById("warningReport"));
@@ -180,3 +180,21 @@ function SubmitWarningClick() {
     },
   });
 }
+
+$(document).ready(function () {
+  document.getElementById('other-other-check').onchange = function(){
+    document.getElementById('other-other-text').disabled = !this.checked;
+  }
+  document.getElementById('nursing-other-check').onchange = function(){
+    document.getElementById('nursing-other-text').disabled = !this.checked;
+  }
+  document.getElementById('setting-other-check').onchange = function(){
+    document.getElementById('setting-other-text').disabled = !this.checked;
+  }
+  document.getElementById('inject-other-check').onchange = function(){
+    document.getElementById('inject-other-text').disabled = !this.checked;
+  }
+  document.getElementById('drug-other-check').onchange = function(){
+    document.getElementById('drug-other-text').disabled = !this.checked;
+  }
+});

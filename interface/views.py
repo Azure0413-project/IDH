@@ -24,8 +24,8 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    # now = False
-    now = True #push要改True
+    now = False
+    # now = True #push要改True
     if now:
         time = datetime.now()
     else:
@@ -35,8 +35,8 @@ def get_time():
 
 def index(request, area="dashboard"):
     time = get_time()
-    if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job() 
+    # if area == "dashboard" and time.minute % 3 == 0: #push要開
+        # corn_job() 
         # print(0)
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
