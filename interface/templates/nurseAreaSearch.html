@@ -56,16 +56,16 @@
               </div>
             {% else %}
             {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
-            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
-            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% else %}
-            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatient('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
               <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
             {% endif %}
               {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
@@ -131,7 +131,7 @@
       <div class="modal-left">
         <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
         <div class="">
-          <button id="openWarningBtn" class="btn-confirm primary-btn" type="submit" onclick="CloseWarningModal()"> &emsp;護理師處置&emsp; </button>
+          <button id="openWarningBtn" class="btn-confirm primary-btn" type="submit" onclick="CloseWarningModalNA()"> &emsp;護理師處置&emsp; </button>
         </div>
         <div class="idhcontainer">
           {% if idh > 70 %}
@@ -529,7 +529,7 @@
           </table>
         </div>
       </div>
-      <div class="close-btn" onclick="close_modal()">
+      <div class="close-btn" onclick="close_modal_NA()">
         <img src="{%static 'img/close.svg'%}" />
       </div>
       <div class="page">
@@ -547,13 +547,13 @@
 <div id="warningModal" class="modal-sm hidden">
     <div class="modal-content">
       <div class="modal-main">
-        <div class="close-btn" onclick="CloseWarningModal()">
+        <div class="close-btn" onclick="CloseWarningModalNA()">
           <img src="{%static 'img/close.svg'%}" />
         </div>
         <div class="modal-sm-content">
           <div class="modal-sm-title">
-            <a id="patientBed">B1</a>
-            <a id="patientName">XXX</a>
+            <a id="patientBed">{{ setting.bed }}</a>
+            <a id="patientName">{{ id.p_name }}</a>
           </div>
           <form id="warningReport" class="modal-sm-form">
             <div class="warning-left" id="warning-left">
@@ -597,11 +597,11 @@
                   </label>
                   <div class="other-decoration">
                     <label class="note-container">其他:
-                      <input type="checkbox" name="drug-other-check" value="drug-other">
+                      <input type="checkbox" id="drug-other-check" name="drug-other-check" value="drug-other">
                       <span class="checkmark checkbox"></span>
                     </label>
                     <label for="drug-other-text" class="note-container-other"></label>
-                    <input type="text" id="drug-other-text" name="drug-other-text">
+                    <input type="text" id="drug-other-text" name="drug-other-text" disabled>
                   </div>
                 <label class="text-label">針劑藥物：</label>
                   <label class="note-container">IV Glucose
@@ -610,11 +610,11 @@
                   </label>
                   <div class="other-decoration">
                     <label class="note-container">其他:
-                      <input type="checkbox" name="inject-other-check" value="inject-other">
+                      <input type="checkbox" id="inject-other-check" name="inject-other-check" value="inject-other">
                       <span class="checkmark checkbox"></span>
                     </label>
                     <label for="inject-other-text" class="note-container-other"></label>
-                    <input type="text" name="inject-other-text" id="inject-other-text">
+                    <input type="text" name="inject-other-text" id="inject-other-text" disabled>
                   </div>
                 <label class="text-label">調整透析設定：</label>
                   <label class="note-container">降低blood flow
@@ -631,11 +631,11 @@
                   </label>
                   <div class="other-decoration">
                     <label class="note-container">其他:
-                      <input type="checkbox" name="setting-other-check" value="setting-other">
+                      <input type="checkbox" id="setting-other-check" name="setting-other-check" value="setting-other">
                       <span class="checkmark checkbox"></span>
                     </label>
                     <label for="setting-other-text" class="note-container-other"></label>
-                    <input type="text" name="setting-other-text" id="setting-other-text">
+                    <input type="text" name="setting-other-text" id="setting-other-text" disabled>
                   </div>
                 <label class="text-label">護理處置：</label>
                   <label class="note-container">頭低腳高
@@ -652,11 +652,11 @@
                   </label>
                   <div class="other-decoration">
                     <label class="note-container">其他:
-                      <input type="checkbox" name="nursing-other-check" value="nursing-other">
+                      <input type="checkbox" id="nursing-other-check" name="nursing-other-check" value="nursing-other">
                       <span class="checkmark checkbox"></span>
                     </label>
                     <label for="nursing-other-text" class="note-container-other"></label>
-                    <input type="text" name="nursing-other-text" id="nursing-other-text">
+                    <input type="text" name="nursing-other-text" id="nursing-other-text" disabled>
                   </div>
                 <label class="text-label">其他處理：</label>
                   <label class="note-container">再觀察，不做任何處理
@@ -665,11 +665,11 @@
                   </label>
                   <div class="other-decoration">
                     <label class="note-container">其他:
-                      <input type="checkbox" name="other-other-check" value="other-other">
+                      <input type="checkbox" id="other-other-check" name="other-other-check" value="other-other">
                       <span class="checkmark checkbox"></span>
                     </label>
                     <label for="other-other-text" class="note-container-other"></label>
-                    <input type="text" name="other-other-text" id="other-other-text">
+                    <input type="text" name="other-other-text" id="other-other-text" disabled>
                   </div>
   
               </div>
@@ -677,8 +677,8 @@
           </form>
         </div>
         <div class="">
-          <button id="confirmWarningBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitWarning()">確認</button>
-          <button id="warningClickBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitWarningClick()" style="display: none;">確認</button>
+          <button id="confirmWarningBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitWarningNA()">確認</button>
+          <button id="warningClickBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitWarningClickNA()" style="display: none;">確認</button>
         </div>
       </div>
     </div>

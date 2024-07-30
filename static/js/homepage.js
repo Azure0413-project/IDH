@@ -173,3 +173,21 @@ function SubmitExportFile() {
     },
   });
 }
+
+$(document).ready(function () {
+  document.getElementById('other-other-check').onchange = function(){
+    document.getElementById('other-other-text').disabled = !this.checked;
+  }
+  document.getElementById('nursing-other-check').onchange = function(){
+    document.getElementById('nursing-other-text').disabled = !this.checked;
+  }
+  document.getElementById('setting-other-check').onchange = function(){
+    document.getElementById('setting-other-text').disabled = !this.checked;
+  }
+  document.getElementById('inject-other-check').onchange = function(){
+    document.getElementById('inject-other-text').disabled = !this.checked;
+  }
+  document.getElementById('drug-other-check').onchange = function(){
+    document.getElementById('drug-other-text').disabled = !this.checked;
+  }
+});
