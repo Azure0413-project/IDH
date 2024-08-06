@@ -54,6 +54,16 @@ def index(request, area="dashboard"):
     if all(all(i['id'] == '---' for i in p) for p in list(patients.values())):
         print("Success corn job at start")
         corn_job() 
+        return render(request, 'index.html', {
+            "home": True,
+            "area": area,
+            "a_patients": patients["a_patients"],
+            "b_patients": patients["b_patients"],
+            "c_patients": patients["c_patients"],
+            "d_patients": patients["d_patients"],
+            "e_patients": patients["e_patients"],
+            "i_patients": patients["i_patients"],
+        })
     return render(request, 'index.html', {
         "home": True,
         "area": area,
