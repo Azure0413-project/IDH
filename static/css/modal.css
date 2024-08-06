@@ -410,6 +410,7 @@ td {
 }
 
 .modal-sm-form {
+    height: 80%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(1, minmax(0, 1fr));
@@ -444,12 +445,16 @@ td {
 }
 
 .warning-left {
+    max-height: 400px;
     margin-left: 2em;
     width: 350px;
+    overflow-y: auto;
+    height: 60%;
 }
 
 .warning-right {
     max-height: 400px;
     width: 350px;
+    height: 60%;
     overflow-y: auto;
 }
