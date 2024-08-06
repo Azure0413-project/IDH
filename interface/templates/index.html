@@ -1675,12 +1675,12 @@
                 <td>{{ id.p_name }}</td>
                 <td>{{ id.gender }}</td>
                 <td>{{ record.d_id.age }}</td>
-                <td>{{ id.birth }}</td>
+                <td>{{ id.birth|date:'Y/m/d' }}</td>
                 <td>{{ record.d_id.bed }}</td>
                 <td>{{ record.d_id.times }}</td>
-                <td>{{ record.d_id.start_time }}</td>
-                <td>{{ record.d_id.end_time }}</td>
-                <td>{{ record.record_time }}</td>
+                <td>{{ record.d_id.start_time|date:'Y/m/d H:i A'|lower }}</td>
+                <td>{{ record.d_id.end_time|date:'Y/m/d H:i A'|lower }}</td>
+                <td>{{ record.record_time|date:'Y/m/d H:i A'|lower }}</td>
                 {% if record.SBP > 180 or record.SBP < 90 %}
                 <td class="danger">{{ record.SBP|floatformat:0 }}</td>
                 {% elif record.SBP > 165 or record.SBP < 100 %}
