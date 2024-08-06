@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
+{% with firstThreshold=75 secondThreshold=70%}
 <div class="container">
   <div class="tab">
     <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
@@ -90,7 +91,7 @@
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-            <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+            <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
               <div class="pressure">
                 {% if patient.record.SBP == 0 %}
                 <div class="img-text"> -/- </div>
@@ -119,9 +120,9 @@
                 {% if patient.record.SBP == 0 %}
                 <img src="{% static "img/idh_inactive.svg" %}" />
                 {% else %}
-                  {% if patient.idh > 85 %}
+                  {% if patient.idh > firstThreshold %}
                   <img src="{% static 'img/idh_danger.svg' %} " />
-                  {% elif patient.idh > 70 %}
+                  {% elif patient.idh > secondThreshold %}
                   <img src="{% static 'img/idh_warning.svg' %} " />
                   {% else %}
                   <img src="{% static 'img/idh_safe.svg' %} " />
@@ -171,7 +172,7 @@
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-            <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+            <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
               <div class="pressure">
                 {% if patient.record.SBP == 0 %}
                 <div class="img-text"> -/- </div>
@@ -200,9 +201,9 @@
                 {% if patient.record.SBP == 0 %}
                 <img src="{% static "img/idh_inactive.svg" %}" />
                 {% else %}
-                  {% if patient.idh > 85 %}
+                  {% if patient.idh > firstThreshold %}
                   <img src="{% static 'img/idh_danger.svg' %} " />
-                  {% elif patient.idh > 70 %}
+                  {% elif patient.idh > secondThreshold %}
                   <img src="{% static 'img/idh_warning.svg' %} " />
                   {% else %}
                   <img src="{% static 'img/idh_safe.svg' %} " />
@@ -252,7 +253,7 @@
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-            <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+            <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
               <div class="pressure">
                 {% if patient.record.SBP == 0 %}
                 <div class="img-text"> -/- </div>
@@ -281,9 +282,9 @@
                 {% if patient.record.SBP == 0 %}
                 <img src="{% static "img/idh_inactive.svg" %}" />
                 {% else %}
-                  {% if patient.idh > 85 %}
+                  {% if patient.idh > firstThreshold %}
                   <img src="{% static 'img/idh_danger.svg' %} " />
-                  {% elif patient.idh > 70 %}
+                  {% elif patient.idh > secondThreshold %}
                   <img src="{% static 'img/idh_warning.svg' %} " />
                   {% else %}
                   <img src="{% static 'img/idh_safe.svg' %} " />
@@ -335,7 +336,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -364,9 +365,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -420,7 +421,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -449,9 +450,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -505,7 +506,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -534,9 +535,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -627,7 +628,7 @@
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% comment %} {{ patient.first_click}}{{patient.done_warning}}{{patient.random_code}} {% endcomment %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -660,9 +661,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -755,7 +756,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -788,9 +789,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -883,7 +884,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -916,9 +917,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -1011,7 +1012,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -1044,9 +1045,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -1139,7 +1140,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -1172,9 +1173,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -1267,7 +1268,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-              <div class="and bed-bottom {% if patient.idh >= 85 and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
                   <div class="img-text"> -/- </div>
@@ -1300,9 +1301,9 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > 85 %}
+                    {% if patient.idh > firstThreshold %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
-                    {% elif patient.idh > 70 %}
+                    {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
                     <img src="{% static 'img/idh_safe.svg' %} " />
@@ -1366,12 +1367,12 @@
           <button id="openWarningBtn" class="btn-confirm primary-btn" type="submit" onclick="CloseWarningModal()"> &emsp;護理師處置&emsp; </button>
         </div>
         <div class="idhcontainer">
-          {% if idh > 70 %}
+          {% if idh > firstThreshold %}
           <div class="idhboard idh-danger">
           {% else %}
           <div class="idhboard">
           {% endif %}
-            <div>透析低血壓預測機率</div>
+            <div>下小時透析低血壓預測機率</div>
             <div id="idhrate">{{ idh }} %</div>
             <div id="updatetime">最後更新時間：{{ record.record_time }}</div>
           </div>
@@ -1915,4 +1916,4 @@
     </div>
   </div>
 </div>
-{% endblock %}
+{% endwith %}{% endblock %}

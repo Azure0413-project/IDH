@@ -1,3 +1,4 @@
+
 function AdjustPage(){
     let nurseId = document.getElementById("nurseId").value;
     location.href = rootUrl + `NAadjust/${nurseId}`;
@@ -25,7 +26,7 @@ function ClickOnPatientNA(bed, idh, name, mode, done, first_click, SBP, DBP, ran
   SBP = parseInt(SBP);
   DBP = parseInt(DBP);
   random_code = parseInt(random_code);
-  if (random_code == 1 && idh > 85 && done == 'False' && first_click == 'True') {
+  if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'True') {
     let warningModal = document.getElementById("warningModal");
     document.getElementById("warning-left-SBP").style.display='';
     document.getElementById("warning-left-DBP").style.display='';
@@ -38,7 +39,7 @@ function ClickOnPatientNA(bed, idh, name, mode, done, first_click, SBP, DBP, ran
     document.getElementById("DBP").value = DBP;
     console.log("danger");
     warningModal.classList.toggle("hidden");
-  } else if (random_code == 1 && idh > 85 && done == 'False' && first_click == 'False') {
+  } else if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'False') {
     warningModal.classList.toggle("hidden");
     document.getElementById("warning-left-SBP").style.display='None';
     document.getElementById("warning-left-DBP").style.display='None';
