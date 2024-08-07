@@ -29,7 +29,7 @@ def get_time():
     if now:
         time = datetime.now()
     else:
-        # time = datetime(2024, 1, 24, 16, 3, 0)
+        # time = datetime(2024, 4, 19, 9, 2, 0)
         time = datetime(2023, 9, 23, 10, 43, 0)
     return time
 
@@ -75,6 +75,7 @@ def index(request, area="dashboard"):
         "i_patients": patients["i_patients"],
     })
 
+# 護理師專區
 def NurseAreaSearch(request, nurseId, bedList):
     if bedList != "emp":
         patients = get_nurse_patients(bedList.split("-"))
@@ -118,6 +119,7 @@ def DeleteNurse(request):
     Nurse.objects.filter(empNo=empNo).delete()
     return JsonResponse({'status': 'success'})
 
+# 取得資料
 def get_record(request, shift):
     nurseList = list(Nurse.objects.all().values())
     if request.method == 'POST':
@@ -473,16 +475,13 @@ def get_update_idh_patients(shift, update_idh):
         'idh_bed': idh_bed,
     }
 
+# 回饋表單
 def post_feedback(request):
     time = get_time()
     if request.method == 'POST':
-        # sign = []
-        # treatment = []
         idh_time = []
         p_id = request.POST.getlist('patient')
         for id in p_id:
-            # sign.append(request.POST.get('sign-' + id))
-            # treatment.append(request.POST.getlist('treatment-' + id))
             idh_time.append(request.POST.getlist('idh-time-' + id)) #0110
         setting = request.POST.getlist('setting')
         if len(request.POST.getlist("bands")) > 0:
@@ -490,53 +489,7 @@ def post_feedback(request):
             empNo = request.POST.getlist("nurseId")[0]
             for index, id in enumerate(p_id):
                 dialysis = Dialysis.objects.get(d_id=setting[index])
-                # is_sign = True if sign[index] == '1' else False
-                # # 口服藥物
-                # is_midodrine = True if 'midodrine' in treatment[index] else False
-                # drug_other = "口服藥物其他：" if 'drug' in treatment[index] else "--" #+request.POST.get("drug-"+index)
-                # drug_list = ['midodrine' if is_midodrine else ''] + [drug_other if drug_other != "--" else '']
-                # drug_all = ''
-                # for i in drug_list:
-                #     if i != '':
-                #         drug_all += i
-                # print(drug_all)
-                # is_drug = True if is_midodrine or drug_other != "--" else False
-                # # 針劑藥物
-                # is_IVGlucose = True if 'IV_Glucose' in treatment[index] else False
-                # inject_other = "針劑藥物其他：" if 'inject' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                # inject_all = str(['IV_Glucose' if is_IVGlucose else ''] + [inject_other if inject_other != "--" else ''])
-                # is_inject = True if is_IVGlucose or inject_other != "--" else False
-                # # 調整透析設定
-                # is_low_blood_flow = True if 'low_blood_flow' in treatment[index] else False
-                # is_low_UF = True if 'low_UF' in treatment[index] else False
-                # is_low_dialysate_flow = True if 'low_dialysate_flow' in treatment[index] else False
-                # setting_other = "透析設定其他：" if 'setting' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                # setting_all = str(['low_blood_flow' if is_low_blood_flow else ''] + ['low_UF' if is_low_UF else ''] + ['low_dialysate_flow' if is_low_dialysate_flow else ''] + [setting_other if setting_other != "--" else ''])
-                # is_setting = True if is_low_blood_flow or is_low_UF or is_low_dialysate_flow or setting_other != "--" else False
-                # # 護理處置
-                # is_HLFH = True if 'HLFH' in treatment[index] else False
-                # is_low_temp = True if 'low_temp' in treatment[index] else False
-                # is_flush = True if 'flush' in treatment[index] else False
-                # nursing_other = "護理處置其他：" if 'nursing' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                # nursing_all = str(['HLFH' if is_HLFH else ''] + ['low_temp' if is_low_temp else ''] + ['flush' if is_flush else ''] + [nursing_other if nursing_other != "--" else ''])
-                # is_nursing = True if is_HLFH or is_low_temp or is_flush or nursing_other != "--" else False
-                # # 其他處理
-                # is_observe = True if 'observe' in treatment[index] else False
-                # other_other = "其他處理其他：" if 'other' in treatment[index] else "--" #+request.POST.get("inject-"+index)
-                # other_all = str(['observe' if is_observe else ''] + [other_other if other_other != "--" else ''])
-                # is_other = True if is_observe or other_other != "--" else False
                 f = Feedback(d_id=dialysis, 
-                            #  is_sign=is_sign, 
-                            #  is_drug=is_drug, 
-                            #  is_inject=is_inject, 
-                            #  is_setting=is_setting, 
-                            #  is_nursing=is_nursing, 
-                            #  is_other=is_other, 
-                            #  drug_all=drug_all,
-                            #  inject_all=inject_all,
-                            #  setting_all=setting_all,
-                            #  nursing_all=nursing_all,
-                            #  other_all=other_all,
                              idh_time=idh_time[index], 
                              empNo=empNo) 
                 f.save()
@@ -562,6 +515,7 @@ def post_feedback(request):
             "i_patients": patients["i_patients"],
         })
 
+# 警示表單
 def warning_click(request):
     print("Warning click")
     click_time = datetime.now() # 點掉閃爍
@@ -681,10 +635,8 @@ def warning_feedback(request):
         except Exception as error:
             return JsonResponse({"status": 'fail', "msg": str(error)})
 
+# 護理師專區
 def get_nurse_patients(bed_list):
-    # if request.method == 'POST':
-    #   bed_list = request.POST.getlist('nurse_bed') 
-    # bed_list = ["A1", "A2", "A5", "B2", "B7"]
     patients = get_patients()
     nurse_patients = []
     for index, bed in enumerate(bed_list):
@@ -784,6 +736,7 @@ def get_nurse_detail(request, nurseId, bed, idh):
         "chart": json.dumps(plot_data),
     })
 
+# 輸出報表
 def export_file(request):
     '''0109 Export patient data to Excel file'''
     start_time = request.POST.get('start_time')
