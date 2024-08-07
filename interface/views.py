@@ -29,7 +29,7 @@ def get_time():
     if now:
         time = datetime.now()
     else:
-        # time = datetime(2024, 1, 24, 15, 3, 0)
+        # time = datetime(2024, 1, 24, 16, 3, 0)
         time = datetime(2023, 9, 23, 10, 43, 0)
     return time
 
@@ -37,7 +37,6 @@ def index(request, area="dashboard"):
     time = get_time()
     if area == "dashboard" and time.minute % 3 == 0: #push要開
         corn_job() 
-        print(0)
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
