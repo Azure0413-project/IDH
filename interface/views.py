@@ -23,20 +23,22 @@ a_area = ['A9', '', 'A5', '', 'A3', 'A8', 'A2', 'A7', 'A1', 'A6']
 e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
+now = False
 def get_time():
-    # now = False
-    now = True #push要改True
+    now = False
+    # now = True #push要改True
     if now:
         time = datetime.now()
     else:
         # time = datetime(2024, 4, 19, 9, 2, 0)
         time = datetime(2023, 9, 23, 10, 43, 0)
+    print(time)
     return time
 
 def index(request, area="dashboard"):
     time = get_time()
-    if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job() 
+    # if area == "dashboard" and time.minute % 3 == 0: #push要開
+    #     corn_job() 
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -51,6 +53,7 @@ def index(request, area="dashboard"):
             })
     # Do corn job at start
     patients = get_patients()
+    
     if all(all(i['id'] == '---' for i in p) for p in list(patients.values())):
         print("Success corn job at start")
         corn_job() 
@@ -64,6 +67,7 @@ def index(request, area="dashboard"):
             "e_patients": patients["e_patients"],
             "i_patients": patients["i_patients"],
         })
+    
     return render(request, 'index.html', {
         "home": True,
         "area": area,
@@ -769,8 +773,8 @@ def export_file(request):
 
 def corn_job():
     fetchData()
-    # print("Successfully fetch API")
+    print("Successfully fetch API")
     splitCSV()
-    # print("Successfully split to 3 CSV files")
+    print("Successfully split to 3 CSV files")
     saveData()
     print("[corn_job]Successfully save new data to database")
