@@ -56,7 +56,7 @@ def index(request, area="dashboard"):
     
     if all(all(i['id'] == '---' for i in p) for p in list(patients.values())):
         print("Success corn job at start")
-        corn_job() 
+        # corn_job() 
         return render(request, 'index.html', {
             "home": True,
             "area": area,
