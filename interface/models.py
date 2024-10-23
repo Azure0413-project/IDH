@@ -101,6 +101,9 @@ class Warnings(models.Model):
     setting_all = models.CharField(max_length=100)
     nursing_all = models.CharField(max_length=100)
     other_all = models.CharField(max_length=100)
+    # handle_time = models.DateTimeField(null=True)
+    handle_time = models.TimeField(null=True)
+
 
 class Nurse(models.Model):
     # 護理師名單

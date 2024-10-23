@@ -230,10 +230,34 @@ function SwitchRandomCodeDisplay(){
   }
 }
 
+// 護理師處置時間
+/*
 function HandleTimeAppend(p_id){
   console.log(p_id);
   let handle_time_list = document.getElementById(`handle-time-${p_id}`);
   let handle_time = document.getElementById(`handle-select-${p_id}`).value;
+  current_time = handle_time.replace(":", "");
+  current_time_set = new Set(handle_time_list.value.split(","));
+  console.log(`print handle time : ${handle_time}`);
+  console.log(`print list: ${Array.from(current_time_set)}`); // Alternative using Array.from()
+
+  if(current_time_set.has(current_time)){
+      current_time_set.delete(current_time);
+      handle_time_list.value = [...current_time_set].join(",");
+  } else {
+      if(handle_time_list.value.length != 0){
+          handle_time_list.value += ",";
+      } 
+      handle_time_list.value += `${handle_time.replace(":", "")}`;
+  }
+  
+  return;
+}
+  */
+function HandleTimeAppend(){
+  
+  let handle_time_list = document.getElementById(`handle-time`);
+  let handle_time = document.getElementById(`handle-select`).value;
   current_time = handle_time.replace(":", "");
   current_time_set = new Set(handle_time_list.value.split(","));
   console.log(`print handle time : ${handle_time}`);

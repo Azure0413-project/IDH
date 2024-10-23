@@ -1808,7 +1808,7 @@
               <input class="input-warning" type="text" id="DBP" name="DBP" value="{% if r.in10minutes %}{{r.DBP|floatformat:0}}{% endif %}"/>mmHg
             </div>
 
-            <div class="note">
+            <!-- <div class="note">
               <div class="note-title">護理師處置時間</div>
                 <label for="handle-time-{{ patient.id.p_id }}">
                   <div class="note-time">
@@ -1820,8 +1820,21 @@
                   </div>
                 </label>
             </div>
+          </div> -->
+          <div class="note">
+            <div class="note-title">護理師處置時間</div>
+              <label for="handle-time">
+                <div class="note-time">
+                處置時間<input class="handle-time-input" type="text" name="handle-time" id="handle-time" readonly>
+                </div>
+                <div class="note-time">
+                請選擇時間並點按添加<input class="handle-time-input" type="time" id="handle-select">
+                <button id="HandletimeAppendBtn" class="btn" type="button" onclick="HandleTimeAppend()">時間添加</button>
+                </div>
+              </label>
           </div>
-
+        </div>
+        
             {% endwith %}
           </div>
           <div class="warning-right" id="warning-right">
@@ -1919,6 +1932,8 @@
                   <label for="other-other-text" class="note-container-other"></label>
                   <input type="text" name="other-other-text" id="other-other-text" disabled>
                 </div>
+
+
 
             </div>
           </div>

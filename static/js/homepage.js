@@ -164,6 +164,7 @@ function SubmitExportFile() {
       var url = window.URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url;
+      console.log("a:", a);
       a.download = 'PatientData.xlsx';
       document.body.appendChild(a);
       a.click();

@@ -536,6 +536,8 @@ def warning_click(request):
 
 def warning_feedback(request):
     # 1210改
+    # index,html nurseAreaSearch.html
+    # POST.get(name)
     if request.method == 'POST':
         dismiss_time = datetime.now() # 0312 紀錄血壓
         pBed = request.POST.get('patientBed')
@@ -543,6 +545,7 @@ def warning_feedback(request):
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
+        
         # 症狀
         is_sign = True if request.POST.get('sign-') == '1' else False
         # 口服藥物
@@ -574,6 +577,11 @@ def warning_feedback(request):
         other_other = request.POST.get('other-other-check')
         other_all = [i for i in [other_observe, other_other] if i is not None]
         is_other = True if len(other_all) > 0 else False
+        # 護理師處置時間
+        handle_time = request.POST.get('handle-time')
+        
+        
+        print("HANDLE TIME:",handle_time)
         print("DRUG:", drug_all, is_drug)
         print("INJECT:", inject_all, is_inject)
         print("SETTING:", setting_all, is_setting)
@@ -597,7 +605,8 @@ def warning_feedback(request):
                                                      inject_all=inject_all,
                                                      setting_all=setting_all,
                                                      nursing_all=nursing_all,
-                                                     other_all=other_all)
+                                                     other_all=other_all,
+                                                     handle_time=handle_time)
             elif len(ws) == 1:
                 ws.update(empNo=empNo, 
                           warning_SBP=warning_SBP, 
@@ -613,7 +622,8 @@ def warning_feedback(request):
                           inject_all=inject_all,
                           setting_all=setting_all,
                           nursing_all=nursing_all,
-                          other_all=other_all)
+                          other_all=other_all,
+                          handle_time=handle_time)
             else:
                 w = Warnings(empNo=empNo, 
                              p_bed=pBed, 
@@ -632,7 +642,8 @@ def warning_feedback(request):
                              inject_all=inject_all,
                              setting_all=setting_all,
                              nursing_all=nursing_all,
-                             other_all=other_all)
+                             other_all=other_all,
+                             handle_time=handle_time)
                 w.save()
             print("Success update warning")
             return JsonResponse({"status": 'success'})
@@ -746,6 +757,7 @@ def export_file(request):
     start_time = request.POST.get('start_time')
     end_time = request.POST.get('end_time')
     if start_time != '' and end_time != '':
+        print("Range of exported file")
         print("start time:", start_time, ", end time: ", end_time)
         start_time = datetime.strptime(str(start_time), "%Y-%m-%dT%H:%M")
         end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
@@ -757,16 +769,29 @@ def export_file(request):
         ws = wb.active
         ws.title = "all_record"
         ws.append(["員工號", "姓名", "床位", "警示關閉時間", "SBP", "DBP", "填寫時間",
-                   "口服藥物", "針劑藥物", "調整透析設定", "護理處置", "其他處理"])
+                   "口服藥物", "針劑藥物", "調整透析設定", "護理處置", "其他處理","護理師處置時間"])
         warnings = Warnings.objects.filter(dismiss_time__gte=start_time, dismiss_time__lte=end_time)
         if len(warnings) != 0:
             for warning in warnings:
-                data = [warning.empNo, warning.p_name, warning.p_bed, warning.click_time, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time,
-                        warning.drug_all, warning.inject_all, warning.setting_all, warning.nursing_all, warning.other_all]
+                data = [warning.empNo, 
+                        warning.p_name, 
+                        warning.p_bed, 
+                        warning.click_time, 
+                        warning.warning_SBP, 
+                        warning.warning_DBP, 
+                        warning.dismiss_time,
+                        warning.drug_all, 
+                        warning.inject_all, 
+                        warning.setting_all, 
+                        warning.nursing_all, 
+                        warning.other_all,
+                        warning.handle_time
+                        ]
                 ws.append(data)
         # Save the workbook to the HttpResponse
         wb.save(response)
         print("Success exporting file", response)
+        print(data)
         return response
     else:
         return HttpResponse("請提供有效的起始時間和結束時間")
