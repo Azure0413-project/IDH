@@ -17,13 +17,24 @@ def getNowDate():
 def getAPIResponse(day_month_year):
     url = 'http://10.11.29.18/php/dialysislist.php'
     param = {'date': day_month_year}
+
+    ### API_Testing
+    # url = 'https://jsonplaceholder.typicode.com/posts'
+    # param = {}
+
     response = requests.get(url, params=param)
     response.raise_for_status()  # raises exception when not a 2xx response
     if response.status_code == 200:
         try:
-            data = response.text.strip('<meta charset="UTF-8" />')
-            data_list = json.loads(data)['data_list']
-            # print(data_list)
+            # data = response.text.strip('<meta charset="UTF-8" />')
+            # data_list = json.loads(data)['data_list']
+            data_list = response.json()
+            
+
+            # Save data_list to a JSON file
+            with open('api_content.json', 'w') as json_file:
+                json.dump(data_list, json_file, indent=4)  # Write the data to a file in JSON 
+
         except ValueError:
             data_list = []
             print("error")

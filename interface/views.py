@@ -38,6 +38,9 @@ def get_time():
 def index(request, area="dashboard"):
     time = get_time()
     # if area == "dashboard" and time.minute % 3 == 0: #push要開
+    #     corn_job()
+    ### API Testing
+    # if area == "dashboard":
     #     corn_job() 
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
@@ -797,6 +800,7 @@ def export_file(request):
         return HttpResponse("請提供有效的起始時間和結束時間")
 
 def corn_job():
+    print("Running corn_job")
     fetchData()
     print("Successfully fetch API")
     splitCSV()
