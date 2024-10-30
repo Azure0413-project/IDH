@@ -115,3 +115,9 @@ nav ul {
     flex-direction: column;
     justify-content: stretch;
 }
+
+.handle-time-option {
+    padding: 5px; /* Adds space inside each option */
+    max-height: 100px;
+    overflow-y: auto;
+}

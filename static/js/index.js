@@ -231,47 +231,45 @@ function SwitchRandomCodeDisplay(){
 }
 
 // 護理師處置時間
-/*
-function HandleTimeAppend(p_id){
-  console.log(p_id);
-  let handle_time_list = document.getElementById(`handle-time-${p_id}`);
-  let handle_time = document.getElementById(`handle-select-${p_id}`).value;
-  current_time = handle_time.replace(":", "");
-  current_time_set = new Set(handle_time_list.value.split(","));
-  console.log(`print handle time : ${handle_time}`);
-  console.log(`print list: ${Array.from(current_time_set)}`); // Alternative using Array.from()
-
-  if(current_time_set.has(current_time)){
-      current_time_set.delete(current_time);
-      handle_time_list.value = [...current_time_set].join(",");
-  } else {
-      if(handle_time_list.value.length != 0){
-          handle_time_list.value += ",";
-      } 
-      handle_time_list.value += `${handle_time.replace(":", "")}`;
-  }
+document.addEventListener("DOMContentLoaded", function() {
+  const handleSelect = document.getElementById("handle-select");
+  const handleTime = document.getElementById("handle-time");
   
-  return;
-}
-  */
+  // Generate times in 15-minute intervals
+  const interval = 5; // Interval in minutes
+  const now = new Date();
+  const currentHours = now.getHours();
+  const currentMinutes = now.getMinutes();
+  let defaultTime = "";
+
+  // Populate the select options
+  for (let hour = 0; hour <= currentHours; hour++) {
+      for (let minute = 0; minute < 60; minute += interval) {
+          if (hour === currentHours && minute > currentMinutes) break; // Stop if time exceeds current time
+          
+          const time = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+          const option = document.createElement("option");
+          option.value = time.replace(":", ""); // For easier handling in JS
+          option.textContent = time;
+          handleSelect.appendChild(option);
+          
+          // Set default time to current time
+          if (hour === currentHours && minute <= currentMinutes) {
+            defaultTime = time; // Store the value for the default time
+          }
+      }
+  }
+  handleTime.value = defaultTime;
+});
+
 function HandleTimeAppend(){
   
-  let handle_time_list = document.getElementById(`handle-time`);
-  let handle_time = document.getElementById(`handle-select`).value;
-  current_time = handle_time.replace(":", "");
-  current_time_set = new Set(handle_time_list.value.split(","));
-  console.log(`print handle time : ${handle_time}`);
-  console.log(`print list: ${Array.from(current_time_set)}`); // Alternative using Array.from()
+  let handle_time = document.getElementById(`handle-time`);  //input text
+  let selected_handle_time = document.getElementById(`handle-select`).value; //selected time
 
-  if(current_time_set.has(current_time)){
-      current_time_set.delete(current_time);
-      handle_time_list.value = [...current_time_set].join(",");
-  } else {
-      if(handle_time_list.value.length != 0){
-          handle_time_list.value += ",";
-      } 
-      handle_time_list.value += `${handle_time.replace(":", "")}`;
-  }
+  current_time = selected_handle_time.replace(":", "");
+  console.log(`print handle time : ${selected_handle_time}`);
+  handle_time.value = current_time
   
   return;
 }

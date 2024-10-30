@@ -1808,19 +1808,6 @@
               <input class="input-warning" type="text" id="DBP" name="DBP" value="{% if r.in10minutes %}{{r.DBP|floatformat:0}}{% endif %}"/>mmHg
             </div>
 
-            <!-- <div class="note">
-              <div class="note-title">護理師處置時間</div>
-                <label for="handle-time-{{ patient.id.p_id }}">
-                  <div class="note-time">
-                  處置時間<input class="handle-time-input" type="text" name="handle-time-{{ patient.id.p_id }}" id="handle-time-{{ patient.id.p_id }}" disabled>
-                  </div>
-                  <div class="note-time">
-                  請選擇時間並點按添加<input class="handle-time-input" type="time" id="handle-select-{{ patient.id.p_id }}">
-                  <button id="HandletimeAppendBtn{{ patient.id.p_id }}" class="btn" type="button" onclick="HandleTimeAppend('{{ patient.id.p_id }}')">時間添加</button>
-                  </div>
-                </label>
-            </div>
-          </div> -->
           <div class="note">
             <div class="note-title">護理師處置時間</div>
               <label for="handle-time">
@@ -1828,7 +1815,10 @@
                 處置時間<input class="handle-time-input" type="text" name="handle-time" id="handle-time" readonly>
                 </div>
                 <div class="note-time">
-                請選擇時間並點按添加<input class="handle-time-input" type="time" id="handle-select">
+                <div class="selected">
+                請選擇時間並點按添加<select class="handle-time-option" id="handle-select" size="5" style="padding: 5px;"> 
+                        <!-- Time options will be generated here by JavaScript --></select>
+                </div>
                 <button id="HandletimeAppendBtn" class="btn" type="button" onclick="HandleTimeAppend()">時間添加</button>
                 </div>
               </label>
