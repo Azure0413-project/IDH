@@ -1807,26 +1807,22 @@
               <br>
               <input class="input-warning" type="text" id="DBP" name="DBP" value="{% if r.in10minutes %}{{r.DBP|floatformat:0}}{% endif %}"/>mmHg
             </div>
+            
+              <div class="text-label" id="warning-handle-time"></div>
+                <label for="handle-time">護理師處置時間:</label>
+                  <br>
+                  <input class="handle-time-input" type="text" name="handle-time" id="handle-time" readonly>
+                  <div class="note-time">
+                    <div class="selecte-list">
+                    請選擇時間並點按添加<select class="handle-time-option" id="handle-select" size="5" style="padding: 5px;"> 
+                            <!-- Time options will be generated here by JavaScript --></select>
+                    </div>
+                    <button id="HandletimeAppendBtn" class="btn" type="button" onclick="HandleTimeAppend()">時間添加</button>
+                  </div>
+          </div>
+          {% endwith %}
 
-          <div class="note">
-            <div class="note-title">護理師處置時間</div>
-              <label for="handle-time">
-                <div class="note-time">
-                處置時間<input class="handle-time-input" type="text" name="handle-time" id="handle-time" readonly>
-                </div>
-                <div class="note-time">
-                <div class="selected">
-                請選擇時間並點按添加<select class="handle-time-option" id="handle-select" size="5" style="padding: 5px;"> 
-                        <!-- Time options will be generated here by JavaScript --></select>
-                </div>
-                <button id="HandletimeAppendBtn" class="btn" type="button" onclick="HandleTimeAppend()">時間添加</button>
-                </div>
-              </label>
-          </div>
-        </div>
-        
-            {% endwith %}
-          </div>
+          
           <div class="warning-right" id="warning-right">
             <div class="note">
               <div class="note-title">症狀*</div>
