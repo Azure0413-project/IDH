@@ -97,6 +97,7 @@ def Data_Preprocess(file_name):
                 file.write("\n")
                 # json.dump(data_list, json_file, indent=4)  # Write the data to a file in JSON 
             print("save sucesssfully")
+            
 def adjust_input(input_data, zero_list, record_num = 4):
     for i in range(len(input_data)):
         while(len(input_data[i]) < record_num):
