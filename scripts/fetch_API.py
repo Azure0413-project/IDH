@@ -35,22 +35,33 @@ def getAPIResponse(day_month_year):
 
     response = requests.get(url, params=param)
     response.raise_for_status()  # raises exception when not a 2xx response
+    def get_now_date():
+        """取得當前日期"""
+        return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+    """處理與保存資料"""
     if response.status_code == 200:
         try:
+            # 去掉不必要的 meta 標籤，解析 JSON
             data = response.text.strip('<meta charset="UTF-8" />')
             data_list = json.loads(data)['data_list']
-            noww = getNowDatee()
-            # print(data_list)
-            with open('data_list_sucess.txt', 'a') as file:
-                file.write(f"Date: {noww}")
-                file.write(data)
-                file.write("\n")
-                # json.dump(data_list, json_file, indent=4)  # Write the data to a file in JSON 
-            print("save sucesssfully")
 
+            # 動態生成檔案名稱，格式為 yyyy-mm.txt
+            now = datetime.datetime.now()
+            file_name = f"{now.year}-{now.month:02d}.txt"
+
+            # 寫入文件
+            with open(file_name, 'a') as file:
+                file.write(f"Date: {get_now_date()}\n")
+                file.write(data + "\n")
+            
+            print("Data saved successfully.")
+        
         except Exception as error:
             data_list = []
-            print("error", error)
+            print("Error:", error)
+    else:
+        data_list = []
     return data_list
 
 def convertCSV(data):
