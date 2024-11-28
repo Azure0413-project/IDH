@@ -91,7 +91,7 @@
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
-            <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg alert-trigger{% else %}{% endif %}">
+            <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
               <div class="pressure">
                 {% if patient.record.SBP == 0 %}
                 <div class="img-text"> -/- </div>
@@ -1808,21 +1808,21 @@
               <input class="input-warning" type="text" id="DBP" name="DBP" value="{% if r.in10minutes %}{{r.DBP|floatformat:0}}{% endif %}"/>mmHg
             </div>
             
-            <div class="text-label" id="warning-handle-time"></div>
-            <label for="handle-time">護理師處置時間:</label>
-              <br>
-              <input class="handle-time-input" type="text" name="handle-time" id="handle-time" readonly>
-              <div class="note-time">
-                <div class="selecte-list">
-                請選擇時間並點按添加<select class="handle-time-option" id="handle-select" size="5" style="padding: 5px;"> 
-                        <!-- Time options will be generated here by JavaScript --></select>
-                </div>
-                <button id="HandletimeAppendBtn" class="btn" type="button" onclick="HandleTimeAppend()">時間添加</button>
-              </div>
-
-            
-            {% endwith %}
+              <div class="text-label" id="warning-handle-time"></div>
+                <label for="handle-time">護理師處置時間:</label>
+                  <br>
+                  <input class="handle-time-input" type="text" name="handle-time" id="handle-time" readonly>
+                  <div class="note-time">
+                    <div class="selecte-list">
+                    請選擇時間並點按添加<select class="handle-time-option" id="handle-select" size="5" style="padding: 5px;"> 
+                            <!-- Time options will be generated here by JavaScript --></select>
+                    </div>
+                    <button id="HandletimeAppendBtn" class="btn" type="button" onclick="HandleTimeAppend()">時間添加</button>
+                  </div>
           </div>
+          {% endwith %}
+
+          
           <div class="warning-right" id="warning-right">
             <div class="note">
               <div class="note-title">症狀*</div>
@@ -1918,6 +1918,8 @@
                   <label for="other-other-text" class="note-container-other"></label>
                   <input type="text" name="other-other-text" id="other-other-text" disabled>
                 </div>
+
+
 
             </div>
           </div>

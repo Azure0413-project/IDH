@@ -23,20 +23,25 @@ a_area = ['A9', '', 'A5', '', 'A3', 'A8', 'A2', 'A7', 'A1', 'A6']
 e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
+now = False
 def get_time():
-    # now = False
-    now = True #push要改True
+    now = False
+    # now = True #push要改True
     if now:
         time = datetime.now()
     else:
         # time = datetime(2024, 4, 19, 9, 2, 0)
         time = datetime(2023, 9, 23, 10, 43, 0)
+    print(time)
     return time
 
 def index(request, area="dashboard"):
     time = get_time()
-    if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job() 
+    # if area == "dashboard" and time.minute % 3 == 0: #push要開
+    #     corn_job()
+    ### API Testing
+    # if area == "dashboard":
+    #     corn_job() 
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -51,9 +56,10 @@ def index(request, area="dashboard"):
             })
     # Do corn job at start
     patients = get_patients()
+    
     if all(all(i['id'] == '---' for i in p) for p in list(patients.values())):
         print("Success corn job at start")
-        corn_job() 
+        # corn_job() 
         return render(request, 'index.html', {
             "home": True,
             "area": area,
@@ -64,6 +70,7 @@ def index(request, area="dashboard"):
             "e_patients": patients["e_patients"],
             "i_patients": patients["i_patients"],
         })
+    
     return render(request, 'index.html', {
         "home": True,
         "area": area,
@@ -753,6 +760,7 @@ def export_file(request):
     start_time = request.POST.get('start_time')
     end_time = request.POST.get('end_time')
     if start_time != '' and end_time != '':
+        print("Range of exported file")
         print("start time:", start_time, ", end time: ", end_time)
         start_time = datetime.strptime(str(start_time), "%Y-%m-%dT%H:%M")
         end_time = datetime.strptime(str(end_time), "%Y-%m-%dT%H:%M")
@@ -764,21 +772,35 @@ def export_file(request):
         ws = wb.active
         ws.title = "all_record"
         ws.append(["員工號", "姓名", "床位", "警示關閉時間", "SBP", "DBP", "填寫時間",
-                   "口服藥物", "針劑藥物", "調整透析設定", "護理處置", "其他處理"])
+                   "口服藥物", "針劑藥物", "調整透析設定", "護理處置", "其他處理","護理師處置時間"])
         warnings = Warnings.objects.filter(dismiss_time__gte=start_time, dismiss_time__lte=end_time)
         if len(warnings) != 0:
             for warning in warnings:
-                data = [warning.empNo, warning.p_name, warning.p_bed, warning.click_time, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time,
-                        warning.drug_all, warning.inject_all, warning.setting_all, warning.nursing_all, warning.other_all,warning.handle_time]
+                data = [warning.empNo, 
+                        warning.p_name, 
+                        warning.p_bed, 
+                        warning.click_time, 
+                        warning.warning_SBP, 
+                        warning.warning_DBP, 
+                        warning.dismiss_time,
+                        warning.drug_all, 
+                        warning.inject_all, 
+                        warning.setting_all, 
+                        warning.nursing_all, 
+                        warning.other_all,
+                        warning.handle_time
+                        ]
                 ws.append(data)
         # Save the workbook to the HttpResponse
         wb.save(response)
         print("Success exporting file", response)
+        print(data)
         return response
     else:
         return HttpResponse("請提供有效的起始時間和結束時間")
 
 def corn_job():
+    print("Running corn_job")
     fetchData()
     print("Successfully fetch API")
     splitCSV()

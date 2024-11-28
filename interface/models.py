@@ -103,6 +103,8 @@ class Warnings(models.Model):
     other_all = models.CharField(max_length=100)
     # handle_time = models.DateTimeField(null=True)
     handle_time = models.TimeField(null=True)
+
+
 class Nurse(models.Model):
     # 護理師名單
     n_id = models.AutoField(primary_key=True)

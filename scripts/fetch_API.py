@@ -14,17 +14,6 @@ def getNowDate():
     # print('day_month_year: ' + day_month_year)
     return day_month_year
 
-def getNowDatee():
-    now = datetime.datetime.now()
-    year = '{:02d}'.format(now.year)
-    month = '{:02d}'.format(now.month)
-    day = '{:02d}'.format(now.day)
-    hour = '{:02d}'.format(now.hour)
-    minute = '{:02d}'.format(now.minute)
-    day_month_year = '{}-{}-{} {}:{}'.format(year, month, day, hour, minute)
-    # print('day_month_year: ' + day_month_year)
-    return day_month_year
-
 def getAPIResponse(day_month_year):
     url = 'http://10.11.29.18/php/dialysislist.php'
     param = {'date': day_month_year}
@@ -35,33 +24,20 @@ def getAPIResponse(day_month_year):
 
     response = requests.get(url, params=param)
     response.raise_for_status()  # raises exception when not a 2xx response
-    def get_now_date():
-        """取得當前日期"""
-        return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
-    """處理與保存資料"""
     if response.status_code == 200:
         try:
-            # 去掉不必要的 meta 標籤，解析 JSON
-            data = response.text.strip('<meta charset="UTF-8" />')
-            data_list = json.loads(data)['data_list']
-
-            # 動態生成檔案名稱，格式為 yyyy-mm.txt
-            now = datetime.datetime.now()
-            file_name = f"{now.year}-{now.month:02d}.txt"
-
-            # 寫入文件
-            with open(file_name, 'a') as file:
-                file.write(f"Date: {get_now_date()}\n")
-                file.write(data + "\n")
+            # data = response.text.strip('<meta charset="UTF-8" />')
+            # data_list = json.loads(data)['data_list']
+            data_list = response.json()
             
-            print("Data saved successfully.")
-        
-        except Exception as error:
+
+            # Save data_list to a JSON file
+            with open('api_content.json', 'w') as json_file:
+                json.dump(data_list, json_file, indent=4)  # Write the data to a file in JSON 
+
+        except ValueError:
             data_list = []
-            print("Error:", error)
-    else:
-        data_list = []
+            print("error")
     return data_list
 
 def convertCSV(data):

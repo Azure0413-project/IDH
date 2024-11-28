@@ -67,8 +67,8 @@ function refresh() {
 }
 setInterval(refresh, 180000);
 
-// const rootUrl = "http://127.0.0.1:8000/index/";
-const rootUrl = "http://192.168.83.226:8000/index/";
+const rootUrl = "http://127.0.0.1:8000/index/";
+// const rootUrl = "http://192.168.83.226:8000/index/";
 
 // Left panel
 function openTab(evt, tabName, area) {
@@ -110,7 +110,6 @@ function closeModal() {
 }
 let flag = true;
 function next() {
-
   if (flag) {
     flag = false;
     document.getElementById("patient2").innerText = document.getElementById("patient").innerText;
@@ -261,7 +260,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   }
   handleTime.value = defaultTime;
-  
 });
 
 function HandleTimeAppend(){
@@ -269,91 +267,9 @@ function HandleTimeAppend(){
   let handle_time = document.getElementById(`handle-time`);  //input text
   let selected_handle_time = document.getElementById(`handle-select`).value; //selected time
 
-  // current_time = selected_handle_time.replace(":", "");
-  handle_time.value = selected_handle_time.slice(0,2)+":"+selected_handle_time.slice(2);
-  
+  current_time = selected_handle_time.replace(":", "");
+  console.log(`print handle time : ${selected_handle_time}`);
+  handle_time.value = current_time
   
   return;
 }
-
-// blinking
-let originalTitle = document.title;  // 儲存原本的標題
-let blinkInterval;  // 儲存標題閃爍的定時器ID
-let alertInterval;  // 儲存圖示閃爍的定時器ID
-let isTabVisible = true;
-
-const originalFavicon = "/static/img/kidney.svg"; // 原本的圖示
-const alertFavicon = "/static/img/kidney_warning.svg"; // 警告圖示
-
-// 開始閃爍標題
-function startBlinkingTitle() {
-    if (!blinkInterval) {
-        blinkInterval = setInterval(() => {
-            document.title = document.title === originalTitle ? " 請查看此頁面！ ⏳" : originalTitle;
-        }, 1000);  // 每1秒變更一次
-    }
-}
-
-// 停止閃爍標題
-function stopBlinkingTitle() {
-    clearInterval(blinkInterval);
-    blinkInterval = null;
-    document.title = originalTitle;
-}
-
-// 創建/切換圖示
-function createFavicon(href) {
-    const existingFavicon = document.getElementById("favicon");
-    if (existingFavicon) {
-        existingFavicon.remove();
-    }
-    const newFavicon = document.createElement("link");
-    newFavicon.id = "favicon";
-    newFavicon.rel = "icon";
-    newFavicon.href = href;
-    newFavicon.type = "image/x-icon";
-    document.head.appendChild(newFavicon);
-}
-
-// 開始閃爍圖示
-function startFaviconAlert() {
-    if (!alertInterval) {
-        alertInterval = setInterval(() => {
-            const currentFavicon = document.getElementById("favicon").href;
-            createFavicon(currentFavicon.includes("kidney.svg") ? alertFavicon : originalFavicon);
-        }, 100);  // 圖示閃爍間隔
-    }
-}
-
-// 停止閃爍圖示
-function stopFaviconAlert() {
-    clearInterval(alertInterval);
-    alertInterval = null;
-    createFavicon(originalFavicon);
-}
-
-// 檢查是否有 .alert-trigger 元素並根據需要啟動或停止特效
-function checkForAlertTrigger() {
-    const alertElement = document.querySelector('.alert-trigger');
-    if (alertElement && document.hidden) {
-        startBlinkingTitle();
-        startFaviconAlert();
-    } else {
-        stopBlinkingTitle();
-        stopFaviconAlert();
-    }
-}
-
-// 當頁面進入背景或變為可見時觸發檢查
-document.addEventListener("visibilitychange", function() {
-    isTabVisible = !document.hidden;
-    checkForAlertTrigger();
-});
-
-// 定期檢查 `.alert-trigger` 是否出現
-setInterval(checkForAlertTrigger, 1000);  // 每秒檢查一次
-
-// 頁面載入時設置初始圖示
-document.addEventListener("DOMContentLoaded", function() {
-    createFavicon(originalFavicon);
-});

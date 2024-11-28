@@ -86,9 +86,10 @@ def Data_Preprocess(file_name):
         traindata = []
         traindata.append(sequential_list)
         traindata.append(label)
-        traindata.append(info_list)
+        # traindata.append(info_list)
         traindata.append(time_step)
         return traindata
+        
     except Exception as error:
             noww = getNowDatee()
             with open('data_list_sucess.txt', 'a') as file:
@@ -114,7 +115,6 @@ def cal_x_len(data):
     for i in data:
         l.append(len(i))
     return np.array(l)
-#%%
 
 def Predict(model_path, test_x, test_u, test_t, test_y, test_l, test_info, device=torch.device("cpu")):
     model = GRUNet(input_dim = 8, hidden_dim=256, output_dim = 1, n_layers = 1, drop_prob=0.5)
@@ -147,15 +147,23 @@ def predict_idh():
     traindata = Data_Preprocess('interface/data/temp.csv')
     batch_size = 1
     # non-sequential
-    info = np.array(traindata[2])
+    zero_list = -1
+    # info = np.array(traindata[2])
+    info_test = adjust_input(traindata[2], zero_list)
+    info_test = np.array(zero_norm(torch.from_numpy(info_test).float()))
+    no_info_test = np.zeros(info_test.shape)
+    info_test = no_info_test
     # sequential's length (for last embedding)
     seq_length = cal_x_len(traindata[0])
     # sequential variable
     zero_list = [-1] * 8
     sequential = adjust_input(traindata[0], zero_list)
+
+    no_info_test = np.zeros(info_test.shape)
+    info_test = no_info_test
     # time step
     zero_list = 480
-    time_step = adjust_input(traindata[3], zero_list)
+    time_step = adjust_input(traindata[2], zero_list)
     time_step = np.array(zero_norm(torch.from_numpy(time_step))) # zero_mean
     for i in range(len(time_step)):
         for j in range(len(time_step[0])):
@@ -167,5 +175,5 @@ def predict_idh():
     y = np.array(traindata[1])
     y = np.expand_dims(y, axis=1)
     
-    prediction = Predict(model_path='interface/weights/IDH_NCKUH_model_weight_202402210204_0_117', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=info)
+    prediction = Predict(model_path='interface/weights/gru_90_202411270322_0_96', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=info_test)
     return prediction

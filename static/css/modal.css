@@ -449,12 +449,11 @@ td {
     margin-left: 2em;
     width: 350px;
     overflow-y: auto;
-    height: 60%;
+    
 }
 
 .warning-right {
     max-height: 400px;
     width: 350px;
-    height: 60%;
     overflow-y: auto;
 }
