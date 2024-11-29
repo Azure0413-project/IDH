@@ -143,22 +143,24 @@ def Predict(model_path, test_x, test_u, test_t, test_y, test_l, test_info, devic
     return results
 #%%
 def replace_outliers(column, condition):
-    data.loc[~condition, column] = -1
-
+    traindata = traindata[condition]
 
 def predict_idh():
     traindata = Data_Preprocess('interface/data/temp.csv')
 
-    # filter outlier
-    replace_outliers('透析液流速(ml/min)', (traindata['透析液流速(ml/min)'] >= 80) & (traindata['透析液流速(ml/min)'] <= 1000))
-    replace_outliers('脈搏', (traindata['脈搏'] >= 30) & (traindata['脈搏'] <= 150))
-    replace_outliers('呼吸', (traindata['呼吸'] >= 5) & (traindata['呼吸'] <= 40))
-    replace_outliers('脫水速率', (traindata['脫水速率'] <= 7))
-    replace_outliers('血流速(ml/min)', (traindata['血流速(ml/min)'] >= 60) & (traindata['血流速(ml/min)'] <= 400))
-    replace_outliers('透析液溫度(℃)', (traindata['透析液溫度(℃)'] >= 34) & (traindataa['透析液溫度(℃)'] <= 39))
-    replace_outliers('血壓(收縮)', (traindata['血壓(收縮)'] >= 60) & (traindata['血壓(收縮)'] <= 250) & (traindata['血壓(收縮)'] >= traindataa['血壓(舒張)']))
-    replace_outliers('血壓(舒張)', (traindata['血壓(舒張)'] >= 25) & (traindata['血壓(舒張)'] <= 150) & (traindata['血壓(舒張)'] <= traindata['血壓(收縮)']))
+    if traindata is None:
+        print("Error: DataPreprocess returned None")
+        return
 
+    # filter outlier
+    replace_outliers('透析液流速(ml/min)', (traindata[0][2] >= 80) & (traindata[0][2] <= 1000))
+    replace_outliers('脈搏', (traindata[0][4] >= 30) & (traindata[0][4] <= 150))
+    replace_outliers('呼吸', (traindata[0][5] >= 5) & (traindata[0][5] <= 40))
+    replace_outliers('脫水速率', (traindata[0][3] <= 7))
+    replace_outliers('血流速(ml/min)', (traindata[0][6] >= 60) & (traindata[0][6] <= 400))
+    replace_outliers('透析液溫度(℃)', (traindata[0][7] >= 34) & (traindata[0][7] <= 39))
+    replace_outliers('血壓(收縮)', (traindata['血壓(收縮)'] >= 60) & (traindata[0][0] <= 250) & (traindata[0][0]  >= traindataa[0][0]))
+    replace_outliers('血壓(舒張)', (traindata['血壓(舒張)'] >= 25) & (traindata[0][1] <= 150) & (traindata[0][1] <= traindata[0][1]))
     batch_size = 1
     # non-sequential
     info = np.array(traindata[2])
