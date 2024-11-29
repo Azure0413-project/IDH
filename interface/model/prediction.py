@@ -88,13 +88,26 @@ def Data_Preprocess(file_name):
         traindata.append(label)
         # traindata.append(info_list)
         traindata.append(time_step)
+
+        '''
+        traindata = pd.DataFrame({
+            'sequential_list': sequential_list,
+            'label': label,
+            'time_step': time_step
+        })
+        
+        # Handle the '透析液流速(ml/min)' column
+        traindata['透析液流速(ml/min)'] = pd.to_numeric(traindata['透析液流速(ml/min)'], errors="coerce")
+        traindata['透析液流速(ml/min)'] = traindata['透析液流速(ml/min)'].fillna(0).astype(float)        
+        '''
+
         return traindata
         
     except Exception as error:
             noww = getNowDatee()
             with open('data_list_sucess.txt', 'a') as file:
                 file.write(f"Date: {noww}")
-                file.write(error)
+                file.write(str(error))
                 file.write("\n")
                 # json.dump(data_list, json_file, indent=4)  # Write the data to a file in JSON 
             print("save sucesssfully")
@@ -143,8 +156,27 @@ def Predict(model_path, test_x, test_u, test_t, test_y, test_l, test_info, devic
     return results
 #%%
 
+def replace_outliers(column, condition):
+    traindata = traindata[condition]
+
 def predict_idh():
     traindata = Data_Preprocess('interface/data/temp.csv')
+
+    if traindata is None:
+        print("Error: DataPreprocess returned None")
+        return
+
+    # filter outlier
+    replace_outliers('透析液流速(ml/min)', (traindata[0][2] >= 80) & (traindata[0][2] <= 1000))
+    replace_outliers('脈搏', (traindata[0][4] >= 30) & (traindata[0][4] <= 150))
+    replace_outliers('呼吸', (traindata[0][5] >= 5) & (traindata[0][5] <= 40))
+    replace_outliers('脫水速率', (traindata[0][3] <= 7))
+    replace_outliers('血流速(ml/min)', (traindata[0][6] >= 60) & (traindata[0][6] <= 400))
+    replace_outliers('透析液溫度(℃)', (traindata[0][7] >= 34) & (traindata[0][7] <= 39))
+    replace_outliers('血壓(收縮)', (traindata['血壓(收縮)'] >= 60) & (traindata[0][0] <= 250) & (traindata[0][0]  >= traindataa[0][0]))
+    replace_outliers('血壓(舒張)', (traindata['血壓(舒張)'] >= 25) & (traindata[0][1] <= 150) & (traindata[0][1] <= traindata[0][1]))
+
+
     batch_size = 1
     # non-sequential
     zero_list = -1
