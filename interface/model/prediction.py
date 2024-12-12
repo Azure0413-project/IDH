@@ -84,11 +84,30 @@ def Data_Preprocess(file_name):
             time_step.append(data[filter]['time_step'].values[:4].tolist())
         
         traindata = []
+
+        for i in range(len(sequential_list)):
+            data = [int(ele) for ele in sequential_list[i][0]]
+            if not ((data[2] >= 80) & (data[2] <= 1000) and 
+                    ((data[4] >= 30) & (data[4] <= 150)) and 
+                    ((data[5] >= 5) & (data[5] <= 40)) and 
+                    (data[3] <= 7) and 
+                    ((data[6] >= 60) & (data[6] <= 400)) and 
+                    ((data[7] >= 34) & (data[7] <= 39)) and 
+                    ((data[0] >= 60) & (data[0] <= 250) & (data[0]  >= data[1])) and 
+                    ((data[1] >= 25) & (data[1] <= 150) & (data[1] <= data[0])) ) : 
+                           print("outlier")    
+                           sequential_list[i][0].pop(i)
+                           label[i].pop(i) 
+                           info_list[i].pop(i) 
+                           time_step[i].pop(i)    
+
         traindata.append(sequential_list)
         traindata.append(label)
         traindata.append(info_list)
         traindata.append(time_step)
+
         return traindata
+    
     except Exception as error:
             noww = getNowDatee()
             with open('data_list_sucess.txt', 'a') as file:
@@ -142,25 +161,17 @@ def Predict(model_path, test_x, test_u, test_t, test_y, test_l, test_info, devic
     results = [round(num, 4) for num in preds[0]]
     return results
 #%%
-def replace_outliers(column, condition):
-    traindata = traindata[condition]
+
 
 def predict_idh():
     traindata = Data_Preprocess('interface/data/temp.csv')
-
     if traindata is None:
         print("Error: DataPreprocess returned None")
         return
 
-    # filter outlier
-    replace_outliers('透析液流速(ml/min)', (traindata[0][2] >= 80) & (traindata[0][2] <= 1000))
-    replace_outliers('脈搏', (traindata[0][4] >= 30) & (traindata[0][4] <= 150))
-    replace_outliers('呼吸', (traindata[0][5] >= 5) & (traindata[0][5] <= 40))
-    replace_outliers('脫水速率', (traindata[0][3] <= 7))
-    replace_outliers('血流速(ml/min)', (traindata[0][6] >= 60) & (traindata[0][6] <= 400))
-    replace_outliers('透析液溫度(℃)', (traindata[0][7] >= 34) & (traindata[0][7] <= 39))
-    replace_outliers('血壓(收縮)', (traindata['血壓(收縮)'] >= 60) & (traindata[0][0] <= 250) & (traindata[0][0]  >= traindataa[0][0]))
-    replace_outliers('血壓(舒張)', (traindata['血壓(舒張)'] >= 25) & (traindata[0][1] <= 150) & (traindata[0][1] <= traindata[0][1]))
+
+
+
     batch_size = 1
     # non-sequential
     info = np.array(traindata[2])
@@ -183,5 +194,5 @@ def predict_idh():
     y = np.array(traindata[1])
     y = np.expand_dims(y, axis=1)
     
-    prediction = Predict(model_path='interface/weights/IDH_NCKUH_model_weight_202402210204_0_117', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=info)
+    prediction = Predict(model_path='interface/weights/balance_train_good', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=info)
     return prediction
