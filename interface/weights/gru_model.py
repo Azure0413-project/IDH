@@ -140,6 +140,8 @@ def static_combine_and_mask(embedding):
     static_vec = torch.sum(combined, 1)
 
     return combined, sparse_weights
+    
+record_num = 4
 class GRUNet(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim, n_layers, drop_prob=0.5):
         super(GRUNet, self).__init__()
@@ -152,7 +154,7 @@ class GRUNet(nn.Module):
         self.batch_norm = nn.BatchNorm1d(input_dim)
         self.dropout = nn.Dropout(p=0.5)
 
-        self.layer_t = nn.Linear(4, hidden_dim)
+        self.layer_t = nn.Linear(record_num, hidden_dim)
         self.layer_c = nn.Linear(input_dim, input_dim, bias=False)
         self.layer_adjust = nn.Linear(hidden_dim, hidden_dim)
         self.gru_adjust = nn.GRU(hidden_dim + 4, hidden_dim, n_layers, batch_first=True, dropout=drop_prob)
@@ -200,8 +202,8 @@ class GRUNet(nn.Module):
         info = info.unsqueeze(1)
         info = torch.cat((info, info, info, info), 1)
         static_encoder, static_weights = static_combine_and_mask(info)
-
-        # 非時序性
+  
+                # 非時序性
         out, h_out = self.gru_adjust(torch.cat((x_adjust, static_encoder), 2), final_h)
         #out, h_out = self.gru_adjust(x_adjust, final_h)
         out = self.dropout(out)
@@ -210,7 +212,8 @@ class GRUNet(nn.Module):
         # Combine all the features
         out = self.layer_final(out[:,-1])
         f = self.sigmoid(self.layer_combine(out)) # 36->1
-        return f, h_deep, arpha_h_deep, h_out, out
+
+        return f, h_deep, arpha_h_deep, h_out
 
     def init_hidden(self, batch_size):
         weight = next(self.parameters()).data

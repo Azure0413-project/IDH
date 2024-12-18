@@ -334,8 +334,10 @@ function stopFaviconAlert() {
 
 // 檢查是否有 .alert-trigger 元素並根據需要啟動或停止特效
 function checkForAlertTrigger() {
-    const alertElement = document.querySelector('.alert-trigger');
+    const alertElement = document.querySelector('.danger-bg');
+    console.log("hi");
     if (alertElement && document.hidden) {
+      console.log(alertElement);
         startBlinkingTitle();
         startFaviconAlert();
     } else {

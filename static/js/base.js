@@ -55,8 +55,9 @@ function stopFaviconAlert() {
 
 // 檢查是否有 .alert-trigger 元素並根據需要啟動或停止特效
 function checkForAlertTrigger() {
-    const alertElement = document.querySelector('.alert-trigger');
+    const alertElement = document.querySelector('.danger-bg');
     if (alertElement && document.hidden) {
+        console.log(alertElement);
         startBlinkingTitle();
         startFaviconAlert();
     } else {
@@ -86,7 +87,6 @@ const idleThreshold = 300; // 閒置時間閾值為 300 秒
 // 重置閒置時間計數
 function resetIdleTime() {
     idleTime = 0;
-    stopReloading(); // 偵測到使用者操作後，停止自動重新載入計時
 }
 
 // 每秒增加閒置時間計數

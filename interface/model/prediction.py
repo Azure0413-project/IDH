@@ -84,23 +84,26 @@ def Data_Preprocess(file_name):
             time_step.append(data[filter]['time_step'].values[:4].tolist())
         
         traindata = []
-
-        for i in range(len(sequential_list)):
-            data = [int(ele) for ele in sequential_list[i][0]]
-            if not ((data[2] >= 80) & (data[2] <= 1000) and 
-                    ((data[4] >= 30) & (data[4] <= 150)) and 
-                    ((data[5] >= 5) & (data[5] <= 40)) and 
-                    (data[3] <= 7) and 
-                    ((data[6] >= 60) & (data[6] <= 400)) and 
-                    ((data[7] >= 34) & (data[7] <= 39)) and 
-                    ((data[0] >= 60) & (data[0] <= 250) & (data[0]  >= data[1])) and 
-                    ((data[1] >= 25) & (data[1] <= 150) & (data[1] <= data[0])) ) : 
-                           print("outlier")    
-                           sequential_list[i][0].pop(i)
-                           label[i].pop(i) 
-                           info_list[i].pop(i) 
-                           time_step[i].pop(i)    
-
+        # for i in range(len(sequential_list)):
+            
+        #     patient = [int(ele) for ele in sequential_list[i]]
+        #     for j in range(len(patient)):
+        #         data = patient[j]
+        #         if  not ((data[2] >= 80) & (data[2] <= 1000) and 
+        #                 ((data[4] >= 30) & (data[4] <= 150)) and 
+        #                 ((data[5] >= 5) & (data[5] <= 40)) and 
+        #                 (data[3] <= 7) and 
+        #                 ((data[6] >= 60) & (data[6] <= 400)) and 
+        #                 ((data[7] >= 34) & (data[7] <= 39)) and 
+        #                 ((data[0] >= 60) & (data[0] <= 250) & (data[0]  >= data[1])) and 
+        #                 ((data[1] >= 25) & (data[1] <= 150) & (data[1] <= data[0])) ) : 
+        #                     print("outlier")    
+        #                     sequential_list[i].pop(sequential_list[i].index(sequential_list[i][j]))
+        #                     print(sequential_list[i][j])
+        #                     label[i].pop(label[i].index(label[i][j]))
+        #                     info_list[i].pop(info_list[i].index(info_list[i][j]))
+        #                     time_step[i].pop(time_step[i].index(time_step[i][j]))
+        
         traindata.append(sequential_list)
         traindata.append(label)
         traindata.append(info_list)
@@ -112,16 +115,24 @@ def Data_Preprocess(file_name):
             noww = getNowDatee()
             with open('data_list_sucess.txt', 'a') as file:
                 file.write(f"Date: {noww}")
-                file.write(error)
+                file.write(str(error))
                 file.write("\n")
                 # json.dump(data_list, json_file, indent=4)  # Write the data to a file in JSON 
             print("save sucesssfully")
             
-def adjust_input(input_data, zero_list, record_num = 4):
+# def adjust_input(input_data, zero_list, record_num = 4):
+#     for i in range(len(input_data)):
+#         while(len(input_data[i]) < record_num):
+#             input_data[i].append(zero_list)
+#     return np.array(input_data)
+
+def adjust_input(input_data, zero_list, record_num=4):
     for i in range(len(input_data)):
-        while(len(input_data[i]) < record_num):
+        while len(input_data[i]) < record_num:
             input_data[i].append(zero_list)
-    return np.array(input_data)
+    # Convert to float64 (or another numeric type)
+    return np.array(input_data, dtype=np.float64)
+
 
 def zero_norm(data):
     mean, std, var = torch.mean(data), torch.std(data), torch.var(data)
@@ -155,7 +166,7 @@ def Predict(model_path, test_x, test_u, test_t, test_y, test_l, test_info, devic
     middle_h = model.init_hidden(inp.shape[0])
     final_h = model.init_hidden(inp.shape[0])
 
-    out, h, arpha_h, final_h, latent_embd = model(inp.to(device).float(), h, u_inp.to(device).float(), arpha_h, final_h, t_inp.to(device).float(), l_inp.to(device).float(), info_inp.to(device).float())
+    out, h, arpha_h, final_h = model(inp.to(device).float(), h, u_inp.to(device).float(), arpha_h, final_h, t_inp.to(device).float(), l_inp.to(device).float(), info_inp.to(device).float())
     preds.append((out.cpu().detach().numpy()).reshape(-1))
 #     print("results: ", preds[0])
     results = [round(num, 4) for num in preds[0]]
@@ -169,16 +180,17 @@ def predict_idh():
         print("Error: DataPreprocess returned None")
         return
 
-
-
+    # sequential variable
+    zero_list = [-1] * 8
 
     batch_size = 1
     # non-sequential
-    info = np.array(traindata[2])
+    # info = np.array(traindata[3], zero_list)
+    # info = adjust_input(traindata[3], zero_list)
+
     # sequential's length (for last embedding)
     seq_length = cal_x_len(traindata[0])
-    # sequential variable
-    zero_list = [-1] * 8
+    
     sequential = adjust_input(traindata[0], zero_list)
     # time step
     zero_list = 480
@@ -194,5 +206,5 @@ def predict_idh():
     y = np.array(traindata[1])
     y = np.expand_dims(y, axis=1)
     
-    prediction = Predict(model_path='interface/weights/balance_train_good', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=info)
+    prediction = Predict(model_path='interface/weights/balance_train_good', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=time_step)
     return prediction
