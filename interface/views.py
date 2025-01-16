@@ -34,9 +34,9 @@ def get_time():
     return time
 
 def index(request, area="dashboard"):
-    time = get_time()
+    time = get_time() #push要開
     if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job() 
+        corn_job()  #push要開
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':

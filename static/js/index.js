@@ -56,7 +56,7 @@ function runTime() {
     nowI +
     ":" +
     nowS;
-  timeDiv.innerText = nowStr;
+  // timeDiv.innerText = nowStr;
 }
 
 runTime();
@@ -67,8 +67,8 @@ function refresh() {
 }
 setInterval(refresh, 180000);
 
-// const rootUrl = "http://127.0.0.1:8000/index/";
-const rootUrl = "http://192.168.83.226:8000/index/";
+rootUrl = "http://127.0.0.1:8000/index/";
+// rootUrl = "http://192.168.83.226:8000/index/";
 
 // Left panel
 function openTab(evt, tabName, area) {
@@ -80,7 +80,7 @@ function openNurseArea(){
   document.location.href = rootUrl + 'Y';
 }
 
-const bed = [
+bed = [
   "A1", "A2", "A3", "A5", "A6", "A7", "A8", "A9",
   "B1", "B2", "B3", "B5", "B6", "B7", "B8", "B9",
   "C1", "C2", "C3", "C5", "C6", "C7", "C8", "C9",
@@ -88,7 +88,8 @@ const bed = [
   "E1", "E2", "E3", "E5", "E6", "E7", "E8",
   "I1", "I2",
 ];
-const modal = document.getElementById("modal");
+
+modal = document.getElementById("modal");
 window.onclick = function (event) {
   if (event.target.id == "modal") {
     clear();
@@ -108,7 +109,8 @@ function openExportFileModal() {
 function closeModal() {
   clear();
 }
-let flag = true;
+
+flag = true;
 function next() {
 
   if (flag) {
@@ -134,10 +136,11 @@ function prev() {
 }
 
 function clear() {
-  console.log("clear");
   let back = document.location.href;
   let area = back.split("/");
+  console.log('hi1');
   if (area[4] == "get_record") {
+    console.log('hi2');
     let tmp_form = document.getElementById("idh-tmp-form");
     let sign_checked = document.querySelectorAll('[type=radio]:checked');
     let treatment_checked = document.querySelectorAll('[type=checkbox]:checked');
@@ -153,9 +156,17 @@ function clear() {
       }
       tmp_list += '/'
     }
+    console.log('hi3');
     tmp_form.value = tmp_list;
+    
     console.log(tmp_list);
-    document.getElementById("modal").classList.add("hidden");
+    modal = document.getElementById("modal");
+          if (modal) {
+            modal.classList.add("hidden");
+          } else {
+            console.error("Modal element not found");
+          }
+    // document.getElementById("modal").classList.add("hidden");
     // console.log(modal);
   } else {
     document.location.href = rootUrl + area[5];
@@ -169,8 +180,8 @@ function clear() {
   }
 }
 
-let chart, xAxis, SBP, pulse, CVP, exist, linechart, bands;
-let linecharts = [];
+
+linecharts = [];
 
 function changeStatus(bed_id) {
   let bed = document.getElementById(bed_id);
@@ -277,13 +288,10 @@ function HandleTimeAppend(){
 }
 
 // blinking
-let originalTitle = document.title;  // 儲存原本的標題
-let blinkInterval;  // 儲存標題閃爍的定時器ID
-let alertInterval;  // 儲存圖示閃爍的定時器ID
-let isTabVisible = true;
-
-const originalFavicon = "/static/img/kidney.svg"; // 原本的圖示
-const alertFavicon = "/static/img/kidney_warning.svg"; // 警告圖示
+originalTitle = document.title;  // 儲存原本的標題
+blinkInterval;  // 儲存標題閃爍的定時器ID
+alertInterval;  // 儲存圖示閃爍的定時器ID
+isTabVisible = true;
 
 // 開始閃爍標題
 function startBlinkingTitle() {
@@ -335,7 +343,6 @@ function stopFaviconAlert() {
 // 檢查是否有 .alert-trigger 元素並根據需要啟動或停止特效
 function checkForAlertTrigger() {
     const alertElement = document.querySelector('.danger-bg');
-    console.log("hi");
     if (alertElement && document.hidden) {
       console.log(alertElement);
         startBlinkingTitle();
