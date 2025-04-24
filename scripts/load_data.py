@@ -69,8 +69,7 @@ def run():
                 heparin = row[30],
                 ESA = row[31],
                 coagulation = row[32],
-                # change it back to randint(0,1)
-                random_code = randint(1)
+                random_code = randint(0,1)
             )
             if not Dialysis.objects.filter(p_id=dialyse.p_id, times=dialyse.times).exists():                
                 dialysis.append(dialyse)
