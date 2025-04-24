@@ -191,13 +191,17 @@ def get_patients():
                     else:
                         patient['record'] = r[len(r) - 1]
                     try:
-                        patient['idh'] = int(round(all_idh[flag] * 100))
+                        # refresh patient['idh'] to 0
+                        if time.minute % 30 == 0 and time.minute != 0:
+                            patient['idh'] = int(round(all_idh[flag] * 100))
+                        else:
+                            patient['idh'] = max(patient['idh'],int(round(all_idh[flag] * 100)))
                     except:
                         patient['idh'] = 0
                     #0326 random code
-                    # patient['random_code'] = d.random_code
+                    patient['random_code'] = d.random_code
                     # 24042025 let randomcode always be 1
-                    patient['random_code'] = 1
+                    # patient['random_code'] = 1
                     #0326 first click 
                     w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
                     if len(w) == 0:
