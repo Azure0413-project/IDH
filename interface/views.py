@@ -13,6 +13,7 @@ from scripts.load_data import saveData
 from decimal import Decimal
 import numpy as np
 from openpyxl import Workbook
+import sqlite3
 
 # Create your views here.
 
@@ -34,9 +35,10 @@ def get_time():
     return time
 
 def index(request, area="dashboard"):
-    time = get_time()
+    
+    time = get_time() #push要開
     if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job() 
+        corn_job()  #push要開
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -147,6 +149,7 @@ def get_record(request, shift):
         "nurseList": nurseList
     })
 
+
 def get_patients():
     time = get_time()
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
@@ -162,8 +165,7 @@ def get_patients():
     else:
         preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
-        fixed_pred = last_pred.replace(minute=5, second=0, microsecond=0)
-        if datetime.now() >= fixed_pred + timedelta(minutes=60):
+        if datetime.now() >= last_pred + timedelta(minutes=5): # 先用 datetime.now() 代替 time predict each 5min
             do_pred = True
             all_idh = predict_idh() #1205
             print("[prediction]", time)
@@ -175,8 +177,10 @@ def get_patients():
     flag = 0
     all_area = [a_area, b_area, c_area, d_area, e_area, i_area]
     all_patients = [a_patients, b_patients, c_patients, d_patients, e_patients, i_patients]
+    
     for a in range(len(all_area)):
         for index, bed in enumerate(all_area[a]):
+          
             patient = {}
             patient = {'bed': bed}
             for d in now_dialysis:
@@ -191,23 +195,40 @@ def get_patients():
                     else:
                         patient['record'] = r[len(r) - 1]
                     try:
-                        patient['idh'] = int(round(all_idh[flag] * 100))
+                        # refresh patient['idh'] to 0
+                        if time.minute == 30:
+                            patient['idh'] = int(round(all_idh[flag] * 100))
+                        else:
+                            patient['idh'] = max(patient['idh'],int(round(all_idh[flag] * 100)))
                     except:
                         patient['idh'] = 0
                     #0326 random code
                     patient['random_code'] = d.random_code
+                    # 24042025 let randomcode always be 1
+                    # patient['random_code'] = 1
                     #0326 first click 
                     w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
                     if len(w) == 0:
                         patient['first_click'] = False 
                     else:
-                        patient['first_click'] = False if w[0].click_time < datetime.now() - timedelta(hours=1) else True
+                        last_half_hour = time.replace(minute=30, second=0, microsecond=0)
+                        if time.minute < 30:
+                            last_half_hour -= timedelta(hours=1)
+
+                        # Your condition: check if click_time is after that last xx:30
+                        patient['first_click'] = w[0].click_time >= last_half_hour
                     #1226 warning Feedback 
                     w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
                     if len(w) == 0 or w[0].dismiss_time == None:
                         patient['done_warning'] = False 
                     else:
-                        patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
+                        # Get last xx:30 timestamp
+                        last_half_hour = time.replace(minute=30, second=0, microsecond=0)
+                        if time.minute < 30:
+                            last_half_hour -= timedelta(hours=1)
+
+                        # Update the flag
+                        patient['done_warning'] = w[0].dismiss_time >= last_half_hour
                     #1218改
                     if do_pred:
                         dialysis = Dialysis.objects.get(d_id=d.d_id)
@@ -778,6 +799,31 @@ def export_file(request):
         return response
     else:
         return HttpResponse("請提供有效的起始時間和結束時間")
+
+# 資料庫
+def database(request):
+    print("Request received at database view")  # Debug statement
+    selected_table = request.GET.get('table', 'interface_feedback')
+    db_data = None
+    
+    if selected_table:
+        try:
+            # Use a context manager to ensure the connection is properly closed
+            with sqlite3.connect('db.sqlite3', timeout=10) as conn:
+                cursor = conn.cursor()
+                
+                # Fetch data from the selected table
+                cursor.execute(f'SELECT * FROM {selected_table}')
+                columns = [column[0] for column in cursor.description]
+                rows = cursor.fetchall()
+                db_data = {'columns': columns, 'rows': rows}
+                
+            print(f"Successfully fetched data from {selected_table}")
+        except Exception as e:
+            print("Error loading database schema:", e)  # Debug statement
+            return HttpResponse("Error loading database schema. Please check the console for details.")
+    
+    return render(request, 'database.html', {'db_data': db_data, 'selected_table': selected_table})
 
 def corn_job():
     fetchData()
