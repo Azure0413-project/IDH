@@ -17,7 +17,6 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'js/base.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
 </head>
 <body>
     <header>
@@ -27,7 +26,6 @@
             {% comment %} <img src="{%static 'img/dropdown.svg' %}" alt="v"> {% endcomment %}
             <ul class="nav_link">
                 <li><a href="{% url 'index' %}">首頁</a></li>
-                <li><a href="{% url 'database' %}">資料庫</a></li>
                 <!-- <li><a href="{% url 'export_file' %}">輸出報表</a></li> -->
                 <li><a onclick="openExportFileModal()">輸出報表</a></li>
                 <!-- <li><a onclick="SwitchRandomCodeDisplay()">顯示/關閉警示病患</a></li> -->

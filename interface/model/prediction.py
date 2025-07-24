@@ -28,6 +28,27 @@ def getNowDatee():
     # print('day_month_year: ' + day_month_year)
     return day_month_year
 #%%
+def check_condition(data_point):
+    """
+    Checks if a data point meets the specified conditions.
+
+    Args:
+        data_point: A list representing a single data point.
+
+    Returns:
+        True if the data point meets all conditions, False otherwise.
+    """
+    return (
+        (data_point[2] >= 80) & (data_point[2] <= 1000) and 
+        (data_point[4] >= 30) & (data_point[4] <= 150) and 
+        (data_point[5] >= 5) & (data_point[5] <= 40) and 
+        (data_point[3] <= 7) and 
+        (data_point[6] >= 60) & (data_point[6] <= 400) and 
+        (data_point[7] >= 34) & (data_point[7] <= 39) and 
+        (data_point[0] >= 60) & (data_point[0] <= 250) & (data_point[0] >= data_point[1]) and 
+        (data_point[1] >= 25) & (data_point[1] <= 150) & (data_point[1] <= data_point[0])
+    )
+
 def Data_Preprocess(file_name):
     try:
         data = pd.read_csv(file_name, encoding='utf-8_sig', engine='python')
@@ -78,31 +99,20 @@ def Data_Preprocess(file_name):
             dialysis_time = data_n['透析開始時間'][i]
             record_time = data_n['紀錄時間'][i]
             filter = ((data['ID'] == PatientID) & (data['透析開始時間'] == dialysis_time) & (data['紀錄時間'] <= record_time))
-            sequential_list.append(data[filter][sequential].values[:4].tolist())
-            label.append(0)
-            info_list.append([0]*28)
-            time_step.append(data[filter]['time_step'].values[:4].tolist())
-        
+
+            filtered_data = data[filter][sequential].values[:4]
+
+            # Filter data based on the specified conditions
+            filtered_data = [data_point for data_point in filtered_data 
+                             if check_condition(data_point)]
+
+            if filtered_data:
+                sequential_list.append(filtered_data)
+                label.append(0)
+                info_list.append([0]*28)
+                time_step.append(data[filter]['time_step'].values[:4].tolist())
+
         traindata = []
-        # for i in range(len(sequential_list)):
-            
-        #     patient = [int(ele) for ele in sequential_list[i]]
-        #     for j in range(len(patient)):
-        #         data = patient[j]
-        #         if  not ((data[2] >= 80) & (data[2] <= 1000) and 
-        #                 ((data[4] >= 30) & (data[4] <= 150)) and 
-        #                 ((data[5] >= 5) & (data[5] <= 40)) and 
-        #                 (data[3] <= 7) and 
-        #                 ((data[6] >= 60) & (data[6] <= 400)) and 
-        #                 ((data[7] >= 34) & (data[7] <= 39)) and 
-        #                 ((data[0] >= 60) & (data[0] <= 250) & (data[0]  >= data[1])) and 
-        #                 ((data[1] >= 25) & (data[1] <= 150) & (data[1] <= data[0])) ) : 
-        #                     print("outlier")    
-        #                     sequential_list[i].pop(sequential_list[i].index(sequential_list[i][j]))
-        #                     print(sequential_list[i][j])
-        #                     label[i].pop(label[i].index(label[i][j]))
-        #                     info_list[i].pop(info_list[i].index(info_list[i][j]))
-        #                     time_step[i].pop(time_step[i].index(time_step[i][j]))
         
         traindata.append(sequential_list)
         traindata.append(label)
@@ -206,5 +216,5 @@ def predict_idh():
     y = np.array(traindata[1])
     y = np.expand_dims(y, axis=1)
     
-    prediction = Predict(model_path='interface/weights/balance_train_good', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=time_step)
+    prediction = Predict(model_path='/home/IDH/interface/weights/balance_train_good', test_x=sequential, test_u=similarity_score, test_t=time_step, test_y=y, test_l=seq_length, test_info=time_step)
     return prediction

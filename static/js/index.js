@@ -42,20 +42,20 @@ function runTime() {
       break;
   }
 
-  let nowStr =
-    nowY +
-    " 年 " +
-    nowM +
-    " 月 " +
-    nowD +
-    " 日 星期" +
-    nowW +
-    "  " +
-    nowH +
-    ":" +
-    nowI +
-    ":" +
-    nowS;
+  // let nowStr =
+  //   nowY +
+  //   " 年 " +
+  //   nowM +
+  //   " 月 " +
+  //   nowD +
+  //   " 日 星期" +
+  //   nowW +
+  //   "  " +
+  //   nowH +
+  //   ":" +
+  //   nowI +
+  //   ":" +
+  //   nowS;
   // timeDiv.innerText = nowStr;
 }
 
@@ -67,7 +67,7 @@ function refresh() {
 }
 setInterval(refresh, 180000);
 
-rootUrl = "http://127.0.0.1:8000/index/";
+const rootUrl = "http://127.0.0.1:8000/index/";
 // rootUrl = "http://192.168.83.226:8000/index/";
 
 // Left panel
@@ -80,16 +80,15 @@ function openNurseArea(){
   document.location.href = rootUrl + 'Y';
 }
 
-bed = [
-  "A1", "A2", "A3", "A5", "A6", "A7", "A8", "A9",
-  "B1", "B2", "B3", "B5", "B6", "B7", "B8", "B9",
-  "C1", "C2", "C3", "C5", "C6", "C7", "C8", "C9",
-  "D1", "D2", "D3", "D5", "D6", "D7", "D8", "D9",
-  "E1", "E2", "E3", "E5", "E6", "E7", "E8",
-  "I1", "I2",
-];
-
-modal = document.getElementById("modal");
+// const bed = [
+//   "A1", "A2", "A3", "A5", "A6", "A7", "A8", "A9",
+//   "B1", "B2", "B3", "B5", "B6", "B7", "B8", "B9",
+//   "C1", "C2", "C3", "C5", "C6", "C7", "C8", "C9",
+//   "D1", "D2", "D3", "D5", "D6", "D7", "D8", "D9",
+//   "E1", "E2", "E3", "E5", "E6", "E7", "E8",
+//   "I1", "I2",
+// ];
+// const modal = document.getElementById("modal");
 window.onclick = function (event) {
   if (event.target.id == "modal") {
     clear();
@@ -107,9 +106,9 @@ function openExportFileModal() {
 }
 
 function closeModal() {
+  console.log('closemodal');
   clear();
 }
-
 flag = true;
 function next() {
 
@@ -136,11 +135,10 @@ function prev() {
 }
 
 function clear() {
+  console.log("clear");
   let back = document.location.href;
   let area = back.split("/");
-  console.log('hi1');
   if (area[4] == "get_record") {
-    console.log('hi2');
     let tmp_form = document.getElementById("idh-tmp-form");
     let sign_checked = document.querySelectorAll('[type=radio]:checked');
     let treatment_checked = document.querySelectorAll('[type=checkbox]:checked');
@@ -156,17 +154,9 @@ function clear() {
       }
       tmp_list += '/'
     }
-    console.log('hi3');
     tmp_form.value = tmp_list;
-    
     console.log(tmp_list);
-    modal = document.getElementById("modal");
-          if (modal) {
-            modal.classList.add("hidden");
-          } else {
-            console.error("Modal element not found");
-          }
-    // document.getElementById("modal").classList.add("hidden");
+    document.getElementById("modal").classList.add("hidden");
     // console.log(modal);
   } else {
     document.location.href = rootUrl + area[5];
@@ -180,8 +170,8 @@ function clear() {
   }
 }
 
-
-linecharts = [];
+// let chart, xAxis, SBP, pulse, CVP, exist, linechart, bands;
+// let linecharts = [];
 
 function changeStatus(bed_id) {
   let bed = document.getElementById(bed_id);
@@ -289,9 +279,12 @@ function HandleTimeAppend(){
 
 // blinking
 originalTitle = document.title;  // 儲存原本的標題
-blinkInterval;  // 儲存標題閃爍的定時器ID
-alertInterval;  // 儲存圖示閃爍的定時器ID
+// blinkInterval;  // 儲存標題閃爍的定時器ID
+// alertInterval;  // 儲存圖示閃爍的定時器ID
 isTabVisible = true;
+
+originalFavicon = "/static/img/kidney.svg"; // 原本的圖示
+alertFavicon = "/static/img/kidney_warning.svg"; // 警告圖示
 
 // 開始閃爍標題
 function startBlinkingTitle() {
@@ -364,5 +357,5 @@ setInterval(checkForAlertTrigger, 1000);  // 每秒檢查一次
 
 // 頁面載入時設置初始圖示
 document.addEventListener("DOMContentLoaded", function() {
-    createFavicon(originalFavicon);
+  createFavicon(originalFavicon);
 });

@@ -1,6 +1,5 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 {% with firstThreshold=85 secondThreshold=70%}
-<script src="{% static 'js/index.js' %}"></script>
 <div class="container">
   <div class="tab">
     <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
@@ -121,8 +120,10 @@
                 {% if patient.record.SBP == 0 %}
                 <img src="{% static "img/idh_inactive.svg" %}" />
                 {% else %}
-                  {% if patient.idh > firstThreshold %}
+                  {% if patient.idh > firstThreshold and patient.random_code == 1%}
                   <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                   {% elif patient.idh > secondThreshold %}
                   <img src="{% static 'img/idh_warning.svg' %} " />
                   {% else %}
@@ -202,8 +203,10 @@
                 {% if patient.record.SBP == 0 %}
                 <img src="{% static "img/idh_inactive.svg" %}" />
                 {% else %}
-                  {% if patient.idh > firstThreshold %}
+                  {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                   <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                   {% elif patient.idh > secondThreshold %}
                   <img src="{% static 'img/idh_warning.svg' %} " />
                   {% else %}
@@ -283,8 +286,10 @@
                 {% if patient.record.SBP == 0 %}
                 <img src="{% static "img/idh_inactive.svg" %}" />
                 {% else %}
-                  {% if patient.idh > firstThreshold %}
+                  {% if patient.idh > firstThreshold and patient.random_code == 1%}
                   <img src="{% static 'img/idh_danger.svg' %} " />
+                  {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                   {% elif patient.idh > secondThreshold %}
                   <img src="{% static 'img/idh_warning.svg' %} " />
                   {% else %}
@@ -366,8 +371,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1%}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -451,8 +458,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -536,8 +545,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -662,8 +673,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -790,8 +803,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -918,8 +933,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -1046,8 +1063,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -1174,8 +1193,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -1302,8 +1323,10 @@
                   {% if patient.record.SBP == 0 %}
                   <img src="{% static "img/idh_inactive.svg" %}" />
                   {% else %}
-                    {% if patient.idh > firstThreshold %}
+                    {% if patient.idh > firstThreshold and patient.random_code == 1 %}
                     <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > firstThreshold and patient.random_code == 0%}
+                  <img src="{% static 'img/idh_safe.svg' %} " />
                     {% elif patient.idh > secondThreshold %}
                     <img src="{% static 'img/idh_warning.svg' %} " />
                     {% else %}
@@ -1368,13 +1391,47 @@
           <button id="openWarningBtn" class="btn-confirm primary-btn" type="submit" onclick="CloseWarningModal()"> &emsp;護理師處置&emsp; </button>
         </div>
         <div class="idhcontainer">
-          {% if idh > firstThreshold %}
+          {% if idh > firstThreshold and setting.random_code == 1 %}
           <div class="idhboard idh-danger">
           {% else %}
           <div class="idhboard">
           {% endif %}
             <div>下小時透析低血壓預測機率</div>
+            {% if idh > firstThreshold and setting.random_code == 0 %}
+            <div id="idhrate"></div>
+                <script>
+                    function getFixedRandomIdh() {
+                        let now = new Date();
+                        let currentHour = now.getHours();
+                        let minutes = now.getMinutes();
+        
+                        // Retrieve stored random number and last updated hour
+                        let storedData = JSON.parse(localStorage.getItem("random_idh_data")) || {};
+                        let lastUpdatedHour = storedData.hour || -1;
+                        let randomNumber = storedData.value;
+        
+                        if (currentHour !== lastUpdatedHour && minutes >= 5) {
+                            randomNumber = Math.floor(Math.random() * 21) + 40; // New random number (40-60)
+                            localStorage.setItem("random_idh_data", JSON.stringify({ hour: currentHour, value: randomNumber }));
+                        }
+        
+                        // If no number exists yet, wait for x:05
+                        if (randomNumber === undefined) {
+                            document.getElementById("idhrate").innerText = "Waiting for x:05...";
+                        } else {
+                            document.getElementById("idhrate").innerText = randomNumber + " %";
+                        }
+                    }
+        
+                    // Run immediately when the page loads
+                    getFixedRandomIdh();
+        
+                    // Check every minute to update at x:05
+                    setInterval(getFixedRandomIdh, 60000);
+                </script>
+            {% else %}
             <div id="idhrate">{{ idh }} %</div>
+            {% endif %}
             <div id="updatetime">最後更新時間：{{ record.record_time }}</div>
           </div>
           <img src="{%static 'img/human.svg' %}"/>

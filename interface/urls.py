@@ -15,5 +15,4 @@ urlpatterns = [
     path('warning_click/', views.warning_click, name='warning_click'), #0416
     path('warningFeedback/', views.warning_feedback, name='warningFeedback'),
     path('export_file/', views.export_file, name='export_file'),
-    path('database/', views.database, name='database'),
 ]

@@ -3,8 +3,8 @@ let blinkInterval;  // 儲存標題閃爍的定時器ID
 let alertInterval;  // 儲存圖示閃爍的定時器ID
 let isTabVisible = true;
 
-const originalFavicon = "/static/img/kidney.svg"; // 原本的圖示
-const alertFavicon = "/static/img/kidney_warning.svg"; // 警告圖示
+let originalFavicon = "/static/img/kidney.svg"; // 原本的圖示
+let alertFavicon = "/static/img/kidney_warning.svg"; // 警告圖示
 
 // 開始閃爍標題
 function startBlinkingTitle() {

@@ -13,7 +13,6 @@ from scripts.load_data import saveData
 from decimal import Decimal
 import numpy as np
 from openpyxl import Workbook
-import sqlite3
 
 # Create your views here.
 
@@ -25,8 +24,8 @@ e_area = ['', '', 'E5', 'E8', 'E3', 'E7', 'E2', 'E6', 'E1', '']
 i_area = ['', '', 'I2', '', 'I1', '']
 
 def get_time():
-    # now = False
-    now = True #push要改True
+    now = False
+    # now = True #push要改True
     if now:
         time = datetime.now()
     else:
@@ -35,9 +34,9 @@ def get_time():
     return time
 
 def index(request, area="dashboard"):
-    time = get_time() #push要開
-    if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job()  #push要開
+    time = get_time()
+    # if area == "dashboard" and time.minute % 3 == 0: #push要開
+    #     corn_job()
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -54,7 +53,7 @@ def index(request, area="dashboard"):
     patients = get_patients()
     if all(all(i['id'] == '---' for i in p) for p in list(patients.values())):
         print("Success corn job at start")
-        corn_job() 
+        # corn_job()
         return render(request, 'index.html', {
             "home": True,
             "area": area,
@@ -163,7 +162,8 @@ def get_patients():
     else:
         preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
-        if datetime.now() >= last_pred + timedelta(minutes=5): # 先用 datetime.now() 代替 time
+        fixed_pred = last_pred.replace(minute=5, second=0, microsecond=0)
+        if datetime.now() >= fixed_pred + timedelta(minutes=60):
             do_pred = True
             all_idh = predict_idh() #1205
             print("[prediction]", time)
@@ -191,17 +191,11 @@ def get_patients():
                     else:
                         patient['record'] = r[len(r) - 1]
                     try:
-                        # refresh patient['idh'] to 0
-                        if time.minute % 30 == 0 and time.minute != 0:
-                            patient['idh'] = int(round(all_idh[flag] * 100))
-                        else:
-                            patient['idh'] = max(patient['idh'],int(round(all_idh[flag] * 100)))
+                        patient['idh'] = int(round(all_idh[flag] * 100))
                     except:
                         patient['idh'] = 0
                     #0326 random code
                     patient['random_code'] = d.random_code
-                    # 24042025 let randomcode always be 1
-                    # patient['random_code'] = 1
                     #0326 first click 
                     w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
                     if len(w) == 0:
@@ -784,31 +778,6 @@ def export_file(request):
         return response
     else:
         return HttpResponse("請提供有效的起始時間和結束時間")
-
-# 資料庫
-def database(request):
-    print("Request received at database view")  # Debug statement
-    selected_table = request.GET.get('table')
-    db_data = None
-    
-    if selected_table:
-        try:
-            # Use a context manager to ensure the connection is properly closed
-            with sqlite3.connect('db.sqlite3', timeout=10) as conn:
-                cursor = conn.cursor()
-                
-                # Fetch data from the selected table
-                cursor.execute(f'SELECT * FROM {selected_table}')
-                columns = [column[0] for column in cursor.description]
-                rows = cursor.fetchall()
-                db_data = {'columns': columns, 'rows': rows}
-                
-            print(f"Successfully fetched data from {selected_table}")
-        except Exception as e:
-            print("Error loading database schema:", e)  # Debug statement
-            return HttpResponse("Error loading database schema. Please check the console for details.")
-    
-    return render(request, 'database.html', {'db_data': db_data, 'selected_table': selected_table})
 
 def corn_job():
     fetchData()

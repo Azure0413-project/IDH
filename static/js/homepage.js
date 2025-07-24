@@ -8,7 +8,7 @@ function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP, rando
   SBP = parseInt(SBP);
   DBP = parseInt(DBP);
   random_code = parseInt(random_code);
-  if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'False') {
+  if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'True') {
     let warningModal = document.getElementById("warningModal");
     document.getElementById("warning-left-SBP").style.display='';
     document.getElementById("warning-left-DBP").style.display='';
@@ -21,24 +21,22 @@ function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP, rando
     document.getElementById("DBP").value = DBP;
     console.log("danger");
     warningModal.classList.toggle("hidden");
-  }
-  // else if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'False') {
-  //   warningModal.classList.toggle("hidden");
-  //   document.getElementById("warning-left-SBP").style.display='None';
-  //   document.getElementById("warning-left-DBP").style.display='None';
-  //   document.getElementById("warning-right").style.display='None';
-  //   document.getElementById("confirmWarningBtn").style.display='None';
-  //   document.getElementById("warningClickBtn").style.display='';
-  //   document.getElementById("patientBed").innerText = bed;
-  //   document.getElementById("patientName").innerText = name;
-  //   document.getElementById("SBP").value = SBP;
-  //   document.getElementById("DBP").value = DBP;
+  } else if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'False') {
+    warningModal.classList.toggle("hidden");
+    document.getElementById("warning-left-SBP").style.display='None';
+    document.getElementById("warning-left-DBP").style.display='None';
+    document.getElementById("warning-right").style.display='None';
+    document.getElementById("confirmWarningBtn").style.display='None';
+    document.getElementById("warningClickBtn").style.display='';
+    document.getElementById("patientBed").innerText = bed;
+    document.getElementById("patientName").innerText = name;
+    document.getElementById("SBP").value = SBP;
+    document.getElementById("DBP").value = DBP;
     // $.get(rootUrl+`warning_click/${bed}/${name}`, ()=>{ //0416
     //   console.log("first warning click.");
     // });
     // location.reload();
-  // }
-   else {
+  } else {
     let targetUrl = "";
     let urlArr = location.href.split("/");
     for(let i=0; i<urlArr.length-1; ++i){
