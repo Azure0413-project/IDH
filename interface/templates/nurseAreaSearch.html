@@ -1,0 +1,686 @@
+{% extends 'base.html' %} {% block content %} {% load static %}{% with firstThreshold=85 secondThreshold=70%}
+<script src="{% static 'js/nurseAreaSearch.js' %}"></script>    
+<div class="container">
+  <div class="tab">
+    <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
+      <img src="{%static 'img/dashboard.svg'%}" />首頁
+    </button>
+    <button class="tablinks" onclick="openTab(event, 'tabA', 'A')">A 區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabB', 'B')">B 區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabC', 'C')">C 區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabD', 'D')">D 區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabE', 'E')">E 區</button>
+    <button class="tablinks" onclick="openTab(event, 'tabI', 'I')">I 區</button>
+    <button class="tablinks active" onclick="openNurseArea()">護理師專區</button>
+  </div>
+  <div class="tabcontent">
+    <section class="tab-area-nurse">
+      <div class="top-tab-area">
+          護理師員工號與名稱：
+          <select id="nurseId" class="select">
+            {% for nurseInfo in nurseList %}
+              <option class="option" value="{{ nurseInfo.empNo }}" {% if nurseId == nurseInfo.empNo %} selected {% else %}{% endif %}>{{ nurseInfo.empNo }}</option>
+            {% endfor %}
+            {% comment %} <option value="A" {% if nurseId == 'A' %} selected {% else %}{% endif %}>A</option>
+            <option value="B" {% if nurseId == 'B' %} selected {% else %}{% endif %}>B</option>
+            <option value="C" {% if nurseId == 'C' %} selected {% else %}{% endif %}>C</option>
+            <option value="D" {% if nurseId == 'D' %} selected {% else %}{% endif %}>D</option> {% endcomment %}
+          </select>
+          {% csrf_token %}
+          <button class="nurse-btn" onclick="SearchFunc()">搜尋</button>
+          <button class="nurse-btn" onclick="AdjustPage()">修改床位</button>
+      </div>
+      <ul class="down tab-bed">
+        {% for patient in patients %}
+          {% if patient.bed == '' %}
+          {% else %}
+            {% if patient.id == '---' %}
+            <li class="bed" id="bed-{{ patient.bed }}">
+              <div class="bed-top bed-inactive">{{ patient.bed }}  --- </div>
+              <div class="bed-bottom">
+                <div class="pressure">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/pressure_inactive.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/heartbeat_inactive.svg' %} " />
+                </div>
+                <div class="dehydration">
+                  <div class="img-text"></div>
+                  <img src="{% static 'img/water_inactive.svg' %} " />
+                </div>
+                <div class="idhrate">
+                  <img src="{% static 'img/idh_inactive.svg' %} " />
+                </div>
+              </div>
+            {% else %}
+            {% if patient.record.SBP == 0 or patient.record.pulse == 0 %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 90 or patient.record.SBP > 180 or patient.record.pulse < 60 or patient.record.pulse > 140 %}
+            <li class="bed bed-danger" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+              <div class="bed-top bed-top-danger">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% elif patient.record.SBP < 100 or patient.record.SBP > 165 or patient.record.pulse > 120 %}
+            <li class="bed bed-warning" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+              <div class="bed-top bed-top-warning">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% else %}
+            <li class="bed" id="bed-{{ patient.bed }}" onclick="ClickOnPatientNA('{{ patient.bed }}', '{{ patient.idh }}', '{{ patient.id.p_name }}', 1, '{{patient.done_warning}}', '{{patient.first_click}}', '{{patient.record.SBP}}', '{{patient.record.DBP}}', '{{patient.random_code}}')">
+              <div class="bed-top">{{ patient.bed }}  {{ patient.id.p_name }} </div>
+            {% endif %}
+              {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
+              {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
+              <div class="and bed-bottom {% if patient.idh >= firstThreshold  and not patient.done_warning and not patient.first_click and not patient.first_click %}danger-bg{% else %}{% endif %}">
+                <div class="pressure">
+                  {% if patient.record.SBP == 0 %}
+                  <div class="img-text"> -/- </div>
+                  {% elif patient.record.SBP < 90 or patient.record.SBP > 180 %}
+                  <div class="img-text danger"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% elif patient.record.SBP < 100 or patient.record.SBP > 165 %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.SBP | floatformat:0 }}/{{ patient.record.DBP }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/pressure_active.svg' %} " />
+                </div>
+                <div class="heartbeat">
+                  {% if patient.record.pulse == 0 %}
+                  <div class="img-text"> - </div>                
+                  {% elif patient.record.pulse < 60 or patient.record.pulse > 140 %}
+                  <div class="img-text danger"> {{ patient.record.pulse }} </div>
+                  {% elif patient.record.pulse > 120 %}
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
+                  {% else %}
+                  <div class="img-text"> {{ patient.record.pulse }} </div>
+                  {% endif %}
+                  <img src="{% static 'img/heartbeat_active.svg' %} " />
+                </div>
+                <div class="dehydration">
+                  <div class="img-text">{{ patient.setting.expect_dehydration | floatformat:1 }}</div>
+                  <img src="{% static 'img/water_active.svg' %} " />
+                </div>
+                <div class="idhrate">
+                  {% if patient.record.SBP == 0 %}
+                  <img src="{% static "img/idh_inactive.svg" %}" />
+                  {% else %}
+                    {% if patient.idh > firstThreshold %}
+                    <img src="{% static 'img/idh_danger.svg' %} " />
+                    {% elif patient.idh > secondThreshold %}
+                    <img src="{% static 'img/idh_warning.svg' %} " />
+                    {% else %}
+                    <img src="{% static 'img/idh_safe.svg' %} " />
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+</div>
+{% if home %}
+<div id="modal" class="modal hidden"></div>
+{% else %}
+<div id="modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-main">
+      <div class="modal-left">
+        <div id="patient">{{ setting.bed }}  {{ id.p_name }}</div>
+        <div class="">
+          <button id="openWarningBtn" class="btn-confirm primary-btn" type="submit" onclick="CloseWarningModalNA()"> &emsp;護理師處置&emsp; </button>
+        </div>
+        <div class="idhcontainer">
+          {% if idh > firstThreshold %}
+          <div class="idhboard idh-danger">
+          {% else %}
+          <div class="idhboard">
+          {% endif %}
+            <div>下小時透析低血壓預測機率</div>
+            <div id="idhrate">{{ idh }} %</div>
+            <div id="updatetime">最後更新時間：{{ record.record_time }}</div>
+          </div>
+          <img src="{%static 'img/human.svg' %}" />
+        </div>
+        <div class="weights">
+          {% if setting.ideal_weight <= 0 %}
+          <div class="weight-num">          
+            標準體重： -- kg
+          </div>
+          {% else %}
+          <div class="weight-num">          
+            標準體重：{{ setting.ideal_weight|floatformat:1 }} 
+            <span class={{ diff.class }}>( {{ diff.value }} )</span> kg
+          </div>
+          <div class="weight-bar">
+            <div class="bar-top">
+              <div class="bar-text">輕</div>
+              <div class="bar-notation">- 0 +</div>
+              <div class="bar-text">重</div>
+            </div>
+            <div class="bar">
+              {% if diff.class == "diff-pos" %}
+              <div class="bar-white left"></div>
+              <div class="bar-divider"></div>
+              <div class="bar-white right">
+                <div class="bar-pos" style="width: {{ diff.per_width|default:0 }}%;"></div>
+              </div>
+              {% else %}
+              <div class="bar-white left">
+                <div class="bar-neg" style="width: {{ diff.per_width|default:0 }}%;"></div>
+              </div>
+              <div class="bar-divider"></div>
+              <div class="bar-white right"></div>
+              {% endif %}
+            </div>
+            <span class={{ diff.class }}>{{ diff.percentage }}</span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="modal-right">
+        <ul class="main-info">
+          <li>收縮壓 / 舒張壓：{{ record.SBP|floatformat:0 }} / {{ record.DBP }} mmHg</li>
+          {% if setting.temperature <= 0 %}
+          <li>體溫： -- ℃</li>
+          {% else %}
+          <li>體溫：{{ setting.temperature|floatformat:1 }} ℃</li>
+          {% endif %}
+          <li>脈搏：{{ record.pulse }} bpm</li>
+          <li>飲食 / 輸液量：{{ setting.food|floatformat:1 }} kg / 
+            {% if record.d_id.transfusion == -1 %}
+            -
+            {% else %}
+            {{ record.d_id.transfusion|floatformat:1 }}
+            {% endif %} L
+          </li>
+        </ul>
+        <div class="sub-info">
+          <ul class="left-info">
+            <li>透析液 Ca</li>
+            <li>{{ setting.Ca|floatformat:1 }}</li>
+            <li>傳導度</li>
+            <li>13.9</li>
+            <li>透析液 溫度</li>
+            <li>{{ record.dialyse_temperature|floatformat:1 }} ℃</li>
+          </ul>
+          <div class="right-info">
+            <div class="info-group">
+              <div class="info-title">血液流速</div>
+              <div class="info-unit">(ml/min)</div>
+              <div class="info-figure">
+                <div class="img-text">{{ record.blood_speed|floatformat:0 }}</div>
+                {% if record.blood_speed <= 150 %}
+                <img src="{%static 'img/speed_low.svg' %}" />
+                {% elif record.blood_speed <= 250 %}
+                <img src="{%static 'img/speed_medium.svg' %}" />
+                {% else %}
+                <img src="{%static 'img/speed_high.svg' %}" />
+                {% endif %}
+              </div>
+            </div>
+            <div class="info-group">
+              <div class="info-title">透析液流速</div>
+              <div class="info-unit">(ml/min)</div>
+              <div class="info-figure">
+                <div class="img-text">{{ record.flow_speed }}</div>
+                <img src="{%static 'img/speed.svg' %}" />
+              </div>
+              {% comment %} <div class="info-unit">上次流速：810 ml/min</div> {% endcomment %}
+            </div>
+            <div class="info-group">
+              <div class="info-title">目標脫水量</div>
+              <div class="info-unit">(L)</div>
+              <div class="info-figure">
+                <div class="img-text">{{ setting.set_dehydration|floatformat:1 }}</div>
+                <img src="{%static 'img/speed.svg' %}" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="linechart"></div>
+        <script>
+          chart = {{ chart|safe }};
+          xAxis = chart.map(data => data["timestamp"])
+          SBP = chart.map(data => data["SBP"]);
+          pulse = chart.map(data => data["pulse"]);
+          CVP = chart.map(data => data["CVP"]);
+          linechart = Highcharts.chart("linechart", {
+            chart: { 
+              type: "line",
+              height: 260 + "em",
+              width: 1100,
+              backgroundColor: "#f4f7fb",
+              spacing: [30, 0, 0, 10],
+            },
+            title: { 
+              style: {
+                "display": "none",
+              }
+            },
+            credits: {
+              enabled: false,
+            },
+            legend: {
+              align: "right",
+              verticalAlign: "middle",
+              layout: "vertical",
+              itemMarginTop: 10,
+              itemStyle: {
+                color: "#4A5563",
+                fontSize: "18px",
+              },
+              symbolWidth: 24,
+              symbolHeight: 24,
+              symbolPadding: 10,
+            },
+            tooltip: {
+              borderRadius: 8,
+            },
+            xAxis: { 
+              categories: xAxis,
+            },
+            yAxis: [
+            {
+              title: { 
+                text: "壓力",
+                rotation: 0,
+                align: "high",
+                style: {
+                  fontSize: "18px",
+                  color: "#4A5563",
+                },
+                y: -15,
+                offset: 25,
+              },
+              labels: { 
+                algin: "center",
+                format: "{value} mmHg",
+                style: {
+                  fontSize: 12,
+                }
+              },
+              minorTicks: true,
+            },
+            {
+              opposite: true,
+              title: { 
+                text: "脈搏",
+                rotation: 0,
+                align: "high",
+                style: {
+                  fontSize: "18px",
+                  color: "#4A5563",
+                },
+                y: -15,
+                offset: 15,
+              },
+              labels: { 
+                algin: "center",
+                format: "{value} bpm",
+                style: {
+                  fontSize: 12,
+                }
+              },
+            }],
+            series: [
+            {
+              name: "收縮壓",
+              data: SBP,
+              lineWidth: 3,
+              color: "#fe7878",
+            },
+            {
+              name: "脈搏",
+              data: pulse,
+              yAxis: 1,
+              lineWidth: 3,
+            },
+            {
+              name: "靜脈壓",
+              data: CVP,
+              lineWidth: 3,
+              color: "#999999"
+            }]
+          });
+          IDH = [];
+          for(let i = 0; i < chart.length; i++) {
+            if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
+              IDH.push({
+                "timestamp": chart[i].timestamp,
+                "SBP": chart[i].SBP
+              })
+              linechart.xAxis[0].addPlotBand({
+                from: i - 0.5,
+                to: i + 0.5,
+                color: "#ffecc4",
+                borderColor: "#CBD3DE",
+                borderWidth: 0.5,
+              })
+            }
+          }   
+        </script>
+        <ul class="dialysis-info">
+          <li class="dialysis-item">Heparin</li>
+          <li class="dialysis-content">{{ setting.heparin }}</li>
+          <li class="dialysis-item">透析器</li>
+          <li class="dialysis-content">{{ setting.machine }}</li>
+          <li class="dialysis-item">血管通路</li>
+          {% if setting.channel == "-1" %}
+          <li class="dialysis-content"> --- </li>
+          {% else %}
+          <li class="dialysis-content">{{ setting.channel }}</li>
+          {% endif %}
+          <li class="dialysis-item">透析次數</li>
+          <li class="dialysis-content">{{ setting.times }}</li>
+        </ul>
+      </div>
+      <div class="modal-table hidden">
+        <div id="patient2"></div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th title="Field #1">ID</th>
+                <th title="Field #2">姓名</th>
+                <th title="Field #3">性別</th>
+                <th title="Field #4">年齡</th>
+                <th title="Field #5">出生年月日</th>
+                <th title="Field #6">床位</th>
+                <th title="Field #7">透析次數(本院)</th>
+                <th title="Field #8">透析開始時間</th>
+                <th title="Field #9">透析結束時間</th>
+                <th title="Field #10">紀錄時間</th>
+                <th title="Field #11">血壓(收縮)</th>
+                <th title="Field #12">血壓(舒張)</th>
+                <th title="Field #13">脈搏</th>
+                <th title="Field #14">呼吸</th>
+                <th title="Field #15">開始體溫</th>
+                <th title="Field #16">體溫</th>
+                <th title="Field #17">開始透析液流速</th>
+                <th title="Field #18">開始血液流速</th>
+                <th title="Field #19">血流速(ml/min)</th>
+                <th title="Field #20">透析液流速(ml/min)</th>
+                <th title="Field #21">透析液溫度(℃)</th>
+                <th title="Field #22">透析前體重(kg)</th>
+                <th title="Field #23">理想體重(kg)</th>
+                <th title="Field #24">目標脫水量(L)</th>
+                <th title="Field #25">輸液量(L)</th>
+                <th title="Field #26">食物重量(kg)</th>
+                <th title="Field #27">預估脫水量(L)</th>
+                <th title="Field #28">設定脫水量(L)</th>
+                <th title="Field #29">結束體重(kg)</th>
+                <th title="Field #30">實際脫水量(L)</th>
+                <th title="Field #31">靜脈壓(mmHg)</th>
+                <th title="Field #32">透析液壓(mmHg)</th>
+                <th title="Field #33">膜上壓(mmHg)</th>
+                <th title="Field #34">脫水速率</th>
+                <th title="Field #35">累積量</th>
+                <th title="Field #36">透析液Ca</th>
+                <th title="Field #37">透析機編號</th>
+                <th title="Field #38">Start_SBP</th>
+                <th title="Field #39">Start_DBP</th>
+                <th title="Field #40">End_SBP</th>
+                <th title="Field #41">End_DBP</th>
+                <th title="Field #42">透析模式</th>
+                <th title="Field #43">透析器</th>
+                <th title="Field #44">血管通路</th>
+                <th title="Field #45">Heparin</th>
+                <th title="Field #46">ESA</th>
+                <th title="Field #47">透析器凝血情況</th>
+                <th title="Field #48">肝素注射量(ml/hr)</th>
+                <th title="Field #49">沖水量(ml)</th>
+                <th title="Field #50">確認血管通路</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in all_record reversed %}
+              <tr>
+                <td>{{ id.p_id }}</td>
+                <td>{{ id.p_name }}</td>
+                <td>{{ id.gender }}</td>
+                <td>{{ record.d_id.age }}</td>
+                <td>{{ id.birth|date:'Y/m/d' }}</td>
+                <td>{{ record.d_id.bed }}</td>
+                <td>{{ record.d_id.times }}</td>
+                <td>{{ record.d_id.start_time|date:'Y/m/d H:i A'|lower }}</td>
+                <td>{{ record.d_id.end_time|date:'Y/m/d H:i A'|lower }}</td>
+                <td>{{ record.record_time|date:'Y/m/d H:i A'|lower }}</td>
+                {% if record.SBP > 180 or record.SBP < 90 %}
+                <td class="danger">{{ record.SBP|floatformat:0 }}</td>
+                {% elif record.SBP > 165 or record.SBP < 100 %}
+                <td class="warning">{{ record.SBP|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.SBP|floatformat:0 }}</td>
+                {% endif %}
+                <td>{{ record.DBP }}</td>
+                {% if record.pulse > 140 or record.pulse < 60 %}
+                <td class="danger">{{ record.pulse|floatformat:0 }}</td>
+                {% elif record.pulse > 120 %}
+                <td class="warning">{{ record.pulse|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.pulse|floatformat:0 }}</td>
+                {% endif %}
+                <td>{{ record.breath|floatformat:0 }}</td>
+                {% if record.d_id.start_temperature == '-' %}
+                <td>{{ record.d_id.temperature }}</td>
+                {% else %}
+                <td>{{ record.d_id.start_temperature|floatformat:1 }}</td>
+                {% endif %}
+                {% if record.d_id.temperature == '-' %}
+                <td>{{ record.d_id.temperature }}</td>
+                {% elif record.d_id.temperature > 38 or record.d_id.temperature < 36 %}
+                <td class="warning">{{ record.d_id.temperature|floatformat:1 }}</td>
+                {% else %}
+                <td>{{ record.d_id.temperature|floatformat:1 }}</td>
+                {% endif %}              
+                <td>{{ record.d_id.start_flow_speed|floatformat:0 }}</td>
+                <td>{{ record.d_id.start_blood_speed|floatformat:0 }}</td>
+                {% if record.blood_speed < 150 %}
+                <td class="warning">{{ record.blood_speed|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.blood_speed|floatformat:0 }}</td>
+                {% endif %}
+                {% if record.flow_speed < 250 %}
+                <td class="warning">{{ record.flow_speed|floatformat:0 }}</td>
+                {% else %}
+                <td>{{ record.flow_speed|floatformat:0 }}</td>
+                {% endif %}
+                <td>{{ record.dialyse_temperature|floatformat:1 }}</td>
+                <td>{{ record.d_id.before_weight|floatformat:1 }}</td>
+                <td>{{ record.d_id.ideal_weight|floatformat:1 }}</td>
+                <td>{{ record.d_id.expect_dehydration|floatformat:1 }}</td>
+                <td>{{ record.d_id.transfusion|floatformat:1 }}</td>
+                <td>{{ record.d_id.food|floatformat:1 }}</td>
+                <td>{{ record.d_id.estimate_dehydration|floatformat:1 }}</td>
+                <td>{{ record.d_id.set_dehydration|floatformat:1 }}</td>
+                <td>{{ record.d_id.after_weight|floatformat:1 }}</td>
+                <td>{{ record.d_id.real_dehydration|floatformat:1 }}</td>
+                <td>{{ record.CVP }}</td>
+                <td>{{ record.DP|floatformat:1 }}</td>
+                <td>{{ record.TMP|floatformat:1 }}</td>
+                <td>{{ record.dehydrate_speed|floatformat:2 }}</td>
+                <td>{{ record.accumulation|floatformat:2 }}</td>
+                <td>{{ record.d_id.Ca|floatformat:1 }}</td>
+                <td>{{ record.d_id.machine_id }}</td>
+                <td>{{ record.d_id.start_SBP|floatformat:1 }}</td>
+                <td>{{ record.d_id.start_DBP }}</td>
+                <td>{{ record.d_id.end_SBP|floatformat:1 }}</td>
+                <td>{{ record.d_id.end_DBP }}</td>
+                <td>{{ record.d_id.mode }}</td>
+                <td>{{ record.d_id.machine }}</td>
+                <td>{{ record.d_id.channel }}</td>
+                <td>{{ record.d_id.heparin }}</td>
+                <td>{{ record.d_id.ESA }}</td>
+                <td>{{ record.d_id.coagulation }}</td>
+                <td>{{ record.heparin_volume|floatformat:2 }}</td>
+                {% if record.flush == '-' %}
+                <td>{{ record.flush }}</td>
+                {% else %}
+                <td>{{ record.flush|floatformat:1 }}</td>
+                {% endif %}
+                <td>{{ record.channel_confirmed }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="close-btn" onclick="close_modal_NA()">
+        <img src="{%static 'img/close.svg'%}" />
+      </div>
+      <div class="page">
+        <div class="page-btn" onclick="prev();">
+          <img id="left" src="{%static 'img/left_inactive.svg'%}" />
+        </div>
+        <div class="page-btn" onclick="next();">
+          <img id="right" src="{%static 'img/right_active.svg'%}" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div id="warningModal" class="modal-sm hidden">
+    <div class="modal-content">
+      <div class="modal-main">
+        <div class="close-btn" onclick="CloseWarningModalNA()">
+          <img src="{%static 'img/close.svg'%}" />
+        </div>
+        <div class="modal-sm-content">
+          <div class="modal-sm-title">
+            <a id="patientBed">{{ setting.bed }}</a>
+            <a id="patientName">{{ id.p_name }}</a>
+          </div>
+          <form id="warningReport" class="modal-sm-form">
+            <div class="warning-left" id="warning-left">
+              {% csrf_token %}
+              {% with r=all_record|last %}
+              <div class="text-label">
+                <label for="empNo">員工號：</label>
+                <br>
+                <input class="input-warning" type="text" id="empNo" name="empNo"/>
+              </div>
+              <div class="text-label" id="warning-left-SBP">
+                <label for="SBP">病患當前收縮壓：</label>
+                <br>
+                <input class="input-warning" type="text" id="SBP" name="SBP" value="{% if r.in10minutes %}{{r.SBP|floatformat:0}}{% endif %}"/>mmHg
+              </div>
+              <div class="text-label" id="warning-left-DBP">
+                <label for="DBP">病患當前舒張壓：</label>
+                <br>
+                <input class="input-warning" type="text" id="DBP" name="DBP" value="{% if r.in10minutes %}{{r.DBP|floatformat:0}}{% endif %}"/>mmHg
+              </div>
+              {% endwith %}
+            </div>
+            <div class="warning-right" id="warning-right">
+              <div class="note">
+                <div class="note-title">症狀</div>
+                <label class="note-container">是
+                  <input type="radio" name="sign-{{ patient.id.p_id }}" value="1" {% if patient.sign %} checked {% endif %}>
+                  <span class="checkmark radio"></span>
+                </label>
+                <label class="note-container">否
+                  <input type="radio" name="sign-{{ patient.id.p_id }}" value="0" {% if patient.sign == False %} checked {% endif %}>
+                  <span class="checkmark radio"></span>
+                </label>
+              </div>
+              <div class="note">
+                <div class="note-title">處理：</div>
+                <label class="text-label">口服藥物：</label>
+                  <label class="note-container">midodrine
+                    <input type="checkbox" name="drug-midodrine" value="midodrine">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <div class="other-decoration">
+                    <label class="note-container">其他:
+                      <input type="checkbox" id="drug-other-check" name="drug-other-check" value="drug-other">
+                      <span class="checkmark checkbox"></span>
+                    </label>
+                    <label for="drug-other-text" class="note-container-other"></label>
+                    <input type="text" id="drug-other-text" name="drug-other-text" disabled>
+                  </div>
+                <label class="text-label">針劑藥物：</label>
+                  <label class="note-container">IV Glucose
+                    <input type="checkbox" name="inject-IV_Glucose" value="IV_Glucose">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <div class="other-decoration">
+                    <label class="note-container">其他:
+                      <input type="checkbox" id="inject-other-check" name="inject-other-check" value="inject-other">
+                      <span class="checkmark checkbox"></span>
+                    </label>
+                    <label for="inject-other-text" class="note-container-other"></label>
+                    <input type="text" name="inject-other-text" id="inject-other-text" disabled>
+                  </div>
+                <label class="text-label">調整透析設定：</label>
+                  <label class="note-container">降低blood flow
+                    <input type="checkbox" name="setting-low_blood_flow" value="low_blood_flow">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label class="note-container">降低UF
+                    <input type="checkbox" name="setting-low_UF" value="low_UF">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label class="note-container">降低dialysate flow
+                    <input type="checkbox" name="setting-low_dialysate_flow" value="low_dialysate_flow">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <div class="other-decoration">
+                    <label class="note-container">其他:
+                      <input type="checkbox" id="setting-other-check" name="setting-other-check" value="setting-other">
+                      <span class="checkmark checkbox"></span>
+                    </label>
+                    <label for="setting-other-text" class="note-container-other"></label>
+                    <input type="text" name="setting-other-text" id="setting-other-text" disabled>
+                  </div>
+                <label class="text-label">護理處置：</label>
+                  <label class="note-container">頭低腳高
+                    <input type="checkbox" name="nursing-HLFH" value="HLFH">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label class="note-container">調低溫度
+                    <input type="checkbox" name="nursing-low_temp" value="low_temp">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <label class="note-container">沖水
+                    <input type="checkbox" name="nursing-flush" value="flush">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <div class="other-decoration">
+                    <label class="note-container">其他:
+                      <input type="checkbox" id="nursing-other-check" name="nursing-other-check" value="nursing-other">
+                      <span class="checkmark checkbox"></span>
+                    </label>
+                    <label for="nursing-other-text" class="note-container-other"></label>
+                    <input type="text" name="nursing-other-text" id="nursing-other-text" disabled>
+                  </div>
+                <label class="text-label">其他處理：</label>
+                  <label class="note-container">再觀察，不做任何處理
+                    <input type="checkbox" name="other-observe" value="observe">
+                    <span class="checkmark checkbox"></span>
+                  </label>
+                  <div class="other-decoration">
+                    <label class="note-container">其他:
+                      <input type="checkbox" id="other-other-check" name="other-other-check" value="other-other">
+                      <span class="checkmark checkbox"></span>
+                    </label>
+                    <label for="other-other-text" class="note-container-other"></label>
+                    <input type="text" name="other-other-text" id="other-other-text" disabled>
+                  </div>
+  
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="">
+          <button id="confirmWarningBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitWarningNA()">確認</button>
+          <button id="warningClickBtn" class="btn-confirm warning-btn" type="submit" onclick="SubmitWarningClickNA()" style="display: none;">確認</button>
+        </div>
+      </div>
+    </div>
+</div>
+{% endwith %}{% endblock %}
