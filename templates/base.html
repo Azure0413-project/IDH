@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDH Monitor System</title>
+    {% load static %}
+    <link id='favicon' rel="icon" href="{% static 'img/kidney.svg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tab.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
+    <!-- <meta name="theme-color" content="red">  -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'index' %}">成大醫院</a></h1>
+        <div id="currentTime"></div>
+        <nav class="navbar">
+            {% comment %} <img src="{%static 'img/dropdown.svg' %}" alt="v"> {% endcomment %}
+            <ul class="nav_link">
+                <li><a href="{% url 'index' %}">首頁</a></li>
+                <!-- <li><a href="{% url 'export_file' %}">輸出報表</a></li> -->
+                <li><a onclick="openExportFileModal()">輸出報表</a></li>
+                <!-- <li><a onclick="SwitchRandomCodeDisplay()">顯示/關閉警示病患</a></li> -->
+                <li class="dropdown">
+                    <span class="title">填寫透析紀錄</span>
+                    <div class="dropdown-content">
+                        <a href="{% url 'get_record' shift=0 %}">早班</a>
+                        <a href="{% url 'get_record' shift=1 %}">午班</a>
+                        <a href="{% url 'get_record' shift=2 %}">晚班</a>
+                    </div>
+                </li>
+                <li>
+                    <button onclick="SwitchNurseList()" 
+                        onmouseover="this.firstElementChild.src='{%static 'img/user_active.svg' %}'"
+                        onmouseout="this.firstElementChild.src='{%static 'img/user.svg' %}'">
+                        <img src="{%static 'img/user.svg' %}" alt="user">
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="{%static 'js/index.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static "js/homepage.js" %}"></script>
+    <script src="{%static 'js/feedback.js' %}" crossorigin="anonymous"></script>
+    {% block content %}
+    {% endblock %}
+    </main>
+    <div id="exportFileModal" class="modal-sm hidden">
+        <div class="modal-content">
+          <div class="modal-main">
+            <div class="close-btn" onclick="CloseExportFileModal()">
+              <img src="{%static 'img/close.svg'%}" />
+            </div>
+            <div class="modal-sm-content">
+              <div class="modal-sm-title">
+                <a>輸出報表</a> 
+              </div>
+              <form id="exportFileForm" class="modal-sm-form">
+                {% csrf_token %}
+                <div class="text-label">
+                  <label for="export-file-start">Start time:</label>
+                  <br>
+                  <input class="idh-time-input" type="datetime-local" id="export-file-start" name="export-file-start">
+                </div>
+                <div class="text-label">
+                  <label for="export-file-end">End time:</label>
+                  <br>
+                  <input class="idh-time-input" type="datetime-local" id="export-file-end" name="export-file-end">
+                </div>
+                <script>
+                  document.addEventListener('DOMContentLoaded', (event) => {
+                      let now = new Date();
+                      let yesterday = new Date(now);
+                      yesterday.setDate(yesterday.getDate() - 1);
+                      let formatDate = (date) => {
+                          let year = date.getFullYear();
+                          let month = String(date.getMonth() + 1).padStart(2, '0');
+                          let day = String(date.getDate()).padStart(2, '0');
+                          let hours = String(date.getHours()).padStart(2, '0');
+                          let minutes = String(date.getMinutes()).padStart(2, '0');
+                          return `${year}-${month}-${day}T${hours}:${minutes}`;
+                      };
+                      document.getElementById('export-file-start').value = formatDate(yesterday);
+                      document.getElementById('export-file-end').value = formatDate(now);
+                  });
+                </script>
+              </form>
+            </div>
+            <div class="">
+              <button id="confirmExportFileBtn" class="export-file-confirm" type="submit" onclick="SubmitExportFile()">確認</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div style="position: absolute; bottom: 0; left: 46%;">
+      <a href="#" title="v1.0: Jenny Liu; v1.1: Jenny Liu, Andy Huang, Sam Tu">
+        © 2024 NCKU IIR LAB.
+      </a>
+    </div>
+</body>
+</html>
