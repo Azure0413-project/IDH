@@ -1,0 +1,532 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="container">
+  <div class="tab">
+    <button class="tablinks active">
+      <img src="{%static 'img/record.svg'%}" />透<br/>析<br/>紀<br/>錄<br/>｜<br/> {{ shift }}<br/>班
+    </button>
+  </div>
+<div id="dashboard" class="tabcontent">
+  <form id="idh-patients-form" method="post" action="{% url 'get_record' shift=t %}" enctype="multipart/form-data">
+    {% csrf_token %} 
+    <input type="hidden" id="idh-patients-list" name="idh-patients-list" value="{{ idh_bed }}"/>
+    <input type="hidden" id="idh-tmp-form" name="idh-tmp-form" value=""/>
+    <div class="map">
+    <section class="area">
+      <h1>B</h1>
+      <ul class="up">
+      {% for patient in b_patients %}
+        {% if patient.id == '---' %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
+        {% else %}
+          {% if patient.status == 3 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 2 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 1 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>          
+          {% else %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      </ul>
+      <div class="divider"></div>
+    </section>
+    <section class="area">
+      <h1>C</h1>
+      <ul class="up">
+      {% for patient in c_patients %}
+        {% if patient.id == '---' %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
+        {% else %}
+          {% if patient.status == 3 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 2 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 1 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>          
+          {% else %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      </ul>
+      <div class="divider"></div>
+    </section>
+    <section class="area">
+      <h1>D</h1>
+      <ul class="up">
+      {% for patient in d_patients %}
+        {% if patient.id == '---' %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
+        {% else %}
+          {% comment %} {{patient.status}} {% endcomment %}
+          {% if patient.status == 3 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 2 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% elif patient.status == 1 %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>          
+          {% else %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+            <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+          </button>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </section>
+    <section class="area">
+      <h1>A</h1>
+      <ul class="down">
+      {% for patient in a_patients %}
+        {% if patient.bed == '' %}
+        <li></li>
+        {% else %}
+          {% if patient.id == '---' %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
+          {% else %}
+            {% if patient.status == 3 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 2 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 1 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>          
+            {% else %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      </ul>
+      <div class="divider"></div>
+    </section>
+    <section class="area">
+      <h1>E</h1>
+      <ul class="down">
+      {% for patient in e_patients %}
+        {% if patient.bed == '' %}
+        <li></li>
+        {% else %}
+          {% if patient.id == '---' %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
+          {% else %}
+            {% if patient.status == 3 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 2 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 1 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>          
+            {% else %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      </ul>
+      <div class="divider"></div>
+    </section>
+    <section class="area">
+      <h1>I</h1>
+      <ul class="down">
+      {% for patient in i_patients %}
+        {% if patient.bed == '' %}
+        <li></li>
+        {% else %}
+          {% if patient.id == '---' %}
+          <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-inactive" type="button">
+            <div class="bed-feedback-text">{{ patient.bed }} 無紀錄</div>
+          </button>
+          {% else %}
+            {% if patient.status == 3 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-bothver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 2 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active-20ver" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% elif patient.status == 1 %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback bed-feedback-active" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>          
+            {% else %}
+            <button id="feedback-{{ patient.bed }}" class="bed-feedback" type="button" onclick="changeStatus('feedback-{{ patient.bed }}');">
+              <div class="bed-feedback-text">{{ patient.bed }}  {{ patient.id.p_name }}</div>
+            </button>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+        <li></li>
+        <li></li>
+        <li></li>
+        <button id="confirmPatientBtn" class="btn-confirm" type="submit">確 認</button>
+      </ul>
+    </section>
+  </div>
+  </form>
+</div>
+{% if form %}
+<div id="modal" class="modal hidden"></div>
+{% else %}
+<div id="modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-idh">
+    <div id="feedbackModal" class="modal-feedback">
+      <form method="post" action="{% url 'post_feedback' %}">
+      {% csrf_token %} 
+        <label for="nurseId" class="text-label">護理師員工號：</label>
+        <select id="nurseId" class="nurseId" name="nurseId" aria-label="nurseId">
+          {% for nurseInfo in nurseList %}
+            <option value="{{ nurseInfo.empNo }}">{{ nurseInfo.empNo }}</option>
+          {% endfor %}
+        </select>
+        {% for patient in idh_patients %}
+        <div class="feedback-patient">
+          <div class="feedback-left">
+            <div class="feedback-name">{{ patient.setting.bed }}  {{ patient.id.p_name }}</div>
+            <div class="idh-linechart" id="{{ patient.chart_id }}"></div>
+            <input type="hidden" name="patient" value="{{ patient.id.p_id }}">
+            <input type="hidden" name="setting" value="{{ patient.setting.d_id }}">
+            <input type="hidden" id="bands" name="bands">
+            <script>
+              chart = {{ patient.chart|safe }};
+              xAxis = chart.map(data => data["timestamp"])
+              SBP = chart.map(data => data["SBP"]);
+              pulse = chart.map(data => data["pulse"]);
+              CVP = chart.map(data => data["CVP"]);
+              exist = false;
+              bands = document.getElementById("bands");
+              linechart = Highcharts.chart("{{ patient.chart_id|safe }}", {
+                chart: { 
+                  type: "line",
+                  height: 260 + "em",
+                  width: 1000,
+                  backgroundColor: "#f4f7fb",
+                  spacing: [30, 0, 0, 10],
+                  events: {
+                    click: function(e) {
+                      let index = Math.round(e.xAxis[0].value);
+                      exist = false;
+                      let nowbands = this.xAxis[0].plotLinesAndBands;
+                      for(let i = 0; i < nowbands.length; i++) {
+                        if(nowbands[i].id == "{{ patient.id.p_id |safe }}" + "-band-" + index) {
+                          exist = true;
+                          removePlotBand(index, {{ patient.id.p_id|safe }});
+                          break;
+                        }
+                      }
+                      if(!exist) {
+                        addPlotBand(index, {{ patient.id.p_id|safe }});
+                      }
+                    },
+                  }
+                },
+                title: { 
+                  style: {
+                    "display": "none",
+                  }
+                },
+                credits: {
+                  enabled: false,
+                },
+                legend: {
+                  align: "right",
+                  verticalAlign: "middle",
+                  layout: "vertical",
+                  itemMarginTop: 10,
+                  itemStyle: {
+                    color: "#4A5563",
+                    fontSize: "18px",
+                  },
+                  symbolWidth: 24,
+                  symbolHeight: 24,
+                  symbolPadding: 10,
+                },
+                tooltip: {
+                  borderRadius: 8,
+                },
+                xAxis: { 
+                  categories: xAxis,
+                },
+                yAxis: [
+                {
+                  title: { 
+                    text: "壓力",
+                    rotation: 0,
+                    align: "high",
+                    style: {
+                      fontSize: "18px",
+                      color: "#4A5563",
+                    },
+                    y: -15,
+                    offset: 25,
+                  },
+                  labels: { 
+                    algin: "center",
+                    format: "{value} mmHg",
+                    style: {
+                      fontSize: 12,
+                    }
+                  },
+                  minorTicks: true,
+                },
+                {
+                  opposite: true,
+                  title: { 
+                    text: "脈搏",
+                    rotation: 0,
+                    align: "high",
+                    style: {
+                      fontSize: "18px",
+                      color: "#4A5563",
+                    },
+                    y: -15,
+                    offset: 15,
+                  },
+                  labels: { 
+                    algin: "center",
+                    format: "{value} bpm",
+                    style: {
+                      fontSize: 12,
+                    }
+                  },
+                }],
+                series: [
+                {
+                  name: "收縮壓",
+                  data: SBP,
+                  lineWidth: 3,
+                  color: "#fe7878",
+                },
+                {
+                  name: "脈搏",
+                  data: pulse,
+                  yAxis: 1,
+                  lineWidth: 3,
+                },
+                {
+                  name: "靜脈壓",
+                  data: CVP,
+                  lineWidth: 3,
+                  color: "#999999"
+                }],
+                plotOptions: {
+                  series: { animation: false }
+                }
+              });
+              for(let i = 0; i < chart.length; i++) {
+                if(chart[i].SBP > 0 && (chart[i].SBP <= 90 || (i>1 && chart[i].SBP < chart[i-1].SBP - 20))) {
+                  bands.value += {{ patient.id.p_id |safe }} + "-band-" + i + ','
+                  linechart.xAxis[0].addPlotBand({
+                    from: i - 0.5,
+                    to: i + 0.5,
+                    color: "#ffecc4",
+                    borderColor: "#CBD3DE",
+                    borderWidth: 0.5,
+                    id: "{{ patient.id.p_id |safe }}" + "-band-" + i,
+                  })
+                }
+              }
+              linecharts.push({
+                "p_id": {{ patient.id.p_id }},
+                "linechart": linechart,
+              });
+              function removePlotBand(index, p_id) {
+                let id = p_id + "-band-" + index;
+                bands.value = bands.value.replace(id + ",", "");
+                for(let i = 0; i < linecharts.length; i++){
+                  if(linecharts[i].p_id == p_id){
+                    linecharts[i].linechart.xAxis[0].removePlotBand(id);
+                  }
+                }
+              }
+              function addPlotBand(index, p_id){
+                for(let i = 0; i < linecharts.length; i++){
+                  if(linecharts[i].p_id == p_id){
+                    bands.value += p_id + "-band-" + index + ','
+                    linecharts[i].linechart.xAxis[0].addPlotBand({
+                      from: index - 0.5,
+                      to: index + 0.5,
+                      color: "#ffecc4",
+                      borderColor: "#CBD3DE",
+                      borderWidth: 0.5,
+                      id: p_id + "-band-" + index,
+                    });
+                  }
+                }
+              }
+            </script>
+          </div>
+          <div class="feedback-right" style="overflow-y: auto; max-height: 300px; display: none;">
+            <div class="note">
+              <div class="note-title">症狀*</div>
+              <label class="note-container">是
+                <input type="radio" name="sign-{{ patient.id.p_id }}" value="1" {% if patient.sign %} checked {% endif %} required>
+                <span class="checkmark radio"></span>
+              </label>
+              <label class="note-container">否
+                <input type="radio" name="sign-{{ patient.id.p_id }}" value="0" {% if patient.sign == False %} checked {% endif %}>
+                <span class="checkmark radio"></span>
+              </label>
+            </div>
+            <div class="note">
+              <div class="note-title">處理</div>
+              <label style="padding: 6% 0% 0% 0%">口服藥物：</label>
+                <label class="note-container">midodrine
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="midodrine">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="drug" {% if patient.drug %} checked {% endif %}>
+                  <input type="text" name="drug-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">針劑藥物：</label>
+                <label class="note-container">IV Glucose
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="IV_Glucose">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="inject" {% if patient.inject %} checked {% endif %}>
+                  <input type="text" name="inject-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">調整透析設定：</label>
+                <label class="note-container">降低blood flow
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_blood_flow">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">降低UF
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_UF">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">降低dialysate flow
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_dialysate_flow">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.setting %} checked {% endif %}>
+                  <input type="text" name="setting-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">護理處置：</label>
+                <label class="note-container">頭低腳高
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="HLFH">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">調低溫度
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="low_temp">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">沖水
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="flush">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="setting" {% if patient.setting %} checked {% endif %}>
+                  <input type="text" name="setting-{{ patient.id.p_id }}">
+                  <span class="checkmark checkbox"></span>
+                </label>
+              <label style="padding: 6% 0% 0% 0%">其他處理：</label>
+                <label class="note-container">再觀察，不做任何處理
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="observe">
+                  <span class="checkmark checkbox"></span>
+                </label>
+                <label class="note-container">其他
+                  <input type="checkbox" name="treatment-{{ patient.id.p_id }}" value="other" {% if patient.other %} checked {% endif %}>
+                  <span class="checkmark checkbox"></span>
+                  <input type="text" name="other-{{ patient.id.p_id }}">
+                </label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="note">
+            <div class="note-title">透析低血壓發生時間</div>
+              <label for="idh-time-{{ patient.id.p_id }}">
+                <div class="note-time">
+                時間紀錄<input class="idh-time-input" type="text" name="idh-time-{{ patient.id.p_id }}" id="idh-time-{{ patient.id.p_id }}" disabled>
+                </div>
+                <div class="note-time">
+                請選擇時間並點按添加<input class="idh-time-input" type="time" id="idh-select-{{ patient.id.p_id }}">
+                <button id="timeAppendBtn{{ patient.id.p_id }}" class="btn" type="button" onclick="TimeAppend('{{ patient.id.p_id }}')">時間添加</button>
+                </div>
+              </label>
+          </div>
+        </div>
+        {% if forloop.last %}
+        {% else %}
+        <hr class="rounded">
+        {% endif %}
+        {% endfor %}
+        <button id="confirmFeedbackBtn" class="btn-confirm feedback-btn" type="submit">確 認</button>
+        <div class="close-btn" onclick="closeModal()">
+          <img src="{%static 'img/close.svg'%}" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  {% comment %} $(".idh-time-input").datetimepicker({
+    format: "HH:mm",
+    useCurrent: false,
+    stepping: 15,
+    icons: {
+      time: "glyphicon glyphicon-time",
+    },
+  }); {% endcomment %}
+</script>
+<script src="{%static 'js/index.js' %}"></script>
+{% endif %}
+{% endblock %}
