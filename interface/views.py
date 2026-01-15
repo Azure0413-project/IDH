@@ -13,9 +13,11 @@ from scripts.load_data import saveData
 from decimal import Decimal
 import numpy as np
 from openpyxl import Workbook
-
+import sqlite3
+from django.utils import timezone
 # Create your views here.
-
+now = timezone.now()
+print("Now is:", now)
 b_area = ['B5', 'B9', 'B3', 'B8', 'B2', 'B7', 'B1', 'B6']
 c_area = ['C5', 'C9', 'C3', 'C8', 'C2', 'C7', 'C1', 'C6']
 d_area = ['D5', 'D9', 'D3', 'D8', 'D2', 'D7', 'D1', 'D6']
@@ -34,9 +36,10 @@ def get_time():
     return time
 
 def index(request, area="dashboard"):
-    time = get_time()
+    
+    time = get_time() #push要開
     if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job() 
+        corn_job()  #push要開
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -147,78 +150,213 @@ def get_record(request, shift):
         "nurseList": nurseList
     })
 
+
 def get_patients():
     time = get_time()
     now_dialysis = Dialysis.objects.filter(start_time__lte=time, end_time__gte=time)
     a_patients = []
     b_patients = []
-    c_patients = []
+    c_patients = []               
     d_patients = []
     e_patients = []
     i_patients = []
+    
     if len(now_dialysis) <= 1:
         all_idh = [0]
+        all_idh_previous = [0]
         do_pred = False
     else:
+        # all_preds = Predict.objects.all()
+        # for p in all_preds[:32]:
+        #     print(p.pred_id, p.d_id, p.flag, p.pred_time, p.pred_idh)
+        # print(f"now_dialysis: {now_dialysis},\n len: {len(now_dialysis)}")
         preds = Predict.objects.filter(d_id=now_dialysis[0].d_id).order_by('pred_time').reverse()
+        # print(f"\npred: {preds}\n len: {len(preds)}")
+        
         last_pred = datetime.min if len(preds) == 0 else preds[0].pred_time
-        if datetime.now() >= last_pred + timedelta(minutes=5): # 先用 datetime.now() 代替 time
+        
+        if datetime.now() >= last_pred + timedelta(minutes=60):
             do_pred = True
-            all_idh = predict_idh() #1205
+            all_idh = predict_idh()
             print("[prediction]", time)
+            
+            # 修正：檢查 preds 是否為空
+            if len(preds) > 0:
+                same_preds = Predict.objects.filter(
+                    pred_time__date=preds[0].pred_time.date(), 
+                    pred_time__hour=preds[0].pred_time.hour
+                ).order_by('flag')
+                all_pred_idh = [s.pred_idh for s in same_preds]
+                all_idh_previous = [np.float32(a) for a in all_pred_idh] if all_pred_idh else [0]
+            else:
+                all_idh_previous = [0]
         else:
             do_pred = False
-            same_preds = Predict.objects.filter(pred_time__date=preds[0].pred_time.date(), pred_time__hour=preds[0].pred_time.hour).order_by('flag')
-            all_pred_idh = [s.pred_idh for s in same_preds]
-            all_idh = [np.float32(a) for a in all_pred_idh]
+            # 修正：檢查 preds 是否為空
+            if len(preds) > 0:
+                same_preds = Predict.objects.filter(
+                    pred_time__date=preds[0].pred_time.date(), 
+                    pred_time__hour=preds[0].pred_time.hour
+                ).order_by('flag')
+                all_pred_idh = [s.pred_idh for s in same_preds]
+                all_idh = [np.float32(a) for a in all_pred_idh] if all_pred_idh else [0]
+                all_idh_previous = [np.float32(a) for a in all_pred_idh] if all_pred_idh else [0]
+            else:
+                all_idh = [0]
+                all_idh_previous = [0]
+    
     flag = 0
     all_area = [a_area, b_area, c_area, d_area, e_area, i_area]
     all_patients = [a_patients, b_patients, c_patients, d_patients, e_patients, i_patients]
+    
+    # print(f"all_idh: {all_idh}, len: {len(all_idh)}\n")
     for a in range(len(all_area)):
         for index, bed in enumerate(all_area[a]):
-            patient = {}
-            patient = {'bed': bed}
+            patient = {'bed': bed, 'idh': 0}
+            
             for d in now_dialysis:
                 if bed == d.bed:
                     start_time = d.start_time
-                    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                    
+                    # 修正：使用 try-except 或 first() 方法
+                    try:
+                        patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+                    except IndexError:
+                        patient['id'] = '---'
+                        continue
+                    
                     patient['setting'] = d
                     r = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
+                    
                     if len(r) == 0:
                         patient['id'] = '---'
                         continue
                     else:
                         patient['record'] = r[len(r) - 1]
-                    try:
-                        patient['idh'] = int(round(all_idh[flag] * 100))
-                    except:
+                    
+                    # 修正：檢查 flag 是否超出 all_idh 的範圍
+                    if flag < len(all_idh) and flag < len(all_idh_previous):
+                        if time.minute == 30:
+                            patient['idh'] = int(round(all_idh[flag] * 100))
+                        else:
+                            patient['idh'] = max(
+                                int(all_idh_previous[flag] * 100),
+                                int(round(all_idh[flag] * 100))
+                            )
+                    else:
+                        # print(f"flag: {flag} all_idh: {len(all_idh)}, all_idh_previous: {len(all_idh_previous)} \n")
                         patient['idh'] = 0
-                    #0326 random code
+                    
                     patient['random_code'] = d.random_code
-                    #0326 first click 
+
+                    # ========== EBM 預測區塊開始 ==========
+                    print(f"\n[EBM DEBUG] 檢查 Dialysis {d.d_id} (Bed: {bed}, Patient: {d.p_id.p_name})")
+                    if(d.d_id == 61328):
+                        print(Record.objects.filter(d_id=d.d_id).order_by('record_time'))
+                        print(Record.objects.filter(d_id=d.d_id).order_by('record_time').last())
+                    
+
+                    # 判斷是否為新透析：檢查第一筆 Record 的時間
+                    first_record = Record.objects.filter(d_id=d.d_id).order_by('record_time').last()
+                    
+                    ebm_warning = False  # 預設不顯示警告
+                    ebm_prob = 0.0
+                    
+                    if first_record:
+                        time_since_first_record = (datetime.now() - first_record.record_time).total_seconds()
+                        minutes_ago = time_since_first_record / 60
+                        
+                        print(f"[EBM DEBUG] - First record time: {first_record.record_time}")
+                        print(f"[EBM DEBUG] - Time since first record: {minutes_ago:.1f} 分鐘前")
+                        print(f"[EBM DEBUG] - Random code: {d.random_code}")
+                        
+                        # 如果第一筆記錄在最近 30 分鐘內，認為是新透析
+                        if time_since_first_record < 1800:  # 30分鐘 = 1800秒
+                            print(f"[EBM DEBUG] ✓ 符合時間窗口（< 30分鐘）")
+                            
+                            # 檢查是否已經預測過（查詢 Predict 表，避免重複）
+                            ebm_predicted = Predict.objects.filter(
+                                d_id=d.d_id,
+                                flag=-1  # 用 -1 標記 EBM 預測
+                            ).exists()
+                            
+                            print(f"[EBM DEBUG] - 已預測過: {ebm_predicted}")
+                            
+                            if not ebm_predicted:
+                                print(f"[EBM DEBUG] → 開始執行 EBM 預測...")
+                                try:
+                                    from interface.model.EBM import predict_idh_ebm
+                                    ebm_prob = predict_idh_ebm(d.d_id, use_database_flag=False)
+                                    
+                                    # 判斷是否顯示警告：預測 >= 0.85 且 random_code == 1
+                                    if ebm_prob >= 0.85 and d.random_code == 1:
+                                        ebm_warning = True
+                                    
+                                    print(f"[EBM RESULT] Dialysis {d.d_id}: prob={ebm_prob:.4f} ({int(ebm_prob*100)}%), warning={ebm_warning}")
+                                    
+                                except Exception as e:
+                                    print(f"[EBM ERROR] Prediction failed for dialysis {d.d_id}: {e}")
+                                    import traceback
+                                    traceback.print_exc()
+                            else:
+                                print(f"[EBM DEBUG] ✗ 跳過（已預測過）")
+                        else:
+                            print(f"[EBM DEBUG] ✗ 不符合時間窗口（{minutes_ago:.1f} 分鐘前 > 30分鐘）")
+                    else:
+                        print(f"[EBM DEBUG] ✗ 沒有 Record 資料")
+                    
+                    # 傳遞到前端
+                    patient['ebm_warning'] = ebm_warning
+                    patient['ebm_prob'] = int(round(ebm_prob * 100))  # 轉換成百分比
+                    # ========== EBM 預測區塊結束 ==========
+
+                    
+                    # First click logic
                     w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
                     if len(w) == 0:
                         patient['first_click'] = False 
                     else:
-                        patient['first_click'] = False if w[0].click_time < datetime.now() - timedelta(hours=1) else True
-                    #1226 warning Feedback 
+                        last_half_hour = time.replace(minute=30, second=0, microsecond=0)
+                        if time.minute < 30:
+                            last_half_hour -= timedelta(hours=1)
+                        patient['first_click'] = w[0].click_time >= last_half_hour
+                    
+                    # Warning feedback logic
                     w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
+
+                    # First, determine if the original conditions would make it False
+                    should_be_false = False
+
                     if len(w) == 0 or w[0].dismiss_time == None:
-                        patient['done_warning'] = False 
+                        should_be_false = True
                     else:
-                        patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-                    #1218改
-                    if do_pred:
+                        last_half_hour = time.replace(minute=30, second=0, microsecond=0)
+                        if time.minute < 30:
+                            last_half_hour -= timedelta(hours=1)
+                        should_be_false = w[0].dismiss_time < last_half_hour
+
+                    # Apply the additional time condition
+                    if should_be_false and 30 <= time.minute <= 35:
+                        patient['done_warning'] = False
+                    elif not should_be_false:
+                        patient['done_warning'] = True
+        
+                    # 修正：檢查 flag 是否超出 all_idh 的範圍
+                    if do_pred and flag < len(all_idh):
                         dialysis = Dialysis.objects.get(d_id=d.d_id)
                         pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
                         pred.save()
+                    
+                    # print(f"Patient: {bed}, idh: {patient['idh']}, flag:{flag} \n")
                     if flag == 32:
                         continue
                     flag += 1
                     continue
+            
             if 'id' not in patient:
                 patient['id'] = '---'
             all_patients[a].append(patient)
+    
     return {
         'a_patients': a_patients, 
         'b_patients': b_patients, 
@@ -239,7 +377,7 @@ def get_detail(request, area, bed, idh):
     patient['setting'] = d
     # latest dialysis record
     r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-    patient['record'] = r_today[len(r_today) - 1]
+    patient['record'] = r_today.last() if r_today.exists() else None
 
     # all record
     all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-2)
@@ -532,6 +670,8 @@ def warning_click(request):
 
 def warning_feedback(request):
     # 1210改
+    # index,html nurseAreaSearch.html
+    # POST.get(name)
     if request.method == 'POST':
         dismiss_time = datetime.now() # 0312 紀錄血壓
         pBed = request.POST.get('patientBed')
@@ -539,6 +679,7 @@ def warning_feedback(request):
         empNo = request.POST.get('empNo')
         warning_SBP = request.POST.get('SBP')
         warning_DBP = request.POST.get('DBP')
+        
         # 症狀
         is_sign = True if request.POST.get('sign-') == '1' else False
         # 口服藥物
@@ -570,6 +711,11 @@ def warning_feedback(request):
         other_other = request.POST.get('other-other-check')
         other_all = [i for i in [other_observe, other_other] if i is not None]
         is_other = True if len(other_all) > 0 else False
+        # 護理師處置時間
+        handle_time = request.POST.get('handle-time')
+        
+        
+        print("HANDLE TIME:",handle_time)
         print("DRUG:", drug_all, is_drug)
         print("INJECT:", inject_all, is_inject)
         print("SETTING:", setting_all, is_setting)
@@ -593,7 +739,8 @@ def warning_feedback(request):
                                                      inject_all=inject_all,
                                                      setting_all=setting_all,
                                                      nursing_all=nursing_all,
-                                                     other_all=other_all)
+                                                     other_all=other_all,
+                                                     handle_time=handle_time)
             elif len(ws) == 1:
                 ws.update(empNo=empNo, 
                           warning_SBP=warning_SBP, 
@@ -609,7 +756,8 @@ def warning_feedback(request):
                           inject_all=inject_all,
                           setting_all=setting_all,
                           nursing_all=nursing_all,
-                          other_all=other_all)
+                          other_all=other_all,
+                          handle_time=handle_time)
             else:
                 w = Warnings(empNo=empNo, 
                              p_bed=pBed, 
@@ -628,7 +776,8 @@ def warning_feedback(request):
                              inject_all=inject_all,
                              setting_all=setting_all,
                              nursing_all=nursing_all,
-                             other_all=other_all)
+                             other_all=other_all,
+                             handle_time=handle_time)
                 w.save()
             print("Success update warning")
             return JsonResponse({"status": 'success'})
@@ -758,7 +907,7 @@ def export_file(request):
         if len(warnings) != 0:
             for warning in warnings:
                 data = [warning.empNo, warning.p_name, warning.p_bed, warning.click_time, warning.warning_SBP, warning.warning_DBP, warning.dismiss_time,
-                        warning.drug_all, warning.inject_all, warning.setting_all, warning.nursing_all, warning.other_all]
+                        warning.drug_all, warning.inject_all, warning.setting_all, warning.nursing_all, warning.other_all,warning.handle_time]
                 ws.append(data)
         # Save the workbook to the HttpResponse
         wb.save(response)
@@ -767,10 +916,35 @@ def export_file(request):
     else:
         return HttpResponse("請提供有效的起始時間和結束時間")
 
+# 資料庫
+def database(request):
+    print("Request received at database view")  # Debug statement
+    selected_table = request.GET.get('table', 'interface_feedback')
+    db_data = None
+    
+    if selected_table:
+        try:
+            # Use a context manager to ensure the connection is properly closed
+            with sqlite3.connect('db.sqlite3', timeout=10) as conn:
+                cursor = conn.cursor()
+                
+                # Fetch data from the selected table
+                cursor.execute(f'SELECT * FROM {selected_table}')
+                columns = [column[0] for column in cursor.description]
+                rows = cursor.fetchall()
+                db_data = {'columns': columns, 'rows': rows}
+                
+            print(f"Successfully fetched data from {selected_table}")
+        except Exception as e:
+            print("Error loading database schema:", e)  # Debug statement
+            return HttpResponse("Error loading database schema. Please check the console for details.")
+    
+    return render(request, 'database.html', {'db_data': db_data, 'selected_table': selected_table})
+
 def corn_job():
     fetchData()
-    # print("Successfully fetch API")
+    print("Successfully fetch API")
     splitCSV()
-    # print("Successfully split to 3 CSV files")
+    print("Successfully split to 3 CSV files")
     saveData()
     print("[corn_job]Successfully save new data to database")

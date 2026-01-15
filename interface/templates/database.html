@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Information</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2;color: black }
+        .table-container {
+            max-height: 70vh;   /* Adjust as needed */
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Database Information</h1>
+    <form method="get" action="">
+        <label for="tableSelect">Select a table:</label>
+        <select id="tableSelect" name="table" onchange="this.form.submit()">
+            <option value="interface_feedback" {% if selected_table == 'interface_feedback' %}selected{% endif %}>Feedback</option>
+            <option value="interface_warnings" {% if selected_table == 'interface_warnings' %}selected{% endif %}>Warnings</option>
+        </select>
+    </form>
+    
+    {% if db_data %}
+        <h2>Table: {{ selected_table }}</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        {% for column in db_data.columns %}
+                            <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in db_data.rows %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>Please select a table to view its data.</p>
+    {% endif %}
+
+    </div>
+</body>
+</html>
+{% endblock %}
