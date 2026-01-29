@@ -1,5 +1,21 @@
-*__pycache__
-settings.py
-interface/data
+# --- 系統檔案 ---
 .DS_Store
+__pycache__/
+*.pyc
+
+# --- 敏感設定檔 ---
+settings.py
+
+# --- 資料庫 ---
 db.sqlite3
+
+# --- 忽略所有病人資料 ---
+# 1. 直接忽略整個資料夾 (最強效，裡面任何檔案都不會上傳)
+interface/data/
+
+# 2. 額外保險：忽略專案中任何位置的 .txt 檔案
+*.txt
+
+# 3. 額外保險：忽略特定格式 (雖然第一點已經涵蓋，但寫著無妨)
+*.csv
+*.xlsx

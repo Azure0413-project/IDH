@@ -1,3 +1,4 @@
+
 const threshold = 85;
 
 // mode:
@@ -8,35 +9,58 @@ function ClickOnPatient(bed, idh, name, mode, done, first_click, SBP, DBP, rando
   SBP = parseInt(SBP);
   DBP = parseInt(DBP);
   random_code = parseInt(random_code);
-  if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'True') {
-    let warningModal = document.getElementById("warningModal");
-    document.getElementById("warning-left-SBP").style.display='';
-    document.getElementById("warning-left-DBP").style.display='';
-    document.getElementById("warning-right").style.display='';
-    document.getElementById("confirmWarningBtn").style.display='';
-    document.getElementById("warningClickBtn").style.display='None';
-    document.getElementById("patientBed").innerText = bed;
-    document.getElementById("patientName").innerText = name;
-    document.getElementById("SBP").value = SBP;
-    document.getElementById("DBP").value = DBP;
-    console.log("danger");
-    warningModal.classList.toggle("hidden");
-  } else if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'False') {
-    warningModal.classList.toggle("hidden");
-    document.getElementById("warning-left-SBP").style.display='None';
-    document.getElementById("warning-left-DBP").style.display='None';
-    document.getElementById("warning-right").style.display='None';
-    document.getElementById("confirmWarningBtn").style.display='None';
-    document.getElementById("warningClickBtn").style.display='';
-    document.getElementById("patientBed").innerText = bed;
-    document.getElementById("patientName").innerText = name;
-    document.getElementById("SBP").value = SBP;
-    document.getElementById("DBP").value = DBP;
+if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'False') {
+  let warningModal = document.getElementById("warningModal");
+  
+  let sbpBox = document.getElementById("warning-left-SBP");
+  if (sbpBox) sbpBox.style.display = '';
+
+  let dbpBox = document.getElementById("warning-left-DBP");
+  if (dbpBox) dbpBox.style.display = '';
+
+  let rightBox = document.getElementById("warning-right");
+  if (rightBox) rightBox.style.display = '';
+
+  let confirmBtn = document.getElementById("confirmWarningBtn");
+  if (confirmBtn) confirmBtn.style.display = '';
+
+  let clickBtn = document.getElementById("warningClickBtn");
+  if (clickBtn) clickBtn.style.display = 'None';
+
+  let bedSpan = document.getElementById("patientBed");
+  if (bedSpan) bedSpan.innerText = bed;
+
+  let nameSpan = document.getElementById("patientName");
+  if (nameSpan) nameSpan.innerText = name;
+
+  let sbpInput = document.getElementById("SBP");
+  if (sbpInput) sbpInput.value = SBP;
+
+  let dbpInput = document.getElementById("DBP");
+  if (dbpInput) dbpInput.value = DBP;
+
+  console.log("danger");
+
+  if (warningModal) warningModal.classList.toggle("hidden");
+}
+
+  // else if (random_code == 1 && idh > threshold && done == 'False' && first_click == 'False') {
+  //   warningModal.classList.toggle("hidden");
+  //   document.getElementById("warning-left-SBP").style.display='None';
+  //   document.getElementById("warning-left-DBP").style.display='None';
+  //   document.getElementById("warning-right").style.display='None';
+  //   document.getElementById("confirmWarningBtn").style.display='None';
+  //   document.getElementById("warningClickBtn").style.display='';
+  //   document.getElementById("patientBed").innerText = bed;
+  //   document.getElementById("patientName").innerText = name;
+  //   document.getElementById("SBP").value = SBP;
+  //   document.getElementById("DBP").value = DBP;
     // $.get(rootUrl+`warning_click/${bed}/${name}`, ()=>{ //0416
     //   console.log("first warning click.");
     // });
     // location.reload();
-  } else {
+  // }
+   else {
     let targetUrl = "";
     let urlArr = location.href.split("/");
     for(let i=0; i<urlArr.length-1; ++i){
