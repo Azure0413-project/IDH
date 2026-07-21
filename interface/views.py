@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from interface.models import Patient, Dialysis, Record, Feedback, Predict, Warnings, Nurse
 from django.core import serializers
 from django.db.models import Max
+from django.db import transaction # 260717 add a packages to store data
 from interface.model.prediction import predict_idh
 from scripts.fetch_API import fetchData
 from scripts.DBbuilder import splitCSV
@@ -15,6 +16,15 @@ import numpy as np
 from openpyxl import Workbook
 import sqlite3
 from django.utils import timezone
+
+# 在 views.py 最上方加入這行
+import base64
+from django.contrib.auth import authenticate, login
+import logging
+
+
+# 建立 logger 實例
+logger = logging.getLogger(__name__)
 # Create your views here.
 now = timezone.now()
 print("Now is:", now)
@@ -31,15 +41,20 @@ def get_time():
     if now:
         time = datetime.now()
     else:
-        # time = datetime(2024, 4, 19, 9, 2, 0)
-        time = datetime(2026, 1, 28, 10, 0, 0)
+        time = datetime(2026, 3, 18, 13, 6, 0)
+        # time = datetime(2026, 1, 28, 10, 0, 0)
     return time
 
 def index(request, area="dashboard"):
-    
+
+    # ===== 測試 Watchdog 專用 (測完請刪除) (Test watchdog)=====
+    # print("故意卡住 15 秒...")
+    # time.sleep(15) 
+    # =======================================
+
     time = get_time() #push要開
     if area == "dashboard" and time.minute % 3 == 0: #push要開
-        corn_job()  #push要開
+        corn_job()  #push要開                     
     if area == 'Z':
         return render(request, 'nurseAreaAdjust.html')
     if area == 'Y':
@@ -347,6 +362,17 @@ def get_patients():
                         patient['done_warning'] = False
                     elif not should_be_false:
                         patient['done_warning'] = True
+
+                    # ==========================================
+                    # 🚨 測試專用程式碼：強制覆蓋數值製造假警報 (測試完請刪除)
+                    # ==========================================
+                    # patient['idh'] = 95             # 強制 IDH > 85
+                    # patient['random_code'] = 1      # 強制設為 1
+                    # patient['done_warning'] = False # 強制設為未處置
+                    # patient['first_click'] = False  # 強制設為未點擊
+                    # if 'record' in patient and patient['record']:
+                    #     patient['record'].SBP = 80  # 強制血壓低於 90，讓病床亮紅燈
+                    # ==========================================
         
                     # 修正：檢查 flag 是否超出 all_idh 的範圍
                     if do_pred and flag < len(all_idh):
@@ -376,12 +402,29 @@ def get_patients():
 def get_detail(request, area, bed, idh):
     time = get_time()
     patient = {}
-    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
+    
+    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time).first()
+
+    if d:
+        # Continue with your logic using 'd'
+        pass 
+    else:
+        # Handle the case where no patient is found (e.g., return an error message or blank data)
+        print(f"No active dialysis session found for bed {bed} at {time}")
+        return redirect('/index/dashboard')
+
     start_time = d.start_time
     # patient data
-    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+    try:
+        patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
+    except IndexError:
+        # Fallback if patient ID is missing
+        patient['id'] = {'p_name': 'Unknown', 'p_id': d.p_id.p_id}
+
+    
     # latest dialysis information
     patient['setting'] = d
+    
     # latest dialysis record
     r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
     patient['record'] = r_today.last() if r_today.exists() else None
@@ -429,6 +472,8 @@ def get_detail(request, area, bed, idh):
 
     # plot 
     plot_data = []
+    timestamp = str(d.start_time.strftime("%Y-%m-%d %H:%M"))
+
     for r in r_today:
         timestamp = str(r.record_time.strftime("%Y-%m-%d %H:%M"))
         sbp = float(r.SBP)
@@ -653,7 +698,9 @@ def post_feedback(request):
                     patient = idh.split('-')[0]
                     record = idh.split('-')[2]
                     d = Dialysis.objects.filter(p_id=patient, start_time__lt=time)
+                    
                     r = Record.objects.filter(d_id=d[d.count()-1])[int(record)]
+                    
                     f = Record.objects.get(r_id=r.r_id)
                     f.is_idh = True
                     f.save()
@@ -681,8 +728,10 @@ def warning_click(request):
     try:
         w = Warnings(click_time=click_time, empNo=empNo, p_bed=pBed, p_name=pName)
         w.save()
+        logger.info(f"[WARNING CLICK] bed={pBed}, name={pName}, empNo={empNo}, time={click_time}")
         return JsonResponse({"status": 'success'})
     except Exception as error:
+        logger.error(f"[warning_click] failed: {error}", exc_info=True)
         return JsonResponse({"status": 'fail', "msg": str(error)})
 
 def warning_feedback(request):
@@ -742,22 +791,25 @@ def warning_feedback(request):
         ws = Warnings.objects.filter(p_bed=pBed, p_name=pName)
         try:
             if len(ws) > 1:
-                ws.order_by('-click_time')[0].update(empNo=empNo, 
-                                                     warning_SBP=warning_SBP, 
-                                                     warning_DBP=warning_DBP, 
-                                                     dismiss_time=dismiss_time,
-                                                     is_sign=is_sign, 
-                                                     is_drug=is_drug, 
-                                                     is_inject=is_inject, 
-                                                     is_setting=is_setting, 
-                                                     is_nursing=is_nursing, 
-                                                     is_other=is_other, 
-                                                     drug_all=drug_all,
-                                                     inject_all=inject_all,
-                                                     setting_all=setting_all,
-                                                     nursing_all=nursing_all,
-                                                     other_all=other_all,
-                                                     handle_time=handle_time)
+                if len(ws) > 1:
+                    obj = ws.order_by('-click_time')[0]
+                    obj.empNo = empNo
+                    obj.warning_SBP = warning_SBP
+                    obj.warning_DBP = warning_DBP
+                    obj.dismiss_time = dismiss_time
+                    obj.is_sign = is_sign
+                    obj.is_drug = is_drug
+                    obj.is_inject = is_inject
+                    obj.is_setting = is_setting
+                    obj.is_nursing = is_nursing
+                    obj.is_other = is_other
+                    obj.drug_all = drug_all
+                    obj.inject_all = inject_all
+                    obj.setting_all = setting_all
+                    obj.nursing_all = nursing_all
+                    obj.other_all = other_all
+                    obj.handle_time = handle_time
+                    obj.save()
             elif len(ws) == 1:
                 ws.update(empNo=empNo, 
                           warning_SBP=warning_SBP, 
@@ -799,7 +851,10 @@ def warning_feedback(request):
             print("Success update warning")
             return JsonResponse({"status": 'success'})
         except Exception as error:
+            logger.error(f"[warning_feedback] save failed: bed={pBed}, name={pName}, err={error}", exc_info=True)
             return JsonResponse({"status": 'fail', "msg": str(error)})
+    else:
+        return JsonResponse({"status": 'fail', "msg": "Only POST allowed"}, status=405)
 
 # 護理師專區
 def get_nurse_patients(bed_list):
@@ -959,9 +1014,22 @@ def database(request):
     return render(request, 'database.html', {'db_data': db_data, 'selected_table': selected_table})
 
 def corn_job():
-    fetchData()
-    print("Successfully fetch API")
-    splitCSV()
-    print("Successfully split to 3 CSV files")
-    saveData()
-    print("[corn_job]Successfully save new data to database")
+    try:
+        fetchData()
+        print("Successfully fetch API")
+        splitCSV()
+        print("Successfully split to 3 CSV files")
+        with transaction.atomic():
+            saveData()
+        print("[corn_job] Successfully save new data to database")
+    except Exception as e:
+        # This catches the ConnectTimeout and prints it to console, 
+        # but allows the website to keep running.
+        logger.error(f"[corn_job] failed: {e}", exc_info=True)
+
+def custom_page_not_found(request, exception):
+    # 1. 記錄錯誤：把錯誤的網址寫入 log 檔
+    logger.warning(f"404 Error - Page not found. Requested URL: {request.path}")
+    
+    # 2. 自動導回首頁：這裡假設你的首頁是 '/index/dashboard'
+    return redirect('/index/dashboard')

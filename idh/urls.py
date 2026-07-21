@@ -18,6 +18,9 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import RedirectView
+from interface import views
+
+handler404 = views.custom_page_not_found
 
 urlpatterns = [
     path("admin/", admin.site.urls),

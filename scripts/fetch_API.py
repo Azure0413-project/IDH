@@ -16,7 +16,7 @@ def getNowDate():
 
 def getNowDatee():
     now = datetime.datetime.now()
-    year = '{:02d}'.format(now.year)
+    year = '{:02d}'.format(now.year) 
     month = '{:02d}'.format(now.month)
     day = '{:02d}'.format(now.day)
     hour = '{:02d}'.format(now.hour)
@@ -34,6 +34,7 @@ def getAPIResponse(day_month_year):
     # param = {}
 
     response = requests.get(url, params=param)
+    print(f"API request sent to {url} with params {param}. Status code: {response.status_code}")
     response.raise_for_status()  # raises exception when not a 2xx response
     def get_now_date():
         """取得當前日期"""
@@ -42,8 +43,11 @@ def getAPIResponse(day_month_year):
     """處理與保存資料"""
     if response.status_code == 200:
         try:
+            print("API response received successfully.")
             # 去掉不必要的 meta 標籤，解析 JSON
             data = response.text.strip('<meta charset="UTF-8" />')
+            print("Raw data:", data)  # Debug: 查看原始資料
+            print("response.text type:", type(response.text))  # Debug: 查看 response.text 的類型
             data_list = json.loads(data)['data_list']
 
             # 動態生成檔案名稱，格式為 yyyy-mm.txt
@@ -60,6 +64,7 @@ def getAPIResponse(day_month_year):
         except Exception as error:
             data_list = []
             print("Error:", error)
+            print()
     else:
         data_list = []
     return data_list
@@ -92,4 +97,9 @@ def run():
 def fetchData():
     date = getNowDate()
     data = getAPIResponse(date)
-    convertCSV(data)
+
+    if data and len(data) > 0:
+        print("successfully get dataset")
+        convertCSV(data)
+    else:
+        print("Without API dataset or tempty.csv is empty")

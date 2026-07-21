@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
 {% with firstThreshold=85 secondThreshold=70%}
+
 <div class="container"> <!--firstthreshold 85-->
   <div class="tab">
     <button class="tablinks"  onclick="openTab(event, 'dashboard', 'dashboard')"  id="defaultOpen">
@@ -91,6 +92,7 @@
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
+            {% if patient.ebm_warning %}<img src="/static/img/warning.svg" class="ebm-warning-icon" title="EBM 預測 IDH 風險: {{ patient.ebm_prob }}%">{% endif %}
             <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg alert-trigger{% else %}{% endif %}">
               <div class="pressure">
                 {% if patient.record.SBP == 0 %}
@@ -132,7 +134,7 @@
                 {% endif %}
               </div>
             </div>
-          {% endif %}</a>
+          {% endif %}
           </li>
         {% endfor %}
         </ul>
@@ -174,6 +176,7 @@
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
+            {% if patient.ebm_warning %}<img src="/static/img/warning.svg" class="ebm-warning-icon" title="EBM 預測 IDH 風險: {{ patient.ebm_prob }}%">{% endif %}
             <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
               <div class="pressure">
                 {% if patient.record.SBP == 0 %}
@@ -257,6 +260,7 @@
           {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
+            {% if patient.ebm_warning %}<img src="/static/img/warning.svg" class="ebm-warning-icon" title="EBM 預測 IDH 風險: {{ patient.ebm_prob }}%">{% endif %}
             <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
               <div class="pressure">
                 {% if patient.record.SBP == 0 %}
@@ -342,6 +346,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
+            {% if patient.ebm_warning %}<img src="/static/img/warning.svg" class="ebm-warning-icon" title="EBM 預測 IDH 風險: {{ patient.ebm_prob }}%">{% endif %}
               <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
@@ -429,6 +434,7 @@
             {% endif %}
             {% if patient.random_code == 1%}<img src="/static/img/Red_check.svg" class="redCheck" hidden>{% else %}{% endif %}
             {% if patient.first_click and patient.random_code == 1 and not patient.done_warning %}<img src="/static/img/warning.svg">{% else %}{% endif %}
+            {% if patient.ebm_warning %}<img src="/static/img/warning.svg" class="ebm-warning-icon" title="EBM 預測 IDH 風險: {{ patient.ebm_prob }}%">{% endif %}
               <div class="and bed-bottom {% if patient.idh >= firstThreshold and patient.random_code == 1 and not patient.done_warning and not patient.first_click %}danger-bg{% else %}{% endif %}">
                 <div class="pressure">
                   {% if patient.record.SBP == 0 %}
@@ -1444,126 +1450,18 @@
           <img src="{%static 'img/human.svg' %}"/>
         </div>
         <div class="weights">
-          {% if setting.ideal_weight <= 0 %}
-          <div class="weight-num">          
-            標準體重： -- kg
-          </div>
-          {% else %}
-          <div class="weight-num">          
-            標準體重：{{ setting.ideal_weight|floatformat:1 }} 
-            <span class={{ diff.class }}>( {{ diff.value }} )</span> kg
-          </div>
-          <div class="weig 
-                    
-                    #0326 first click 
-                    w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
-                    if len(w) == 0:
-                        patient['first_click'] = False 
-                    else:
-                        patient['first_click'] = False if w[0].click_time < datetime.now() - timedelta(hours=1) else True
-                    #1226 warning Feedback 
-                    w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                    if len(w) == 0 or w[0].dismiss_time == None:
-                        patient['done_warning'] = False 
-                    else:
-                        patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-                    #1218改
-                    if do_pred:
-                        dialysis = Dialysis.objects.get(d_id=d.d_id)
-                        pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                        pred.save()
-                    if flag == 32:
-                        continue
-                    flag += 1
-                    continue
-            if 'id' not in patient:
-                patient['id'] = '---'
-            all_patients[a].append(patient)
-    return {
-        'a_patients': a_patients, 
-        'b_patients': b_patients, 
-        'c_patients': c_patients,
-        'd_patients': d_patients,
-        'e_patients': e_patients,
-        'i_patients': i_patients,
-    }
-
-def get_detail(request, area, bed, idh):
-    time = get_time()
-    patient = {}
-    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
-    start_time = d.start_time
-    # patient data
-    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-    # latest dialysis information
-    patient['setting'] = d
-    # latest dialysis record
-    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-    patient['record'] = r_today[len(r_today) - 1]
-
-    # all record
-    all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-2)
-    temp = []
-    for dialysis in all_dialysis:
-        record_list = Reco 
-                    
-                    #0326 first click 
-                    w = Warnings.objects.filter(p_bed=bed).order_by('click_time').reverse()
-                    if len(w) == 0:
-                        patient['first_click'] = False 
-                    else:
-                        patient['first_click'] = False if w[0].click_time < datetime.now() - timedelta(hours=1) else True
-                    #1226 warning Feedback 
-                    w = Warnings.objects.filter(p_bed=bed).order_by('dismiss_time').reverse()
-                    if len(w) == 0 or w[0].dismiss_time == None:
-                        patient['done_warning'] = False 
-                    else:
-                        patient['done_warning'] = False if w[0].dismiss_time < datetime.now() - timedelta(hours=1) else True
-                    #1218改
-                    if do_pred:
-                        dialysis = Dialysis.objects.get(d_id=d.d_id)
-                        pred = Predict(d_id=dialysis, flag=flag, pred_idh=Decimal(str(all_idh[flag])))
-                        pred.save()
-                    if flag == 32:
-                        continue
-                    flag += 1
-                    continue
-            if 'id' not in patient:
-                patient['id'] = '---'
-            all_patients[a].append(patient)
-    return {
-        'a_patients': a_patients, 
-        'b_patients': b_patients, 
-        'c_patients': c_patients,
-        'd_patients': d_patients,
-        'e_patients': e_patients,
-        'i_patients': i_patients,
-    }
-
-def get_detail(request, area, bed, idh):
-    time = get_time()
-    patient = {}
-    d = Dialysis.objects.filter(bed=bed, start_time__lte=time, end_time__gte=time)[0]
-    start_time = d.start_time
-    # patient data
-    patient['id'] = Patient.objects.filter(p_id=d.p_id.p_id)[0]
-    # latest dialysis information
-    patient['setting'] = d
-    # latest dialysis record
-    r_today = Record.objects.filter(d_id=d.d_id, record_time__gte=start_time, record_time__lte=time).order_by('record_time')
-    patient['record'] = r_today[len(r_today) - 1]
-
-    # all record
-    all_dialysis = Dialysis.objects.filter(p_id=d.p_id.p_id, times__gte=d.times-2)
-    temp = []
-    for dialysis in all_dialysis:
-        record_list = Record.objects.filter(d_id=dialysis.d_id, record_time__lte=time).select_related().order_by('record_time')
-        for record in record_list:
-            if record.d_id.temperature <= 0: record.d_id.temperature = '-'
-            if record.d_id.start_temperature <= 0: recrd.objects.filter(d_id=dialysis.d_id, record_time__lte=time).select_related().order_by('record_time')
-        for record in record_list:
-            if record.d_id.temperature <= 0: record.d_id.temperature = '-'
-            if record.d_id.start_temperature <= 0: recht-bar">
+        {% if setting.ideal_weight <= 0 %}
+        <div class="weight-num">          
+          標準體重： -- kg
+        </div>
+        {% else %}
+        <div class="weight-num">          
+          標準體重：{{ setting.ideal_weight|floatformat:1 }} 
+          <span class="{{ diff.class }}">( {{ diff.value }} )</span> kg
+        </div>
+        {% endif %}
+        
+        <div class="right-bar">
             <div class="bar-top">
               <div class="bar-text">輕</div>
               <div class="bar-notation">- 0 +</div>
@@ -1586,16 +1484,15 @@ def get_detail(request, area, bed, idh):
             </div>
             <span class={{ diff.class }}>{{ diff.percentage }}</span>
           </div>
-          {% endif %}
         </div>
       </div>
       <div class="modal-right">
         <ul class="main-info">
           <li>收縮壓 / 舒張壓：{{ record.SBP|floatformat:0 }} / {{ record.DBP }} mmHg</li>
-          {% if setting.temperature <= 0 %}
+          {% if record.d_id.temperature <= 0 or record.d_id.temperature == '-' %}
           <li>體溫： -- ℃</li>
           {% else %}
-          <li>體溫：{{ setting.temperature|floatformat:1 }} ℃</li>
+          <li>體溫：{{ record.d_id.temperature|floatformat:1 }} ℃</li>
           {% endif %}
           <li>脈搏：{{ record.pulse }} bpm</li>
           <li>飲食 / 輸液量：{{ setting.food|floatformat:1 }} kg / 
@@ -1649,127 +1546,92 @@ def get_detail(request, area, bed, idh):
             </div>
           </div>
         </div>
-        <div id="linechart"></div>
+        <div id="linechart" style="width: 100%; height: 260px; display: block;"></div>
         <script>
-          chart = {{ chart|safe }};
-          xAxis = chart.map(data => data["timestamp"])
-          SBP = chart.map(data => data["SBP"]);
-          pulse = chart.map(data => data["pulse"]);
-          CVP = chart.map(data => data["CVP"]);
-          linechart = Highcharts.chart("linechart", {
-            chart: { 
-              type: "line",
-              height: 260 + "em",
-              width: 1100,
-              backgroundColor: "#f4f7fb",
-              spacing: [30, 0, 0, 10],
-            },
-            title: { 
-              style: {
-                "display": "none",
-              }
-            },
-            credits: {
-              enabled: false,
-            },
-            legend: {
-              align: "right",
-              verticalAlign: "middle",
-              layout: "vertical",
-              itemMarginTop: 10,
-              itemStyle: {
-                color: "#4A5563",
-                fontSize: "18px",
-              },
-              symbolWidth: 24,
-              symbolHeight: 24,
-              symbolPadding: 10,
-            },
-            tooltip: {
-              borderRadius: 8,
-            },
-            xAxis: { 
-              categories: xAxis,
-            },
-            yAxis: [
-            {
-              title: { 
-                text: "壓力",
-                rotation: 0,
-                align: "high",
-                style: {
-                  fontSize: "18px",
-                  color: "#4A5563",
-                },
-                y: -15,
-                offset: 25,
-              },
-              labels: { 
-                algin: "center",
-                format: "{value} mmHg",
-                style: {
-                  fontSize: 12,
-                }
-              },
-              minorTicks: true,
-            },
-            {
-              opposite: true,
-              title: { 
-                text: "脈搏",
-                rotation: 0,
-                align: "high",
-                style: {
-                  fontSize: "18px",
-                  color: "#4A5563",
-                },
-                y: -15,
-                offset: 15,
-              },
-              labels: { 
-                algin: "center",
-                format: "{value} bpm",
-                style: {
-                  fontSize: 12,
-                }
-              },
-            }],
-            series: [
-            {
-              name: "收縮壓",
-              data: SBP,
-              lineWidth: 3,
-              color: "#fe7878",
-            },
-            {
-              name: "脈搏",
-              data: pulse,
-              yAxis: 1,
-              lineWidth: 3,
-            },
-            {
-              name: "靜脈壓",
-              data: CVP,
-              lineWidth: 3,
-              color: "#999999"
-            }]
-          });
-          IDH = [];
-          for(let i = 0; i < chart.length; i++) {
-            if(chart[i].SBP > 0 && chart[i].SBP <= 90) {
-              IDH.push({
-                "timestamp": chart[i].timestamp,
-                "SBP": chart[i].SBP
-              })
-              linechart.xAxis[0].addPlotBand({
-                from: i - 0.5,
-                to: i + 0.5,
-                color: "#ffecc4",
-                borderColor: "#CBD3DE",
-                borderWidth: 0.5,
-              })
+          (function drawChart() {
+            // 檢查容器是否存在
+            const container = document.getElementById("linechart");
+            if (!container) {
+              console.error("找不到 ID 為 linechart 的容器！");
+              return;
             }
-          }   
+
+            if (typeof window.Highcharts === 'undefined') {
+              setTimeout(drawChart, 100);
+              return;
+            }
+
+            const rawData = {{ chart|safe|default:"[]" }};
+            if (!rawData || rawData.length === 0) return;
+
+            // 【優化】更安全的轉型寫法，避免數值 0 被誤判為 null
+            const xAxis = rawData.map(data => data.timestamp ? String(data.timestamp) : "");
+            const SBP = rawData.map(data => (data.SBP !== null && data.SBP !== undefined && data.SBP !== "") ? Number(data.SBP) : null);
+            const pulse = rawData.map(data => (data.pulse !== null && data.pulse !== undefined && data.pulse !== "") ? Number(data.pulse) : null);
+            const CVP = rawData.map(data => (data.CVP !== null && data.CVP !== undefined && data.CVP !== "") ? Number(data.CVP) : null);
+
+            const linechart = Highcharts.chart("linechart", {
+              chart: { 
+                type: "line",
+                height: 260,
+                backgroundColor: "#f4f7fb",
+                spacing: [30, 0, 0, 10],
+              },
+              title: { text: null }, 
+              credits: { enabled: false },
+              accessibility: { enabled: false }, // 關閉無障礙警告
+              legend: {
+                align: "right",
+                verticalAlign: "middle",
+                layout: "vertical",
+                itemMarginTop: 10,
+                itemStyle: { color: "#4A5563", fontSize: "18px" },
+              },
+              tooltip: { borderRadius: 8, shared: true },
+              xAxis: { categories: xAxis },
+              yAxis: [
+                { 
+                  title: { text: "壓力", rotation: 0, align: "high", y: -15, offset: 25 },
+                  labels: { format: "{value} mmHg" }
+                },
+                { 
+                  opposite: true,
+                  title: { text: "脈搏", rotation: 0, align: "high", y: -15, offset: 15 },
+                  labels: { format: "{value} bpm" }
+                }
+              ],
+              plotOptions: {
+                series: {
+                  connectNulls: true,  // 【關鍵】遇到 null 時自動將兩端的點連起來
+                  marker: { enabled: true } // 【關鍵】把資料點的小圓圈顯示出來，避免隱形
+                }
+              },
+              series: [
+                { name: "收縮壓", data: SBP, lineWidth: 3, color: "#fe7878" },
+                { name: "脈搏", data: pulse, yAxis: 1, lineWidth: 3 },
+                { name: "靜脈壓", data: CVP, lineWidth: 3, color: "#999999" }
+              ]
+            });
+
+            // 警戒區域繪製
+            SBP.forEach((val, i) => {
+              if (val !== null && val > 0 && val <= 90) {
+                linechart.xAxis[0].addPlotBand({
+                  from: i - 0.5,
+                  to: i + 0.5,
+                  color: "#ffecc4",
+                  borderColor: "#CBD3DE",
+                  borderWidth: 0.5,
+                });
+              }
+            });
+
+            // 【關鍵】延遲 300 毫秒，等待 Modal 的 CSS 完全撐開後，強制圖表重新計算寬高
+            setTimeout(() => {
+              linechart.reflow();
+            }, 300);
+
+          })();
         </script>
         <ul class="dialysis-info">
           <li class="dialysis-item">Heparin</li>

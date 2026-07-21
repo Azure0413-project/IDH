@@ -363,6 +363,14 @@ def predict_idh():
         except:
             return [0.0] * 33
 
+    # ==========================================
+    # 🚀 新增這段安全檢查：如果資料是空的，就直接回傳空結果
+    # ==========================================
+    if len(sequential_list) == 0:
+        print(">>> Warning: No valid patient data found for prediction. Returning empty list.")
+        return []  # 或是依照您的前端需求回傳 [0.0] 等預設值
+    # ==========================================
+
     # 步驟 2: 填充 (Padding)
     seq_padding_value = [0.0] * 11 
     sequential_padded = adjust_input(sequential_list, seq_padding_value, max_len=4)
@@ -370,15 +378,11 @@ def predict_idh():
     time_padding_value = 0.0
     time_step_padded = adjust_input(time_step_list, time_padding_value, max_len=4)
 
-    # 步驟 3: [已移除] 標準化步驟被跳過了
-    # scaled_sequential = manual_min_max_scaler(...)
-    # scaled_time_step = manual_min_max_scaler(...)
-
-    # 步驟 4: 呼叫預測器，但傳入的是未經標準化的原始數據
+    # 步驟 4: 呼叫預測器
     prediction = Predict_Transformer(
         model_path='interface/weights/best_transformer_model_newvar.pth',
-        test_x=sequential_padded,  # <--- 直接傳入填充後的原始數據
-        test_t=time_step_padded   # <--- 直接傳入填充後的原始數據
+        test_x=sequential_padded,  
+        test_t=time_step_padded   
     )
     
     print("--- IDH prediction finished [NO SCALING TEST] ---")

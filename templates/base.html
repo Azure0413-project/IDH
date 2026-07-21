@@ -1,23 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IDH Monitor System</title>
-    {% load static %}
-    <link id='favicon' rel="icon" href="{% static 'img/kidney.svg' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" href="{% static 'css/tab.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
-    <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
-    <link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
-    <!-- <meta name="theme-color" content="red">  -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/base.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDH Monitor System</title>
+  {% load static %}
+  <link id='favicon' rel="icon" href="{% static 'img/kidney.svg' %}" type="image/x-icon">
+  
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'css/tab.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+  <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+  <link rel="stylesheet" href="{% static 'css/nurseArea.css' %}">
+
+  <script src="{% static 'js/highcharts.js' %}"></script>    
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+  <script src="{% static 'js/base.js' %}"></script>
+
+  <script>
+    // ==========================================
+    // 📝 設定區：在這裡設定你的全站密碼
+    // ==========================================
+    const SYSTEM_PASSWORD = "1234"; 
+
+    // 檢查目前分頁是否已經登入過
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+        // 隱藏整個網頁內容，避免密碼還沒輸入就被看到
+        document.documentElement.style.display = 'none';
+        
+        // 彈出視窗要求輸入密碼
+        let userInput = prompt("請輸入系統密碼以存取醫療系統：");
+        
+        if (userInput === SYSTEM_PASSWORD) {
+            // 密碼正確，記錄在目前的分頁暫存中
+            sessionStorage.setItem("isLoggedIn", "true");
+            // 恢復顯示網頁
+            document.documentElement.style.display = '';
+        } else {
+            // 密碼錯誤，直接替換掉整個網頁內容
+            alert("密碼錯誤！");
+            document.documentElement.innerHTML = "<h2 style='text-align:center; margin-top:20%; color:red; font-family:sans-serif;'>拒絕存取：密碼錯誤，請重新整理網頁再試一次。</h2>";
+            document.documentElement.style.display = '';
+        }
+    }
+  </script>
+  
 </head>
 <body>
     <header>
@@ -49,12 +80,10 @@
         </nav>
     </header>
     <main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-    <script src="{%static 'js/index.js' %}" crossorigin="anonymous"></script>
-    <script src="{% static "js/homepage.js" %}"></script>
-    <script src="{%static 'js/feedback.js' %}" crossorigin="anonymous"></script>
-    {% block content %}
-    {% endblock %}
+      <script src="{% static "js/homepage.js" %}"></script>
+      <script src="{% static 'js/feedback.js' %}" crossorigin="anonymous"></script>
+      {% block content %}
+      {% endblock %}
     </main>
     <div id="exportFileModal" class="modal-sm hidden">
         <div class="modal-content">
@@ -108,5 +137,6 @@
         © 2024 NCKU IIR LAB.
       </a>
     </div>
+    <script src="{% static 'js/index.js' %}"></script> </body>
 </body>
 </html>

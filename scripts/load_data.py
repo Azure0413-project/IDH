@@ -239,7 +239,7 @@ def run():
                         bed = row.get('床位'),
                         
                         # --- 數值類 (使用 to_decimal 轉換) ---
-                        temperature = to_decimal(row.get('溫度'), '溫度', row),
+                        temperature = to_decimal(row.get('體溫'), '體溫', row),
                         start_temperature = to_decimal(row.get('開始體溫'), '開始體溫', row), # 原版 row[9]
                         before_weight = to_decimal(row.get('透析前體重(kg)'), '透析前體重(kg)', row),
                         ideal_weight = to_decimal(row.get('理想體重(kg)'), '理想體重(kg)', row),
@@ -259,8 +259,8 @@ def run():
                         
                         start_flow_speed = to_decimal(row.get('開始透析液流速'), '開始透析液流速', row), # 原版 row[25]
                         start_blood_speed = to_decimal(row.get('開始血液流速'), '開始血液流速', row),   # 原版 row[26]
-                        Ca = to_decimal(row.get('透析液Ca'), '透析液Ca', row),          # 原版 row[27]
-                        conductivity = to_decimal(row.get('傳導度'), '傳導度', row),    # 原版 row[28]
+                        Ca = to_decimal(row.get('透析液Ca：3.0'), '透析液Ca：3.0', row),          
+                        conductivity = to_decimal(row.get('傳導度：13.9'), '傳導度：13.9', row),
 
                         # --- 字串類 (直接 get) ---
                         mode = row.get('透析模式'),          # 原版 row[23]

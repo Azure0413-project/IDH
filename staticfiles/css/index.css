@@ -1,0 +1,128 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #E7ECEF;
+}
+
+h1, div, li, a, button {
+    font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: #274C77;
+    text-decoration: none;
+    cursor: default;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8% 2%;
+    height: 6vh;
+    background-color: #f8f8f8;
+    box-shadow: 0px 24px 48px -8px rgba(39, 76, 119, 0.16);
+    border-radius: 0px 0px 10px 10px;
+    margin-bottom: 2.2rem;
+}
+
+nav {
+    display: flex;
+}
+
+nav ul {
+    display: flex;
+    padding-right: 1em;
+    list-style: none;
+    align-items: center;
+}
+
+.nav_link li a {
+    text-decoration: none;
+    width: 100%;
+    padding: 0.2rem 0.7rem;
+    text-align: center;
+}
+
+.nav_link li:first-child a:hover, .nav_link li:first-child+li a:hover, .nav_link li:first-child+li+li a:hover {
+    background-color: #274C77;
+    color: #f8f8f8;
+    border-radius: 0.5rem;
+}
+
+.nav_link li span {
+    padding: 0.2rem 0.7rem;
+    text-align: center;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.nav_link li button {
+    background-color: #f8f8f8;
+    text-align: center;
+    margin-left: 0.5rem;
+    padding: 0.2rem 0.7rem 0rem 0.7rem;
+}
+
+.nav_link li button:hover {
+    background-color: #274C77;
+    color: #f8f8f8;
+    border-radius: 0.5rem;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 9999 !important;
+    padding: 0.4rem 2rem;
+    width: 100%;
+    text-align: center;
+    background-color: #274C77;
+    color: #f8f8f8;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .title {
+    background-color: #274C77;
+    color: #f8f8f8;
+}
+
+.dropdown-content a {
+    display: block;
+    background-color: #274C77;
+    color: #f8f8f8;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8f8f8;
+    color: #274C77;
+    margin: 0rem 0.2rem;
+    border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+}
+
+.dropdown-content a:active {
+    transform: scale(0.95);
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+/* EBM Warning Icon Styles */
+.ebm-warning-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    z-index: 10;
+    opacity: 0.9;
+}
