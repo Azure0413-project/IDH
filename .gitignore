@@ -19,3 +19,10 @@ interface/data/
 # 3. 額外保險：忽略特定格式 (雖然第一點已經涵蓋，但寫著無妨)
 *.csv
 *.xlsx
+
+db.sqlite3
+db.sqlite3.bak*
+logs/
+staticfiles/
+__pycache__/
+*.pyc
