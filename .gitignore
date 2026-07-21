@@ -3,26 +3,25 @@
 __pycache__/
 *.pyc
 
-# --- 敏感設定檔 ---
-settings.py
-
-# --- 資料庫 ---
-db.sqlite3
-
-# --- 忽略所有病人資料 ---
-# 1. 直接忽略整個資料夾 (最強效，裡面任何檔案都不會上傳)
-interface/data/
-
-# 2. 額外保險：忽略專案中任何位置的 .txt 檔案
-*.txt
-
-# 3. 額外保險：忽略特定格式 (雖然第一點已經涵蓋，但寫著無妨)
-*.csv
-*.xlsx
-
+# --- 資料庫(病患資料,絕不上傳) ---
 db.sqlite3
 db.sqlite3.bak*
+db_broken.sqlite3
+*.sqlite3
+
+# --- 病患原始資料 ---
+interface/data/
+data_list_sucess.txt
+# 只擋「年-月.txt」資料檔,不誤傷 requirements.txt
+20[0-9][0-9]-[0-9][0-9].txt
+
+# --- 模型權重 ---
+interface/weights/
+
+# --- 日誌與建置產物 ---
 logs/
 staticfiles/
-__pycache__/
-*.pyc
+
+# --- 其他資料檔格式 ---
+*.csv
+*.xlsx
